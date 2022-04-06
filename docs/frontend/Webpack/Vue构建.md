@@ -1,0 +1,1 @@
+vue 和 vue-template-compiler 版本必须保持一致，否则会报错。

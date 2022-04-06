@@ -1,0 +1,50 @@
+### Network
+
+#### 如何查看资源请求的上游和下游？
+
+按住shift键，鼠标hover在请求上，可以查看请求的上游和下游，如下图所示，hover在`common.js`上，可以看到有一个绿色请求、一个红色请求。其中绿色请求表示`common.js`的上游请求，即谁触发了`common.js`请求，红色请求表示`common.js`的下游请求，即`common.js`又触发了什么请求。
+
+<img src="https://upload-images.jianshu.io/upload_images/1158202-038dbaa07c55b3d8.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp.png" style="zoom:67%;" />
+
+
+
+
+
+### 断点调试
+
+https://zh.javascript.info/debugging-chrome#debugger-ming-ling
+
+- **下一步（Step）”：运行下一条指令，快捷键** F9**。**
+
+- **跨步（Step over）”：运行下一条指令，但** **不会进入到一个函数中****，快捷键** F10**。**
+
+- **“步入（Step into）”，快捷键** F11**。**
+
+​	和“下一步（Step）”类似，但在异步函数调用情况下表现不同。
+
+只需要记住“下一步（Step）”命令会忽略异步行为，例如 `setTimeout`（计划的函数调用），它会过一段时间再执行。而“步入（Step into）”会进入到代码中并等待（如果需要）。详见 [DevTools 手册](https://developers.google.com/web/updates/2018/01/devtools#async)。
+
+- shift + F11 Step out of current function 退出函数，断点出移至下一行
+
+
+
+#### 如何在微信小程序中打断点
+
+在小程序sources中打断点，找到对应js文件，右键选中某一行
+
+<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20220124155106523.png" alt="image-20220124155106523" style="zoom:67%;" />
+
+
+
+
+
+
+
+### Ignore Library Code While Debugging
+
+https://dilshankelsen.com/ignore-library-code-while-debugging-browser/
+
+调试时跳过代码库
+
+chrome framework ignore list （苹果浏览器中可能名称叫BlackBox）
+
