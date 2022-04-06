@@ -35,7 +35,7 @@ module.exports = {
       {
         text: '前端',
         items: [
-          { text: 'HTML', link: '/frontend/html/' },
+          { text: 'HTML', link: '/frontend/html/js事件' },
           { text: 'CSS', link: '/frontend/css/css学习' },
           { text: 'Webpack', link: '/frontend/Webpack/webpack' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
