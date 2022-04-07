@@ -73,3 +73,19 @@ $ git push origin master
 ```
 
 ### [Git常用命令-易百教程](https://www.yiibai.com/git/git_add.html)
+
+
+
+
+
+### 一个本地分支对应多个远程分支
+
+```sh
+$ git remote set-url --add origin git@gitlab.com:fncheng/blog.git
+$ git remote -v                                                   
+origin  git@github.com:fncheng/blog.git (fetch)
+origin  git@github.com:fncheng/blog.git (push)
+origin  git@gitlab.com:fncheng/blog.git (push)
+```
+
+表示执行git pull origin时从github拉取，git push origin时会把代码推送到github和gitlab
