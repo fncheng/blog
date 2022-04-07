@@ -24,5 +24,5 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 
 ### Angular git commit 规范
 
-https://zj-git-guide.readthedocs.io/zh_CN/latest/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/
+[【Angular git commit 规范】](https://zj-git-guide.readthedocs.io/zh_CN/latest/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/)
 
