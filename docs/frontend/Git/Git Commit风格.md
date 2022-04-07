@@ -2,7 +2,7 @@
 title: Git Commit风格
 ---
 
-
+## Git Commit 风格
 
 feat: 添加新特性、新功能(feature)
 
