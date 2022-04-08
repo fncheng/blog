@@ -1,6 +1,8 @@
-从vue2迁移到vue3
+---
+title: vue2迁移到vue3
+---
 
-
+## vue3项目搭建
 
 Vue3项目搭建
 
@@ -20,7 +22,7 @@ Vue-router类型声明
 
 
 
-### eslint
+## eslint
 
 ```sh
 yarn add eslint
@@ -90,7 +92,7 @@ yarn add eslint
 
 
 
-### 路由动态导入
+## 路由动态导入
 
 vite中的 [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)
 
@@ -102,7 +104,7 @@ const modules = import.meta.glob('../views/**/*.vue')
 
 
 
-#### 动态导入No match found for location with path 问题
+### 动态导入No match found for location with path 问题
 
 addRoute(routeConfig)时发现 routeConfig中的一级component为undefined
 
@@ -155,7 +157,7 @@ routeConfig.name 是唯一的
 
 
 
-思考🤔：为什么vue中import() 语法不能传一个变量？
+### 思考🤔：为什么vue中import() 语法不能传一个变量？
 
 es6的import是编译阶段执行，所以不能使用表达式和变量这种只有在运行时才确定值的语法。
 
