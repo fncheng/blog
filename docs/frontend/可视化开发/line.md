@@ -39,7 +39,7 @@ option = {
 
 
 
-##### 坐标轴改成百分比%
+### 坐标轴改成百分比%
 
 [yAxis.axisLabel.formatter](https://echarts.apache.org/zh/option.html#yAxis.axisLabel.formatter)
 
@@ -54,6 +54,6 @@ formatter: function (value, index) {
 
 
 
-##### 坐标轴添加单位
+### 坐标轴添加单位
 
 [yAxis.name](https://echarts.apache.org/zh/option.html#yAxis.name)

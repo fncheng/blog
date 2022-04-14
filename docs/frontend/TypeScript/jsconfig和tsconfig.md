@@ -81,3 +81,12 @@ https://www.typescriptlang.org/tsconfig
 
 [compilerOptions](https://www.tslang.cn/docs/handbook/compiler-options.html)
 
+
+
+### tsconfig常见报错
+
+Cannot write file '/Users/cheng/Benetech/crm/src/store/getRoutes.js' because it would overwrite input file.
+
+it was the result of the option: `allowJs: true`.
+
+由allowJs导致的报错。

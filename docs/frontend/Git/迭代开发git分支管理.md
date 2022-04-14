@@ -1,4 +1,14 @@
-### 迭代开发git分支管理
+## Preface
+
+团队在开发的时候，由于各人的水平不一。我经常会思考如何管理git分支。
+
+## 名词解释
+
+### 持续集成
+
+持续集成指的是，频繁地（一天多次）将代码集成到主干。
+
+## 迭代开发git分支管理
 
 https://zhuanlan.zhihu.com/p/394734031
 
@@ -19,3 +29,15 @@ https://juejin.cn/post/6844904069652299784
 #### 主分支 Master
 
 稳定版本代码分支，不能在此分支直接修改代码， 只接受 hotfix、release 分支的代码合并，每次从 release/hotfix 分支合并必须打版本号 tag，以方便后续的代码追溯。该分支上部署自动化测试脚本，在每次代码提交至该分支后都会触发测试，以此保证主分支核心功能的稳定。
+
+
+
+## Trunk Based Development 主干开发模型
+
+https://www.jianshu.com/p/01301c0d8c1e
+
+## Aone Flow
+
+飞流Flow是基于git的**多主干分支模式**的版本管理模型。
+
+飞流Flow采用了 feature + **n\*release** + master 的分支形式实现版本管理，而其中，n * release 代表了各环境的发布分支。
