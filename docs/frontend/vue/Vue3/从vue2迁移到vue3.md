@@ -172,3 +172,26 @@ import some from `${a}.js` // 报错
 const some = require(`./${a}.js`) // 不报错
 ```
 
+require
+
+```js
+const a = 10,
+  b = 20
+var env
+if (a > b) {
+  env = require('./.env.dev')
+} else env = require('./.env.prod')
+
+console.log(env) // 不报错
+```
+
+es6 import
+
+```js
+if (false) {
+  import env from './.env.dev.mjs'
+} else import env from './.env.prod.mjs'
+
+console.log(env) // 报错
+```
+
