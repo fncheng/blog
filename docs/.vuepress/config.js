@@ -46,7 +46,11 @@ module.exports = {
           {
             text: '前端开发常见解决方案',
             link: '/frontend/前端开发常见解决方案/图片懒加载'
-          }
+          },
+          {
+            text: '小程序',
+            link: '/小程序/小程序开发常见问题'
+          },
         ]
       },
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
@@ -87,6 +91,7 @@ module.exports = {
       '/frontend/npm/': getSidebar('../frontend/npm/'),
       // 前端工程化
       '/frontend/前端工程化/': getSidebar('../frontend/前端工程化/'),
+      '/小程序/': getSidebar('../小程序/'),
       // Webpack
       '/frontend/Webpack/': getSidebar('../frontend/Webpack/'),
       '/frontend/Git/': getSidebar('../frontend/Git/'),
