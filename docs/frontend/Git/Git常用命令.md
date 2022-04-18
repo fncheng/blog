@@ -370,6 +370,18 @@ git cherry-pick <commit id> --no-commit
 git cherry-pick A..B # 表示连续的A-B提交，其中 提交 A 必须早于提交 B
 ```
 
+注意，使用上面的命令，提交 A 将不会包含在 Cherry pick 中。如果要包含提交 A，可以使用下面的语法。
+
+```sh
+git cherry-pick A^..B 
+```
+
+在提交信息的末尾追加一行`(cherry picked from commit ...)`，方便以后查到这个提交是如何产生的。
+
+```sh
+git cherry-pick -x
+```
+
 
 
 ## diff -- 文件比对
