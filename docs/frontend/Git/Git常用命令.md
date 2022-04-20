@@ -313,6 +313,27 @@ sourceTree用法：
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210618110731278.png" alt="image-20210618110731278" style="zoom:50%;" />
 
+## Revert
+
+回退某个commit
+
+```sh
+git revert <commit>
+-n, --no-commit：只抵消暂存区和工作区的文件变化，不产生新的提交。
+```
+
+
+
+revert连续的提交
+
+```sh
+git revert -n commit1^..commit2 # (包含commit1)
+git commit -m "Revert commit1 to commit2"
+# Usually the command automatically creates some commits with commit log messages stating which commits were reverted. This flag applies the changes necessary to revert the named commits to your working tree and the index,but does not make the commits. In addition, when this option is used, your index does not have to match the HEAD commit. The revert is done against the beginning state of your index.This is useful when reverting more than one commits' effect to your index in a row.
+```
+
+
+
 
 
 ## fetch & pull

@@ -291,3 +291,10 @@ Recursive accept/reject:
 Mail bug reports and suggestions to <bug-wget@gnu.org>
 ```
 
+
+
+### 指定目录
+
+ -P,  --directory-prefix=PREFIX   save files to PREFIX/..
+       --cut-dirs=NUMBER           ignore NUMBER remote directory components
+

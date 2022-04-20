@@ -2,7 +2,9 @@
 title: Docker使用教程
 ---
 
+https://yeasy.gitbook.io/docker_practice/image/dockerfile/workdir
 
+https://picture.iczhiku.com/weixin/message1633021513966.html
 
 http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html
 
@@ -72,9 +74,9 @@ docker镜像
 
 ![](https://miro.medium.com/max/875/1*_G4THS8_oj2ogauQ_kzPnA.png)
 
-slim 瘦身版
+- slim 瘦身版
 
-
+- Alpine 的意思是“高**山的”**，它采用了musl libc和busybox以减小系统的体积和运行时资源消耗，同时还提供了自己的包管理工具apk。 由于其小巧、安全、简单以及功能完备的特点，被广泛应用于众多Docker容器中。
 
 ### Docker镜像搜索
 
@@ -173,6 +175,14 @@ Commands:
   version     Show the Docker version information
   wait        Block until one or more containers stop, then print their exit codes
 ```
+
+### 删除image
+
+```sh
+sudo docker rmi # Remove one or more images
+```
+
+
 
 ## 运行image
 
@@ -396,6 +406,18 @@ $ sudo docker ps -a
 $ sudo docker start CONTAINER ID
 ```
 
+### docker stop
+
+停止容器使用`docker container stop`或者`docker stop`命令，该命令会向容器内的主进程发送`SIGTERM`信号，等待一段时间后，再发送`SIGKILL`命令。
+
+```sh
+Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+Options:
+  -t, --time int   Seconds to wait for stop before killing it (default 10)
+```
+
 
 
 
@@ -426,22 +448,33 @@ Options:
 
 
 
-### docker stop
-
-停止容器使用`docker container stop`或者`docker stop`命令，该命令会向容器内的主进程发送`SIGTERM`信号，等待一段时间后，再发送`SIGKILL`命令。
-
-```sh
-Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
-
-Stop one or more running containers
-Options:
-  -t, --time int   Seconds to wait for stop before killing it (default 10)
-```
-
-
-
 
 
 参考：
 
 https://nkcoder.github.io/posts/docker/docker-container-list-stop-remove/
+
+
+
+
+
+## 制作docker镜像
+
+### .dockerignore
+
+```
+.git
+node_modules
+npm-debug.log
+```
+
+### Dockerfile
+
+```dockerfile
+FROM node:8.4
+COPY . /app
+WORKDIR /app
+RUN npm install --registry=https://registry.npm.taobao.org
+EXPOSE 3000
+```
+
