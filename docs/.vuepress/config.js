@@ -39,6 +39,7 @@ module.exports = {
           { text: 'CSS', link: '/frontend/css/css学习' },
           { text: 'Webpack', link: '/frontend/Webpack/webpack' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
+          { text: 'TypeScript', link: '/frontend/TypeScript/ts常见问题' },
           {
             text: '前端工程化',
             link: '/frontend/前端工程化/前端工程化ESLint及Prettier'
@@ -85,6 +86,7 @@ module.exports = {
       '/frontend/css/': getSidebar('../frontend/css/'),
       // JavaScript
       '/frontend/js/': getSidebar('../frontend/JavaScript/'),
+      '/frontend/TypeScript/': getSidebar('../frontend/TypeScript/'),
       // Vue
       '/frontend/vue/': getSidebar('../frontend/vue/'),
       '/frontend/react/': getSidebar('../frontend/react/'),
