@@ -100,6 +100,10 @@ Cookie 的生命周期可以通过两种方式定义：
 
 ## Session
 
+与cookie对应的是session，session保存在服务器上。
+
+因为HTTP协议是无状态的，所以session判断不了是否同一个用户，于是乎就有了sessionid，通过session的值来区分是哪一个用户。
+
 Session Storage 中的Session ID 
 
 session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 session_id）

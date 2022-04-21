@@ -1,4 +1,8 @@
-### date
+---
+title: linux时间问题
+---
+
+## date
 
 Linux date命令可以用来显示或设定系统的日期与时间
 

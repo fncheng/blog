@@ -1,3 +1,9 @@
+---
+title: jsconfig和tsconfig配置
+---
+
+## JSConfig选项
+
 [jsconfig.json](https://code.visualstudio.com/docs/languages/jsconfig)
 
 ```js
@@ -19,7 +25,7 @@
 }
 ```
 
-### JSConfig选项
+
 
 https://code.visualstudio.com/docs/languages/jsconfig#_jsconfig-options
 
@@ -57,9 +63,9 @@ Experimental support for decorators is a feature that is subject to change in a 
 ```json
 ```
 
+## tsConfig
 
-
-### [tsconfig](https://code.visualstudio.com/docs/typescript/typescript-compiling#_tsconfigjson)
+[tsconfig配置说明](https://code.visualstudio.com/docs/typescript/typescript-compiling#_tsconfigjson)
 
 https://www.typescriptlang.org/tsconfig
 

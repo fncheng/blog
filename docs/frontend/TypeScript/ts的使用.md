@@ -1,4 +1,8 @@
+---
+title: ts的使用
+---
 
+## 学习TypeScript
 
 error: Cannot redeclare block-scoped variable 'isDone'.
 
