@@ -1,9 +1,9 @@
 // // 颜色
-// $accentColor = #3eaf7c
-// $textColor = #2c3e50
+$accentColor = #3eaf7c
+$textColor = #2c3e50
 // $borderColor = #eaecef
 $codeBgColor = #f5f2f0
-// $arrowBgColor = #ccc
+$arrowBgColor = #ccc
 // $badgeTipColor = #42b983
 // $badgeWarningColor = darken(#ffe564, 35%)
 // $badgeErrorColor = #DA5961
@@ -18,3 +18,17 @@ $codeBgColor = #f5f2f0
 // $MQNarrow = 959px
 // $MQMobile = 719px
 // $MQMobileNarrow = 419px
+
+
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string
+  background-color transparent
+.theme-default-content pre code, .theme-default-content pre[class*="language-"] code
+  color lighten($textColor, 20%)
+
+blockquote
+  font-size 1rem
+  color #2c3e50;
+  border-left .2rem solid #42b983
+  margin 1rem 0
+  padding .5rem 0 .5rem 1rem
+  background-color #f3f5f7
