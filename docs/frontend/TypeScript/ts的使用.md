@@ -2,6 +2,12 @@
 title: ts的使用
 ---
 
+## TypeScript类型
+
+
+
+
+
 ## 学习TypeScript
 
 error: Cannot redeclare block-scoped variable 'isDone'.
@@ -20,7 +26,9 @@ https://stackoverflow.com/questions/35758584/cannot-redeclare-block-scoped-varia
 
 
 
-### [深入学习TypeScript](https://jkchao.github.io/typescript-book-chinese/typings/migrating.html#%E7%AC%AC%E4%B8%89%E6%96%B9%E7%9A%84-npm-%E6%A8%A1%E5%9D%97)
+### [深入理解TypeScript](https://jkchao.github.io/typescript-book-chinese/typings/migrating.html#%E7%AC%AC%E4%B8%89%E6%96%B9%E7%9A%84-npm-%E6%A8%A1%E5%9D%97)
+
+[export default是有害的](https://jkchao.github.io/typescript-book-chinese/tips/avoidExportDefault.html#%E5%8F%AF%E5%8F%91%E7%8E%B0%E6%80%A7%E5%B7%AE)
 
 
 

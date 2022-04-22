@@ -2,7 +2,7 @@
 
 https://developer.aliyun.com/article/704954
 
-<img src="https://yqfile.alicdn.com/957240b5b078e0e8c36ef6c57584bf15b67d6708.png" style="zoom:100%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/20220421185948.png" style="zoom: 62%;" />
 
 
 
