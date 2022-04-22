@@ -1,3 +1,7 @@
+---
+title: vscode插件开发
+---
+
 ## VSCODE插件
 
 
@@ -18,7 +22,7 @@ Your First extension: https://code.visualstudio.com/api/get-started/your-first-e
 
 
 
-安装vsce
+### 安装vsce
 
 ```sh
 $ npm install -g vsce
@@ -38,7 +42,7 @@ $ vsce publish
 
 
 
-### 问题
+## 问题
 
 `Cannot find module 'vscode'`
 

@@ -14,7 +14,7 @@ title: JS操作数据方法
   - [Symbol](https://developer.mozilla.org/zh-CN/docs/Glossary/Symbol) 
 - 和 [Object](https://developer.mozilla.org/zh-CN/docs/Glossary/Object)
 
-### Array
+## Array
 
 操作数组
 
@@ -65,6 +65,28 @@ title: JS操作数据方法
   `toString()`
   
   `join`将一个数组（或一个[类数组对象](https://developer.mozilla.org/zh-CN//docs/Web/JavaScript/Guide/Indexed_collections#Working_with_array-like_objects)）的所有元素连接成一个字符串并返回这个字符串。
+### Array.splice
+
+删除元素
+
+```js
+array.splice(start, delCount)
+// 从start开始删，删除delCount个元素，返回值为被删除的元素合集
+// 如果不写delCount，则表示删除start后面的所有元素，包括start
+```
+
+
+
+### Array.from
+
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+
+```ts
+Array.from(arrayLike: Array, mapFn: function, thisArg: object)
+```
+
+
+
 #### 遍历
 
   - `forEach` forEach 不会改变原数组
@@ -84,7 +106,7 @@ title: JS操作数据方法
   - **`values()`** 方法返回一个新的 **`Array Iterator`** 对象，该对象包含数组每个索引的值
 
 
-### String
+## String
 
 - 增
 
@@ -116,7 +138,7 @@ title: JS操作数据方法
 
   `split`使用指定的字符分隔字符串，转成数组
 
-### object
+## object
 
 - 增
 

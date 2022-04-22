@@ -1,3 +1,7 @@
+---
+title: vscode更新特性
+---
+
 ## vscode颜色配置
 
 新增特性：
@@ -31,7 +35,7 @@ function MyClass() {}
 
 
 
-#### 原生支持彩色括号显示BracketColor
+### 原生支持彩色括号显示BracketColor
 
 [1.60更新特性](https://code.visualstudio.com/updates/v1_60#_high-performance-bracket-pair-colorization)
 

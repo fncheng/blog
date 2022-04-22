@@ -1,3 +1,9 @@
+---
+title: 路径补全插件
+---
+
+## path-autocomplete
+
 ### 配置路径别名
 
 `path-autocomplete.pathMappings` 对于定义绝对或相对路径的别名很有用。
@@ -22,7 +28,7 @@
 
 
 
-### VSCODE go to definition功能识别路径别名
+## VSCODE go to definition功能识别路径别名
 
 需要配置jsconfig.json/tsconfig.json
 

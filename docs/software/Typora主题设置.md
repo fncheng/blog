@@ -1,11 +1,12 @@
 ---
 title: Typora主题
-tags:
-- Typora
-description: 用Typora很久了,最喜欢的主题是Github,一直想更改其中一些样式,参考了一些方法,今天终于修改了.
 ---
 
-<!-- more-->
+## Typora设置
+
+### preface
+
+用Typora很久了,最喜欢的主题是Github,一直想更改其中一些样式,参考了一些方法,今天终于修改了。
 
 ### 软件结构
 
@@ -40,7 +41,7 @@ blockquote {
 
 在[官方文档](http://support.typora.io/Images/#resize-images)中发现这样一段话
 
-> ## 对齐图像
+> ### 对齐图像
 >
 > 目前，Typora不支持图像对齐。但是您可以使用HTML代码，例如`![img](src)`在导出的HTML或PDF中对齐图像。
 >
@@ -53,7 +54,7 @@ blockquote {
 > }
 > ```
 >
-> ## 调整图像大小
+> ### 调整图像大小
 >
 > 有关详细信息，请参见此[链接](http://support.typora.io/Resize-Image/)。
 

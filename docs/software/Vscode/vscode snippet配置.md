@@ -1,8 +1,8 @@
 ---
 title: vscode snippet设置
-tags:
-- vscode
 ---
+
+## snippet设置
 
 ### [参考链接](https://juejin.im/post/5d0496415188257fff23b077)
 
