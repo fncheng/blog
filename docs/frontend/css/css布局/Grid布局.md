@@ -1,4 +1,8 @@
-grid layout 网格布局 与flex layout
+---
+title: grid布局
+---
+
+## grid layout 网格布局 与flex layout
 
 [文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Grid_Layout/Relationship_of_Grid_Layout)
 

@@ -30,9 +30,12 @@ MacOS下：
 
 ```css
 blockquote {
-    /* border-left: 4px solid #dfe2e5; */
-    border-left: 3px solid rgba(0, 0, 0, 0.84);
+  background: #fff3d4; 
+  border-color: #f6b73c;
+  padding: 10px 10px 10px 15px;
 }
+
+#fff3d4 = rgba(255,243,212,1.0)
 ```
 
 > 在修改了块引用之后,因为图片的清晰度问题,我再次修改主题.
