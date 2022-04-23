@@ -47,7 +47,7 @@ title: vue-router
 
 详情见https://router.vuejs.org/zh/api/#%E8%B7%AF%E7%94%B1%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7
 
-### \$route
+### $route
 
 - path: 当前路由路径
 - params: 一个 key/value 对象，包含了动态片段和全匹配片段，如果没有路由参数，就是一个空对象。
@@ -65,7 +65,7 @@ params 是`{"id":"2"}`
 
 fullPath 是`"/user/2"`·
 
-### \$router
+### $router
 
 #### 编程式导航
 

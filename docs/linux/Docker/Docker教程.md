@@ -478,3 +478,9 @@ RUN npm install --registry=https://registry.npm.taobao.org
 EXPOSE 3000
 ```
 
+### build
+
+```sh
+sudo docker image build -t koa-demo .
+```
+

@@ -64,7 +64,9 @@ grid-template-columns和grid-template-rows用于创建几行几列的网格
 
 
 
-### gap
+## gap
+
+gap是 row-gap 和 column-gap 的简写
 
 网格间距
 
@@ -114,13 +116,36 @@ justify-self、Align-self 控制单个盒内元素自身的对齐方式，分别
 
 
 
-### 合并单元格
+## 合并单元格
 
 [Grid Areas](https://developer.mozilla.org/zh-CN/docs/Glossary/Grid_areas)
 
 #### [grid-template-areas](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-template-areas)
 
 grid-template-areas 会受到 grid-grid-template-columns 和 grid-template-rows 的影响
+
+
+
+### grid-column
+
+是 `grid-column-start` 和 `grid-column-end` 的简写
+
+span关键字 表示跨越
+
+```css
+grid-column: 1 / 3;
+/*
+表示1～3 不包含3
+等效于 grid-column: 1 / span 2;
+*/
+grid-column: 2 / -1;
+/* 表示从第二个grid开始，到该行最后一个 */
+
+gird-column: span 2; /* 注意有个空格 */
+/* 表示该元素占2个网格 */
+```
+
+
 
 
 
