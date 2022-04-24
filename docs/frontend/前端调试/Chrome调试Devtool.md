@@ -48,3 +48,8 @@ https://dilshankelsen.com/ignore-library-code-while-debugging-browser/
 
 chrome framework ignore list （苹果浏览器中可能名称叫BlackBox）
 
+
+
+## Framework Ignore List
+
+支持正则表达式

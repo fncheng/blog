@@ -54,7 +54,8 @@ module.exports = {
           },
         ]
       },
-      { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
+      { text: 'JavaScript', link: '/frontend/JavaScript/运算符及操作符' },
+      // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
       { text: 'React', link: '/frontend/react/React学习' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
@@ -85,7 +86,8 @@ module.exports = {
       ),
       '/frontend/css/': getSidebar('../frontend/css/'),
       // JavaScript
-      '/frontend/js/': getSidebar('../frontend/JavaScript/'),
+      '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),
+      // '/frontend/js/': getSidebar('../frontend/JS/'),
       '/frontend/TypeScript/': getSidebar('../frontend/TypeScript/'),
       // Vue
       '/frontend/vue/': getSidebar('../frontend/vue/'),
