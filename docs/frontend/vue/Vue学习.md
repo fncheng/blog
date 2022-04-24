@@ -391,6 +391,20 @@ https://cn.vuejs.org/v2/guide/components-slots.html
 </template>
 ```
 
+### 作用域插槽
+
+2.6.0开始新语法 v-slot ，同时支持解构赋值，具体查看[文档](https://cn.vuejs.org/v2/guide/components-slots.html#%E7%8B%AC%E5%8D%A0%E9%BB%98%E8%AE%A4%E6%8F%92%E6%A7%BD%E7%9A%84%E7%BC%A9%E5%86%99%E8%AF%AD%E6%B3%95)。
+
+```vue
+<el-table-column label="检查状态">
+	<template v-slot="{ row: { mammaryState} }">
+	  {{ mammaryStates[mammaryState] }}
+	</template>
+</el-table-column>
+```
+
+
+
 ### 2.4.1具名插槽
 
 ```vue
