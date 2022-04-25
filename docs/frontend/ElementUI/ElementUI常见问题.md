@@ -78,7 +78,7 @@ https://element.eleme.cn/#/zh-CN/component/table
 
 `el-table-column` 使用prop来绑定 `table` 组件里:data绑定的数组中的一个属性，假设我们要在 `el-table-column` 组件里访问这个属性，直接访问是不可以的，因为这是 `el-table-column` 内部子组件的内容，如果要访问，还得让子组件$emit 一层一层传上来，这样就很麻烦。幸好Vue的插槽提供了一个方法，让插槽内容能够访问子组件中才有的数据，即作用域插槽。**而element-ui 将内部值通过{ row, column, $index } 传递出来**
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20211021143754177.png" alt="image-20211021143754177" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20211021143754177.png" alt="image-20211021143754177" style="zoom:67%;" />
 
 ```vue
 <el-table-column prop="obj" label="作用域插槽">

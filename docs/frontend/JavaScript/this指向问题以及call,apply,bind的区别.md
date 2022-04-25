@@ -1,3 +1,7 @@
+---
+title: this指向问题
+---
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -62,15 +66,6 @@ j.call(o);
 
 
 
-
-## Set和Map数据结构
-
-Set相当于一个没有重复数据的数组
-
-`Set`函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
-
-
-
 首先,要弄明白这三个函数存在的意义是什么?
 
 答案是**改变函数执行时的上下文,也就是改变函数运行时的this指向**。
@@ -81,11 +76,29 @@ Set相当于一个没有重复数据的数组
 
 箭头函数没有this,它的this取决于该函数外部非箭头函数的this值
 
+```js
+var name = 'global'
+const o = {
+  name: 'local',
+  getName: () => {
+    console.log(this.name)
+  },
+  getName2() {
+    console.log(this.name)
+  },
+  getName3: function () {
+    console.log(this.name)
+  }
+}
+
+o.getName() // global
+o.getName2() // local
+o.getName3() // local
+```
+
 
 
 ## this指向问题
-
-
 
 ### 函数this
 
@@ -105,7 +118,7 @@ Set相当于一个没有重复数据的数组
 
 
 
-
+> 总结就是： 箭头函数的this指向定义时所在的对象，而普通函数的this由运行时所在对象决定，即谁调用就指向谁。
 
 
 
