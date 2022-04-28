@@ -1,3 +1,7 @@
+---
+title: File API
+---
+
 [JavaScript File API](https://developer.mozilla.org/zh-CN/docs/Web/API/File/Using_files_from_web_applications)
 
 ```html
@@ -81,6 +85,33 @@ readAsDataURL方法会读取指定的 Blob或File对象。
 #### FileReader.onload
 
 当 **FileReader** 读取文件的方式为 [readAsArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer), [readAsBinaryString](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsBinaryString), [readAsDataURL](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL) 或者 [readAsText](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsText) 的时候，会触发一个 `load (en-US)` 事件。
+
+### FileReader.readAsText
+
+`readAsText` 方法可以将 [Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob) 或者 [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)[ ](https://developer.mozilla.org/zh-CN/docs/MDN/Doc_status/API/File_API)对象转根据特殊的编码格式转化为内容(字符串形式)
+
+```js
+function App() {
+  
+  function handleFiles([file]) {
+    console.log('file: ', file);
+    const reader = new FileReader()
+    reader.onload = (e)=>{
+      console.log('result',e.target.result);
+    }
+    // reader.readAsDataURL(file)
+    reader.readAsText(file)
+  }
+  return (
+    <div>
+      <label>请选择图片</label>
+      <input type='file' id="uploadPic" onChange={(e)=> handleFiles(e.target.files)}></input>
+    </div>
+  )
+}
+```
+
+
 
 
 

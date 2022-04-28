@@ -2,7 +2,7 @@
 title: Vue常见解决方案
 ---
 
-### 浏览器title动态修改
+## 浏览器title动态修改
 
 ```js
 /**
@@ -33,7 +33,7 @@ export default globalMixin
 
 > 思路是 在路由表routes中meta属性定义一个title，然后在每个页面的mounted阶段获取$route.meta.title，之后修改document.title。而需要在每个页面的mounted阶段都运行，可以使用全局mixin。
 
-### 在Vue使用Nprogress加载进度条
+## 在Vue使用Nprogress加载进度条
 
 https://www.jianshu.com/p/346c05d4d9d8
 

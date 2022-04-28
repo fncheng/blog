@@ -1,6 +1,10 @@
-### 创建元素
+---
+title: Element API
+---
 
-#### Document.createElement()
+## 创建元素
+
+### Document.createElement()
 
 创建一个由标签名称 tagName 指定的 HTML 元素。
 
@@ -12,13 +16,13 @@ document.createElement(tagName:string, {
 
 
 
-#### Element.classList
+### Element.classList
 
 Element.classList.add( str: string )
 
 Element.classList.remove( str: string )
 
-#### Element.className
+### Element.className
 
 Element.classList vs Element.className
 
@@ -26,7 +30,7 @@ Element.classList vs Element.className
 
 
 
-#### Element.append()
+### Element.append()
 
 在 `Element`的最后一个子节点之后插入一组 [`Node`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node) 对象或 [`DOMString`](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMString) 对象。
 
@@ -45,4 +49,10 @@ Element.classList vs Element.className
 把对象从它所属的 DOM 树中删除。
 
 [jquery方法](https://www.jquery123.com/remove/)
+
+
+
+## 获取元素属性
+
+Element.getAttribute()
 

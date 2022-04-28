@@ -1,5 +1,5 @@
 ---
-title: vue组件通信
+title: Vue组件通信
 ---
 
 

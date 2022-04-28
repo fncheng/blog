@@ -49,6 +49,10 @@ module.exports = {
             link: '/frontend/前端开发常见解决方案/图片懒加载'
           },
           {
+            text: '前端开发常见问题',
+            link: '/frontend/前端开发常见问题/前端文件上传'
+          },
+          {
             text: '小程序',
             link: '/小程序/小程序开发常见问题'
           },
@@ -85,6 +89,7 @@ module.exports = {
       '/frontend/前端开发常见解决方案/': getSidebar(
         '../frontend/前端开发常见解决方案/'
       ),
+      '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
       '/frontend/css/': getSidebar('../frontend/css/'),
       // JavaScript
       '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),

@@ -1,3 +1,7 @@
+---
+title: Canvas API
+---
+
 ### Canvas 绘制图片
 
 ### [drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage#%E4%BD%BF%E7%94%A8_drawimage_%E6%96%B9%E6%B3%95)
@@ -195,3 +199,6 @@ img.onload = () => {
 };
 ```
 
+### HTMLCanvasElement.toDataURL()
+
+方法返回一个包含图片展示的 [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) 。可以使用 `type` 参数其类型，默认为 [PNG](https://en.wikipedia.org/wiki/Portable_Network_Graphics) 格式。图片的分辨率为96dpi。
