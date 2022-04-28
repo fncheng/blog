@@ -94,7 +94,7 @@ module.exports = {
         '../frontend/前端开发常见解决方案/'
       ),
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
-      '/frontend/开发规范': getSidebar('../frontend/开发规范/'),
+      '/frontend/开发规范/': getSidebar('../frontend/开发规范/'),
       '/frontend/css/': getSidebar('../frontend/css/'),
       // JavaScript
       '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),
