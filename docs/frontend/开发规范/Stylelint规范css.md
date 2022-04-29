@@ -79,3 +79,44 @@ module.exports = {
 }
 ```
 
+## 格式化sass
+
+预处理器语言需要安装额外的插件，
+
+https://github.com/stylelint-scss/stylelint-scss#readme
+
+```sh
+$ yarn add stylelint-scss -D
+```
+
+VSCode提供的Stylelint插件默认支持css、less、postcss语法。
+
+为其添加scss的支持
+
+```json
+"stylelint.validate": [
+        "css",
+        "less",
+        "postcss",
+        "scss"
+    ],
+```
+
+
+
+## stylelintignore
+
+```js
+# file
+*.js
+*.jsx
+*.ts
+*.tsx
+*.jpg
+
+# folder
+node_modules
+dist
+config
+```
+
