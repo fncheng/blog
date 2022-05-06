@@ -440,7 +440,7 @@ element ui表单验证
 
 ### type="week"时处理时间报错
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210721140938989.png" alt="image-20210721140938989" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210721140938989.png" alt="image-20210721140938989" style="zoom:67%;" />
 
 原因可能是v-model绑定的时间值不是时间对象比如`date: 'yyyy-mm-dd'` 类型就会报错
 

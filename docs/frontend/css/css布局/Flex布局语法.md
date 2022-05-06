@@ -1,6 +1,12 @@
+---
+title: Flex布局
+---
+
+
+
 ## Flex布局 ---- [阮一峰教程](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 
-https://zhuanlan.zhihu.com/p/25303493
+[https://zhuanlan.zhihu.com/p/25303493](https://zhuanlan.zhihu.com/p/25303493)
 
 ### 容器属性
 
@@ -23,7 +29,7 @@ https://zhuanlan.zhihu.com/p/25303493
 }
 ```
 
-##### flex-wrap
+#### flex-wrap
 
 ```css
 .box{
@@ -31,7 +37,7 @@ https://zhuanlan.zhihu.com/p/25303493
 }
 ```
 
-##### flex-flow
+#### flex-flow
 
 `flex-flow`属性是`flex-direction`属性和`flex-wrap`属性的简写形式，默认值为`row nowrap`。
 
@@ -65,7 +71,7 @@ https://zhuanlan.zhihu.com/p/25303493
 }
 ```
 
-##### align-content
+#### align-content
 
 `align-content`属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 
@@ -75,7 +81,7 @@ https://zhuanlan.zhihu.com/p/25303493
 }
 ```
 
-### 解析flex属性
+## 解析flex属性
 
 syntax：none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
 
@@ -95,7 +101,7 @@ flex-basis: 0;
 
 https://zhuanlan.zhihu.com/p/39052660
 
-#### flex-grow	
+### flex-grow	
 
 > `<number>`
 >
@@ -103,7 +109,7 @@ https://zhuanlan.zhihu.com/p/39052660
 
 瓜分父盒子剩余的空间
 
-#### flex-shrink
+### flex-shrink
 
 当子项的基准空间(flex-basis)超过父盒子的宽度时，通过flex-shrink 进行吸收。
 
@@ -140,7 +146,7 @@ https://zhuanlan.zhihu.com/p/39052660
 
 flex-shrink不受flex-grow影响
 
-#### flex-basis
+### flex-basis
 
 > `<width>`
 >

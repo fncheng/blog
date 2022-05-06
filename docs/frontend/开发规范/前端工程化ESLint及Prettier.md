@@ -1,5 +1,5 @@
 ---
-title: 前端工程化
+title: 前端工程化ESLint及Prettier
 ---
 
 ## 前提
@@ -19,7 +19,7 @@ yarn add eslint
 
 ## ESLint
 
-https://cn.eslint.org/docs/user-guide/getting-started
+[官网](https://cn.eslint.org/docs/user-guide/getting-started)
 
 ### eslint忽略
 
@@ -47,6 +47,18 @@ Use /* eslint-disable */ to ignore all warnings in a file.
 
 - `"avoidEscape": true` 允许字符串使用单引号或双引号，只要字符串中包含了一个其它引号，否则需要转义
 - `"allowTemplateLiterals": true` 允许字符串使用反勾号
+
+
+
+eslint的规则是数组对象式
+
+数组的第一个值是上面的值之一，第二个是可配置对象
+
+```js
+ "camelcase": ['warn', { properties: 'never',allow: ['default_AddressArray']}]
+```
+
+
 
 ### 配置
 

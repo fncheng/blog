@@ -52,3 +52,13 @@ module.exports = {
 }
 ```
 
+## ESLint规则
+
+### 驼峰式和下划线命名camelcase
+
+[https://cn.eslint.org/docs/rules/camelcase](https://cn.eslint.org/docs/rules/camelcase)
+
+```js
+"camelcase": '['warn',{properties:'never',allow: ['default_AddressArray']}]'
+```
+

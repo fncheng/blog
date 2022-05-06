@@ -12,6 +12,13 @@ title: Vue常见解决方案
  */
 const getTitle = (vm) => {
   const { title } = vm.$options
+  /**
+   * 如果组件有title属性：
+   *    1. title是个函数，跳用title(),并将vm即该组件 作为this传入
+   *    2. title不是函数，则返回title
+   * 如果组件没有title属性：
+   *    则取用route.meta.title 即路由表中的title
+   */
   if (title) {
     return typeof title === 'function' ? title.call(vm) : title
   } else {
