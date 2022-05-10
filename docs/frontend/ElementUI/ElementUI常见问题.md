@@ -333,6 +333,8 @@ export default {
 
 `:model` 的值是必须的
 
+model、rule、prop三者缺一不可
+
 ```sh
 [Element Warn][Form]model is required for validate to work! 
 ```
@@ -375,13 +377,21 @@ export default {
 
 
 
-
+### 5.表单验证自定义验证方法
 
 element ui表单验证
 
 [async-validator](https://github.com/yiminghe/async-validator)
 
+```js
+{ validator: (rule, value, callback) => {
+          if (RegIdCardNo.test(value)) {
+            callback()
+          } else callback(new Error('身份证号填写错误'))
+        } }
+```
 
+其中callback是一定要调用的
 
 
 
