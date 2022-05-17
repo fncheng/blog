@@ -1,4 +1,10 @@
-常见报错：
+---
+title: Webpak常见问题
+---
+
+
+
+## 常见报错
 
 1. **Cannot find module 'webpack/bin/config-yargs**
 
@@ -10,7 +16,9 @@
    "serve": "webpack serve --config config/webpack.dev.js --progress"
    ```
 
-### 记一次从webpack3迁移到webpack4遇到的问题
+
+
+## 记一次从webpack3迁移到webpack4遇到的问题
 
 [Webpack-dev-server@4.0.0 迁移指南](https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md)
 
@@ -34,7 +42,7 @@
 
 webpack4请使用postcss-loader v4.
 
-https://www.npmjs.com/package/postcss-loader
+[postcssloader](https://www.npmjs.com/package/postcss-loader)
 
 
 
@@ -103,7 +111,7 @@ yarn add postcss-preset-env@6 -D
 
    设置devServer.historyApiFallback，然后就可以刷新了。
 
-### Html-webpack-plugin
+## Html-webpack-plugin
 
 Cannot read property 'initialize' of undefined at HtmlWebpackPlugin.apply
 
@@ -115,7 +123,7 @@ Cannot read property 'initialize' of undefined at HtmlWebpackPlugin.apply
 
 
 
-### css-loader相关
+## css-loader相关
 
 **yarn build时css-loader报错minimize？**
 
@@ -129,7 +137,7 @@ https://dailc.github.io/2017/03/13/webpackfreshmanualAndBug.html
 
 升级vue-loader
 
-### url-loader
+## url-loader
 
 **Webpack4 asset size limit 244**
 

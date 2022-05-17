@@ -1,3 +1,9 @@
+---
+title: Map
+---
+
+
+
 数据结构
 
 ### [Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
