@@ -40,7 +40,7 @@ elementui大小：845,531 字节（磁盘上的848 KB） `chunk-vendors.703c
 
 elementui大小：292,423 字节（磁盘上的295 KB）
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20211015110754036.png" alt="image-20211015110754036" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20211015110754036.png" alt="image-20211015110754036" style="zoom:67%;" />
 
 去除`import 'element-ui/lib/theme-chalk/index.css'`后
 
@@ -48,7 +48,7 @@ elementui大小：292,423 字节（磁盘上的295 KB）
 
 elementui大小：294,160 字节（磁盘上的295 KB）
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20211015110656465.png" alt="image-20211015110656465" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20211015110656465.png" alt="image-20211015110656465" style="zoom:67%;" />
 
 配置按需引入后可以去掉
 

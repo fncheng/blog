@@ -62,7 +62,7 @@ module.exports = {
           },
         ]
       },
-      { text: 'JavaScript', link: '/frontend/JavaScript/运算符及操作符' },
+      { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },

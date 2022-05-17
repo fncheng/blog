@@ -379,7 +379,7 @@ git rm --cached path/to/file.js
 
 ### 合并某个指定提交commit到指定分支上
 
-https://ruanyifeng.com/blog/2020/04/git-cherry-pick.html
+[ruanyifeng](https://ruanyifeng.com/blog/2020/04/git-cherry-pick.html)
 
 ```sh
 git cherry-pick <commit id>...
