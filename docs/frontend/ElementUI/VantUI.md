@@ -28,3 +28,20 @@ Van-uploader **after-read**方法在文件读取完毕后触发，多张图片�
 </view>
 ```
 
+
+
+### van-tabs
+
+**组件从隐藏状态切换到显示状态时，底部条位置错误？**
+
+使用wx:if 后底部条位置还是错乱，这是因为需要绑定active属性
+
+```vue
+<van-tabs id="tabs" wx:if="{{ active !== 0 }}" active="{{ activeTab2 }}" bind:change="onChangeTab2"
+    custom-class="tabs-bar">
+    <van-tab title="客户信息"></van-tab>
+    <van-tab wx:if="{{ active === 1 || active === 2 }}" title="潜力信息"></van-tab>
+    <van-tab wx:if="{{ active === 1 }}" title="医院信息"></van-tab>
+  </van-tabs>
+```
+
