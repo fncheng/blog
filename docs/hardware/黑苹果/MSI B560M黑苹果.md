@@ -62,7 +62,11 @@ USBToolBox
 
    需要独立显卡
 
+2. 睡眠问题
 
+   https://github.com/maemual/MSI-B460M-10700-5500XT/issues/22
+
+   解决：关闭电能小憩
 
 
 
