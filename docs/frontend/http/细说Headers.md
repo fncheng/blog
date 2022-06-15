@@ -74,6 +74,8 @@ MDN关于HTTP Headers的解释如下：
 
 ### [Content-Type](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type)
 
+Content-Type区分大小写
+
 Ajax 发送json
 
 ```js
