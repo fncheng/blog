@@ -1,4 +1,4 @@
-### BIOS设置
+## BIOS设置
 
 MSI B560M主板进入BIOS => del键
 
@@ -30,11 +30,15 @@ BIOS详细设置：https://www.bilibili.com/read/cv7670096
 - USB Standby Power ----- 默认禁用，改成允许
 - ErP Ready ----- 默认禁用，改成允许
 
+## kext介绍
+
+### LucyRTL8125Ethernet
+
+以太网驱动
 
 
 
-
-### 定制USB口
+## 定制USB口
 
 https://post.smzdm.com/p/ad223e0z/
 
@@ -54,7 +58,7 @@ USBToolBox
 
 
 
-### 已知问题
+## 已知问题
 
 1. 安装时读条到一半黑屏
 
@@ -69,6 +73,10 @@ USBToolBox
    解决：关闭电能小憩
 
 
+
+### PCIE无线网卡安装
+
+BCM94360CD网卡，需接主板JUSB口供电
 
 ### 三码
 
