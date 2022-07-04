@@ -6,7 +6,7 @@ tags:
 
 
 
-### 安装zsh
+## 安装zsh
 
 [zsh官网](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 
@@ -37,7 +37,7 @@ sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-#### 导入oh-my-zsh配置
+### 导入oh-my-zsh配置
 
 ```bash
 git clone https://github.com/fncheng/myzsh.git ## 官方oh-my-zsh配置
@@ -47,7 +47,7 @@ git clone https://gitee.com/fn386/myzsh.git ~/.oh-my-zsh/custom  ##也可导入�
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/fncheng/myzsh/master/install.sh)"
 ```
 
-#### 更新oh-my-zsh
+### 更新oh-my-zsh
 
 ```sh
 $ omz update
@@ -55,7 +55,7 @@ $ omz update
 
 
 
-### 插件配置
+## 插件配置
 
 #### [autojump](https://github.com/wting/autojump)自动跳转插件
 
@@ -133,11 +133,11 @@ plugins=(zsh-autosuggestions)
    plugins=( [plugins...] zsh-syntax-highlighting)
    ```
 
-#### docker补全插件
+### docker补全插件
 
 [文档](https://docs.docker.com/compose/completion/#zsh)
 
-##### With oh-my-zsh shell
+#### With oh-my-zsh shell
 
 Add `docker` and `docker-compose` to the plugins list in `~/.zshrc` to run autocompletion within the oh-my-zsh shell. In the following example, `...` represent other Zsh plugins you may have installed.
 

@@ -10,6 +10,10 @@ title: React组件通信
 
 ## Context
 
+> 每个 Context 对象都会返回一个 Provider React 组件，它允许消费组件订阅 context 的变化。
+>
+> Provider 接收一个 `value` 属性，传递给消费组件。一个 Provider 可以和多个消费组件有对应关系。多个 Provider 也可以嵌套使用，里层的会覆盖外层的数据。
+
 ```jsx
 const MyContext = React.createContext('defaultValue');
 class Main extends React.Component {
@@ -32,6 +36,44 @@ class Main extends React.Component {
   }
 }
 ```
+
+**App.jsx**
+
+```jsx
+import { AppContext, context } from "./context";
+
+export default function App() {
+  return (
+    <AppContext.Provider value={context}>
+      <div className="App">
+        <Main />
+        <Child />
+      </div>
+    </AppContext.Provider>
+  );
+}
+
+function Child() {
+  return (
+    <div>
+      <div>345</div>
+      <AppContext.Consumer>{(val) => val.username}</AppContext.Consumer>
+    </div>
+  );
+}
+```
+
+**context.js**
+
+```js
+import React from "react";
+export const AppContext = React.createContext({});
+export const context = {
+  username: "ls"
+};
+```
+
+
 
 ## 函数调用向上传递
 

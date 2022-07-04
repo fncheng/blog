@@ -1,3 +1,9 @@
+---
+title: Vue3食用
+---
+
+
+
 ## Composition API
 
 ### 被 ref() 包装 的变量
@@ -173,3 +179,48 @@ arr.splice(0) // 清空数组
 
 [Understanding the new script setup with defineProps & defineEmits in Vue 3.2](https://www.netlify.com/blog/understanding-defineprops-and-defineemits-in-vue-3.2)
 
+
+
+## 在Vue3中使用CSS module
+
+可以通过两种方式：
+
+1.一种是在setup或render中定义
+
+```js
+const $style = useCssModule()
+```
+
+2.另一种是在style中使用module声明
+
+```vue
+<template>
+  <div :class="mystyle.red">{{ count }}111</div>
+</template>
+
+<style module="mystyle">
+.red {
+  color: red;
+}
+</style>
+```
+
+添加module属性，自动注入
+
+
+
+### 在jsx中使用css module
+
+使用vite
+
+```tsx
+import styles from './MyButton1.module.css'
+
+render() {
+  <span class={styles.blue}>{this.count}</span>
+}
+```
+
+添加类名自动提示
+
+typescript-plugin-css-modules

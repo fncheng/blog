@@ -170,7 +170,7 @@ Array.from(arrayLike: Array, mapFn: function, thisArg: object)
 
 
 
-### 遍历数组[for VS forEach() VS for/in VS for/of 4种方法对比](https://blog.fundebug.com/2019/03/11/4-ways-to-loop-array-inj-javascript/)
+## 遍历数组[for VS forEach() VS for/in VS for/of 4种方法对比](https://blog.fundebug.com/2019/03/11/4-ways-to-loop-array-inj-javascript/)
 
 1. forEach
 
@@ -178,3 +178,4 @@ Array.from(arrayLike: Array, mapFn: function, thisArg: object)
 
    `forEach()` 被调用时，不会改变原数组 (基本类型的不会变，如果是引用类型的数据可能会被改变)
 
+map(String)和map(Number)

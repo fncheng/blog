@@ -36,7 +36,7 @@ type和interface
 
 相同点：都可以描述一个对象或者函数
 
-#### interface
+### interface
 
 ```ts
 interface User {
@@ -48,6 +48,22 @@ interface SetUser {
   (name: string, age: number): void;
 }
 ```
+
+interface的继承
+
+```ts
+interface Main {
+  username?: string,
+  password?: string
+}
+
+interface Book extends Main {
+  name: string
+  age: number
+}
+```
+
+
 
 ### type
 
