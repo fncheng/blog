@@ -73,7 +73,7 @@ type User = {
   age: number
 };
 
-type SetUser = (name: string, age: number)=> void;
+type SetUser = (name: string, age: number) => void;
 ```
 
 联合类型
