@@ -329,6 +329,25 @@ export default {
 
 [demo](https://codesandbox.io/s/vue-cspan-svgw4)
 
+## element-ui的form表单校验
+
+rules是一个数组对象，每一个对象都是一个数组，数组内部又包含多个对象，每个对象是一个校验规则
+
+```ts
+type ElFormRules = {
+  rule: Array<ElFormRule>
+}
+
+type ElFormRule = {
+  required?: true | false
+  validator?: (rule: ElFormRule, value: any, callback: Function) => {}
+  message: string
+  trigger: string
+}
+```
+
+
+
 ### 3. 表单验证规则不生效的原因以及:model
 
 `:model` 的值是必须的

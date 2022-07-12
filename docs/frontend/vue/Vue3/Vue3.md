@@ -133,6 +133,18 @@ setup() {
 
 ## @vue/composition-api
 
+### How to use?
+
+```js
+// main.js
+import Vue from 'vue'
+import VueCompositionAPI from '@vue/composition-api'
+
+Vue.use(VueCompositionAPI)
+```
+
+
+
 reactive包裹空对象新增属性没有响应性 [issues](https://github.com/vuejs/composition-api/issues/580)
 
 ["reactive" doesn't work well with Array #219](https://github.com/vuejs/composition-api/issues/219)
@@ -195,7 +207,7 @@ const $style = useCssModule()
 
 ```vue
 <template>
-  <div :class="mystyle.red">{{ count }}111</div>
+  <div :class="mystyle.red">{{ count }}</div>
 </template>
 
 <style module="mystyle">

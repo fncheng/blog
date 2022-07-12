@@ -88,7 +88,9 @@ const variable: number | string = '123'
 
 Type1 & Type2，结果是取这两个类型的并集。
 
+### interface和type的区别
 
+[可看这篇文章](https://www.jianshu.com/p/555e6998af36)
 
 ### 类型断言
 
