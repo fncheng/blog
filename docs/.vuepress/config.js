@@ -60,6 +60,10 @@ module.exports = {
             text: '小程序',
             link: '/小程序/小程序开发常见问题'
           },
+          {
+            text: '购物',
+            link: '/捡垃圾/闲鱼翻车记录'
+          },
         ]
       },
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
@@ -114,7 +118,8 @@ module.exports = {
       '/frontend/node/': getSidebar('../node/'),
       '/linux/': getSidebar('../linux/'),
       // Software
-      '/software/': getSidebar('../software/')
+      '/software/': getSidebar('../software/'),
+      '/捡垃圾/': getSidebar('../捡垃圾/')
     },
     // plugins: {
     // 	"vuepress-plugin-auto-sidebar": {
