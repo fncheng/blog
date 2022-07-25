@@ -71,6 +71,7 @@ module.exports = {
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
       { text: 'React', link: '/frontend/react/React学习' },
+      { text: 'HTTP', link: '/frontend/http/细说Headers'},
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
       { text: 'linux', link: '/linux/Linux命令使用指南' },
@@ -108,6 +109,7 @@ module.exports = {
       // Vue
       '/frontend/vue/': getSidebar('../frontend/vue/'),
       '/frontend/react/': getSidebar('../frontend/react/'),
+      '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
       // 前端工程化
       '/frontend/前端工程化/': getSidebar('../frontend/前端工程化/'),
