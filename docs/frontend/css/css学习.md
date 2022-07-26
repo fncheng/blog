@@ -52,8 +52,6 @@ body {
 - background-attachment—— 背景图像是否固定或者随着页面的其余部分滚动。
 - background-position——背景图像位置
 
-## [CSS text-align 图片文字内容居左 居右 居中](http://www.divcss5.com/rumen/r350.shtml)
-
 ### CSS 链接
 
 链接的状态：
