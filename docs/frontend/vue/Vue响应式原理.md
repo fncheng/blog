@@ -10,6 +10,11 @@ Vue2使用的是Object.defineProperty来进行数据拦截依赖收集，无法�
 
 ### [检测变化的注意事项](https://cn.vuejs.org/v2/guide/reactivity.html#检测变化的注意事项)
 
+对数组进行以下操作不是响应式的：
+
+- vm.items[indexOfItem] = newValue
+- vm.items.length = newLength
+
 解决办法：
 
 ### $set

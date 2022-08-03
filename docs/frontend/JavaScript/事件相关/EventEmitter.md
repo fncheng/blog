@@ -1,3 +1,5 @@
+## EventEmitter
+
 PubSub 模式，是 Publish/Subscribe 的缩写，意为“发布/订阅”模式。
 
 [实现一个EventEmitter](https://www.cnblogs.com/gotodsp/p/7111706.html#:~:text=PubSub%20%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%98%AF%20Publish%2FSubscribe%20%E7%9A%84%E7%BC%A9%E5%86%99%EF%BC%8C%E6%84%8F%E4%B8%BA%E2%80%9C%E5%8F%91%E5%B8%83%2F%E8%AE%A2%E9%98%85%E2%80%9D%E6%A8%A1%E5%BC%8F%E3%80%82%20%E5%9C%A8%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E4%B8%AD%EF%BC%8C%E6%88%91%E4%BB%AC%E5%BA%94%E8%AF%A5%E4%B9%9F%E4%BC%9A%E6%8E%A5%E8%A7%A6%E5%88%B0%20PubSub,%E6%A8%A1%E5%BC%8F%EF%BC%8C%E4%BE%8B%E5%A6%82%20Nodejs%20%E4%B8%AD%E7%9A%84%20EventEmitter%E3%80%81Backbone%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E3%80%81%E4%BB%A5%E5%8F%8A%20jQuery%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E3%80%82)
@@ -34,6 +36,7 @@ export default class PubSub {
   }
   emit(type) {
     // args 为回调函数传入的参数
+    // 截取传入的事件处理函数
     const args = [...arguments].slice(1)
     const eventList = this.handlers[type]
     /**
