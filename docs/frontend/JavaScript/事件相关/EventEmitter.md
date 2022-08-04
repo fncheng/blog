@@ -1,3 +1,7 @@
+---
+title: EventEmitter
+---
+
 ## EventEmitter
 
 PubSub 模式，是 Publish/Subscribe 的缩写，意为“发布/订阅”模式。
