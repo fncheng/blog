@@ -1,3 +1,9 @@
+---
+title: Vue随笔
+---
+
+
+
 一个小需求：el-input只能输入整数 引起的思考
 
 首先是
@@ -32,7 +38,7 @@
   onInput(value) {
       console.log("onInput", value)
       this.number = Math.floor(value) || ''
-    },
+  },
 </script>
 ```
 
