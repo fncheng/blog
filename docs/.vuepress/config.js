@@ -93,7 +93,7 @@ module.exports = {
     /**
      * 对象式
      */
-    sidebarDepth: 2,
+    sidebarDepth: 1,
     sidebar: {
       '/frontend/前端开发常见解决方案/': getSidebar(
         '../frontend/前端开发常见解决方案/'
