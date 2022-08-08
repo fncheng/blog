@@ -92,7 +92,7 @@ rm -rf ./test_ln
 
 ### Windows创建软链接的方法
 
-```cmd
+```
 mklink /D  target_name  source_name
 C:\Users\qq862>mklink
 创建符号链接。
@@ -110,6 +110,6 @@ MKLINK [[/D] | [/H] | [/J]] Link Target
 
 例如:
 
-```cmd
+```
 mklink /D C:\Users\cheng\Yarn C:\Users\cheng\AppData\Local\Yarn
 ```
