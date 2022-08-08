@@ -12,6 +12,7 @@
     "docs:nav": "vuepress nav docs"
   },
   "devDependencies": {
+    "@fncheng/vuepress-plugin-side-anchor": "^1.0.7",
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "@vuepress/plugin-back-to-top": "^1.8.2",
     "vuepress": "^1.8.2"

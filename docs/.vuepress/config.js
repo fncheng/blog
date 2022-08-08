@@ -70,7 +70,7 @@ module.exports = {
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
-      { text: 'React', link: '/frontend/react/React学习' },
+      { text: 'React', link: '/frontend/React/React与Vue' },
       { text: 'HTTP', link: '/frontend/http/细说Headers'},
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
@@ -108,7 +108,7 @@ module.exports = {
       '/frontend/ElementUI/': getSidebar('../frontend/ElementUI/'),
       // Vue
       '/frontend/vue/': getSidebar('../frontend/vue/'),
-      '/frontend/react/': getSidebar('../frontend/react/'),
+      '/frontend/React/': getSidebar('../frontend/React/'),
       '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
       // 前端工程化
@@ -137,6 +137,9 @@ module.exports = {
       sidebarLinkSelector: '.sidebar-link',
       headerAnchorSelector: '.header-anchor'
     },
-    '@vuepress/back-to-top': true
+    '@vuepress/back-to-top': true,
+    '@fncheng/vuepress-plugin-side-anchor': {
+      someTest: 'someTest-------------------------------------'
+    }
   }
 }
