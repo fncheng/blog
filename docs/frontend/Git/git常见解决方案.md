@@ -39,3 +39,14 @@ git branch --set-upstream-to=origin/dev
 git branch -u origin/dev
 ```
 
+
+
+### git默认不区分大小写
+
+文件夹名不区分大小写，改了之后追踪不到。
+
+```sh
+git config --get core.ignorecase # 查看默认配置
+git config core.ignorecase false # 设置区分大小写
+```
+
