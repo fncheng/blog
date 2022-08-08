@@ -36,13 +36,13 @@ module.exports = {
         text: '前端',
         items: [
           { text: 'HTML', link: '/frontend/html/js事件' },
-          { text: 'CSS', link: '/frontend/css/css学习' },
+          { text: 'CSS', link: '/frontend/CSS/css学习' },
           { text: 'Webpack', link: '/frontend/Webpack/webpack' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
           { text: 'TypeScript', link: '/frontend/TypeScript/ts常见问题' },
           {
             text: '前端工程化',
-            link: '/frontend/前端工程化/前端工程化ESLint及Prettier'
+            link: '/frontend/前端工程化/Jenkins构建'
           },
           {
             text: '前端开发常见解决方案',
@@ -100,7 +100,7 @@ module.exports = {
       ),
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
       '/frontend/开发规范/': getSidebar('../frontend/开发规范/'),
-      '/frontend/css/': getSidebar('../frontend/css/'),
+      '/frontend/CSS/': getSidebar('../frontend/CSS/'),
       // JavaScript
       '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),
       // '/frontend/js/': getSidebar('../frontend/JS/'),

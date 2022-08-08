@@ -903,10 +903,10 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@fncheng/vuepress-plugin-side-anchor@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@fncheng/vuepress-plugin-side-anchor/-/vuepress-plugin-side-anchor-1.0.7.tgz#e1197c9dfeb4cb250c6b81dd1d1dbc1e44fdd8f2"
-  integrity sha512-DYIdJlgecXjKMSiRhyGM0SFH+ZN8qunfaoL/Hy3BzpGMryuWEzdKAvnLsYqBjLQWwGVPwaK9aeNU3FCXlWSLXg==
+"@fncheng/vuepress-plugin-side-anchor@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@fncheng/vuepress-plugin-side-anchor/-/vuepress-plugin-side-anchor-1.0.8.tgz#8a2afbb843d05e52d0eacf977146f0781c66048f"
+  integrity sha512-zHSJ/EkaqcjLhkEnhZCB40NGtzRvHU9e6sCOQ7IDeQogjwQkW6BTcpMaWyF1THUlNdtLr+ecFxX4dQPDcAtFww==
   dependencies:
     lodash-es "^4.17.21"
 
