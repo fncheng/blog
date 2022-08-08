@@ -1,3 +1,5 @@
+## 流程
+
 ### npm-adduser
 
 https://zhuanlan.zhihu.com/p/147804428
@@ -33,6 +35,14 @@ aliases: author
 
 
 
+
+### 可以指定仓库源
+
+```sh
+npm login --registry https://registry.npmjs.org/ # 指定npm源
+...
+npm publish --access public --registry https://registry.npmjs.org/
+```
 
 
 

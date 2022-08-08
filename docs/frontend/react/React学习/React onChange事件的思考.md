@@ -2,6 +2,10 @@
 title: React onChange事件的思考
 ---
 
+## onChange事件
+
+### react没有onChange事件？
+
 React中的onChange事件和onInput事件行为类似。
 
 这是官方故意为之的，具体可看[文档](https://reactjs.org/docs/dom-elements.html#onchange)
