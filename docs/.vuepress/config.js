@@ -62,7 +62,7 @@ module.exports = {
           },
           {
             text: '面试',
-            link: '/frontend/面试'
+            link: '/frontend/面试/1'
           },
           
         ]
