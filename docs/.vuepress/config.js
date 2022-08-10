@@ -61,9 +61,10 @@ module.exports = {
             link: '/小程序/小程序开发常见问题'
           },
           {
-            text: '购物',
-            link: '/捡垃圾/闲鱼翻车记录'
+            text: '面试',
+            link: '/frontend/面试'
           },
+          
         ]
       },
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
@@ -80,7 +81,11 @@ module.exports = {
         items: [
           { text: '软件设置', link: '/software/列表' },
           { text: 'VSCode', link: '/software/Vscode/VSCODE更新特性' },
-          { text: 'MACOS使用技巧', link: '/software/macOS使用/MacOS使用' }
+          { text: 'MACOS使用技巧', link: '/software/macOS使用/MacOS使用' },
+          {
+            text: '购物',
+            link: '/捡垃圾/闲鱼翻车记录'
+          }
         ]
       }
     ],
@@ -121,6 +126,7 @@ module.exports = {
       '/linux/': getSidebar('../linux/'),
       // Software
       '/software/': getSidebar('../software/'),
+      '/frontend/面试/': getSidebar('../frontend/面试/'),
       '/捡垃圾/': getSidebar('../捡垃圾/')
     },
     // plugins: {
