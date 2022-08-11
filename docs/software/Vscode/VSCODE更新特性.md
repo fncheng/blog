@@ -56,3 +56,11 @@ Vue template中<>括号颜色会突出显示 [issue](https://github.com/microsof
 
 该问题已修复，预计于1.61发布
 
+
+
+### JSDOC自动补全
+
+jsdoc auto complete功能于1.68版本失效了，起初我以为是这个功能被移除了，后来才发现是被设置为默认关闭了。[issues#149385](https://github.com/microsoft/vscode/issues/149385)
+
+解决办法：[issues#152970](https://github.com/microsoft/vscode/issues/152970)
+
