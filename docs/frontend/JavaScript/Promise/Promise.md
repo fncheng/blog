@@ -336,3 +336,6 @@ console.log(1); // 1, 2, 3, 4
 ### Async await reject问题
 
 async await语法不能接收reject，需要使用try catch处理
+
+
+

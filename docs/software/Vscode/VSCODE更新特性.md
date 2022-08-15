@@ -2,19 +2,19 @@
 title: vscode更新特性
 ---
 
-## vscode颜色配置
+### vscode颜色配置
 
 新增特性：
 
-### [更新快速选择和建议小部件颜色](https://code.visualstudio.com/updates/v1_57#_updated-quick-pick-suggest-widget-colors)
+#### [更新快速选择和建议小部件颜色](https://code.visualstudio.com/updates/v1_57#_updated-quick-pick-suggest-widget-colors)
 
 我们更新了快速选择和建议小部件中的焦点状态，以更好地与我们的树小部件样式保持一致。这引入了一些控制焦点前景的新颜色标记：
 
 以下设置均设为 `"#ff0000"`
 
-- `list.focusHighlightForeground`  输入建议匹配前景色 <img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210630142735982.png" alt="image-20210630142735982" style="zoom:50%;" />
-- `quickInputList.focusForeground` <img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210630143004743.png" alt="image-20210630143004743" style="zoom:50%;" />
-- `editorSuggestWidget.selectedForeground`  输入建议选中项文字前景色 <img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210630143239445.png" alt="image-20210630143239445" style="zoom:50%;" />
+- `list.focusHighlightForeground`  输入建议匹配前景色 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210630142735982.png" alt="image-20210630142735982" style="zoom:50%;" />
+- `quickInputList.focusForeground` <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210630143004743.png" alt="image-20210630143004743" style="zoom:50%;" />
+- `editorSuggestWidget.selectedForeground`  输入建议选中项文字前景色 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210630143239445.png" alt="image-20210630143239445" style="zoom:50%;" />
 
 
 
