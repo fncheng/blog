@@ -6,7 +6,7 @@ title: label元素和input元素的关系
 
 **label和表单控件绑定方式有两种：**
 
-1.将表单控件作为label的内容，这样就是隐士绑定。
+1.将表单控件作为label的内容，这样就是隐式绑定。
 
 ```vue
 <label>Date of Birth: <input type="text" name="DofB" /></label>

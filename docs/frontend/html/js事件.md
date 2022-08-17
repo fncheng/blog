@@ -1,7 +1,5 @@
 ---
 title: js事件
-tags:
-- JavaScript
 ---
 
 **HTML DOM事件**

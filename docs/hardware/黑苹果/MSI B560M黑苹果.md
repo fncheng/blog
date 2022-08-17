@@ -88,3 +88,6 @@ smUUID: ED854E1B-033B-4359-873D-A5EC6E1E2AD2
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20220118110407042.png" alt="image-20220118110407042" style="zoom:67%;" />
 
+
+
+注意主板断电后会重置设置，设置可以保存在主板的rom中，以供恢复
