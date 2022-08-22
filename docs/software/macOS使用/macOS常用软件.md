@@ -18,6 +18,7 @@
 开发专用：
 
 - [x] [vscode](https://code.visualstudio.com/#alt-downloads)
-- [ ] [Postman](https://github.com/postmanlabs/postman-app-support/issues/9346) 待开发
+- [ ] [Postman](https://github.com/postmanlabs/postman-app-support/issues/9346)
 - [x] [iTerm2](https://iterm2.com/)
-
+- [ ] [Proxyman](https://proxyman.io/)
+- [ ] [PicGo](https://github.com/Molunerfinn/PicGo/releases)

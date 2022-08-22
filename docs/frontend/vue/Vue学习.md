@@ -339,7 +339,7 @@ https://juejin.im/post/6844903919273918477
 
 事件挂载的方法等，只执行一次的放在 `mounted` 中；组件每次进去执行的方法放在 `activated` 中；
 
-> `actived`和`deactivated`写在被keep-alive包裹的组件的内部
+> `activated`和`deactivated`写在被keep-alive包裹的组件的内部
 
 #### Api
 

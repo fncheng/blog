@@ -73,9 +73,17 @@ git checkout -q
 
 2.23后可以使用switch来切换分支
 
+### 追踪远程分支
 
-
-
+追踪
+```sh
+git branch (--set-upstream-to=<upstream> | -u <upstream>) [<branchname>]
+git branch --track <branchname>
+```
+取消追踪
+```sh
+git branch --unset-upstream [<branchname>]
+```
 
 ## 撤销修改(恢复文件)
 

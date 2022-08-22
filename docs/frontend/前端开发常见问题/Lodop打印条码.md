@@ -1,3 +1,9 @@
+---
+title: Lodop打印条码
+---
+
+
+
 ## 引入LODOP
 
 ```html

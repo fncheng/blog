@@ -220,6 +220,12 @@ https://github.com/daliansky/XiaoXinPro-13-hackintosh/wiki/%E9%94%AE%E7%9B%98
 - [ ] iTerm2
 - [ ] Path Finder
 
+
+
+### 睡眠问题
+
+
+
 ## 附录
 
 三码
@@ -231,6 +237,8 @@ smUUID: 7855858C-572D-4D7F-9C52-5E0E2B547DBC
 ```
 
 <img src="/Users/cheng/Library/Application Support/typora-user-images/image-20220120112803098.png" alt="image-20220120112803098" style="zoom:67%;" />
+
+
 
 ## EFI更新
 
@@ -244,5 +252,6 @@ smUUID: 7855858C-572D-4D7F-9C52-5E0E2B547DBC
   >
   > https://github.com/daliansky/XiaoXinPro-13-hackintosh/issues/92
 
-Chinch
+2022/08/10
 
+更新到OC 0.7.5 有睡眠耗电问题。回退0.6.5

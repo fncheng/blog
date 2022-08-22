@@ -1,3 +1,9 @@
+---
+title: Vue插件
+---
+
+
+
 Vue
 
 - [vue-scroll-nav滚动导航组件](https://github.com/pekonchan/scrollNav)
