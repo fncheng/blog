@@ -221,6 +221,19 @@ cell 是该单元格dom元素
 
 el-input组件需要添加name属性
 
+### el-input限制数字
+
+通过内联oninput="value=value.replace(/\[^\d]/g, '')"来实现
+
+```vue
+<el-input
+  v-model="number"
+  oninput="value=value.replace(/[^\d]/g, '')"
+  style="width: 80px"
+>
+</el-input>
+```
+
 
 
 
@@ -412,9 +425,38 @@ element ui表单验证
 
 其中callback是一定要调用的
 
+### el-form 嵌套el-table的表单验证
 
+上网查阅得知 这个时候要用动态prop
 
+具体案例看[demo](https://codesandbox.io/s/cool-fermi-cjpzmh?file=/src/views/index.vue)
 
+```vue
+<el-form :model="form" :rules="rules">
+  <el-table :data="form.tableData" border :header-cell-class-name="'table-header-class'">
+    <el-table-column label="姓名">
+      <template slot-scope="scope">
+        <el-form-item :prop="'tableData.' + scope.$index + '.name'" v-if="scope.row.isEdit" :rules="rules.name">
+          <el-input v-model="scope.row.name"></el-input>
+        </el-form-item>
+        <span v-else>{{ scope.row.name }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <span @click="editItem(scope.row)">编辑</span>
+      </template>
+    </el-table-column>
+  </el-table>
+  <el-form-item prop="sex" label="性别">
+    <el-input v-model="form.sex"></el-input>
+  </el-form-item>
+</el-form>
+```
+
+其中el-form-item上的prop要动态绑定，写作`:prop="'tableData.' + scope.$index + '.name'"`，或者用反引号
+
+:prop="\`tableData.${scope.$index}.date\`"
 
 ## Dialog
 
@@ -492,3 +534,6 @@ el-date-picker的`v-model` 等价于 `:value="date" @input=(e)=>(date=e)`
 <!-- 这里的null是为了clear清空时再次点击可以直接跳转到当前时间，不设置的话默认是1970年 -->
 ```
 
+
+
+[^\d]: 
