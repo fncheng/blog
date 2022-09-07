@@ -52,7 +52,7 @@ git branch <branch-name> <hash> ## 从指定hash记录创建新分支
 
 
 
-## checkout
+### checkout
 
 ```sh
 -b <branch>           create and checkout a new branch
@@ -85,6 +85,17 @@ git branch --track <branchname>
 git branch --unset-upstream [<branchname>]
 ```
 
+#### 同时推送多个仓库
+
+```sh
+# 添加push仓库
+git remote set-url --add origin --push git@gitlab.com:fncheng/blog.git
+```
+
+
+
+
+
 ## 撤销修改(恢复文件)
 
 1. 只是在工作区修改了文件
@@ -95,7 +106,7 @@ $ git checkout -- file  #撤销工作区的修改 file为文件名
 
 2. 修改了文件并提交到暂存区 (`git add`)
 
-	 撤销暂存区修改（unstage）
+     撤销暂存区修改（unstage）
 
 ```sh
 $ git reset HEAD <file> #将file文件从暂存区移到工作区
@@ -138,9 +149,6 @@ git restore [<选项>] [--source=<分支>] <文件>...
     --pathspec-from-file <文件>
                           从文件读取路径表达式
     --pathspec-file-nul   使用 --pathspec-from-file，路径表达式用空字符分隔
-```
-
-```sh
 $ git restore <file>
 ```
 
@@ -346,15 +354,19 @@ git commit -m "Revert commit1 to commit2"
 
 ## fetch & pull
 
-`git fetch` 
+```
+git fetch
+```
 
-​	**抓取所有远端更新**
+   **抓取所有远端更新**
 
-​	是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。
+   是将远程主机的最新内容拉到本地，用户在检查了以后决定是否合并到工作本机分支中。
 
-`git pull`
+```
+git pull
+```
 
-​	**拉取指定远程分支到本地当前分支**
+   **拉取指定远程分支到本地当前分支**
 
 git pull的过程可以理解为
 
@@ -446,4 +458,3 @@ See 'git difftool --tool-help' or 'git help config' for more details.
 ```sh
 git log --name-only # 查看每次commit修改了哪些文件
 ```
-
