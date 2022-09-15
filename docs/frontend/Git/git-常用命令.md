@@ -221,6 +221,8 @@ rebase 之前
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210517221357057.png" alt="image-20210517221357057" style="zoom:77%;" />
 
+如果要将 issue1 合并到 dev 上，可以执行`git merge issue1`操作
+
 ```sh
 git rebase dev
 # 等价于
@@ -229,7 +231,7 @@ git rebase dev
 # 将当前分支的变更 rebase 到指定分支
 
 # 实际上就是将当前分支(issue1)的内容复制一份到dev分支上，时间线不变
-git rebase (current_branch) onto issue1
+git rebase (current_branch onto) dev
 ```
 
 rebase 之后
