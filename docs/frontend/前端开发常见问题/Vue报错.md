@@ -1,6 +1,12 @@
+---
+title: Vue报错
+---
+
+
+
 ## Vue项目"Uncaught SyntaxError: Unexpected token <"报错
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210621100754434.png" alt="image-20210621100754434" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210621100754434.png" alt="image-20210621100754434" style="zoom:67%;" />
 
 
 

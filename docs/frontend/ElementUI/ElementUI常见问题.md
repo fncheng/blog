@@ -535,5 +535,3 @@ el-date-picker的`v-model` 等价于 `:value="date" @input=(e)=>(date=e)`
 ```
 
 
-
-[^\d]: 
