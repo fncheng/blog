@@ -32,6 +32,10 @@ Error: PostCSS plugin tailwindcss requires PostCSS 8.
 
 需要按照**[PostCSS 7 兼容性版本](https://www.tailwindcss.cn/docs/installation#post-css-7)**
 
+```sh
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
+
 
 
 
