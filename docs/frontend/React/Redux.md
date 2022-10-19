@@ -20,3 +20,57 @@
 
 配合Redux Toolkit 的代码跟vuex很像
 
+
+
+### Reducer
+
+#### combineReducers
+
+合并reducer
+
+```js
+combineReducers({
+  visibilityFilter,
+  todos
+})
+```
+
+
+
+#### 开启devtool
+
+```js
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+```
+
+
+
+## Store
+
+Store提供了如下方法
+
+- 维持应用的 state；
+- 提供 [`getState()`](https://www.redux.org.cn/docs/api/Store.html#getState) 方法获取 state；
+- 提供 [`dispatch(action)`](https://www.redux.org.cn/docs/api/Store.html#dispatch) 方法更新 state；
+- 通过 [`subscribe(listener)`](https://www.redux.org.cn/docs/api/Store.html#subscribe) 注册监听器;
+- 通过 [`subscribe(listener)`](https://www.redux.org.cn/docs/api/Store.html#subscribe) 返回的函数注销监听器。
+
+
+
+### subscribe
+
+每次state更新，都会触发subscribe中的listener
+
+于是以下代码就可以用于触发页面更新。
+
+我们都知道React触发页面更新必须通过state/props的更新来触发render
+
+```js
+store.subscribe(() => {
+  this.setState(store.getState())
+})
+```
+
