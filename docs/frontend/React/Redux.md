@@ -74,3 +74,8 @@ store.subscribe(() => {
 })
 ```
 
+
+
+### connect
+
+通过高阶组件connect来将组件和store关联起来

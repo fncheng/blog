@@ -1,3 +1,1 @@
-### width
-
-[MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/min-width)
+border-image 边框线性渐变

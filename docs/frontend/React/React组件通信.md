@@ -6,7 +6,22 @@ title: React组件通信
 
 ## props.children
 
-避免props层层传递，props.children 是当前组件的所有子props
+props.children是组件的所有子节点
+
+```jsx
+<MiddleComponent name={"zs"} age={20}>
+   31321
+</MiddleComponent>
+
+class MiddleComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props); // {name: "zs", age: 20, children: "31321"}
+  }
+}
+```
+
+
 
 ## Context
 
