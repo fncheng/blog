@@ -202,6 +202,25 @@ cell 是该单元格dom元素
 
 
 
+### el-table滚动条
+
+el-table特殊的滚动条是因为elementui的table 是由两张table拼接组合成的
+
+表头是一个table元素，表体部分是一个。
+
+```html
+<div class="el-table__header-wrapper">
+  <table>
+  </table>
+</div>
+<div class="el-table__body-wrapper is-scrolling-left">
+  <table>
+  </table>
+</div>
+```
+
+
+
 ## el-input
 
 ### el-input 组件 autocomplete属性不生效的问题
@@ -533,5 +552,4 @@ el-date-picker的`v-model` 等价于 `:value="date" @input=(e)=>(date=e)`
 
 <!-- 这里的null是为了clear清空时再次点击可以直接跳转到当前时间，不设置的话默认是1970年 -->
 ```
-
 

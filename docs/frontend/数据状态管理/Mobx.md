@@ -56,6 +56,31 @@ action返回一个函数
 
 
 
+### Mobx5 vs Mobx6
+https://juejin.cn/post/6972090480288858142
+
+- 在Mobx6，将数据变成可观察的有 makeObservable, makeAutoObservable, observable 三个 Api
+
+- observable 具有与 makeAutoObservable 相同的 参数配置，但是**它不会将源对象转变为 Observable，
+  而是创建一个新的 Observable 对象, 同时创建的对象是通过 proxy 包裹的，可以追加新的属性**，
+  **make(Auto)Observable 不能直接追加新的属性，追加后，新的属性不具有响应能力**
+  理论上 make(Auto)Observable 修改后的对象是非 Proxy 对象，处理速度上会更快，
+  因此 建议使用 make(Auto)Observable 并提前确定好属性
+
+  
+
+- 对于基本类型的值来说，[observable.box](https://www.mobxjs.com/api#observablebox) 用来将简单类型变成 Observable，这个 Api 专门用来处理简单类型数据 例如 string | number 。
+
+```jsx
+const count = observable.box(3);
+
+<div>{count.get()}</div>
+
+count.set(count + 1);
+```
+
+
+
 ## 常见问题
 
 1. [mobx-react-lite] 'useObserver(fn)' is deprecated. Use `<Observer>{fn}</Observer>` instead, or wrap the entire component in `observer`. 

@@ -30,6 +30,27 @@ ReactDOM.render(title, document.getElementById('root'))
 
 setState会重新渲染组件
 
+#### setState的两种写法
+
+1.对象式
+
+```jsx
+state = {count:0}
+this.setState({count: count + 1})
+console.log(this.state.count);
+```
+
+2.函数式
+
+```jsx
+this.setState((state,props) => {
+  console.log(state,props);
+  return {count:state.count + 1}
+})
+```
+
+
+
 ### 注意:
 
 this.setState()可能是异步的.

@@ -71,4 +71,56 @@ export function ObservePerson() {
 
 
 
-### 
+### makeAutoObservable
+
+```jsx
+const store = makeAutoObservable({
+  count: 0
+});
+// count 即为响应式state
+@observer
+class Main extends React.Component {
+  doClick = () => {
+    console.log("store-----", store.count);
+    store.count = store.count + 1;
+  };
+  render() {
+    return (
+      <>
+        <div>{store.count}</div>
+        <button onClick={() => this.doClick()}>count++</button>
+      </>
+    );
+  }
+}
+```
+
+对于函数式编程，可以有如下写法：
+
+```jsx
+const store = makeAutoObservable({
+  count: 0
+});
+// 用observable也可以
+//const store = observable({
+//  count: 0
+//});
+const Main = observer(() => {
+  return (
+    <>
+      <div>{store.count}</div>
+      <button
+        onClick={() => {
+          console.log("store-----", store.count);
+          store.count = store.count + 1;
+        }}
+      >
+        count++
+      </button>
+    </>
+  );
+});
+```
+
+
+
