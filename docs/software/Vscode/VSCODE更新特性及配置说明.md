@@ -2,6 +2,25 @@
 title: vscode更新特性
 ---
 
+### VSCode单项目配置
+
+VSCode有项目配置和全局配置
+
+项目配置会覆盖全局配置，可用于对单个项目精确控制。
+
+比如关于eslint修复的单独控制
+
+```json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  }
+}
+```
+
+
+
 ### vscode颜色配置
 
 新增特性：
@@ -63,4 +82,14 @@ Vue template中<>括号颜色会突出显示 [issue](https://github.com/microsof
 jsdoc auto complete功能于1.68版本失效了，起初我以为是这个功能被移除了，后来才发现是被设置为默认关闭了。[issues#149385](https://github.com/microsoft/vscode/issues/149385)
 
 解决办法：[issues#152970](https://github.com/microsoft/vscode/issues/152970)
+
+
+
+### Emmet
+
+在jsx文件中键入div出不来提示，如下设置即可
+
+```json
+"emmet.showExpandedAbbreviation": "allways"
+```
 

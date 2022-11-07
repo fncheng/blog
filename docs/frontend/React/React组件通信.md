@@ -90,6 +90,42 @@ export const context = {
 
 
 
+### context与函数组件使用
+
+useContext
+
+```jsx
+export const MyContext = React.createContext({
+  name: "zs",
+  age: 22
+});
+
+export default function App() {
+  return (
+    <MyContext.Provider value={{ name: "zsss", age: 30 }}>
+      <div className="App">
+        <Main />
+        <Child />
+      </div>
+    </MyContext.Provider>
+  );
+}
+
+function Child() {
+  const ctx = useContext(MyContext);
+  console.log(ctx.age);
+  return (
+    <>
+      <div>{ctx.name}</div>
+    </>
+  );
+}
+```
+
+
+
+
+
 ## 函数调用向上传递
 
 ```jsx
