@@ -205,6 +205,16 @@ useEffect首次不执行
 
 
 
+### useEffect和useLayoutEffect
+
+useEffect可以起到watch的作用
+
+useEffect[callback, dep]
+
+第二个参数为空数组时，callback只会运行一次，在mount的时候
+
+
+
 
 
 
