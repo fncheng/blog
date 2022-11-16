@@ -392,6 +392,20 @@ autoindex_localtime on;
 add_header Cache-Control no-store; #让浏览器不保存临时文件
 ```
 
+### 访问不存在的页面时跳转到指定页面
+
+比如我要访问192.168.0.123/123，是不存在的，访问时自动跳转到192.168.0.123，可以配置nginx实现
+
+在server块上增加
+
+```nginx
+if (!-e $request_filename) {
+    rewrite ^/(.*)$ /index.html redirect;
+	}
+```
+
+
+
 
 
 ## 常见报错

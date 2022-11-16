@@ -160,11 +160,18 @@ Array.from(arrayLike: Array, mapFn: function, thisArg: object)
 
 - 查
 
-- 遍历
+### 遍历
 
-  **`Object.keys()`** 遍历对象的键
-  
-  **`Object.values()`** 遍历对象的值
+for...in 
+
+**`Object.keys()`** 遍历对象的键
+
+#### [Object.values()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/values)
+
+Object.values(obj)
+
+**`Object.values()`** 遍历对象的值
+
 
 
 

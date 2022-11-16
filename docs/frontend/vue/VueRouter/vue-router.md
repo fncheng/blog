@@ -235,7 +235,7 @@ const router = new VueRouter({
 // isLogined 用来判断用户是否已登录
 router.beforeEach((to, from, next) => {
   if(isLogined){
-    next()；
+    next()
   }else{
     console.log('测试')
     next('login')

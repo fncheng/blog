@@ -41,9 +41,9 @@ $ git clone git@github.com:fncheng/repo-nav.git ~/Github/repo-nav
 $ git clone git@github.com:fncheng/repo-nav.git ~/Github/my-repo-nav
 ```
 
-### 分支管理
+## 分支管理
 
-#### 新建分支
+### 新建分支
 
 ```sh
 git branch <branch-name> # 从当前分支创建新分支
@@ -333,7 +333,7 @@ sourceTree用法：
 
 ## Revert
 
-回退某个commit
+### 回退某个commit
 
 ```sh
 git revert <commit>
