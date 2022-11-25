@@ -44,9 +44,13 @@ https://zhuanlan.zhihu.com/p/68563760
 
 > offsetWidth是测量包含元素的边框(border)、水平线上的内边距(padding)、竖直方向滚动条(scrollbar)（如果存在的话）、以及CSS设置的宽度(width)的值。
 
+offsetWidth即元素的宽度
 
+### offsetLeft、 offsetTop
 
+分别表示当前元素相对于其 [offsetParent](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/offsetParent) 元素的顶部内边距左边、上边的距离。
 
+offsetParent通常是指body。
 
 
 

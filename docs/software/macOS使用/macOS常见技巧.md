@@ -95,4 +95,8 @@ $ pkgutil --files PKGID
 
 <img src="https://i.imgur.com/pxrd4gj.png" style="zoom:42%;" />
 
-】
+### 系统设置小红点隐藏
+
+1. 关系统偏好里的自动更新
+2. 删除~/Library/Preferences/com.apple.preferences.softwareupdate.plist 文件
+3. defaults write com.apple.systempreferences AttentionPrefBundleIDs 0 && killall Dock

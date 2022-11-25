@@ -110,6 +110,8 @@ gap是 row-gap 和 column-gap 的简写
 
 属性 [`align-self`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-self) 和 [`align-items`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-items) 用于控制项目在块方向的轴上对齐
 
+align-items作用于父元素，属性将所有直接子节点上的 align-self 值设置为一个组。
+
 justify-items、align-items 控制整个grid盒模型的对齐方式
 
 justify-self、Align-self 控制单个盒内元素自身的对齐方式，分别对应水平和垂直。

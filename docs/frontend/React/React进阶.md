@@ -1,6 +1,6 @@
-## React memo
+## React组件缓存
 
-参考：https://segmentfault.com/a/1190000025138329
+参考：[https://segmentfault.com/a/1190000025138329](https://segmentfault.com/a/1190000025138329)
 
 我们都知道当组件props和state发生改变时，当前组件以及其子孙组件会重新渲染，但是有一些组件（纯文本组件）是不需要重新渲染的，这种不需要的组件被重新渲染会影响整体的渲染性能。
 
