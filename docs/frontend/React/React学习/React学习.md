@@ -203,6 +203,8 @@ return (
 
 useEffect首次不执行
 
+useEffect的第二个参数，可用来监听依赖的变化。
+
 
 
 ### useEffect和useLayoutEffect

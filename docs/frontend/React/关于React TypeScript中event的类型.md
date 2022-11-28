@@ -20,7 +20,7 @@ React+TypeScript的项目中定义onClick时，给event声明类型Event，ts会
         button: number;
         buttons: number;
         clientX: number;
-        clientY: number;
+        clientY: nu3mber;
         ctrlKey: boolean;
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.

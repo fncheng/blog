@@ -61,8 +61,8 @@ module.exports = {
             link: '/小程序/小程序开发常见问题'
           },
           {
-            text: '面试',
-            link: '/frontend/面试/1'
+            text: '可视化',
+            link: '/frontend/可视化开发/Echarts使用'
           },
           
         ]
@@ -126,7 +126,7 @@ module.exports = {
       '/linux/': getSidebar('../linux/'),
       // Software
       '/software/': getSidebar('../software/'),
-      '/frontend/面试/': getSidebar('../frontend/面试/'),
+      '/frontend/可视化开发/': getSidebar('../frontend/可视化开发/'),
       '/捡垃圾/': getSidebar('../捡垃圾/')
     },
     // plugins: {

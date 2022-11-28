@@ -1,3 +1,7 @@
+---
+title: Echarts使用
+---
+
 [ECharts官网](https://echarts.apache.org/zh/tutorial.html#5%20%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8B%20ECharts)
 
 [API](https://echarts.apache.org/zh/api.html#echarts)
