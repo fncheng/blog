@@ -1,3 +1,7 @@
+---
+title: http post请求
+---
+
 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST
 
 **HTTP `POST` 方法** 发送数据给服务器. 请求主体的类型由 [`Content-Type`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type) 首部指定.
@@ -11,7 +15,7 @@ PUT 和[`POST`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/POST)�
 > 当 `method` 属性值为 `post` 时，`enctype` 就是将表单的内容提交给服务器的 [MIME 类型](http://en.wikipedia.org/wiki/Mime_type) 。可能的取值有：
 >
 > - `application/x-www-form-urlencoded`：未指定属性时的默认值。
-> - `multipart/form-data`：当表单包含 `type=file` 的 [``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input) 元素时使用此值。
+> - `multipart/form-data`：当表单包含 `type=file` 的 [`input`](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input) 元素时使用此值。
 > - `text/plain`：出现于 HTML5，用于调试。
 >
 > 这个值可被 [``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/button)、`<input type="submit">` 或 `<input type="image">` 元素上的 `formaction` 属性覆盖。
