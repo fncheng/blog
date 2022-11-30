@@ -30,23 +30,40 @@ ReactDOM.render(title, document.getElementById('root'))
 
 setState会重新渲染组件
 
-#### setState的两种写法
+setState的两种方式
 
 1.对象式
 
-```jsx
-state = {count:0}
-this.setState({count: count + 1})
-console.log(this.state.count);
+```js
+<button onClick={() => {
+  this.setState({
+  	number: this.state.number + 1
+  });
+  console.log(this.state);
+}} />
 ```
+
+如果想要在更新完状态后立刻拿到该状态，可以在回调中调用。
+
+```js
+this.setState({number: this.state.number + 1}, () => {
+  console.log(this.state.number);
+})
+```
+
+
 
 2.函数式
 
-```jsx
-this.setState((state,props) => {
-  console.log(state,props);
-  return {count:state.count + 1}
-})
+```js
+<button onClick={() => {
+  this.setState((state) => {
+    return {
+      number: state.number + 1
+    };
+  });
+  console.log(this.state);
+}} />
 ```
 
 
@@ -216,6 +233,46 @@ useEffect[callback, dep]
 第二个参数为空数组时，callback只会运行一次，在mount的时候
 
 
+
+## React Context
+
+```js
+import React, { createContext } from "react";
+
+const NumberContext = createContext(0);
+
+class MiddleComponent extends React.Component {
+  render() {
+    return (
+      <>
+        <ChildComponent />
+        <NumberContext.Consumer>{(value) => value}</NumberContext.Consumer>
+      </>
+    );
+  }
+}
+
+class ChildComponent extends React.Component {
+  static contextType = NumberContext;
+  render() {
+    return (
+      <>
+        <div>context: {this.context}</div>
+      </>
+    );
+  }
+}
+
+class Main extends React.Component {
+  render() {
+    return (
+      <NumberContext.Provider value={10}>
+        <MiddleComponent />
+      </NumberContext.Provider>
+    );
+  }
+}
+```
 
 
 
