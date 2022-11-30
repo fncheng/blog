@@ -91,3 +91,167 @@ count.set(count + 1);
 
    解决：使用`useLocalObservable`代替`useLocalStore`
 
+
+
+### Mobx使React组件响应式
+
+mobx有三种方法去做observe：observer，Observer，useObserver。
+
+#### 1.observer
+
+首先使用observer HOC包裹组件，生成一个watcher
+
+> mobx-react 提供了一个名为 observer 的高阶组件
+
+其次使用useLocalObservable包装属性
+
+```jsx
+const TimerView = observer(() => {
+  const timer = useLocalObservable(() => ({
+    count: 0,
+    increment() {
+      this.count = this.count + 1;
+    }
+  }));
+  const handleClick = (e) => {
+    timer.count = timer.count + 1;
+  };
+
+  return (
+    <div>
+      <span>{timer.count}</span>
+      <button
+        onClick={() => {
+          console.log(timer);
+          timer.increment();
+        }}
+      >
+        btn
+      </button>
+      <button onClick={handleClick}>button2</button>
+    </div>
+  );
+});
+```
+
+**装饰器和class写法**
+
+```jsx
+@observer
+class TimerView extends React.Component {
+  timer = observable({
+    count: 0
+  });
+  handleClick = (e) => {
+    console.log(this.timer);
+    this.timer.count = this.timer.count + 1;
+  };
+  render() {
+    return (
+      <div>
+        <span>{this.timer.count}</span>
+        <button onClick={this.handleClick}>button2</button>
+      </div>
+    );
+  }
+}
+```
+
+以上两种写法是等效的
+
+#### 2.Observer
+
+```jsx
+import { observable } from "mobx";
+import { Observer } from "mobx-react";
+
+function Main() {
+  const store = observable({
+    count: 100
+  });
+  const handleClick = (e) => {
+    store.count = store.count + 1;
+  };
+  return (
+    <>
+      <Observer>{() => <span>{store.count}</span>}</Observer>
+      <button onClick={handleClick}>count++</button>
+    </>
+  );
+}
+```
+
+#### 3.useObserver
+
+useLocalObservable和useObserver都是属于hooks，必须在函数组件内使用
+
+[mobx-react-lite] 'useObserver' is deprecated, use 'Observer' instead.
+
+已经不再推荐使用useObserver
+
+```jsx
+export default function App() {
+  const store = useLocalObservable(() => {
+    console.log("useLocalObservable init");
+    return {
+      number: 0
+    };
+  });
+  const handleClick = () => {
+    store.number = store.number + 1;
+  };
+  const MySpan = useObserver(() => <span>{state.count}</span>);
+  return (
+    <div className="App">
+      {MySpan}
+      <button onClick={handleClick}>button</button>
+    </div>
+  );
+}
+```
+
+
+
+### Mobx使数据响应式
+
+#### 1.observerable
+
+#### 2.useLocalObservable
+
+> 返回一个被mobx包装过的对象
+>
+> Proxy {Symbol(mobx administration): ObservableObjectAdministration}
+
+useLocalObservable是一个语法糖：
+
+```js
+const [state] = useState(() =>
+  observable(initializer(), annotations, { autoBind: true })
+)
+```
+
+```jsx
+const TimerView = observer(() => {
+  const timer = useLocalObservable(() => ({
+    count: 0,
+    increment() {
+      this.count = this.count + 1;
+    }
+  }));
+
+  return (
+    <div>
+      <span>{timer.count}</span>
+      <button
+        onClick={() => {
+          console.log(timer);
+          timer.increment();
+        }}
+      >
+        btn
+      </button>
+    </div>
+  );
+});
+```
+

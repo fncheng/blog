@@ -108,7 +108,7 @@ https://element.eleme.cn/#/zh-CN/component/table
 
 ### 自定义表格-表头的样式
 
-> **header-row-class-name:** 表头行的 className 
+> **header-row-class-name:** 表头行的 className
 >
 > **header-cell-class-name:** 表头单元格的 className
 >

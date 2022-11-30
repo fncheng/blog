@@ -26,20 +26,6 @@ person.name = "Mike" // will cause the Observer region to re-render
 
 Mobx-React integration
 
-#### useLocalObservable
-
-> 返回一个被mobx包装过的对象
->
-> Proxy {Symbol(mobx administration): ObservableObjectAdministration}
-
-useLocalObservable是一个语法糖：
-
-```js
-const [state] = useState(() =>
-  observable(initializer(), annotations, { autoBind: true })
-)
-```
-
 
 
 Since strict-mode is enabled, changing (observed) observable values without using an action is not allowed.
