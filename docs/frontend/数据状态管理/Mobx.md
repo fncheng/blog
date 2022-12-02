@@ -214,7 +214,7 @@ export default function App() {
 
 ### Mobx使数据响应式
 
-#### 1.observerable
+#### 1.observable
 
 #### 2.useLocalObservable
 
