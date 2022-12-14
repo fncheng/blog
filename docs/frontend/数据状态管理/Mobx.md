@@ -255,3 +255,26 @@ const TimerView = observer(() => {
 });
 ```
 
+
+
+### Mobx6 computed
+
+Decorator for class properties: @computed get value() { return expr; }. For legacy purposes also invokable as ES5 observable created: `computed(() => expr)`;
+
+```ts
+export interface IComputedValue<T> {
+    get(): T;
+    set(value: T): void;
+    observe_(listener: (change: IComputedDidChange<T>) => void, fireImmediately?: boolean): Lambda;
+}
+export interface IComputedValueOptions<T> {
+    get?: () => T;
+    set?: (value: T) => void;
+    name?: string;
+    equals?: IEqualsComparer<T>;
+    context?: any;
+    requiresReaction?: boolean;
+    keepAlive?: boolean;
+}
+```
+
