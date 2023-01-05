@@ -93,11 +93,11 @@ count.set(count + 1);
 
 
 
-### Mobx使React组件响应式
+## Mobx使React组件响应式
 
 mobx有三种方法去做observe：observer，Observer，useObserver。
 
-#### 1.observer
+### 1.observer
 
 首先使用observer HOC包裹组件，生成一个watcher
 
@@ -159,7 +159,7 @@ class TimerView extends React.Component {
 
 以上两种写法是等效的
 
-#### 2.Observer
+### 2.Observer
 
 ```jsx
 import { observable } from "mobx";
@@ -181,7 +181,7 @@ function Main() {
 }
 ```
 
-#### 3.useObserver
+### 3.useObserver
 
 useLocalObservable和useObserver都是属于hooks，必须在函数组件内使用
 
@@ -212,11 +212,11 @@ export default function App() {
 
 
 
-### Mobx使数据响应式
+## Mobx使数据响应式
 
-#### 1.observable
+### 1.observable
 
-#### 2.useLocalObservable
+### 2.useLocalObservable
 
 > 返回一个被mobx包装过的对象
 >
