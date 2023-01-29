@@ -18,7 +18,7 @@ Mobx中包含了几个重要的属性和字段，分别有：
 
 ### observerable & observer
 
-[doc](https://github.com/mobxjs/mobx/tree/mobx4and5/docs#core-concepts)
+👉[doc](https://github.com/mobxjs/mobx/tree/mobx4and5/docs#core-concepts)
 
 observerable可以用来观察数据结构（如对象、数组和类实例）
 
@@ -78,18 +78,6 @@ const count = observable.box(3);
 
 count.set(count + 1);
 ```
-
-
-
-## 常见问题
-
-1. [mobx-react-lite] 'useObserver(fn)' is deprecated. Use `<Observer>{fn}</Observer>` instead, or wrap the entire component in `observer`. 
-
-   解决：使用`<Observer>{fn}</Observer>`代替`useObserver(fn)`
-
-2. [mobx-react-lite] 'useLocalStore' is deprecated, use 'useLocalObservable' instead.
-
-   解决：使用`useLocalObservable`代替`useLocalStore`
 
 
 
@@ -278,3 +266,14 @@ export interface IComputedValueOptions<T> {
 }
 ```
 
+
+
+## 常见问题
+
+1. [mobx-react-lite] 'useObserver(fn)' is deprecated. Use `<Observer>{fn}</Observer>` instead, or wrap the entire component in `observer`. 
+
+   解决：使用`<Observer>{fn}</Observer>`代替`useObserver(fn)`
+
+2. [mobx-react-lite] 'useLocalStore' is deprecated, use 'useLocalObservable' instead.
+
+   解决：使用`useLocalObservable`代替`useLocalStore`
