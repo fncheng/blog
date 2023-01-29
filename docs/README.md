@@ -59,6 +59,7 @@
 - [vue 组件通信](./vue/vue组件通信.md)
 - [vue-router 的原理](./vue/vue-router.md)
 - [单页路由解析与实现](https://github.com/chenqf/frontEndBlog/issues/11)
+- [Vue keep-alive组件持久化](https://github.com/fncheng/fe/issues/10)
 
 ###### Vue 性能优化
 

@@ -64,7 +64,7 @@ function Son(props) {
 
 
 
-### Pub Sub模式
+### Pub Sub-发布订阅模式
 
 即 Publish/Subscribe “发布/订阅”模式。
 

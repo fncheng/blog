@@ -2,7 +2,7 @@
 title: webpack搭建VUE开发环境
 ---
 
-## 起步
+## 各模块功能
 
 ### Webpack-dev-server
 
@@ -56,8 +56,6 @@ webpack 5.2已内置功能
 Output.clean = true即可开启
 
 开发的时候浏览器会有日志
-
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20211123202510003.png" alt="image-20211123202510003" style="zoom:67%;" />
 
 如果不想看见这些日志，可以通过设置[devServer.client](https://webpack.docschina.org/configuration/dev-server/#devserverclient)去除
 
