@@ -62,6 +62,14 @@ grid-template-columns和grid-template-rows用于创建几行几列的网格
 
 
 
+## 属性
+
+|                  | 备注                                                         |
+| ---------------- | ------------------------------------------------------------ |
+| justify\-items   | 作用于整体<br> **`justify-items`** 属性为所有盒中的项目定义了默认的 justify-self |
+| justify\-self    | 作用于个体                                                   |
+| justify\-content | 元素顺着网格行轴如何分配<br>如果设置成了 33.33% 或者 1fr 这种为每个网格平均分配宽度的情况，justify-content 属性自然是没有意义的 |
+
 
 
 ## gap

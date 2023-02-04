@@ -108,7 +108,79 @@ compress: {
 
 使用[mini-svg-data-uri](https://www.npmjs.com/package/mini-svg-data-uri)
 
+### SVG Sprite 雪碧图
 
+将多张svg文件整合到一张图片上，以减少网络请求
+
+#### 使用svg-sprite-loader
+
+```sh
+yarn add svg-sprite-loader -D
+```
+
+webpack配置svg-sprite-loader，具体配置选项可以查看[官网](https://github.com/JetBrains/svg-sprite-loader)
+
+```js
+{
+          test: /\.svg/i,
+          loader: 'svg-sprite-loader',
+          options: {
+            symbolId: 'icon-[name]'
+          }
+        }
+```
+
+封装SvgIcon组件
+
+```vue
+<template>
+  <svg class="icon" aria-hidden="true">
+    <use :xlink:href="iconName"></use>
+  </svg>
+</template>
+
+<script>
+export default {
+  name: 'SvgIcon',
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    iconName() {
+      return `#icon-${this.name}`
+    }
+  }
+}
+</script>
+
+<style>
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style>
+```
+
+全局注册SvgIcon组件，并加载所有svg图标
+
+```js
+import Vue from 'vue'
+import SvgIcon from '../../components/SvgIcon'
+
+Vue.component('SvgIcon', SvgIcon)
+console.log('req=======', require.context('./', false, /\.svg$/))
+
+// 定义一个加载目录的函数
+const requireAll = (r) => r.keys().map(r)
+// 批量导入svg目录下的svg文件
+requireAll(require.context('./', false, /\.svg$/))
+```
 
 
 

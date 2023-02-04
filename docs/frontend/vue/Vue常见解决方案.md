@@ -49,3 +49,27 @@ https://www.jianshu.com/p/346c05d4d9d8
 1. 直接使用
 2. 写在axios请求拦截器和响应拦截器中
 3. 写在路由中的router.beforeEach和router.afterEach （只在切换路由时有效）
+
+## Vue动态添加样式
+
+通过变量控制
+
+```vue
+<div class="g-top">
+<el-button
+  id="tab-first"
+  :class="`btn-title ${activeTab === 1 ? 'active' : ''}`"
+  @click="activeTab = 1"
+>
+  居民健康状况
+</el-button>
+<el-button
+  id="tab-second"
+  :class="`btn-title ' + ${activeTab === 2 ? 'active' : ''}`"
+  @click="activeTab = 2"
+>
+  居民列表
+</el-button>
+</div>
+```
+

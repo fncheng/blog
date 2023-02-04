@@ -75,7 +75,11 @@ array.splice(start, delCount)
 // 如果不写delCount，则表示删除start后面的所有元素，包括start
 ```
 
+### slice
 
+截取数组 [ begin,end ) 从 begin 到 end (不包括end) **不会改变原数组**。
+
+利用这个特性，slice(0)可以浅拷贝数组
 
 ### Array.from
 

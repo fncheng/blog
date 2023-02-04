@@ -498,6 +498,10 @@ https://cn.vuejs.org/v2/guide/components-custom-events.html#%E5%B0%86%E5%8E%9F%E
 
 ## Mixin 混入
 
+### 什么是mixin
+
+> A mixin object can contain any component options
+
 mixin就是一个对象，当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
 
 ```js
