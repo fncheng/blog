@@ -51,6 +51,32 @@ export default Main;
 
 [codesandbox](https://codesandbox.io/s/react-render-props-3fxhh?file=/src/Views/Main.jsx)
 
+**render props**和**props.children**实际上是同一个，render属性和children属性，只是children属性是写在组件<>符号内部的
+
+```jsx
+function Mouse(props) {
+	// ...
+  return (
+    <div
+      style={{ height: "100vh" }}
+      onMouseMove={debounce(handleMouseMove, 300)}
+    >
+      {/* {props.render(state)} */}
+      {props.children(state)}
+    </div>
+  );
+}
+
+export function Main() {
+  return (
+    <div>
+      {/* <Mouse render={(mouse) => <Cat mouse={mouse} />} /> */}
+      <Mouse>{(mouse) => <Cat mouse={mouse} />}</Mouse>
+    </div>
+  );
+}
+```
+
 
 
 ### Render props 和 vue 插槽

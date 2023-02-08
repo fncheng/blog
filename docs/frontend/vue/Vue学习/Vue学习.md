@@ -405,6 +405,10 @@ https://cn.vuejs.org/v2/guide/components-slots.html
 
 
 
+### 关于插槽和render props
+
+我们已经知道插槽的作用是往组件中传递组件，而React中 render props（即props.children的渲染） 和插槽功能类似，详情见[render props与Vue插槽](http://81.71.14.90:3000/frontend/React/React%E5%AE%9E%E7%8E%B0%E5%A4%8D%E7%94%A8.html#render-props)
+
 ### 2.4.1具名插槽
 
 ```vue

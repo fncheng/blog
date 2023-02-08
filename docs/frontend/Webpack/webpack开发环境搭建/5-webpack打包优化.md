@@ -38,7 +38,7 @@ webpack提供了[UglifyjsWebpackPlugin](https://webpack.docschina.org/plugins/ug
       compress: {...options}, //其他压缩选项。默认true
       warnings: false //显示警告。默认false
     },
-    sourceMap: false //sourceMap选项。默认false。如果希望指定源地图选项，则传递一个对象 。
+    sourceMap: false //sourceMap选项。默认false。如果希望指定源地图选项，则传递一个对象。
   })
 ]
 ```
@@ -130,7 +130,7 @@ webpack配置svg-sprite-loader，具体配置选项可以查看[官网](https://
         }
 ```
 
-封装SvgIcon组件
+#### 封装SvgIcon组件
 
 ```vue
 <template>

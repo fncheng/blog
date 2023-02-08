@@ -58,30 +58,36 @@ action返回一个函数
 
 
 
-### Mobx5 vs Mobx6
+## Mobx5 vs Mobx6
 https://juejin.cn/post/6972090480288858142
 
-- 在Mobx6，将数据变成可观察的有 makeObservable, makeAutoObservable, observable 三个 Api
-
-- observable 具有与 makeAutoObservable 相同的 参数配置，但是**它不会将源对象转变为 Observable，
-  而是创建一个新的 Observable 对象, 同时创建的对象是通过 proxy 包裹的，可以追加新的属性**，
-  **make(Auto)Observable 不能直接追加新的属性，追加后，新的属性不具有响应能力**
-  理论上 make(Auto)Observable 修改后的对象是非 Proxy 对象，处理速度上会更快，
-  因此 建议使用 make(Auto)Observable 并提前确定好属性
-
-  
-
-- 对于基本类型的值来说，[observable.box](https://www.mobxjs.com/api#observablebox) 用来将简单类型变成 Observable，这个 Api 专门用来处理简单类型数据 例如 string | number 。
-
-```jsx
-const count = observable.box(3);
-
-<div>{count.get()}</div>
-
-count.set(count + 1);
-```
+1. 在Mobx6，将数据变成可观察的有 makeObservable, makeAutoObservable, observable 三个 Api
 
 
+
+2. observable 具有与 makeAutoObservable 相同的 参数配置，但是**它不会将源对象转变为 Observable，
+   而是创建一个新的 Observable 对象, 同时创建的对象是通过 proxy 包裹的，可以追加新的属性**，
+   **make(Auto)Observable 不能直接追加新的属性，追加后，新的属性不具有响应能力**
+   理论上 make(Auto)Observable 修改后的对象是非 Proxy 对象，处理速度上会更快，
+   因此 建议使用 make(Auto)Observable 并提前确定好属性
+
+
+
+3. 对于基本类型的值来说，[observable.box](https://www.mobxjs.com/api#observablebox) 用来将简单类型变成 Observable，这个 Api 专门用来处理简单类型数据 例如 string | number 。
+
+   ```jsx
+   const count = observable.box(3);
+   
+   <div>{count.get()}</div>
+   
+   count.set(count + 1);
+   ```
+
+4. mobx-react 提供 useLocalObservable 可以代替 useState 来给 函数式组件提供 ”可观察的“ state
+
+5. mobx-react 会提供一个名为 observer 的 HOC 帮助我们将组件变成观察者
+
+   
 
 ## Mobx使React组件响应式
 
@@ -91,7 +97,14 @@ mobx有三种方法去做observe：observer，Observer，useObserver。
 
 首先使用observer HOC包裹组件，生成一个watcher
 
-> mobx-react 提供了一个名为 observer 的高阶组件
+> mobx-react 提供了一个名为 observer 的高阶组件，observer的作用时将组件变成可观察的
+
+- 成为观察者的组件，只有在当前组件内使用的 “可观察数据” 发生改变时才会重新 render 组件，否则组件不做更新，从而提高性能
+- 可观察数据一般是一个对象，而且这个对象的值可能变化，但是引用地址不会改变
+- observer 相当于帮我们做了 pureComponent\memo，而且控制 render 的更加精细
+- 没有使用 “可观察数据” 的组件，应改为使用 React.memo | React.PureComponent 来增强性能
+
+
 
 其次使用useLocalObservable包装属性
 
