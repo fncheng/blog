@@ -58,13 +58,18 @@ iterm2-send-zmodem.sh和iterm2-recv-zmodem.sh脚本文件
 
 item2-zmodem：https://github.com/aikuyun/iterm2-zmodem
 
-#### iTerm2设置
+### iTerm2配置trigger
+
+进入iterm2配置项preferences-> profiles->default->editProfiles->Advanced中的Tirgger
 
 ```sh
-rz waiting to receive.\*\*B0100000023be50
-/usr/local/bin/iterm2-send-zmodem.sh
-\*\*B00000000000000
-/usr/local/bin/iterm2-recv-zmodem.sh
+Regular expression: rz waiting to receive.\*\*B0100
+Action: Run Silent Coprocess
+Parameters: /usr/local/bin/iterm2-send-zmodem.sh
+
+Regular expression: \*\*B00000000000000
+Action: Run Silent Coprocess
+Parameters: /usr/local/bin/iterm2-recv-zmodem.sh
 ```
 
 

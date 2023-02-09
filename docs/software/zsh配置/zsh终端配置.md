@@ -175,3 +175,15 @@ noproxy () {
 $ history -c
 ```
 
+
+
+## Zsh主题
+
+iterm2 theme: https://iterm2colorschemes.com/
+
+https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+目前用过的主题
+
+- ys
+- 
