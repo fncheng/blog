@@ -2,7 +2,7 @@
 
 
 
-### 模糊匹配
+### querySelector模糊匹配
 
 ```js
 document.querySelector('div[class^="top"]')

@@ -31,7 +31,7 @@ function getSidebar(filePath, count = 0) {
     }
     // 如果是file
     else {
-      console.log('是文件', /md$/i.test(val))
+      // console.log('是文件', /md$/i.test(val))
       // count!==0 表示该目录是子菜单， push的值为 '../frontend/Webpack/'.slice(2) + val
       ;/md$/i.test(val) && count === 0 ? res.push(val) : res.push(`${filePath.slice(2)}${val}`)
     }
@@ -40,7 +40,7 @@ function getSidebar(filePath, count = 0) {
     //   console.log(123)
     // }
   })
-  console.log('result', res)
+  // console.log('result', res)
   return res
   // return fs.readdirSync(resolve(filePath)).filter((val) => /md$/.test(val))
 }
@@ -56,10 +56,10 @@ function main(path) {
  */
 function utilSidebar(path) {
   fs.readdirSync(path).map((val) => {
-    console.log('val', val)
+    // console.log('val', val)
     // val 为文件夹或文件的名字
     let absoultePath = resolve(path, val) // 将文件或文件夹的路径转换为绝对路径
-    console.log('absoultePath: ', absoultePath)
+    // console.log('absoultePath: ', absoultePath)
     // 如果是文件夹
     if (fs.statSync(absoultePath).isDirectory()) {
       console.log('是文件夹')
@@ -67,7 +67,7 @@ function utilSidebar(path) {
     }
     // 如果是file
     else {
-      console.log('是文件', /md$/i.test(val))
+      // console.log('是文件', /md$/i.test(val))
       return /md$/i.test(val) && val
     }
   })
