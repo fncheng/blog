@@ -23,7 +23,7 @@ function getSidebar(filePath, count = 0) {
     // console.log('val', val)
     // val 为文件夹或文件的名字
     let absoultePath = resolve('./', filePath, val) // 将文件或文件夹的路径转换为绝对路径
-    console.log('absoultePath: ', absoultePath)
+    // console.log('absoultePath: ', absoultePath)
     // 如果是文件夹
     if (fs.statSync(absoultePath).isDirectory()) {
       // console.log('是文件夹')
