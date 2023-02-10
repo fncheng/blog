@@ -219,7 +219,20 @@ el-table特殊的滚动条是因为elementui的table 是由两张table拼接组�
 </div>
 ```
 
+### El-table多出一条边框线
 
+<iframe src="https://codesandbox.io/embed/vigorous-tdd-sek4up?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="vigorous-tdd-sek4up"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
+
+多出的这一条线实际上是伪元素造成的
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230210165812508.png" alt="image-20230210165812508" style="zoom:67%;" />
+
+知道如何造成的就好解决了
 
 ## el-input
 
