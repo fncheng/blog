@@ -21,7 +21,7 @@ function setSidebar(filePath) {
 }
 
 module.exports = {
-  base: './',
+  base: '/blog/',
   title: 'Guidebook',
   head: [['link', { rel: 'icon', href: '/logo.png' }]],
   port: 3000,
