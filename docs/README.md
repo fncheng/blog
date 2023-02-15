@@ -10,10 +10,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### Software
-
-- [Vim 中文乱码问题](../../issues/8)
-
 ### Git
 
 - [git 从远程仓库删除文件,但本地文件不删除](../../issues/4)
@@ -21,17 +17,16 @@
 - [git 修改本地的远程仓库地址](../../issues/6)
 - [git bash 用命令打开资源管理器](../../issues/13)
 
-### HTTP
+## HTTP
 
-- [http 协议](./http/http协议.md)
-- [正向代理和反向代理](../../issues/19)
-- [cookie、localStorage、sessionStorage 的区别](./http/cookie和localStorage.md)
-- [Axios 拦截器的作用](../../issues/11)
+- [http 协议](./frontend/http/http%E5%8D%8F%E8%AE%AE.md)
+- [http跨域](./frontend/http/Http%E8%B7%A8%E5%9F%9F.md)
+- [contentType请求参数类型](./frontend/http/%E5%85%B3%E4%BA%8EcontentType%E5%92%8C%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B.md)
 
-### CSS
+## CSS
 
-- [CSS 浮动和定位的问题](../../issues/10)
-- [Vue 项目中 background-image 的使用](../../issues/22)
+- [文本溢出和换行问题](./frontend/CSS/1-%E6%96%87%E6%9C%AC%E6%B8%B2%E6%9F%93/%E6%96%87%E6%9C%AC%E6%BA%A2%E5%87%BA%E5%8F%8A%E6%8D%A2%E8%A1%8C.md)
+- [CSS 浮动和定位的问题](./frontend/CSS/3-CSS%E5%B8%83%E5%B1%80/2-%E6%B5%AE%E5%8A%A8%E5%AE%9A%E4%BD%8D%E4%B8%8E%E6%96%87%E6%A1%A3%E6%B5%81.md)
 
 ### JavaScript
 
@@ -52,12 +47,8 @@
 
 - [正则表达式](./src/RegExp/)
 
-### Vue
+## Vue
 
-- [vue 生命周期](./vue/vue生命周期.md)
-- [Vue 插槽---具名插槽和作用域插槽](../../issues/21)
-- [vue 组件通信](./vue/vue组件通信.md)
-- [vue-router 的原理](./vue/vue-router.md)
 - [单页路由解析与实现](https://github.com/chenqf/frontEndBlog/issues/11)
 - [Vue keep-alive组件持久化](https://github.com/fncheng/fe/issues/10)
 
@@ -73,7 +64,14 @@
 
 - [vue-cli中的configureWebpack](../../issues/26)
 
-### Webpack
+## Webpack
+
+- [webpack搭建Vue开发环境](./frontend/webpack/webpack开发环境搭建/1-webpack-dev-server)
+- [webpack loader相关](./frontend/webpack/webpack开发环境搭建/4-webpack使用loader)
 
 - [在webpack中利用postcss将px转换为vw](../../issues/25)
 
+## 开发规范
+
+- [eslint及prittier配置](./frontend/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96ESLint%E5%8F%8APrettier.md)
+- [使用Stylelint格式化css](./frontend/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/Stylelint%E8%A7%84%E8%8C%83css.md)
