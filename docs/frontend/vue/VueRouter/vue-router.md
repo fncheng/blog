@@ -225,36 +225,7 @@ const router = new VueRouter({
 
 ## 常见问题
 
-### 关于 vue-router 的 beforeEach 无限循环的问题
-
-**预期：**使用 beforeEach 时，判断用户是否登录；已登录，则 next()跳转至相应页面；未登录，则跳转至登录页
-
-**代码：**
-
-```js
-// isLogined 用来判断用户是否已登录
-router.beforeEach((to, from, next) => {
-  if(isLogined){
-    next()
-  }else{
-    console.log('测试')
-    next('login')
-  }
-})
-```
-
-**实际表现：**以上会导致路由无限循环
-
-**原因：**
-
-- next() 表示路由成功，直接进入 to 路由，不会再次调用 router.beforeEach()
-- next('login') 表示路由拦截成功，重定向至 login，会再次调用 router.beforeEach()
-
-也就是说 beforeEach()必须调用 next(),否则就会出现无限循环。
-
-官网是这样说明的:
-
-> **`next('/')` 或者 `next({ path: '/' })`**: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。
+### [关于 vue-router 的 beforeEach 无限循环的问题](https://github.com/fncheng/vue-learn/issues/9)
 
 
 

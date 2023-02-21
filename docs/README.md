@@ -70,8 +70,8 @@
 
 ## Webpack
 
-- [webpack搭建Vue开发环境](./frontend/webpack/webpack开发环境搭建/1-webpack-dev-server)
-- [webpack loader相关](./frontend/webpack/webpack开发环境搭建/4-webpack使用loader)
+- [webpack搭建Vue开发环境](./frontend/Webpack/webpack开发环境搭建/1-webpack-dev-server)
+- [webpack loader相关](./frontend/Webpack/webpack开发环境搭建/4-webpack使用loader)
 - [在webpack中利用postcss将px转换为vw](../../issues/25)
 
 ## 开发规范
