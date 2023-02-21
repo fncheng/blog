@@ -262,7 +262,7 @@ router.beforeEach((to, from, next) => {
 
 理论上有几层，就需要几个`<router-view />`
 
-routeConfig 子菜单children.path 不能以 `/`开头
+routeConfig 子菜单children.path 不能以 `/`开头，**以 `/` 开头的嵌套路径将被视为根路径**
 
 https://blog.csdn.net/weixin_43887184/article/details/103546681
 

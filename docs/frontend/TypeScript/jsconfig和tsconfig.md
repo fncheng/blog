@@ -69,6 +69,8 @@ Experimental support for decorators is a feature that is subject to change in a 
 
 https://www.typescriptlang.org/tsconfig
 
+[tsconfig.json文件有什么用？](https://fe.ecool.fun/topic/8f02af9e-ae19-40dd-896d-a568cca4b963?orderBy=updateTime&order=desc&tagId=19)
+
 ```json
 {
   "compilerOptions": {

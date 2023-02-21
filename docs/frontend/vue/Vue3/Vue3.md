@@ -85,6 +85,23 @@ toReadonly也会将变量包装成一个Proxy对象
 
 
 
+### watch
+
+```ts
+function watch<T>(
+  source: WatchSource<T>,
+  callback: WatchCallback<T>,
+  options?: WatchOptions
+): StopHandle
+
+type WatchSource<T> =
+  | Ref<T> // ref
+  | (() => T) // getter
+  | T extends object
+  ? T
+  : never // 响应式对象
+```
+
 
 
 

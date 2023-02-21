@@ -1,17 +1,4 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [宏任务、微任务、同步任务、异步任务与Event Loop](#%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%BE%AE%E4%BB%BB%E5%8A%A1%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E4%B8%8Eevent-loop)
-  - [同步和异步](#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5)
-  - [js事件循环](#js%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF)
-  - [宏任务(task)、微任务(Microtasks)？](#%E5%AE%8F%E4%BB%BB%E5%8A%A1task%E5%BE%AE%E4%BB%BB%E5%8A%A1microtasks)
-    - [宏任务](#%E5%AE%8F%E4%BB%BB%E5%8A%A1)
-    - [微任务](#%E5%BE%AE%E4%BB%BB%E5%8A%A1)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## 宏任务、微任务、同步任务、异步任务与Event Loop
+# 宏任务、微任务、同步任务、异步任务与Event Loop
 
 ### Event Loop(事件轮询)
 
@@ -21,7 +8,7 @@
 
 简单说，就是在程序中设置两个线程：一个负责程序本身的运行，称为"主线程"；另一个负责主线程与其他进程（主要是各种I/O操作）的通信，被称为"Event Loop线程"（可以译为"消息线程"）。
 
-### 同步和异步
+## 同步和异步
 
 - 同步: 程序执行过程中,上一个任务结束立即执行下一个任务,执行的顺序和代码的顺序一致。
 
@@ -33,7 +20,7 @@ console.log() 就是一个同步任务
 
 常见的异步任务: Ajax,DOM事件操作,setTimeout,Promise的then方法,node读取文件
 
-##### 异步的三种实现方式
+### 异步的三种实现方式
 
 ```markdown
 1）回调函数 
@@ -52,13 +39,13 @@ console.log() 就是一个同步任务
 
 **异步任务又分为宏任务和微任务**
 
-### 宏任务(task)、微任务(Microtasks)？
+## 宏任务(task)和微任务(Microtasks)
 
 宏任务和微任务都是异步任务,它们都属于一个队列，主要区别在于他们的执行顺序，Event Loop的走向和取值。
 
 <img src="https://user-gold-cdn.xitu.io/2018/7/14/164974fa4b42e4af?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="cmd-markdown-logo" style="zoom:80%;" />
 
-##### 宏任务
+### 宏任务
 
 | #                       | 浏览器 | Node |
 | :---------------------- | :----: | :--: |
@@ -68,7 +55,7 @@ console.log() 就是一个同步任务
 | `setImmediate`          |   ❌    |  ✅   |
 | `requestAnimationFrame` |   ✅    |  ❌   |
 
-##### 微任务
+### 微任务
 
 | #                            | 浏览器 | Node |
 | :--------------------------- | :----: | :--: |
