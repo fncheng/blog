@@ -53,11 +53,50 @@ export const enum PatchFlags {
 }
 ```
 
-## 2.静态提升
+## 2.静态提升hoistStatic
 
 vue2会比较每一个Vnode，这样对于一些不参与更新的元素，会浪费性能
 
 Vue3diff算法在初始化时会给每一个虚拟节点一个patchFlag，并且只会比较patchFlag发生变化的Vnode，从而节省性能开销
+
+看以下一段vue代码
+
+```vue
+<div>
+  {{msg}}
+  <span>123</span>
+  <button @click="onClick">按钮</button>
+</div>
+```
+
+- 无静态提升
+
+```js
+export function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_openBlock(), _createElementBlock("div", null, [
+    _createTextVNode(_toDisplayString(_ctx.msg) + " ", 1 /* TEXT */),
+    _createElementVNode("span", null, "123"),
+    _createElementVNode("button", { onClick: _ctx.onClick }, "按钮", 8 /* PROPS */, ["onClick"])
+  ]))
+}
+```
+
+- 有静态提升
+
+```js
+const _hoisted_1 = /*#__PURE__*/_createElementVNode("span", null, "123", -1 /* HOISTED */)
+const _hoisted_2 = ["onClick"]
+
+export function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_openBlock(), _createElementBlock("div", null, [
+    _createTextVNode(_toDisplayString(_ctx.msg) + " ", 1 /* TEXT */),
+    _hoisted_1,
+    _createElementVNode("button", { onClick: _ctx.onClick }, "按钮", 8 /* PROPS */, _hoisted_2)
+  ]))
+}
+```
+
+
 
 ## 3.事件侦听缓存cacheHandlers
 
@@ -70,8 +109,6 @@ Vue3diff算法在初始化时会给每一个虚拟节点一个patchFlag，并且
 - 开启事件侦听缓存之前
 
 ```js
-import { createElementVNode as _createElementVNode, openBlock as _openBlock, createElementBlock as _createElementBlock } from "vue"
-
 export function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (_openBlock(), _createElementBlock("div", null, [
     _createElementVNode("button", { onClick: _ctx.onClick }, "按钮", 8 /* PROPS */, ["onClick"])
@@ -82,8 +119,6 @@ export function render(_ctx, _cache, $props, $setup, $data, $options) {
 - 开启cacheHandlers 之后
 
 ```js
-import { createElementVNode as _createElementVNode, openBlock as _openBlock, createElementBlock as _createElementBlock } from "vue"
-
 export function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (_openBlock(), _createElementBlock("div", null, [
     _createElementVNode("button", {

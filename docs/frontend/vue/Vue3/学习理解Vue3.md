@@ -40,6 +40,88 @@ proxiedProduct.price = 20;
 console.log(proxiedProduct["price"]);
 ```
 
+## createApp
+
+createApp的源码
+
+```js
+const createApp = ((...args) => {
+    const app = ensureRenderer().createApp(...args);
+    if ((process.env.NODE_ENV !== 'production')) {
+        injectNativeTagCheck(app);
+        injectCompilerOptionsCheck(app);
+    }
+    const { mount } = app;
+    app.mount = (containerOrSelector) => {
+        const container = normalizeContainer(containerOrSelector);
+        if (!container)
+            return;
+        const component = app._component;
+        if (!isFunction(component) && !component.render && !component.template) {
+            // __UNSAFE__
+            // Reason: potential execution of JS expressions in in-DOM template.
+            // The user must make sure the in-DOM template is trusted. If it's
+            // rendered by the server, the template should not contain any user data.
+            component.template = container.innerHTML;
+        }
+        // clear content before mounting
+        container.innerHTML = '';
+        const proxy = mount(container, false, container instanceof SVGElement);
+        if (container instanceof Element) {
+            container.removeAttribute('v-cloak');
+            container.setAttribute('data-v-app', '');
+        }
+        return proxy;
+    };
+    return app;
+});
+```
+
+createApp接收一个组件作为参数，然后调用`ensureRenderer`方法
+
+```js
+function ensureRenderer() {
+    return (renderer ||
+        (renderer = createRenderer(rendererOptions)));
+}
+```
+
+renderer是渲染器，ensureRenderer的作用是确保渲染器存在，如不存在则创建一个渲染器。
+
+rendererOptions是渲染器的一些配置
+
+```js
+const rendererOptions = extend({ patchProp }, nodeOps);
+const nodeOps = {
+    insert: (child, parent, anchor) => {
+        parent.insertBefore(child, anchor || null);
+    },
+    remove: child => {
+        const parent = child.parentNode;
+        if (parent) {
+            parent.removeChild(child);
+        }
+    },
+    createElement: (tag, isSVG, is, props) => {
+        const el = isSVG
+            ? doc.createElementNS(svgNS, tag)
+            : doc.createElement(tag, is ? { is } : undefined);
+        if (tag === 'select' && props && props.multiple != null) {
+            el.setAttribute('multiple', props.multiple);
+        }
+        return el;
+    },
+    createText: text => doc.createTextNode(text),
+  // ...
+}
+```
+
+
+
+
+
+
+
 
 
 ## Composition API
