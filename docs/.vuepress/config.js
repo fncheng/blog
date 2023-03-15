@@ -25,6 +25,9 @@ module.exports = {
   title: 'Guidebook',
   head: [['link', { rel: 'icon', href: '/logo.png' }]],
   port: 3000,
+  markdown: {
+    lineNumbers: true
+  },
   themeConfig: {
     activeHeaderLinks: false, // 默认值：true
     /**

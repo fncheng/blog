@@ -43,6 +43,28 @@ title: 媒体查询
 
 and、not、only、,(逗号)
 
+举个例子 👉[demo](https://codesandbox.io/s/mei-ti-cha-xun-2kswv2)
+
+```css
+@media screen and (min-width: 320px) {
+  body {
+    font-size: 32px;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  body {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+```
+
 
 
 ## prefers-color-scheme
@@ -50,4 +72,12 @@ and、not、only、,(逗号)
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme
 
 用于检测用户是否有将系统的主题色设置为亮色或者暗色。
+
+
+
+## 移动优先
+
+使用媒体查询时遵循移动优先规则，
+
+即先为移动端(小屏)设计样式，再通过媒体查询去覆盖，详见[移动优先](https://www.tailwindcss.cn/docs/responsive-design#-1)。
 
