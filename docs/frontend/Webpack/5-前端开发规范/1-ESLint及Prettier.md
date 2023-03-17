@@ -1,6 +1,4 @@
----
-title: 前端工程化ESLint及Prettier
----
+# ESLint和Prettier
 
 ## 前提
 
@@ -359,13 +357,6 @@ rules:{
 
 
 
-## eslint-plugin-vue
-
-```js
-```
-
-
-
 ## 最终配置
 
 ### 使用vue-cli初始化的eslint.js
@@ -442,7 +433,7 @@ module.exports = {
 
 
 
-## 常见问题
+## 常见问题及报错
 
 vscode ESLint插件和 Prettier 插件在保存时冲突报错
 

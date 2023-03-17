@@ -1,6 +1,4 @@
----
-title: stylelint格式化css
----
+# 使用Stylelint规范css
 
 ## 安装stylelint
 

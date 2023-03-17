@@ -1,3 +1,5 @@
+# http跨域
+
 ## 什么是跨域
 
 跨域就是跨过**浏览器同源策略限制**进行访问
@@ -12,11 +14,11 @@
 
 3. 跨源数据存储访问
 
-##### 那么什么是浏览器同源策略呢❓
+**那么什么是浏览器同源策略呢❓**
 
 以下是[mdn](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)的解释:
 
-> **同源策略**是一个重要的安全策略，它用于限制一个[origin](https://developer.mozilla.org/zh-CN/docs/Glossary/源)的文档或者它加载的脚本如何能与另一个源的资源进行交互。它能帮助阻隔恶意文档，减少可能被攻击的媒介。
+> **同源策略**是一个重要的安全策略，它用于限制一个源的文档或者它加载的脚本如何能与另一个源的资源进行交互。它能帮助阻隔恶意文档，减少可能被攻击的媒介。
 
 ## 同源又是什么❓
 
@@ -75,22 +77,6 @@ script也可以
 ```http
 Access to XMLHttpRequest at 'http://127.0.0.1:3000/' from origin 'http://127.0.0.1:8888' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
