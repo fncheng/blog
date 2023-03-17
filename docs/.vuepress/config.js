@@ -56,10 +56,6 @@ module.exports = {
             link: '/frontend/前端开发常见问题/前端文件上传'
           },
           {
-            text: '开发规范',
-            link: '/frontend/开发规范/eslintrc配置'
-          },
-          {
             text: '小程序',
             link: '/小程序/小程序开发常见问题'
           },
@@ -107,7 +103,6 @@ module.exports = {
         '../frontend/前端开发常见解决方案/'
       ),
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
-      '/frontend/开发规范/': getSidebar('../frontend/开发规范/'),
       '/frontend/CSS/': getSidebar('../frontend/CSS/'),
       // JavaScript
       '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),

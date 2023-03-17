@@ -32,3 +32,8 @@ https://eslint.vuejs.org/rules/html-self-closing.html
 
 设置 `any` 关闭该规则
 
+
+
+## Vue开发推荐
+
+1. 文件命名尽量不要用pageName/index.vue 这种方式，原因是在查看console.log日志时不方便定位错误，全都显示index.vue，不能一眼看出是哪个文件的错误。
