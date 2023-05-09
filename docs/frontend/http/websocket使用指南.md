@@ -45,3 +45,75 @@ nodejs WebSocket工具
 
 - [Socket.IO](http://socket.io/): 一个基于长轮询/WebSocket的[Node.js](http://nodejs.org/)第三方传输协议。
 
+
+
+## 一个简单的websocket demo
+
+**服务端**
+
+```js
+const wss = new WebSocketServer({
+  port: 3001
+})
+wss.on('connection', function connection(ws) {
+  ws.on('error', console.error)
+  ws.onopen = () => {
+    console.log('websocket 服务 open')
+  }
+  ws.on('message', (data) => {
+    console.log('received %s', data, data === 'hello')
+    if (data == 'hello') {
+      console.log('收到了消息:', data)
+      // ws.send('收到了消息hello')
+    }
+  })
+
+  ws.send('something')
+})
+```
+
+**客户端**
+
+```vue
+<template>
+  <div class="about">
+    <input type="text" v-model="msg" />
+    <button @click="sendMsg">submit</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'About',
+  data() {
+    return {
+      msg: '',
+      ws: null,
+    }
+  },
+  mounted() {
+    if (window.WebSocket) {
+      console.log('webscoket服务顺利运行!')
+      const ws = new WebSocket('ws://localhost:3001')
+      this.ws = ws
+      this.ws.onopen = () => {
+        console.log('onopen建立连接')
+        ws.send('Hi')
+      }
+      this.ws.onmessage = (e) => {
+        console.log('Message from', e)
+      }
+      this.ws.onerror = (e) => {
+        console.log('连接失败', e)
+      }
+    }
+  },
+  methods: {
+    sendMsg() {
+      this.ws.send(this.msg)
+    },
+  },
+}
+</script>
+```
+
