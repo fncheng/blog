@@ -1,4 +1,4 @@
-## CSS自定义属性
+## CSS自定义属性（变量）
 
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties
 

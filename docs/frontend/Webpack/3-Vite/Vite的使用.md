@@ -23,3 +23,6 @@ export default defineConfig({
 - `import.meta.globEager`: 直接引入所有的模块, 即静态 `import`
 
 两种方式都支持绝对路径和相对路径导入，不支持alias等路径别名
+
+
+

@@ -8,6 +8,3 @@ https://zhuanlan.zhihu.com/p/33759023
 
 
 如何打开chrome devtools Priority tab
-
-![](https://matthewhorne.me/wp-content/uploads/2017/09/enable-protocol-tab-in-chrome-dev-tools.png)
-

@@ -134,3 +134,8 @@ cow.speak() // moo
 goat.speak() // baa
 ```
 
+
+
+## es6动态import
+
+即import()方法

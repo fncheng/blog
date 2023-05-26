@@ -46,7 +46,7 @@ title: Vue随笔
 
 ## inheritAttrs的作用
 
-inheritAttrs默认true，默认情况下，父组件传递的，但没有被子组件解析为 props 的 attributes，会被作为子组件根节点(一般是是一个div元素)的属性。
+inheritAttrs默认true，默认情况下，父组件传递的，但没有被子组件解析为 props 的 attributes，会被作为子组件根节点(一般是一个div元素)的属性。
 
 如果你不想其作为根节点属性，而是希望手动绑定给内部的元素。可以设置`inheritAttrs: false`
 

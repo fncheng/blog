@@ -38,6 +38,12 @@ npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefi
 
 
 
+## vite使用tailwind
+
+https://tailwindcss.com/docs/guides/vite
+
+
+
 
 
 ### util

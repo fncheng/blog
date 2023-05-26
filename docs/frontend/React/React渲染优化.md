@@ -1,4 +1,10 @@
-## React组件缓存
+# React组件缓存
+
+- react组件更新是自上而下的，即先父后子
+
+- 而vue组件更新，生命周期则是先子后父
+
+
 
 参考：[https://segmentfault.com/a/1190000025138329](https://segmentfault.com/a/1190000025138329)
 
@@ -57,57 +63,90 @@ const MyComponent = React.memo(function MyComponent(props) {
 });
 ```
 
+## React.memo
+
 `React.memo`是一个[高阶组件](https://reactjs.org/docs/higher-order-components.html)。功能与class component 中的PureComponent 类似
-
-
 
 ```jsx
 import React, { memo, useState } from "react";
 
 export default function Main() {
   const [number, setNumber] = useState(0);
-
+  const [count, setCount] = useState(0);
+  console.log("父组件 render");
   return (
     <>
-      <span>{number}</span>
+      <span>{count}</span>
       <button
         onClick={() => {
-          setNumber(number + 1);
+          setCount(count + 1);
         }}
       >
         btn
       </button>
-      <BaseButton name={"zs"} />
+      <BaseButton number={number} setNumber={setNumber} />
     </>
   );
 }
 
-const BaseButton = memo((props) => {
-  console.log("----子组件重新渲染----", props);
+const BaseButton = memo(({ number, setNumber }) => {
+  console.log("----子组件重新渲染----");
   return (
     <>
-      <button
-        onClick={() => {
-          console.log("click button");
-        }}
-      >
-        BaseButton
-      </button>
-      <span>{props.mykey}</span>
+      <button onClick={() => setNumber(number + 1)}>{number}</button>
     </>
   );
 });
 ```
 
-这里使用memo后BaseButton就只会渲染一次，但是把BaseButton放到Main父组件内后，每次父组件更新，子组件都会重新渲染
+使用memo包裹子组件时，**只有props发生改变子组件才会重新渲染**，以提升一定的性能。
 
-这种情况下就需要useMemo了
+这里使用memo后BaseButton只有在number发生变化时，才会重新渲染。
+
+可以通过观察dom结构的刷新来判断是否渲染👇
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230521213412278.png" alt="image-20230521213412278" style="zoom:50%;" />
+
+但是把BaseButton放到Main父组件内后，每次父组件更新，子组件都会重新渲染，这种情况下就需要useMemo了
+
+```jsx
+import React, { memo, useState } from "react";
+
+export default function Main() {
+  const [number, setNumber] = useState(0);
+  const [count, setCount] = useState(0);
+  const BaseButton = memo(({ number, setNumber }) => {
+    console.log("----子组件重新渲染----");
+    return (
+      <>
+        <button onClick={() => setNumber(number + 1)}>{number}</button>
+      </>
+    );
+  });
+  console.log("父组件 render");
+  return (
+    <>
+      <span>{count}</span>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        btn
+      </button>
+      <BaseButton number={number} setNumber={setNumber} />
+    </>
+  );
+}
+```
 
 
 
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230521213820097.png" alt="image-20230521213820097" style="zoom:50%;" />
 
 
-### useMemo
+
+## useMemo
 
 `useMemo()` 基本用法如下：
 
@@ -133,7 +172,7 @@ useMemo 是在 render 期间执行的，所以不能进行一些额外的副操�
 
   如果没有提供依赖数组（上面的 [a,b]）则每次都会重新计算 memoized 值，也就会 re-redner
 
-
+### useMemo用在函数内
 
 ```jsx
 import React, { useMemo, useState } from "react";
@@ -173,7 +212,7 @@ export default function Main() {
 }
 ```
 
-
+**首先是不使用任何优化方法**
 
 ```jsx
 import React, { useState } from "react";
@@ -235,11 +274,25 @@ const BaseButton = (props) => {
 };
 ```
 
-虽然也会触发----子组件重新渲染----
+虽然也会打印----子组件重新渲染----
+
+但是dom不不会动的
 
 但是可以看到只有span 自己渲染了
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/20221110095554.png"/>
+
+
+
+
+
+[codesandbox](https://codesandbox.io/s/react-memo-usememo-clqls)
+
+## useCallback
+
+
+
+简单理解呢 useCallback 与 useMemo 一个缓存的是函数，一个缓存的是函数的返回值。
 
 
 

@@ -6,7 +6,7 @@ title: jsconfig和tsconfig配置
 
 [jsconfig.json](https://code.visualstudio.com/docs/languages/jsconfig)
 
-```js
+```json
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -63,13 +63,15 @@ Experimental support for decorators is a feature that is subject to change in a 
 ```json
 ```
 
-## tsConfig
+## TSConfig
 
 [tsconfig配置说明](https://code.visualstudio.com/docs/typescript/typescript-compiling#_tsconfigjson)
 
 https://www.typescriptlang.org/tsconfig
 
 [tsconfig.json文件有什么用？](https://fe.ecool.fun/topic/8f02af9e-ae19-40dd-896d-a568cca4b963?orderBy=updateTime&order=desc&tagId=19)
+
+基本配置
 
 ```json
 {
@@ -87,7 +89,33 @@ https://www.typescriptlang.org/tsconfig
 }
 ```
 
+配置说明
+
 [compilerOptions](https://www.tslang.cn/docs/handbook/compiler-options.html)
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2020",
+    // experimentalDecorators: 启用对装饰器的实验性支持
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    // jsx: https://www.typescriptlang.org/tsconfig#jsx
+    // react17后推荐使用react-jsx
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*":["src/*"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  // files   : 用来指定被编译的文件列表，只有编译少量文件才使用
+  files: []
+}
+```
+
+
 
 
 

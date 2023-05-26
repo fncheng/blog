@@ -169,6 +169,8 @@ vue-router 默认 hash 模式,url 会带有"#"标识符,如果想要去除#标�
 
 ## 导航守卫
 
+[官网文档](https://v3.router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB)
+
 导航表示:路由正在发生变化。
 
 > `vue-router` 提供的导航守卫主要用来通过跳转或取消的方式守卫导航。有多种机会植入路由导航过程中：全局的, 单个路由独享的, 或者组件级的。

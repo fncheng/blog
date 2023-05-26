@@ -195,3 +195,8 @@ if (false) {
 console.log(env) // 报错
 ```
 
+
+
+### 关于vite动态导入
+
+传送门👉【[vite动态导入](https://fncheng.github.io/blog/frontend/Webpack/3-Vite/Vite%E7%9A%84%E4%BD%BF%E7%94%A8.html#vite%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)】

@@ -201,7 +201,9 @@ ReactDOM.render(<App></App>, document.getElementById('root'))
 
 ## React Hooks
 
-useState
+### useState
+
+### useEffect
 
 useEffect 监听 state变化
 
@@ -216,7 +218,7 @@ return (
 )
 ```
 
-### useEffect
+
 
 useEffect首次不执行
 
@@ -298,29 +300,3 @@ Router包裹
 ```
 
 
-
-
-
-## React与Vue
-
-#### React 实现watch
-
-
-
-
-
-Error: Objects are not valid as a React child
-
-React不能渲染对象
-
-
-
-
-
-
-
-### 报错
-
-Too many re-renders. React limits the number of renders to prevent an infinite loop
-
-原因：花括号之间的所有值都会立即求值。

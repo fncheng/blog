@@ -56,3 +56,8 @@ Element.classList vs Element.className
 
 Element.getAttribute()
 
+
+
+jquery hover事件反复触发的原因：是因为我们每次触发hover时都会执行一次动画，当我们来回这样快速移动到目标元素上时并反复操作，会导致动画重复多次，上一次动画未结束，这次动画就紧接着来了，所以会导致动画的错乱。
+
+解决办法：我们触发hover时先清空之前所有的动画，并使当前正在执行的动画立马完成。

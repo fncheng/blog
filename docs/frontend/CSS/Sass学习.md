@@ -22,3 +22,16 @@ Sass 拓展了 `@import` 的功能，允许其导入 SCSS 或 Sass 文件。被�
 @import './styles/base.scss'
 ```
 
+## 变量
+
+sass用$，css中用--，var引用
+
+```scss
+$content: "First content"; //sass
+
+:root {
+  --header-height: 86px; // css
+}
+height: var(--header-height); // css 使用
+```
+

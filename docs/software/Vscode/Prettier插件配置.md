@@ -118,7 +118,9 @@ prettier.vueIndentScriptAndStyle //是否缩进Vue文件中的代码<script>和<
 prettier.embeddedLanguageFormatting
 ```
 
+### prettier推荐配置
 
+https://gist.github.com/fncheng/ff998ff899cdae09798fbe1afdc4c8a5
 
 #### requirePragma
 
