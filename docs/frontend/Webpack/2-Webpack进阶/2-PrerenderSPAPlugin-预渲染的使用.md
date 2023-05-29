@@ -8,9 +8,9 @@ Vue SPA 预渲染插件
 
 https://github.com/chrisvfritz/prerender-spa-plugin
 
+### 使用
 
-
-#### Basic Usage (vue.config.js)
+#### vue.config.js
 
 ```js
 const path = require('path')
@@ -43,5 +43,31 @@ module.exports = {
 
 ```
 
+#### webpack.config.js
+
+```js
+const path = require('path')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
+module.exports = {
+  plugins: [
+    ...
+    new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: path.join(__dirname, 'dist'),
+      // Required - Routes to render.
+      routes: [ '/', '/about', '/some/deep/nested/route' ],
+    })
+  ]
+}
+```
 
 
+
+## 错误信息
+
+**[prerender-spa-plugin] Unable to prerender all routes!**
+
+ it's not compatible with webpack 5. 
+
+webpack5不适用，可以使用`@dreysolano/prerender-spa-plugin`

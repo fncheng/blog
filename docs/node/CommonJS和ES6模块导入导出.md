@@ -1,4 +1,4 @@
-### CommandJS
+## CommandJS
 
 https://javascript.ruanyifeng.com/nodejs/module.html#toc1
 
@@ -72,7 +72,7 @@ instance.over(1)
 >
 > 所以`require('module_Name')`的结果其实是module.exports属性，是一个对象。
 
-### ES Modules
+## ES6 Module
 
 https://juejin.im/post/6844903623273480200
 
@@ -139,3 +139,72 @@ goat.speak() // baa
 ## es6动态import
 
 即import()方法
+
+
+
+
+
+## CommonJS AMD UMD区别
+
+CommonJS主要是服务端模块规范，Node.js采用，
+
+加载模块是同步的
+
+之前有讲过CommonJS和ESM的导入导出
+
+这会来说下UMD
+
+## UMD
+
+UMD全名叫通用模块定义规范（Universal Module Definition）
+
+它可以通过运行时或者编译时让同一个代码模块在使用 CommonJs、CMD 甚至是 AMD 的项目中运行。
+
+```js
+((root, factory) => {
+    if (typeof define === 'function' && define.amd) {
+        //AMD
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        //CommonJS
+        var $ = requie('jquery');
+        module.exports = factory($);
+    } else {
+        root.testModule = factory(root.jQuery);
+    }
+})(this, ($) => {
+    //todo
+});
+```
+
+就是检测到node就走CommonJs规范，检测到浏览器就走AMD规范
+
+## vue不同构建版本的解释
+
+```js
+// 服务端渲染。 通过 `require()` 在 Node.js 服务器端渲染使用。
+vue.cjs.js
+vue.cjs.prod.js
+
+// 使用构建工具，如 `webpack`，`rollup` 和 `parcel` 等打包出来的工程项目
+vue.esm-bundler.js
+vue.runtime.esm-bundler.js
+
+// 通过浏览器中的 `<script src="...">` 直接使用，暴露全局Vue
+vue.global.js
+vue.global.prod.js
+vue.runtime.global.js
+vue.runtime.global.prod.js
+
+// 在浏览器中通过 `<script type="module">` 来使用（浏览器原生 ES 模块导入使用）
+vue.esm-browser.js
+vue.esm-browser.prod.js
+vue.runtime.esm-browser.js
+vue.runtime.esm-browser.prod.js
+```
+
+
+
+### 参考
+
+[理解CommonJS、AMD、CMD三种规范](https://zhuanlan.zhihu.com/p/26625636)

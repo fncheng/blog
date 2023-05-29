@@ -69,3 +69,86 @@ module.exports = {
 }
 ```
 
+
+
+## webpack外部扩展externals
+
+该选项可以「从输出的 bundle 中排除指定的依赖」
+
+比如将vue库从项目构建中排除，改为从CDN引入，不过这种需要引入umd格式的文件
+
+[webpack externals字段](https://www.webpackjs.com/configuration/externals/)
+
+```ts
+externals?:
+		| string
+		| RegExp
+		| ExternalItem[]
+		| (ExternalItemObjectKnown & ExternalItemObjectUnknown)
+		| ((
+				data: ExternalItemFunctionData,
+				callback: (
+					err?: Error,
+					result?: string | boolean | string[] | { [index: string]: any }
+				) => void
+		  ) => void)
+		| ((data: ExternalItemFunctionData) => Promise<ExternalItemValue>);
+```
+
+于是在我们的webpack.config.js中添加
+
+```js
+module.export = {
+  externals: {
+      vue: 'Vue'
+    }
+}
+```
+
+其次要在在public/index.html 模板文件引入对应的 script
+
+使用externals前
+
+dev时 bundle大小为313kb，
+
+打包的vue.js bundle 大小146kb
+
+![image-20230526233634449](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230526233634449.png)
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230527001410156.png" alt="image-20230527001410156" style="zoom:50%;" />
+
+不同构建版本通过script引入的结果
+
+| 构建版本                   | dev运行结果              | prod运行结果             | 文件大小 |
+| -------------------------- | ------------------------ | ------------------------ | -------- |
+| vue.common.prod.js         | 没问题                   | 没问题                   | 92k      |
+| vue.esm.js                 | 报错`Vue is not defined` | 报错`Vue is not defined` | 321k     |
+| vue.min.js                 | 没问题                   | 没问题                   | 92k      |
+| vue.runtime.common.prod.js | 没问题                   | 报错`Vue is not defined` | 64k      |
+| vue.runtime.min.js         | 没问题                   | 没问题                   | 64k      |
+
+配合Gzip 获取的vue.min.js只有35.7k 大小
+
+### 配合HtmlWebpackPlugin注入script
+
+可以在public文件夹下设置两份index.html，一份叫index.prod.html，在其中加入CDN引入的vue
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+```
+
+将HtmlWebpackPlugin 的配置分别写到dev和prod的配置文件中，这样dev和prod引用的就是不同的index.html了
+
+
+
+配合`<%= EJS %>` EJS语法
+
+在index.html中加入如下语法
+
+```html
+<% if(process.env.NODE_ENV==='production') { %>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+<% } %>
+```
+
+script只有在生产环境时才会插入body部分，这样我们只需要维护一份html文件就可以了
