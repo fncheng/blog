@@ -26,3 +26,87 @@ export default defineConfig({
 
 
 
+
+
+## vite+react动态引入图片
+
+```tsx
+import { useState } from 'react';
+
+function MyComponent() {
+  const [images, setImages] = useState(null);
+  import('@/assets/images/086.png').then((res) => setImages(res.default))
+
+  // ...
+
+  return (
+    <div>
+      <img key={index} src={images} />
+    </div>
+  );
+}
+
+export default MyComponent;
+```
+
+引入一组图片
+
+```tsx
+import { useState } from 'react';
+
+function MyComponent() {
+  const [images, setImages] = useState([]);
+
+  const handleClick = async () => {
+    const imagePaths = [
+      '@/assets/images/dynamic-image-1.jpg',
+      '@/assets/images/dynamic-image-2.jpg',
+      '@/assets/images/dynamic-image-3.jpg',
+    ];
+    const loadedImages = await Promise.all(imagePaths.map(path => import(path)));
+    setImages(loadedImages.map(image => image.default));
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Load Images</button>
+      {images.map((image, index) => (
+        <img key={index} src={image} alt={`Image ${index + 1}`} />
+      ))}
+    </div>
+  );
+}
+
+export default MyComponent;
+```
+
+
+
+在vite中，要使用图片需先通过`import`引入
+
+如果我有一组图片，写很多个 `import` 语句会显得非常繁琐。
+
+在webpack中我们可以使用`require.context()` 函数来创建一个函数，该函数会自动引入 `./assets/images` 目录下的所有以 `.png` 结尾的文件。然后，我们使用 `importAll` 函数来将这些文件一次性全部引入，并放入 `images` 数组中。
+
+```js
+const importAll = (r) => r.keys().map(r);
+const images = importAll(require.context('./assets/images', false, /\.png$/));
+```
+
+而在 Vite 中，我们可以使用 `import.meta.glob()` 函数来导入一组图片
+
+```js
+// 导入 assets/images 目录下所有的 PNG 图片
+const pngFiles = import.meta.glob('./assets/images/*.png');
+// pngFiles是一个对象
+
+for (const path in pngFiles) {
+  if (pngFiles.hasOwnProperty(path)) {
+    const url = pngFiles[path]();
+    console.log(path, url); // 输出文件路径和 URL
+    // 在这里可以进一步处理 URL，例如创建一个图片元素并将其添加到页面上
+  }
+}
+```
+
+需要注意的是，在使用 `import.meta.glob()` 函数时，你需要在字符串中显示地指定文件名中的通配符，而且这种方式只支持识别静态的、不可变的文件路径。

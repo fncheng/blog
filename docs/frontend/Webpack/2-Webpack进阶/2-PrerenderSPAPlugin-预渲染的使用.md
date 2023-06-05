@@ -70,4 +70,5 @@ module.exports = {
 
  it's not compatible with webpack 5. 
 
-webpack5不适用，可以使用`@dreysolano/prerender-spa-plugin`
+webpack5请使用`@dreysolano/prerender-spa-plugin`
+

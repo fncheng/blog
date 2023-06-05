@@ -32,6 +32,23 @@ module.exports = {
 
 
 
+## ESLint允许any类型
+
+`Unexpected any. Specify a different type.eslint@typescript-eslint/no-explicit-any`
+
+如果你想避免这个警告，可以在 TypeScript ESLint 配置文件中将 `no-explicit-any` 规则禁用，例如：
+
+```js
+// .eslintrc.js
+module.exports = {
+  // ...
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
+  // ...
+};
+```
+
 
 
 eslint报错：

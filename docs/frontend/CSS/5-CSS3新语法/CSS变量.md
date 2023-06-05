@@ -20,3 +20,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties
   background-color: var(--main-bg-color, orange);
 }
 ```
+
+
+
+VSCode插件推荐**CSS Variable Autocomplete**

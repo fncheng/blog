@@ -51,7 +51,12 @@ export default Main;
 
 [codesandbox](https://codesandbox.io/s/react-render-props-3fxhh?file=/src/Views/Main.jsx)
 
-**render props**和**props.children**实际上是同一个，render属性和children属性，只是children属性是写在组件<>符号内部的
+**Render props** 和 **props.children** 都是 React 中实现组件之间嵌套和复用的常用技术，但它们之间存在一些区别：
+
+- `props.children` 是组件自带的一个特殊的 props，它允许在组件标签中添加任意的子节点。这个子节点可以是一个 React 元素、一个组件，甚至是一个函数。
+- Render props 是将一个函数作为 props 传递给一个组件，并要求这个组件在渲染时调用这个函数，并将一些参数传递给它。这个函数可以生成一个 React 元素，然后渲染到页面上。
+
+使用 `props.children` 可以实现组件之间的复用和嵌套，具有非常灵活的特性。而 Render props 可以实现在组件之间共享数据和行为的目的，并且可以让组件变得更加通用和可复用。
 
 ```jsx
 function Mouse(props) {

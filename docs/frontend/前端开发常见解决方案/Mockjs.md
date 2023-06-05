@@ -20,6 +20,17 @@ Mock.mock({
 
 
 
+随机id
+
 ```js
-Mock.mock(rurl: string)
+@id // 随机id
+@ip // 随机ip地址
+"number|1-100": 100   // 随机数字1-100内
+"number|+1": 202  // 202开始自增1
+
+// 时间
+@date
+Random.date('yyyy-MM-dd')
+@time
 ```
+
