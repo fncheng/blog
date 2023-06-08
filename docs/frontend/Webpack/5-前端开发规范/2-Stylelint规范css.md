@@ -118,3 +118,21 @@ dist
 config
 ```
 
+
+
+
+
+## Umi项目使用@umijs/fabric
+
+```sh
+yarn add @umijs/fabric -D
+```
+
+```js
+const fabric = require('@umijs/fabric');
+
+module.exports = {
+  ...fabric.stylelint,
+};
+```
+

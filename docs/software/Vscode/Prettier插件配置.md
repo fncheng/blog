@@ -1,27 +1,10 @@
----
-title: vscode之prettier插件配置
-tags:
-- 电脑好软
-- vscode
----
+# Prettier格式化
 
-## 针对不同语言配置
-
-**vscode使用prettier进行格式化的小伙伴一定会有这样的需求:**
-
-对不同语言缩进不同的空格数
-
-比如说html缩进4格,而css只想缩进2格
-
-我在网上看个很多别人写的prettier自定义配置,但是都没弄懂.
-
-最后还是反复看官方文档才终于搞懂了
-
-<!-- more -->
-
-#### <i style="display:none">官方文档</i>
+**官方文档**
 
 - #### [官方文档](https://prettier.io/docs/en/options.html)
+
+- #### [GitHub](https://github.com/prettier/prettier-vscode)
 
 之前看了官方文档,在vscode全局配置文件`setting.json`中修改使不同语言使用不同格式化插件
 
@@ -77,13 +60,13 @@ prettier官方给出了针对不同项目配置prettier的方法:
 官方文档在扩展设置一栏中给了一个`prettier.configPath`
 
 > prettier.configPath
-> 提供更漂亮的配置文件的自定义路径。
+> 提供Prettier的配置文件的自定义路径。
 >
 > 注意，如果设置了该值，将始终使用该值，并且本地配置文件将被忽略。全局默认值的一个更好的选择是将~/.prettierrc文件放在主目录中。
 
 在setting.json中配置如下:
 
-```json
+```json5
 //指定全局全局配置文件
 "prettier.configPath": "***\\.prettierrc",
 ```
@@ -96,7 +79,7 @@ prettier官方给出了针对不同项目配置prettier的方法:
 
 prettier给出了如下设置选项
 
-```json
+```json5
 prettier.arrowParens	//在单独的箭头函数周围加上()	默认always
 prettier.bracketSpacing	//在对象{}之间加上空格
 prettier.endOfLine		//换行，LF(unix)还是CRLF(Windows)
