@@ -1,4 +1,4 @@
-## Git pull冲突报错
+# Git pull冲突报错
 
 ![image](https://user-images.githubusercontent.com/37958055/88894887-3201a380-d27b-11ea-8bbe-488e57ec6d18.png)
 

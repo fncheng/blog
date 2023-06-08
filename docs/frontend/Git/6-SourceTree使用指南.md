@@ -1,6 +1,6 @@
----
-title: SourceTree的使用
----
+# SourceTree使用指南
+
+## sourceTree合并代码手动merge
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210617173434785.png" alt="image-20210617173434785" style="zoom:50%;" />
 
@@ -18,7 +18,7 @@ http://www.cxyzjd.com/article/cugxiangzhenwei/89949862
 
 
 
-### 提交回滚操作
+## 提交回滚操作
 
 SourceTree中右键"提交回滚"操作，使用的是`git revert`命令
 

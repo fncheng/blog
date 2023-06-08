@@ -1,6 +1,4 @@
----
-title: git常用命令
----
+# git常用命令
 
 [<span style="font-size:1.75em">常用 git 命令清单</span>](https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
 
