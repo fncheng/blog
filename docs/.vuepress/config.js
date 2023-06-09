@@ -70,7 +70,7 @@ module.exports = {
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
-      { text: 'React', link: '/frontend/React/React学习/1-React学习' },
+      { text: 'React', link: '/frontend/React/1.React学习/1-React学习' },
       { text: 'HTTP', link: '/frontend/http/细说Headers'},
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
