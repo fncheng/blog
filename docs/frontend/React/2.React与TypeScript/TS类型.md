@@ -82,6 +82,6 @@ attendedModes?.[arsItemInfo?.attendedMode] // 会报错
 解决办法：使用非空断言`!`来告诉 TypeScript，`color` 变量不为 `null` 或 `undefined`。
 
 ```ts
-attendedModes[arsItemInfo?.attendedMode!] // 不报错
+attendedModes[arsItemInfo?.attendedMode!] // 
 ```
 
