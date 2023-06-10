@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    path:
+      - '**'
+    
       
 jobs:
   docs:
@@ -11,9 +14,11 @@ jobs:
 
     steps:
       - name: Checkout
+        if: ${{ contains(github.event.head_commit.message, '[build]') }}
         uses: actions/checkout@master
       
       - name: vuepress-deploy
+        if: ${{ contains(github.event.head_commit.message, '[build]') }}
         uses: jenkey2011/vuepress-deploy@master
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
