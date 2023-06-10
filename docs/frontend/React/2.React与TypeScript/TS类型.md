@@ -85,3 +85,46 @@ attendedModes?.[arsItemInfo?.attendedMode] // 会报错
 attendedModes[arsItemInfo?.attendedMode!] // 
 ```
 
+
+
+## 理解TS中的枚举
+
+TypeScript 中的枚举类型实际上是在编译时被转换成 JavaScript 代码的一个对象。枚举成员在该对象中被实现为属性，属性的键和值分别对应枚举成员的名称和值。因此，你可以在 TypeScript 代码中使用枚举来进行类型约束和值限制，同时在编译后的 JavaScript 代码中，枚举成员相当于普通属性，可以被引用并操作。
+
+下面是一个简单的 TypeScript 枚举示例：
+
+```typescript
+enum Color {
+  Red,
+  Green,
+  Blue
+}
+
+let c: Color = Color.Red;
+console.log(c); // 输出: 0
+console.log(Color.Green); // 输出: 1
+```
+
+在上面的示例中，我们定义了一个 `Color` 枚举，其中包含了三个枚举成员 `Red`、`Green`、`Blue`。在代码中，我们将枚举成员 `Red` 赋值给变量 `c`，并输出了该变量的值。由于 `Red` 在枚举中的值是 0，因此输出结果为 0。
+
+在编译后的 JavaScript 代码中，`Color` 枚举被转换成了一个对象：
+
+```javascript
+var Color;
+(function (Color) {
+    Color[Color["Red"] = 0] = "Red";
+    Color[Color["Green"] = 1] = "Green";
+    Color[Color["Blue"] = 2] = "Blue";
+})(Color || (Color = {}));
+// {0: 'Red', 1: 'Green', 2: 'Blue', Red: 0, Green: 1, Blue: 2}
+```
+
+在该对象中，`Color` 的属性包含了所有枚举成员，属性的键和值分别对应枚举成员的名称和值：
+
+```javascript
+console.log(Color.Red); // 输出: 0
+console.log(Color.Green); // 输出: 1
+console.log(Color.Blue); // 输出: 2
+```
+
+因此，可以看出 TypeScript 的枚举类型实际上是被转换成了一个包含属性的对象，这个对象在编译后的 JavaScript 代码中可以被引用和操作。

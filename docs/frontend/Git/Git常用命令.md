@@ -92,7 +92,16 @@ git remote set-url --add origin --push git@gitlab.com:fncheng/blog.git
 
 
 
+## Push
 
+`git push -u origin master` 是 Git 中一个常用的命令，用于将本地分支的代码推送到远程仓库中。具体含义如下：
+
+- `git push`: 将本地分支的代码推送到远程仓库中。
+- `-u`: 指定上游分支，这样在后续的 push 和 pull 操作中，可以省略后面的参数。
+- `origin`: 远程仓库的别名，默认是 origin，可以改为其他名字。
+- `master`: 指定要推送到远程仓库的本地分支名称。
+
+因此，执行上述命令时，会将本地分支名称为 master 的代码推送到名为 origin 的远程仓库上。由于使用了 `-u` 参数，之后的 push 和 pull 操作就可以省略掉参数了，Git 会自动根据上游分支来进行操作。
 
 ## 撤销修改(恢复文件)
 
@@ -116,13 +125,62 @@ $ git reset HEAD <file> #将file文件从暂存区移到工作区
 git reset HEAD^
 ```
 
-   
+## Reset
+
+```sh
+1.git reset -mixed #此为默认方式，不带任何参数的git reset，这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+2.git reset -soft #回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+3.git reset -hard  #彻底回退到某个版本，本地的源码也会变成为上一个版本的内容
+```
+
+vscode 中 undo last commit 的原理是：
+
+```sh
+$ git reset --soft HEAD~1 # 撤销上一次commit
+$ git reset --hard HEAD~1 # 撤销上一次commit 并将commit的文件删除
+```
+
+>  **请不要随意使用 git reset --hard 这将导致你的工作去所有未保存的修改丢失。**
+
+### HEAD
+
+[HEAD~ vs HEAD^ vs HEAD@{}?](https://stackoverflow.com/questions/26785118/head-vs-head-vs-head-also-known-as-tilde-vs-caret-vs-at-sign)
+
+- HEAD~2  向上移动2个节点   2 commits older than HEAD
+- HEAD^2  illegal非法的，正确写法应该是 HEAD^^
+- HEAD@{2}  refers to the 3rd listing in the overview of `git reflog`
+- HEAD~~  2 commits older than HEAD
+- HEAD^^  2 commits older than HEAD
+
+### 回退分支
+
+```sh
+git reset --mixed <commit_id>  # 回退当前分支到某个提交点，混合模式
+```
+
+- 混合模式mixed：保留回退的提交记录，所有修改过的文件进入工作区
+- 软合并soft：保留回退的提交记录，所有修改过的文件进入暂存区
+- 硬合并hard：丢弃所有提交的记录，所有修改过的文件被丢弃
+
+### 回退单个文件
+
+```sh
+git log [fileName] # 查看文件修改记录
+
+git reset [commitID] [fileName] # 将文件回退到指定的commitID
+```
+
+sourceTree用法：
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210618110731278.png" alt="image-20210618110731278" style="zoom:50%;" />
+
+
 
 #### 版本回退
 
 https://wiki.jikexueyuan.com/project/git-tutorial/version-back.html
 
-### restore
+## Restore
 
 ```sh
 git restore [<选项>] [--source=<分支>] <文件>...
@@ -195,7 +253,13 @@ git merge new_barnch into (old_branch) # 当前分支是old_branch
 git merge --no-commit chengdev
 ```
 
+### git merge --squasg
 
+`git merge --squash` 命令可以将多次提交合并为一个提交。它的原理是：在进行合并操作时，不生成新的合并提交，而是将所有需要合并的提交应用到当前分支上，同时合并结果会以未提交的方式出现在你的工作目录中，你可以在合并操作完成后手动执行 `git commit` 命令来创建新的提交，从而将所有合并操作压缩为一个提交。
+
+### git merge --no-commit
+
+`git merge --no-commit` 命令可以执行分支合并操作，但是不自动创建新的合并提交。这通常用于需要手动解决合并冲突的情况。
 
 
 
@@ -216,8 +280,6 @@ git rebase (HEAD) onto target_branch
 rebase 之前
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210831143250084.png" alt="image-20210831143250084" style="zoom:67%;" />
-
-<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210517221357057.png" alt="image-20210517221357057" style="zoom:77%;" />
 
 如果要将 issue1 合并到 dev 上，可以执行`git merge issue1`操作
 
@@ -279,55 +341,6 @@ git reset --hard 6cdb64a
 ### 交互式rebase合并commit
 
 
-
-## Reset
-
-```sh
-1.git reset -mixed #此为默认方式，不带任何参数的git reset，这种方式，它回退到某个版本，只保留源码，回退commit和index信息
-2.git reset -soft #回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
-3.git reset -hard  #彻底回退到某个版本，本地的源码也会变成为上一个版本的内容
-```
-
-vscode 中 undo last commit 的原理是：
-
-```sh
-$ git reset --soft HEAD~1 # 撤销上一次commit
-$ git reset --hard HEAD~1 # 撤销上一次commit 并将commit的文件删除
-```
-
->  **请不要随意使用 git reset --hard 这将导致你的工作去所有未保存的修改丢失。**
-
-### HEAD
-
-[HEAD~ vs HEAD^ vs HEAD@{}?](https://stackoverflow.com/questions/26785118/head-vs-head-vs-head-also-known-as-tilde-vs-caret-vs-at-sign)
-
-- HEAD~2  向上移动2个节点   2 commits older than HEAD
-- HEAD^2  illegal非法的，正确写法应该是 HEAD^^
-- HEAD@{2}  refers to the 3rd listing in the overview of `git reflog`
-- HEAD~~  2 commits older than HEAD
-- HEAD^^  2 commits older than HEAD
-
-### 回退分支
-
-```sh
-git reset --mixed <commit_id>  # 回退当前分支到某个提交点，混合模式
-```
-
-- 混合模式mixed：保留回退的提交记录，所有修改过的文件进入工作区
-- 软合并soft：保留回退的提交记录，所有修改过的文件进入暂存区
-- 硬合并hard：丢弃所有提交的记录，所有修改过的文件被丢弃
-
-### 回退单个文件
-
-```sh
-git log [fileName] # 查看文件修改记录
-
-git reset [commitID] [fileName] # 将文件回退到指定的commitID
-```
-
-sourceTree用法：
-
-<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210618110731278.png" alt="image-20210618110731278" style="zoom:50%;" />
 
 ## Revert
 
