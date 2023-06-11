@@ -340,7 +340,7 @@ git reset --hard 6cdb64a
 
 ### 交互式rebase合并commit
 
-
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230610130640062-20230611105826016.png" alt="image-20230610130640062" style="zoom:50%;" />
 
 ## Revert
 

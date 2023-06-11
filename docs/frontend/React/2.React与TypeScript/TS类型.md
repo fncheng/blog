@@ -69,21 +69,28 @@ const userMap: UserRecord = {
 
 ## 对象的属性名可能是undefined
 
-```ts
-const attendedModes = {
-    0: 'TCP',
-    1: '本地代理',
+开发的时候遇到一个问题，枚举取值的时候可能是undefined
+ ```ts
+enum Gender {
+  '女' = 0,
+  '男' = 1,
 }
-attendedModes?.[arsItemInfo?.attendedMode] // 会报错
-```
+interface User {
+  name: string;
+  age: number;
+  gender: Gender;
+}
+const [userState, setUserState] = useState<User>();
+Gender[userState?.gender] // 会报错
+ ```
 
-上述代码使用attendedModes去获取属性时，ts会报错`Type 'undefined' cannot be used as an index type.ts(2538)`
+上述代码使用Gender去获取属性时，ts会报错`Type 'undefined' cannot be used as an index type.ts(2538)`
+解决办法：使用非空断言`!`来告诉 TypeScript，`gender` 变量不为 `null` 或 `undefined`。
 
-解决办法：使用非空断言`!`来告诉 TypeScript，`color` 变量不为 `null` 或 `undefined`。
+ ```ts
+Gender[userState?.gender!] // 不报错
+ ```
 
-```ts
-attendedModes[arsItemInfo?.attendedMode!] // 
-```
 
 
 

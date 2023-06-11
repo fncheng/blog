@@ -78,6 +78,12 @@ export default {
 
 
 
+## Umi项目设置全局样式
+
+Umi 中约定 `src/global.css` 为全局样式，如果存在此文件，会被自动引入到入口文件最前面。
+
+
+
 ## Umi的Prompt
 
 Umi Prompt 组件是 React Router 提供的 Prompt 组件的 Umi 封装版本，用于在路由切换前提示用户是否要离开当前页面。其工作原理是通过在路由切换时调用 history.block 方法，注册一个回调函数，在该回调函数中展示提示框，并根据用户的选择，决定是否允许路由切换。
