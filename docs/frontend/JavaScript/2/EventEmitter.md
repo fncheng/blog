@@ -120,3 +120,49 @@ removeEventListener(type, listener, useCapture);
 ```
 
 removeEventListener不能用来移除事件，该方法是用来删除事件处理函数的，其中第二个参数listener是必须的
+
+
+
+## dispatchEvent手动触发事件
+
+**`dispatchEvent()`** 方法会向一个指定的事件目标派发一个 [`Event`](https://developer.mozilla.org/zh-CN/docs/Web/API/Event)，并以合适的顺序（同步地）调用所有受影响的 `EventListener`
+
+```ts
+// 获取要触发的 DOM 节点
+const myButton = document.getElementById('my-button');
+// 创建事件对象
+const myEvent = new Event('click');
+// 将事件触发到 DOM 节点中
+myButton.addEventListener('click', function(event) {
+  console.log('Button clicked!');
+});
+myButton.dispatchEvent(myEvent);
+```
+
+
+
+customEvent自定义事件
+
+```tsx
+interface MyEventData {
+  message: string
+}
+
+const ref = useRef<HTMLDivElement>(null)
+const myCustomEvent = new CustomEvent<MyEventData>('my-event', {
+    detail: 'HelloWorld'
+  })
+useEffect(() => {
+    ref.current?.addEventListener('my-event', (e: Event) => {
+      const event = e as CustomEvent<MyEventData>
+      console.log(event.detail)
+    })
+    ref.current?.dispatchEvent(myCustomEvent) // 手动触发
+  }, [])
+return <div ref={ref}>click me</div>
+```
+
+看到这里的detail，突然就想到了小程序，小程序也有个e.detail
+
+相关信息可以看小程序[triggerEvent](../../../小程序/开发API/小程序组件通信.md#自定义事件triggerEvent)
+
