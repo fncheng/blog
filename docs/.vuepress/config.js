@@ -1,5 +1,6 @@
 // const nav = require('./nav')
 // const sidebar = require('./sidebar')
+const { defineConfig } = require('@vuepress/types')
 const fs = require('fs')
 const path = require('path')
 const getSidebar = require('./getSidebar.js')
@@ -20,10 +21,10 @@ function setSidebar(filePath) {
   return res
 }
 
-module.exports = {
+module.exports = defineConfig({
   base: '/blog/',
   title: 'Guidebook',
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  // head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   port: 3000,
   markdown: {
     lineNumbers: true
@@ -117,7 +118,7 @@ module.exports = {
       // Webpack
       '/frontend/Webpack/': getSidebar('../frontend/Webpack/'),
       '/frontend/Git/': [
-        'Git常用命令',
+        { title: 'Git常用命令', collapsable: false, path: 'Git常用命令' },
         {
           title: 'GIT常见',
           collapsable: false,
@@ -160,4 +161,4 @@ module.exports = {
       someTest: 'someTest-------------------------------------'
     }
   }
-}
+})
