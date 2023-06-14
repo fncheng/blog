@@ -236,48 +236,6 @@ useEffect[callback, dep]
 
 
 
-## React Context
-
-```js
-import React, { createContext } from "react";
-
-const NumberContext = createContext(0);
-
-class MiddleComponent extends React.Component {
-  render() {
-    return (
-      <>
-        <ChildComponent />
-        <NumberContext.Consumer>{(value) => value}</NumberContext.Consumer>
-      </>
-    );
-  }
-}
-
-class ChildComponent extends React.Component {
-  static contextType = NumberContext;
-  render() {
-    return (
-      <>
-        <div>context: {this.context}</div>
-      </>
-    );
-  }
-}
-
-class Main extends React.Component {
-  render() {
-    return (
-      <NumberContext.Provider value={10}>
-        <MiddleComponent />
-      </NumberContext.Provider>
-    );
-  }
-}
-```
-
-
-
 
 
 ## Router路由
@@ -298,5 +256,4 @@ Router包裹
      <Detail>
 </Route>
 ```
-
 

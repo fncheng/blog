@@ -8,11 +8,11 @@ https://www.webpackjs.com/guides/environment-variables/
 
 
 
-### dotenv
+## dotenv
 
 [npm](https://www.npmjs.com/package/dotenv)
 
-dotenv将环境变量从`.env`文件加载到`process.env`
+dotenv 负责读取 `.env` 文件中的环境变量，并将其注入到 Node.js 的 `process.env` 中
 
 ```js
 const dotenv = require('dotenv')
@@ -24,7 +24,7 @@ DB_PASS=s1mpl3 */
 
 调用dotenv.config()后就可以在node环境中通过process.env去访问环境变量了
 
-#### Options
+### Options
 
 **path**
 
@@ -140,7 +140,7 @@ https://juejin.cn/post/6844904079974465550
 
 
 
-### cross-env
+## cross-env设置环境变量
 
 [![version](https://camo.githubusercontent.com/de28f7c8f73db264ae64ba81f2d1ccc00889f073421f1ce9e2da09f358239037/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f762f6761747362792d72656d61726b2d656d6265646465722e7376673f7374796c653d666c61742d737175617265)](https://www.npmjs.com/package/gatsby-remark-embedder) 
 
