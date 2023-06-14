@@ -133,6 +133,46 @@ export default {
 
 
 
+## $emit的TypeScript 实现
+
+```ts
+function emit(this: Vue, event: string, ...args: unknown[]): void {
+  const vm = this
+  // 从实例的 _events 属性中获取指定事件的回调函数数组
+  let cbs = vm._events[event]
+  // 如果回调函数数组存在
+  if (cbs) {
+    // 遍历回调函数数组，依次调用每个回调函数，并将传入的参数传递给它
+    cbs = cbs.length > 1 ? toArray(cbs) : cbs
+    const info = `event handler for "${event}"`
+    for (let i = 0, l = cbs.length; i < l; i++) {
+      invokeWithErrorHandling(cbs[i], vm, args, vm, info)
+    }
+  }
+  // 如果 $emit 调用时带有参数，则在实例的 _hasHookEvent 属性中记录事件名称
+  const hook = vm._hookEvent
+  if (hook) {
+    vm.$emit(`hook:${hook}${event}`, ...args)
+  }
+  // 如果实例的 _parent 属性存在，则在父级 Vue 实例上触发相同的事件，并传递相同的参数
+  const parent = vm.$parent
+  if (parent && !isInBeforeCreateCycle(parent)) {
+    parent.$emit(...(parent.$options.emits || []), event, ...args)
+  }
+}
+```
+
+this.$emit是经过封装了的emit
+
+```tsx
+Vue.prototype.$emit = (event: string, ...args: unknown[]) => 
+	emit(this: Vue, event: string, ...args: unknown[])
+```
+
+
+
+
+
 ## 3.通过provide/inject 注入
 
 provide/inject 允许祖先组件向后代组件中注入一个依赖
