@@ -1,5 +1,36 @@
 ## VuePress
 
+### 目录结构
+
+https://vuepress.vuejs.org/zh/guide/directory-structure.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84
+
+```
+.
+├── docs
+│   ├── .vuepress (可选的)
+│   │   ├── components (可选的)
+│   │   ├── theme (可选的)
+│   │   │   └── Layout.vue
+│   │   ├── public (可选的)
+│   │   ├── styles (可选的)
+│   │   │   ├── index.styl
+│   │   │   └── palette.styl
+│   │   ├── templates (可选的, 谨慎配置)
+│   │   │   ├── dev.html
+│   │   │   └── ssr.html
+│   │   ├── config.js (可选的)
+│   │   └── enhanceApp.js (可选的)
+│   │ 
+│   ├── README.md
+│   ├── guide
+│   │   └── README.md
+│   └── config.md
+│ 
+└── package.json
+```
+
+- `docs/.vuepress/public`: 静态资源目录。
+
 [官方文档](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%A0%87%E9%A2%98%E9%93%BE%E6%8E%A5)
 
 vuepress常见问题
