@@ -62,7 +62,7 @@ function utilSidebar(path) {
     // console.log('absoultePath: ', absoultePath)
     // 如果是文件夹
     if (fs.statSync(absoultePath).isDirectory()) {
-      console.log('是文件夹')
+      // console.log('是文件夹')
       return { title: val, children: [utilSidebar(absoultePath)] }
     }
     // 如果是file
@@ -72,7 +72,7 @@ function utilSidebar(path) {
     }
   })
 }
-console.log('%j', getSidebar('../frontend/Git/'))
+// console.log('%j', getSidebar('../frontend/Git/'))
 // console.log(JSON.stringify(setSidebar('../frontend/JavaScript/')))
 // console.log('%j', main('../frontend/JavaScript/'))
 

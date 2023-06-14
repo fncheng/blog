@@ -23,7 +23,7 @@ function setSidebar(filePath) {
 module.exports = {
   base: '/blog/',
   title: 'Guidebook',
-  head: [['link', { rel: 'icon', href: '/logo.png' }]],
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   port: 3000,
   markdown: {
     lineNumbers: true
@@ -62,8 +62,7 @@ module.exports = {
           {
             text: '可视化',
             link: '/frontend/可视化开发/Echarts使用'
-          },
-          
+          }
         ]
       },
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
@@ -71,7 +70,7 @@ module.exports = {
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
       { text: 'React', link: '/frontend/React/1.React学习/1-React学习' },
-      { text: 'HTTP', link: '/frontend/http/细说Headers'},
+      { text: 'HTTP', link: '/frontend/http/细说Headers' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
       { text: 'linux', link: '/linux/Linux命令使用指南' },
@@ -99,9 +98,7 @@ module.exports = {
      */
     sidebarDepth: 1,
     sidebar: {
-      '/frontend/前端开发常见解决方案/': getSidebar(
-        '../frontend/前端开发常见解决方案/'
-      ),
+      '/frontend/前端开发常见解决方案/': getSidebar('../frontend/前端开发常见解决方案/'),
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
       '/frontend/CSS/': getSidebar('../frontend/CSS/'),
       // JavaScript
@@ -119,7 +116,24 @@ module.exports = {
       '/小程序/': getSidebar('../小程序/'),
       // Webpack
       '/frontend/Webpack/': getSidebar('../frontend/Webpack/'),
-      '/frontend/Git/': getSidebar('../frontend/Git/'),
+      '/frontend/Git/': [
+        'Git常用命令',
+        {
+          title: 'GIT常见',
+          collapsable: false,
+          children: ['fetch和pull', 'gitignore的使用', 'SourceTree使用指南', 'git常见问题']
+        },
+        {
+          title: 'GIT风格',
+          collapsable: false,
+          children: [
+            'git管理及风格/1-将本地仓库推送到Github',
+            'git管理及风格/2-git bash等软件走代理',
+            'git管理及风格/3-Git Commit风格',
+            'git管理及风格/4-迭代开发git分支管理'
+          ]
+        }
+      ],
       '/frontend/node/': getSidebar('../node/'),
       '/linux/': getSidebar('../linux/'),
       // Software
