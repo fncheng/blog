@@ -76,4 +76,13 @@ function utilSidebar(path) {
 // console.log(JSON.stringify(setSidebar('../frontend/JavaScript/')))
 // console.log('%j', main('../frontend/JavaScript/'))
 
-module.exports = getSidebar
+const setSidebar = (filePath, folderName) =>
+  fs
+    .readdirSync(resolve(filePath))
+    .filter((val) => /md$/i.test(val))
+    .map((file) => `${folderName}/${file}`)
+
+module.exports = {
+  getSidebar,
+  setSidebar
+}

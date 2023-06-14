@@ -1,4 +1,4 @@
-### lsof
+## lsof
 
 查看端口占用
 
@@ -13,7 +13,7 @@ node    13695 root   20u  IPv4 3281738      0t0  TCP *:http (LISTEN)
 
 
 
-### ss
+## ss
 
 比 netstat 好用的socket统计信息，iproute2 包附带的另一个工具，允许你查询 socket 的有关统计信息
 

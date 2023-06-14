@@ -1,25 +1,8 @@
 // const nav = require('./nav')
 // const sidebar = require('./sidebar')
 const { defineConfig } = require('@vuepress/types')
-const fs = require('fs')
-const path = require('path')
-const getSidebar = require('./getSidebar.js')
-console.log('getSidebar', getSidebar)
-function resolve() {
-  let filePath = Array.from(arguments)
-  return path.resolve(__dirname, ...filePath)
-}
-/**
- * 输入目录名，后返回该目录下所有文件，并加上folerName作为前缀
- * @param {*} filePath
- * @param {*} folderName
- * @returns
- */
-const setSidebar = (filePath, folderName) =>
-  fs
-    .readdirSync(resolve(filePath))
-    .filter((val) => /md$/i.test(val))
-    .map((file) => `${folderName}/${file}`)
+const { getSidebar, setSidebar } = require('./utils.js')
+console.log('setSidebar: ', setSidebar)
 
 module.exports = defineConfig({
   base: '/blog/',
@@ -41,7 +24,6 @@ module.exports = defineConfig({
         items: [
           { text: 'HTML', link: '/frontend/html/js事件' },
           { text: 'CSS', link: '/frontend/CSS/css学习' },
-          { text: 'Webpack', link: '/frontend/Webpack/2-Webpack进阶/0-Webpack参数详解' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
           { text: 'TypeScript', link: '/frontend/TypeScript/ts常见问题' },
           {
@@ -68,13 +50,14 @@ module.exports = defineConfig({
       },
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
-      { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
+      // { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
       { text: 'Vue', link: '/frontend/vue/Vue3/从vue2迁移到vue3' },
       { text: 'React', link: '/frontend/React/1.React学习/1-React学习' },
+      { text: 'Webpack', link: '/frontend/Webpack/1-webpack开发环境搭建/1-webpack-dev-server' },
       { text: 'HTTP', link: '/frontend/http/细说Headers' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
-      { text: 'linux', link: '/linux/Linux命令使用指南' },
+      { text: 'linux', link: '/linux/linux目录结构及文件夹介绍' },
       {
         text: '软件设置',
         items: [
@@ -103,10 +86,44 @@ module.exports = defineConfig({
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
       '/frontend/CSS/': getSidebar('../frontend/CSS/'),
       // JavaScript
-      '/frontend/JavaScript/': getSidebar('../frontend/JavaScript/'),
+      '/frontend/JavaScript/': [
+        {
+          title: '1',
+          children: setSidebar('../frontend/JavaScript/1/', '1')
+        },
+        {
+          title: '2',
+          children: [
+            ...setSidebar('../frontend/JavaScript/2/', '2'),
+            {
+              title: '实现一个简单的sleep函数',
+              path: 'https://www.cnblogs.com/chengxs/p/10949075.html'
+            }
+          ]
+        },
+        {
+          title: 'ES6',
+          collapsable: false,
+          children: [
+            ...setSidebar('../frontend/JavaScript/ES6/', 'ES6'),
+            {
+              title: 'Promise原理',
+              path: 'https://github.com/fncheng/fe/issues/21'
+            }
+          ]
+        },
+        {
+          title: '二进制文件与流',
+          collapsable: false,
+          children: setSidebar('../frontend/JavaScript/二进制文件与流/', '二进制文件与流')
+        }
+        // {
+        //   title: '数据结构与算法',
+        // }
+      ],
       // '/frontend/js/': getSidebar('../frontend/JS/'),
       '/frontend/TypeScript/': getSidebar('../frontend/TypeScript/'),
-      '/frontend/ElementUI/': getSidebar('../frontend/ElementUI/'),
+      // '/frontend/ElementUI/': getSidebar('../frontend/ElementUI/'),
       // Vue
       '/frontend/vue/': [
         {
@@ -122,7 +139,13 @@ module.exports = defineConfig({
         {
           title: 'Vue2',
           collapsable: true,
-          children: setSidebar('../frontend/vue/Vue学习/', 'Vue学习')
+          children: [
+            ...setSidebar('../frontend/vue/Vue学习/', 'Vue学习'),
+            {
+              title: 'keep-alive 组件持久化',
+              path: 'https://github.com/fncheng/fe/issues/10'
+            }
+          ]
         },
         {
           title: 'VueRouter',
@@ -137,6 +160,10 @@ module.exports = defineConfig({
         {
           title: 'Vue解决方案',
           children: setSidebar('../frontend/vue/Vue解决方案/', 'Vue解决方案')
+        },
+        {
+          title: 'ElementUI',
+          children: setSidebar('../frontend/vue/ElementUI/', 'ElementUI')
         }
       ],
       '/frontend/React/': getSidebar('../frontend/React/'),
@@ -146,7 +173,30 @@ module.exports = defineConfig({
       '/frontend/前端工程化/': getSidebar('../frontend/前端工程化/'),
       '/小程序/': getSidebar('../小程序/'),
       // Webpack
-      '/frontend/Webpack/': getSidebar('../frontend/Webpack/'),
+      '/frontend/Webpack/': [
+        {
+          title: '搭建Webpack开发环境',
+          collapsable: false,
+          children: setSidebar(
+            '../frontend/Webpack/1-webpack开发环境搭建/',
+            '1-webpack开发环境搭建'
+          )
+        },
+        {
+          title: 'Webpack优化',
+          collapsable: false,
+          children: setSidebar('../frontend/Webpack/2-Webpack优化/', '2-Webpack优化')
+        },
+        {
+          title: 'Vite',
+          collapsable: false,
+          children: setSidebar('../frontend/Webpack/3-Vite/', '3-Vite')
+        },
+        {
+          title: '前端开发规范',
+          children: setSidebar('../frontend/Webpack/4-前端开发规范/', '4-前端开发规范')
+        }
+      ],
       '/frontend/Git/': [
         { title: 'Git常用命令', collapsable: false, path: 'Git常用命令' },
         {
@@ -166,7 +216,23 @@ module.exports = defineConfig({
         }
       ],
       '/frontend/node/': getSidebar('../node/'),
-      '/linux/': getSidebar('../linux/'),
+      '/linux/': [
+        {
+          title: '常用命令',
+          collapsable: false,
+          children: setSidebar('../linux/1-常用命令/', '1-常用命令')
+        },
+        {
+          title: '进程｜端口｜防火墙',
+          collapsable: false,
+          children: setSidebar('../linux/2-进程-端口-防火墙/', '2-进程-端口-防火墙')
+        },
+        {
+          title: 'Nginx',
+          collapsable: false,
+          children: setSidebar('../linux/Nginx/', 'Nginx')
+        }
+      ],
       // Software
       '/software/': getSidebar('../software/'),
       '/frontend/可视化开发/': getSidebar('../frontend/可视化开发/'),

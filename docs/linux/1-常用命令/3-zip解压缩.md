@@ -1,10 +1,8 @@
----
-title：linux解压缩
----
+# linux解压缩
 
 ## unzip
 
-unzip
+unzip解压文件
 
 ```sh
 $ unzip -o test.zip -d tmp/

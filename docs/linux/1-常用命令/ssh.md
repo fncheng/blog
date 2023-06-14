@@ -1,4 +1,4 @@
-### ssh密钥生成
+## ssh密钥生成
 
 https://docs.microsoft.com/zh-cn/azure/virtual-machines/linux/create-ssh-keys-detailed
 
@@ -35,7 +35,7 @@ Enter file in which to save the key (/Users/cheng/.ssh/id_rsa): /Users/cheng/.ss
 
 
 
-### 服务器开启ssh
+## 服务器开启ssh
 
 - 用`ssh-keygen`生成密钥的时候,如果本地已经存在id_rsa,id_rsa.pub 文件,可以直接使用.
 
@@ -74,7 +74,7 @@ cat id_rsa.pub >> authorized_keys
 
 
 
-### ssh配置
+## ssh配置
 
 参考https://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/
 

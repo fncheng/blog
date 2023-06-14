@@ -183,15 +183,5 @@ Object.values(obj)
 
 ## 遍历数组[for VS forEach() VS for/in VS for/of 4种方法对比](https://blog.fundebug.com/2019/03/11/4-ways-to-loop-array-inj-javascript/)
 
-1. forEach
-
-   返回`undefined`
-
-   `forEach()` 被调用时，不会改变原数组 (基本类型的不会变，如果是引用类型的数据可能会被改变)
-
-map(String)和map(Number)
-
-
-
-Object.keys遍历 返回可枚举对象的属性值
+map不会修改原数组，forEach不会修改基本类型数组，会修改引用类型数组，for循环和for...of则会修改原数组。
 

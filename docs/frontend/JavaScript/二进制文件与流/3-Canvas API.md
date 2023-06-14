@@ -1,10 +1,10 @@
----
-title: Canvas API
----
+# Canvas图片绘制
 
-### Canvas 绘制图片
+## Canvas图片绘制
 
-### [drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage#%E4%BD%BF%E7%94%A8_drawimage_%E6%96%B9%E6%B3%95)
+### 使用Canvas drawImage绘制图片
+
+[drawImage](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage#%E4%BD%BF%E7%94%A8_drawimage_%E6%96%B9%E6%B3%95)
 
 - **image** 绘制到上下文的元素。
 
@@ -54,7 +54,7 @@ ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
 
 
 
-##### 已有图片，将img标签中的图片绘制到canvas中
+#### 已有图片，将img标签中的图片绘制到canvas中
 
 ```js
 const canvas = document.createElement("canvas");
@@ -75,7 +75,7 @@ img.onload = () => {
 
 
 
-##### 从零开始创建图片
+#### 从零开始创建图片
 
 ```js
 let img = document.createElement("img"); // 创建img元素
@@ -148,7 +148,7 @@ document.body.appendChild(canvas);
 
 
 
-### 将canvas输出为image
+## 将canvas输出为image
 
 1.图片无法绘制，转成的base64 用浏览器打开是空的透明画布
 

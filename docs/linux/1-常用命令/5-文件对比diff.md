@@ -1,4 +1,4 @@
-diff命令
+## diff
 
 https://wangchujiang.com/linux-command/c/diff.html
 
