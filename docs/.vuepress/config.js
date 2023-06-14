@@ -10,16 +10,16 @@ function resolve() {
   return path.resolve(__dirname, ...filePath)
 }
 /**
- * 自动设置侧边栏
- * @param {String} filePath 路径
- * @returns 一个md文件名的数组
+ * 输入目录名，后返回该目录下所有文件，并加上folerName作为前缀
+ * @param {*} filePath
+ * @param {*} folderName
+ * @returns
  */
-function setSidebar(filePath) {
-  // console.log('filePath: ', filePath)
-  let res = fs.readdirSync(resolve(filePath)).filter((val) => /md$/i.test(val))
-  // console.log('filePath', res)
-  return res
-}
+const setSidebar = (filePath, folderName) =>
+  fs
+    .readdirSync(resolve(filePath))
+    .filter((val) => /md$/i.test(val))
+    .map((file) => `${folderName}/${file}`)
 
 module.exports = defineConfig({
   base: '/blog/',
@@ -69,7 +69,7 @@ module.exports = defineConfig({
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
-      { text: 'Vue', link: '/frontend/vue/render渲染函数与JSX' },
+      { text: 'Vue', link: '/frontend/vue/Vue3/从vue2迁移到vue3' },
       { text: 'React', link: '/frontend/React/1.React学习/1-React学习' },
       { text: 'HTTP', link: '/frontend/http/细说Headers' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
@@ -108,7 +108,37 @@ module.exports = defineConfig({
       '/frontend/TypeScript/': getSidebar('../frontend/TypeScript/'),
       '/frontend/ElementUI/': getSidebar('../frontend/ElementUI/'),
       // Vue
-      '/frontend/vue/': getSidebar('../frontend/vue/'),
+      '/frontend/vue/': [
+        {
+          title: 'Vue3',
+          collapsable: false,
+          children: [
+            'Vue3/从vue2迁移到vue3',
+            'Vue3/学习理解Vue3',
+            'Vue3/Vue3是如何变快的',
+            'Vue3/学习理解Vue3'
+          ]
+        },
+        {
+          title: 'Vue2',
+          collapsable: true,
+          children: setSidebar('../frontend/vue/Vue学习/', 'Vue学习')
+        },
+        {
+          title: 'VueRouter',
+          collapsable: false,
+          children: setSidebar('../frontend/vue/VueRouter/', 'VueRouter')
+        },
+        {
+          title: 'Vuex',
+          collapsable: false,
+          children: setSidebar('../frontend/vue/Vuex/', 'Vuex')
+        },
+        {
+          title: 'Vue解决方案',
+          children: setSidebar('../frontend/vue/Vue解决方案/', 'Vue解决方案')
+        }
+      ],
       '/frontend/React/': getSidebar('../frontend/React/'),
       '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
