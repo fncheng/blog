@@ -14,18 +14,15 @@ systemd对应的进程管理命令是systemctl
 ```sh
 systemctl start nfs-server.service . # 启动nfs服务
 systemctl stop nfs-server.service    # -- Stop (deactivate) one or more units
+systemctl restart service-name # 重启一个服务
+systemctl status nfs-server.service # 查看服务当前状态
 systemctl enable nfs-server.service # 设置开机自启动
 systemctl disable nfs-server.service # 停止开机自启动
-systemctl status nfs-server.service # 查看服务当前状态
-systemctl restart nfs-server.service # 重新启动某服务
-systemctl list-units --type=service # 查看所有已启动的服务
+systemctl list-unit-files --type=service # 查看所有已加入系统引导的服务
+systemctl list-units --type=service # 查看所有正在运行的服务
 ```
 
 #### systemctl daemon-reload
-
-重新加载某个服务的配置文件，如果新安装了一个服务，归属于 systemctl 管理，要是新服务的服务程序配置文件生效，需重新加载。
-
-
 
 
 

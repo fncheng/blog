@@ -236,69 +236,35 @@ useEffect[callback, dep]
 
 
 
-## Reducer函数
+## useEffect清除定时器
 
-Reducer函数则是一种函数式编程的概念，用于将一个状态转化为另一个状态，从而实现对应用程序状态的更新操作。Reducer函数接收一个状态和动作(action)对象作为参数，然后根据动作对象的类型来更新状态，并返回更新后的新状态。
+在使用 useEffect 的过程中，如果你需要清除定时器，可以使用 useEffect 的返回函数来实现。
 
-Reducer函数的实现应当符合以下原则：
+示例代码如下：
 
-1. 状态不可变性：Reducer函数更新状态的方式是根据当前状态克隆出一个新的状态对象，并在新的状态对象上进行修改，而不是在当前状态上直接进行修改。
-2. 纯函数：Reducer函数应该是纯函数，即其返回值只取决于传入参数的值，不依赖于任何外部因素，也不会对外部环境造成任何影响。
-3. 单向数据流：Reducer函数的作用是对当前状态进行转换，从而输出一个新的状态对象作为下一次输入的状态，实现一种单向数据流。在更新状态时，应根据旧状态和动作对象计算出新状态，而不是直接修改旧状态。
+```javascript
+import { useEffect, useState } from "react";
 
-下面是一个简单的Reducer函数：
+function Timer() {
+  const [count, setCount] = useState(0);
 
-```js
-function counterReducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    case 'decrement':
-      return { count: state.count - 1 };
-    default:
-      return state;
-  }
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  return <div>{count}</div>;
 }
 ```
 
-Reducer函数通常与React的`useReducer` Hook搭配使用，将其作为`useReducer` Hook的第一个参数传递进去。最终可以通过`dispatch`函数派发一个动作对象，来触发Reducer函数的执行，从而实现对应用程序状态的更新。
+在这个例子中，我们使用 useEffect 来创建定时器，并且在返回函数中清除定时器。具体来说，我们在 useEffect 中创建了一个 intervalId 变量来存储定时器的 ID，然后在返回函数中使用 clearInterval(intervalId) 来清除定时器。
 
-### 手动触发reducer
-
-```tsx
-function counterReducer(state: State, action: Action) {
-    switch (action.type) {
-      case 'increment':
-        return { count: state.count + 1 }
-      case 'decrement':
-        return { count: state.count - 1 }
-      default:
-        return state
-    }
-  }
-const initialState: State = { count: 0 }
-const [state, setState] = useState(currentState)
-const dispatch = (action: Action) => setState(counterReducer(state, action))
-
-return <button onClick={() => dispatch({ type: 'increment' })}>{state.count}</button>
-```
-
-
-
-### useReducer触发
-
-useReducer的源码很简单，useReducer实际上就是把上面一个过程封装起来
-
-```ts
-function useReducer(reducer, initialState) {
-  const [state, setState] = useState(initialState)
-  const dispatch = (action) => {
-    const nextState = reducer(state, action)
-    setState(nextState)
-  }
-  return [state, dispatch]
-}
-```
+需要注意的是，清除定时器的操作不会立即执行，而是在组件销毁时才执行。同时，由于我们在依赖项列表中传入了一个空数组，所以这个 useEffect 只会在组件第一次渲染时执行。如果你需要在某个状态值发生变化时重新创建定时器，那么可以将这个状态值作为依赖项传入 useEffect 中。
 
 
 
