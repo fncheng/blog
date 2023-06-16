@@ -31,3 +31,23 @@ rules也有validateTrigger属性，但是官方描述中 **设置触发验证时
 
 表明Form.Item中的validateTrigger是必填的
 
+## Antd Modal 确定按钮可以快速点击多次
+
+Antd Modal 的确定按钮在默认情况下确实允许快速重复点击，这可能会导致用户重复提交数据
+
+可以给footer部分按钮添加disabled属性
+
+```tsx
+<Modal
+  visible={modalVisible}
+  onCancel={() => setModalVisible(false)}
+  footer={
+    <Button onClick={handleSubmit} disabled={isSubmitting}>
+      确定
+    </Button>
+  }
+>
+  Modal 内容
+</Modal>
+```
+

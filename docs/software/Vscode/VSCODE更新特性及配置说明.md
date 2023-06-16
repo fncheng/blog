@@ -58,7 +58,7 @@ function MyClass() {}
 
 [1.60更新特性](https://code.visualstudio.com/updates/v1_60#_high-performance-bracket-pair-colorization)
 
-```json
+```json5
 "editor.bracketPairColorization.enabled": false,
 // 自定义颜色
 "workbench.colorCustomizations" : { 
@@ -93,3 +93,31 @@ jsdoc auto complete功能于1.68版本失效了，起初我以为是这个功能
 "emmet.showExpandedAbbreviation": "allways"
 ```
 
+
+
+### Linked editing for JSX tags
+
+https://code.visualstudio.com/updates/v1_79#_linked-editing-for-jsx-tags
+
+目前已原生支持在html、tsx等文件中补全元素名称，但是vue文件还不支持
+
+Auto Rename Tag 可以设置只对vue文件激活
+
+```json
+"auto-rename-tag.activationOnLanguage": [
+    "vue"
+],
+```
+
+
+
+
+
+### 只读模式
+
+https://code.visualstudio.com/updates/v1_79#_readonly-mode
+
+将工作区的某些文件夹或文件显式标记为只读
+
+### JSDoc @param 完成
+https://code.visualstudio.com/updates/v1_79#_jsdoc-param-completions
