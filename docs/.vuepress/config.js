@@ -89,12 +89,12 @@ module.exports = defineConfig({
       '/frontend/JavaScript/': [
         {
           title: '1',
-          children: setSidebar('../frontend/JavaScript/1/', '1')
+          children: setSidebar('../frontend/JavaScript/1/')
         },
         {
           title: '2',
           children: [
-            ...setSidebar('../frontend/JavaScript/2/', '2'),
+            ...setSidebar('../frontend/JavaScript/2/'),
             {
               title: '实现一个简单的sleep函数',
               path: 'https://www.cnblogs.com/chengxs/p/10949075.html'
@@ -105,7 +105,7 @@ module.exports = defineConfig({
           title: 'ES6',
           collapsable: false,
           children: [
-            ...setSidebar('../frontend/JavaScript/ES6/', 'ES6'),
+            ...setSidebar('../frontend/JavaScript/ES6/'),
             {
               title: 'Promise原理',
               path: 'https://github.com/fncheng/fe/issues/21'
@@ -115,15 +115,14 @@ module.exports = defineConfig({
         {
           title: '二进制文件与流',
           collapsable: false,
-          children: setSidebar('../frontend/JavaScript/二进制文件与流/', '二进制文件与流')
+          children: setSidebar('../frontend/JavaScript/二进制文件与流/')
+        },
+        {
+          title: 'RegExp',
+          children: setSidebar('../frontend/JavaScript/RegExp/')
         }
-        // {
-        //   title: '数据结构与算法',
-        // }
       ],
-      // '/frontend/js/': getSidebar('../frontend/JS/'),
       '/frontend/TypeScript/': getSidebar('../frontend/TypeScript/'),
-      // '/frontend/ElementUI/': getSidebar('../frontend/ElementUI/'),
       // Vue
       '/frontend/vue/': [
         {
@@ -140,7 +139,7 @@ module.exports = defineConfig({
           title: 'Vue2',
           collapsable: true,
           children: [
-            ...setSidebar('../frontend/vue/Vue学习/', 'Vue学习'),
+            ...setSidebar('../frontend/vue/Vue学习/'),
             {
               title: 'keep-alive 组件持久化',
               path: 'https://github.com/fncheng/fe/issues/10'
@@ -150,20 +149,20 @@ module.exports = defineConfig({
         {
           title: 'VueRouter',
           collapsable: false,
-          children: setSidebar('../frontend/vue/VueRouter/', 'VueRouter')
+          children: setSidebar('../frontend/vue/VueRouter/')
         },
         {
           title: 'Vuex',
           collapsable: false,
-          children: setSidebar('../frontend/vue/Vuex/', 'Vuex')
+          children: setSidebar('../frontend/vue/Vuex/')
         },
         {
           title: 'Vue解决方案',
-          children: setSidebar('../frontend/vue/Vue解决方案/', 'Vue解决方案')
+          children: setSidebar('../frontend/vue/Vue解决方案/')
         },
         {
           title: 'ElementUI',
-          children: setSidebar('../frontend/vue/ElementUI/', 'ElementUI')
+          children: setSidebar('../frontend/vue/ElementUI/')
         }
       ],
       '/frontend/React/': getSidebar('../frontend/React/'),
@@ -185,16 +184,16 @@ module.exports = defineConfig({
         {
           title: 'Webpack优化',
           collapsable: false,
-          children: setSidebar('../frontend/Webpack/2-Webpack优化/', '2-Webpack优化')
+          children: setSidebar('../frontend/Webpack/2-Webpack优化/')
         },
         {
           title: 'Vite',
           collapsable: false,
-          children: setSidebar('../frontend/Webpack/3-Vite/', '3-Vite')
+          children: setSidebar('../frontend/Webpack/3-Vite/')
         },
         {
           title: '前端开发规范',
-          children: setSidebar('../frontend/Webpack/4-前端开发规范/', '4-前端开发规范')
+          children: setSidebar('../frontend/Webpack/4-前端开发规范/')
         }
       ],
       '/frontend/Git/': [
@@ -220,17 +219,17 @@ module.exports = defineConfig({
         {
           title: '常用命令',
           collapsable: false,
-          children: setSidebar('../linux/1-常用命令/', '1-常用命令')
+          children: setSidebar('../linux/1-常用命令/')
         },
         {
           title: '进程｜端口｜防火墙',
           collapsable: false,
-          children: setSidebar('../linux/2-进程-端口-防火墙/', '2-进程-端口-防火墙')
+          children: setSidebar('../linux/2-进程-端口-防火墙/')
         },
         {
           title: 'Nginx',
           collapsable: false,
-          children: setSidebar('../linux/Nginx/', 'Nginx')
+          children: setSidebar('../linux/Nginx/')
         }
       ],
       // Software

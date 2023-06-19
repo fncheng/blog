@@ -133,6 +133,5 @@ jobs:
 
 最终我们的workflow就会变成这样
 
-<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230611104841992.png" alt="image-20230611104841992" style="zoom:50%;" />
-
 当不满足构建要求后，workflow会直接跳过，避免了性能的浪费
+

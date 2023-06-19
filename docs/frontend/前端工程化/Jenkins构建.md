@@ -111,3 +111,19 @@ sudo docker run -u root
 2. No valid crumb was included in the request
 
 https://blog.51cto.com/u_13589448/2066437
+
+### Gitlab webhook Jenkins 403错误
+
+Error 403 anonymous is missing the Job/Build Permission
+
+```
+jenkins gitlab webhook 403 anonymous is missing the Job/Build permission
+```
+
+首先jenkins 某个pipeline 的webhook是有权限控制，并不是任意gitlab中的项目都可以触发。
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20220407165407015.png" alt="image-20220407165407015" style="zoom:50%;" />
+
+### Gitlab api token配置
+
+https://gitlab.com/-/profile/personal_access_tokens
