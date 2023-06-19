@@ -174,11 +174,11 @@ module.exports = defineConfig({
         {
           title: 'Redux与Flux',
           collapsable: false,
-          children: setSidebar('../frontend/React/4.Redux与Flux/')
+          children: setSidebar('../frontend/React/2.Redux与Flux/')
         },
         {
           title: 'React与TypeScript',
-          children: setSidebar('../frontend/React/2.React与TypeScript/')
+          children: setSidebar('../frontend/React/3.React与TypeScript/')
         },
         {
           title: 'Antd',
