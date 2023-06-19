@@ -1,6 +1,6 @@
-## Redux
+# Redux
 
-#### State
+## State
 
 *State* (也称为 *state tree*) 是一个宽泛的概念，但是在 Redux API 中，通常是指一个唯一的 state 值，由 store 管理且由 [`getState()`](https://www.redux.org.cn/docs/api/Store.html#getState) 方法获得。它表示了 Redux 应用的全部状态，通常为一个多层嵌套的对象。
 

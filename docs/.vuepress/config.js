@@ -165,7 +165,31 @@ module.exports = defineConfig({
           children: setSidebar('../frontend/vue/ElementUI/')
         }
       ],
-      '/frontend/React/': getSidebar('../frontend/React/'),
+      '/frontend/React/': [
+        {
+          title: 'REACT',
+          collapsable: false,
+          children: setSidebar('../frontend/React/1.React学习/')
+        },
+        {
+          title: 'Redux与Flux',
+          collapsable: false,
+          children: setSidebar('../frontend/React/4.Redux与Flux/')
+        },
+        {
+          title: 'React与TypeScript',
+          children: setSidebar('../frontend/React/2.React与TypeScript/')
+        },
+        {
+          title: 'Antd',
+          collapsable: false,
+          children: setSidebar('../frontend/React/Antd/')
+        },
+        {
+          title: 'UMI',
+          children: setSidebar('../frontend/React/Umi/')
+        }
+      ],
       '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
       // 前端工程化
