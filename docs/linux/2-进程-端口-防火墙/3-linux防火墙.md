@@ -49,7 +49,7 @@ systemctl disable firewalld.service #禁止firewall开机启动
 
 
 
-## Ubuntu
+## Ubuntu ufw
 
 ufw操作防火墙https://zhuanlan.zhihu.com/p/98880088
 
@@ -98,3 +98,8 @@ $ vi /etc/default/ufw
 
 将`IPV6=yes`改成`IPV6=no`，然后重启防火墙。
 
+
+
+#### ufw reset
+
+`ufw reset` 是一个用于重置 UFW 防火墙设置和规则到默认状态的命令。执行该命令会清除现有的防火墙规则和设置，并重置为默认值，即开启所有入站和出站连接。
