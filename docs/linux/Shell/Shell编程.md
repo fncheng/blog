@@ -126,3 +126,19 @@ shopt -s extglob
 shopt -u extglob
 ```
 
+
+
+## if语句
+
+以下是一个典型的 `if...then...fi` 的语法结构：
+
+```bash
+if [ 条件判断 ]; then
+  # 满足条件时执行的语句块
+else
+  # 不满足条件时执行的语句块
+fi
+```
+
+需要注意的是"[ ]"左右需要加空格
+

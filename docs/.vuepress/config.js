@@ -183,7 +183,13 @@ module.exports = defineConfig({
         {
           title: 'Antd',
           collapsable: false,
-          children: setSidebar('../frontend/React/Antd/')
+          children: [
+            ...setSidebar('../frontend/React/Antd/'),
+            {
+              title: 'ProTable ProColumns类型',
+              path: 'https://github.com/fncheng/react-learn/issues/5'
+            }
+          ]
         },
         {
           title: 'UMI',
@@ -225,7 +231,13 @@ module.exports = defineConfig({
         {
           title: 'GIT常见',
           collapsable: false,
-          children: ['fetch和pull', 'gitignore的使用', 'SourceTree使用指南', 'git常见问题']
+          children: [
+            'fetch和pull',
+            'gitignore的使用',
+            'SourceTree使用指南',
+            'git常见问题',
+            'git hooks'
+          ]
         },
         {
           title: 'GIT风格',

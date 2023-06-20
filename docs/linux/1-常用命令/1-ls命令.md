@@ -77,3 +77,4 @@ drwxr-xr-x 1 qq862 197609    0 12月 13 20:57 source/
 drwxr-xr-x 1 qq862 197609    0 11月 26 12:41 themes/
 ```
 
+`ll`是`ls -lh`的缩写
