@@ -307,3 +307,56 @@ $ chown -R user:group ~/.ssh/ # -R表示递归
 $ chgrp -R group /usr/meng
 ```
 
+
+
+## 文件权限
+
+首先在linux目录下通过`ls -lh`命令查看目录下所有文件的权限
+
+```bash
+total 7.5M
+drwxr-xr-x  5 root root 4.0K Aug 27 17:35 backup
+drwxrwxrwx  3 root root 4.0K Jan 31 17:13 Recycle_bin
+drwxr-xr-x 11 root root 4.0K Aug 29 09:26 server
+drwxr-xr-x  3 root root 4.0K Nov 10 18:27 themes
+-rw-r--r--  1 root root 7.5M Sep  5 08:57 wordpress-4.6.15.tar.gz
+drwxrwxrwx  3 root root 4.0K Jan 31 17:13 wwwlogs
+drwxrwxrw-  7 root root 4.0K Jan 31 17:13 wwwroot
+```
+
+![](https://img-blog.csdn.net/20170513152626838?watermark/2/text/aHR0cD)
+
+其中rwx分别代表着read,write,eXecute
+
+- r(Read，读取)：对文件而言，具有读取文件内容的权限；对目录来说，具有浏览目录的权限。
+- w(Write,写入)：对文件而言，具有新增,修改,删除文件内容的权限；对目录来说，具有新建，删除，修改，移动目录内文件的权限。
+- x(eXecute，执行)：对文件而言，具有执行文件的权限；对目录了来说该用户具有进入目录的权限。
+
+1. 目录的只读访问不允许使用cd进入目录，必须要有执行的权限才能进入。
+2. 只有执行权限只能进入目录，不能看到目录下的内容，要想看到目录下的文件名和目录名，需要可读权限。
+3. 一个文件能不能被删除，主要看该文件所在的目录对用户是否具有写权限(**即w权限**)，如果目录对用户没有写权限，则该目录下的所有文件都不能被删除，文件所有者除外
+4. 目录的w位不设置，即使你拥有目录中某文件的w权限也不能写该文件
+
+![](https://i.loli.net/2020/02/12/zOotH9qUC12ce5y.png)
+
+在`-rwxr-xr-x 1 www   www   644 Jan 31 17:12 index.html`中
+
+index.html文件属于www用户,www组;
+
+
+
+## chmod
+
+在 Unix 和 Linux 系统上使用 `chmod` 命令来修改文件权限时，常用八进制数表示法来指定权限。在这种方式下，用三个数字来表示权限标识，其中每个数字都由三个二进制位组成，其中每一位分别对应了文件 owner、group 和 others 对于某项权限的开关状态。
+
+具体来说，第一个数字表示 owner 的权限，第二个是 group 的权限，第三个是 others 的权限，而每个数字则是由下列三项权限相加而来：
+
+- 4：读权限
+- 2：写权限
+- 1：执行权限
+
+例如，以下三个数字分别代表了 Owner、Group 和 Others 的权限：
+
+- 7（111）：拥有读、写和执行权限
+- 5（101）：拥有读和执行权限
+- 0（000）：没有任何权限

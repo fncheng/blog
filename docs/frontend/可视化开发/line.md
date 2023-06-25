@@ -57,3 +57,23 @@ formatter: function (value, index) {
 ### 坐标轴添加单位
 
 [yAxis.name](https://echarts.apache.org/zh/option.html#yAxis.name)
+
+
+
+## line折线图鼠标移动时x轴一条竖线
+
+在 Echarts 中实现鼠标移动时默认显示一条竖线，可以通过在 `tooltip` 属性中设置 `trigger: 'axis'`，再为 `axisPointer` 属性设置 `type: 'line'`，来实现默认显示一条竖线。代码如下：
+
+```js
+tooltip: {
+  trigger: 'axis',
+  axisPointer: {
+    type: 'line', // 设置触发类型为竖线
+    lineStyle: { // 设置竖线样式
+      color: '#F00', // 修改竖线颜色为红色
+      type: 'solid', // 修改竖线类型为实线
+    },
+  },
+},
+```
+

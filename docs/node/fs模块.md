@@ -47,3 +47,28 @@ stat方法的参数是一个文件或目录，它产生一个对象，该对象�
 同步读取文件
 
 如果指定了 `encoding` 选项，则此函数返回字符串。 否则它返回缓冲区（raw buffer）。
+
+
+
+## fs/promise
+
+fs/promise 作为fs模块的promise支持
+
+```js
+const fs = require('fs/promises');
+fs.readFile('./README.md', 'utf-8').then((res) => {
+  console.log(res);
+});
+```
+
+## 写入文件
+
+writeFile用于往文件写入内容，`fs.writeFile` 函数每次写入文件都会覆盖原来的内容。如果您希望将数据追加到文件的末尾而不是覆盖文件，可以使用 `fs.appendFile` 函数。
+
+fs.appendFile(file, data, options, callback)
+
+
+
+## chmod
+
+使用 Node.js 中的 `chmod` 函数时，可以使用类似 `0o755` 的八进制数来指定权限标识，来给文件赋予相应的权限。需要注意的是，不要随意给文件开放过高的权限，以保护文件的安全性。

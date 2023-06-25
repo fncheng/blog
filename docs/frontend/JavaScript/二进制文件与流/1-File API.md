@@ -2,6 +2,15 @@
 title: File API
 ---
 
+## Base64
+
+JavaScript提供两个函数来编码和解码 Base64 
+
+- [`btoa()`](https://developer.mozilla.org/zh-CN/docs/Web/API/btoa)：从二进制数据“字符串”创建一个 Base-64 编码的 ASCII 字符串（“btoa”应读作“binary to ASCII”）
+- [`atob()`](https://developer.mozilla.org/zh-CN/docs/Web/API/atob)：解码通过 Base-64 编码的字符串数据（“atob”应读作“ASCII to binary”）
+
+
+
 [JavaScript File API](https://developer.mozilla.org/zh-CN/docs/Web/API/File/Using_files_from_web_applications)
 
 ```html

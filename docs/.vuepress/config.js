@@ -178,7 +178,13 @@ module.exports = defineConfig({
         },
         {
           title: 'React与TypeScript',
-          children: setSidebar('../frontend/React/3.React与TypeScript/')
+          children: [
+            {
+              title: 'TSConfig配置说明',
+              path: 'https://github.com/fncheng/webpack-learn/issues/4'
+            },
+            ...setSidebar('../frontend/React/3.React与TypeScript/')
+          ]
         },
         {
           title: 'Antd',

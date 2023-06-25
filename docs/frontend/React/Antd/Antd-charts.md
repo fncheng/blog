@@ -56,3 +56,34 @@ label: {
 }
 ```
 
+
+
+## line折线图小圆点
+
+我们都知道echarts折线图默认有小圆点，antv中如何实现，设置point属性
+
+```tsx
+export default function App() {
+  const config: LineConfig = {
+    data,
+    xField: "name",
+    yField: "value",
+    smooth: true,
+    point: {
+      size: 3,
+      shape: "circle",
+      style: {
+        fill: "#fff",
+        stroke: "rgba(0,0,0,0.25)",
+        lineWidth: 1
+      }
+    }
+  };
+  return (
+    <div className="App">
+      <Line {...config} />
+    </div>
+  );
+}
+```
+
