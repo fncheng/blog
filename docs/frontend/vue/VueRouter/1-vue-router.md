@@ -32,6 +32,14 @@ title: vue-router
 
 在`vue-router`中使用“动态路由参数”来匹配，使用`：`标记。
 
+```js
+{
+  path: '/some/:id',
+  name: 'Some',
+  component: () => import('../views/Third.vue'),
+}
+```
+
 #### $router和$route 的区别
 
 \$router 是 VueRouter 的实例,是路由操作对象,只写对象,想要导航到不同的 url,则使用 router.push()方法

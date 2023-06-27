@@ -158,7 +158,13 @@ module.exports = defineConfig({
         },
         {
           title: 'Vue解决方案',
-          children: setSidebar('../frontend/vue/Vue解决方案/')
+          children: [
+            ...setSidebar('../frontend/vue/Vue解决方案/'),
+            {
+              title: 'Mockjs使用',
+              path: 'https://github.com/fncheng/js-learn/issues/11'
+            }
+          ]
         },
         {
           title: 'ElementUI',
