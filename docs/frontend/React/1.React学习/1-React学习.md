@@ -234,6 +234,13 @@ useEffect[callback, dep]
 
 第二个参数为空数组时，callback只会运行一次，在mount的时候
 
+`useLayoutEffect` 和 `useEffect` 都是 React Hook 中的函数，用于在组件渲染完成后执行一些副作用操作。
+
+不同之处在于它们执行的时间点不同。
+
+- `useEffect` 在组件渲染完成后执行，它是在浏览器绘制完成后异步执行的。这意味着它不会阻塞浏览器的渲染过程，因此适用于不需要同步更新 UI 的副作用操作。
+- `useLayoutEffect` 在组件渲染完成后同步执行，它会在浏览器绘制之前执行。这意味着它会阻塞浏览器的渲染过程，因此在性能敏感的场景下应谨慎使用。使用 `useLayoutEffect` 可能会导致用户感知的延迟或者页面不流畅。
+
 
 
 ## useEffect清除定时器
@@ -285,5 +292,98 @@ Router包裹
 <Route exact path="/home">
      <Detail>
 </Route>
+```
+
+
+
+## React forwardRef
+
+React 的 forwardRef 是一种用于传递 ref 给子组件的技术。它允许父组件能够访问或操作子组件中的 DOM 元素或组件实例。
+
+使用 forwardRef，您可以在父组件中创建 ref，并将其传递给子组件，从而使父组件能够直接引用子组件的 DOM 元素或实例。
+
+```tsx
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+
+// 子组件
+const ChildComponent = forwardRef((props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    // 暴露给父组件的方法
+    focus: () => {
+      inputRef.current.focus();
+    },
+    // 暴露给父组件的其他属性或方法
+    // ...
+  }));
+
+  return <input type="text" ref={inputRef} />;
+});
+
+// 父组件
+const ParentComponent = () => {
+  const childRef = useRef();
+
+  const handleClick = () => {
+    childRef.current.focus(); // 通过 ref 调用子组件方法
+  };
+
+  return (
+    <div>
+      <ChildComponent ref={childRef} /> {/* 将 ref 传递给子组件 */}
+      <button onClick={handleClick}>Focus</button> {/* 调用子组件的方法 */}
+    </div>
+  );
+};
+
+export default ParentComponent;
+```
+
+在使用 `ref` 获取子组件引用时，有两个注意事项：
+
+1. 子组件必须是一个类组件或通过 `React.forwardRef` 创建的函数组件。
+2. 如果子组件是函数组件，并且未通过 `React.forwardRef` 创建，你无法直接访问它的内部实例或方法。你可以通过在子组件中使用 `useImperativeHandle` 钩子将需要暴露给父组件的实例或方法绑定到 `ref` 上。
+
+### useImperativeHandle
+
+useImperativeHandle 是 React 中的一个自定义 Hook，它允许您定义在通过 forwardRef 包裹的组件中暴露给父组件的方法或属性。
+
+useImperativeHandle 接受两个参数：ref 和一个回调函数。在回调函数中，您可以返回一个对象，该对象将成为通过 ref 引用的组件的实例。
+
+```tsx
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+
+const ChildComponent = forwardRef((props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    // 暴露给父组件的方法或属性
+    focus: () => {
+      inputRef.current.focus();
+    },
+    // 其他暴露给父组件的方法或属性
+    // ...
+  }));
+
+  return <input type="text" ref={inputRef} />;
+});
+
+const ParentComponent = () => {
+  const childRef = useRef();
+
+  const handleClick = () => {
+    childRef.current.focus(); // 通过 ref 调用子组件方法
+  };
+
+  return (
+    <div>
+      <ChildComponent ref={childRef} /> {/* 将 ref 传递给子组件 */}
+      <button onClick={handleClick}>Focus</button> {/* 调用子组件的方法 */}
+    </div>
+  );
+};
+
+export default ParentComponent;
 ```
 
