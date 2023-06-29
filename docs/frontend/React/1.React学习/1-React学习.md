@@ -387,3 +387,10 @@ const ParentComponent = () => {
 export default ParentComponent;
 ```
 
+
+
+## createPortal
+
+`createPortal` 是 React 中的一个函数，用于将子组件渲染到 DOM 树中的指定位置，而不是直接在父组件内部渲染。
+
+createPortal(children, domNode, key?)

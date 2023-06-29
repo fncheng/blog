@@ -128,12 +128,7 @@ module.exports = defineConfig({
         {
           title: 'Vue3',
           collapsable: false,
-          children: [
-            'Vue3/从vue2迁移到vue3',
-            'Vue3/学习理解Vue3',
-            'Vue3/Vue3是如何变快的',
-            'Vue3/学习理解Vue3'
-          ]
+          children: ['Vue3/从vue2迁移到vue3', 'Vue3/学习理解Vue3', 'Vue3/Vue3是如何变快的']
         },
         {
           title: 'Vue2',
@@ -196,7 +191,7 @@ module.exports = defineConfig({
           title: 'Antd',
           collapsable: false,
           children: [
-            ...setSidebar('../frontend/React/Antd/'),
+            ...setSidebar('../frontend/React/4.Antd/'),
             {
               title: 'ProTable ProColumns类型',
               path: 'https://github.com/fncheng/react-learn/issues/5'
@@ -205,7 +200,12 @@ module.exports = defineConfig({
         },
         {
           title: 'UMI',
-          children: setSidebar('../frontend/React/Umi/')
+          children: setSidebar('../frontend/React/5.Umi/')
+        },
+        {
+          title: '前端常见解决方案',
+          collapsable: false,
+          children: [...setSidebar('../frontend/React/6.前端常见解决方案/')]
         }
       ],
       '/frontend/http/': getSidebar('../frontend/http/'),
