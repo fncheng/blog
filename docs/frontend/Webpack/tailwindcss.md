@@ -38,6 +38,24 @@ npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefi
 
 
 
+## tailwindcss移除默认的reset样式
+
+使用tailwindcss后会导致Antd的Button按钮透明
+
+关闭tailwind的预置设置，修改 tailwind.config.js，添加以下代码
+
+```js
+module.exports = {
+  ...
+  ...
+  corePlugins: {
+    preflight: false
+  }
+}
+```
+
+
+
 ### util
 
 适用于小程序

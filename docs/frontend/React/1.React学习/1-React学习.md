@@ -68,9 +68,7 @@ this.setState({number: this.state.number + 1}, () => {
 
 
 
-### 注意:
-
-this.setState()可能是异步的.
+⚠️注意：this.setState()可能是异步的.
 
 [官方原文:](https://zh-hans.reactjs.org/docs/state-and-lifecycle.html)
 

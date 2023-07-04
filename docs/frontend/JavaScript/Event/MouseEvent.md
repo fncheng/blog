@@ -21,3 +21,9 @@ screenX，screenY：鼠标指针相对于全局（屏幕）的X坐标；
 x，y：clientX，clientY的别名
 
 cl
+
+
+
+## Pointer Events
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/Pointer_events

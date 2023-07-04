@@ -149,6 +149,53 @@ function Router(props) {
 
 
 
+## 嵌套路由
+
+在 React-Router 中，如果你使用嵌套路由，你仍然需要使用 `Route` 组件来定义路由规则。每个嵌套的路由都需要在 `Route` 组件中进行定义。
+
+```tsx
+<Route path="/dashboard">
+  <Dashboard>
+    <Route path="/dashboard/profile" component={Profile} />
+    <Route path="/dashboard/settings" component={Settings} />
+  </Dashboard>
+</Route>
+<Route path='about'></Route>
+```
+
+实际应用
+
+```tsx
+const handleRoute = (routes: RouteConfig[]): React.ReactNode =>
+    routes.map((r: RouteConfig) => {
+        if (r.childrens && r.childrens.length > 0) {
+            return (
+                <Route path={r.path}>
+                    <r.component key={r.path}>
+                        {handleRoute(r.childrens)}
+                    </r.component>
+                </Route>
+            );
+        } else return <Route {...r} key={r.path}></Route>;
+    });
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Switch>{handleRoute(routes)}</Switch>
+        </BrowserRouter>
+    );
+};
+```
+
+
+
+
+
+
+
+
+
 ## React-Router 5 Route组件源码
 
 以下是Route组件核心实现
@@ -201,139 +248,6 @@ export default Route;
 `Route` 组件使用了 React 的 context，它通过 `RouterContext.Consumer` 获取了当前 `Router` 组件的 `location` 属性，然后基于传入的 `path` 属性和当前路径判断是否匹配。如果匹配，则使用 `component`、`render` 或 `children` 中的一个方式渲染组件。如果不匹配，则直接返回 `null`。
 
 需要注意的是，如果你使用路由参数，比如 `/users/:userId`，则 `match` 对象将具有 `params` 属性，它包含传递给路由的参数。
-
-
-
-## React-Router 6
-
-react-router中Routes和Route  就像Vue中的路由表Routes
-
-每一个Route都是一个路由，element属性控制渲染的组件，to属性控制route path
-
-
-
-### Link
-
-即`<router-link />`
-
-
-
-#### 编程式导航
-
-useNavigate
-
-```jsx
-const navigate = useNavigate()
-navigate("/b"); // 跳转
-```
-
-```ts
-export declare function useNavigate(): NavigateFunction;
-export interface NavigateFunction {
-    (to: To, options?: NavigateOptions): void;
-    (delta: number): void;
-}
-
-export interface NavigateOptions {
-    replace?: boolean;
-    state?: any;
-    preventScrollReset?: boolean;
-    relative?: RelativeRoutingType;
-}
-```
-
-### Link和NavLink
-
-`<NavLink>`是`<Link>`的一个特定版本，会在匹配上当前的url的时候给已经渲染的元素添加参
-
-```html
-<a href="/b">to b</a>
-
-<a aria-current="page" class="active" href="/">a</a>
-```
-
-上面是Link渲染出来的，下面是NavLink渲染的，可以看到多出来一个class="active"
-
-这样就可以设置默认激活，做上色等操作
-
-[aria-content](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)是无障碍属性
-
-
-
-### URL prarms传递
-
-```jsx
-import { Routes, Route, useParams } from "react-router-dom";
-
-function App() {
-  return (
-    <Routes>
-      <Route
-        path="invoices/:userid"
-        element={<Invoice />}
-      />
-    </Routes>
-  );
-}
-
-function Invoice() {
-  let params = useParams();
-  return <h1>Invoice {params.userid}</h1>;
-}
-```
-
-
-
-### 嵌套路由
-
-`<Outlet />` 组件即 Vue-Router中的 `router-view`
-
-```jsx
-function Header() {
-  return (
-    <ul className="navs">
-      <li className="nav">
-        <Link to="/invoices/1">to invoice 1</Link> |
-        <Link to="/invoices/2">to invoice 2</Link>
-      </li>
-    </ul>
-  );
-}
-function View() {
-  return (
-    <Routes>
-      <Route path="a" element={<Invoices />}></Route>
-      <Route path="b/:userid" element={<Invoice />}></Route>
-      <Route path="/invoices" element={<Invoices />}>
-        <Route path=":invoiceid" element={<Invoice />}></Route>
-        <Route path="2" element={<SendInvoice />}></Route>
-      </Route>
-    </Routes>
-  );
-}
-function Invoices() {
-  return (
-    <>
-      <h3>Invoices</h3>
-      <Outlet />
-    </>
-  );
-}
-
-function Invoice() {
-  const params = useParams();
-  return (
-    <>
-      <div>Invoice id</div>
-      <div>{params.invoiceid}</div>
-    </>
-  );
-}
-
-function SendInvoice() {
-  return <div>SendInvoice</div>;
-}
-```
 
 
 

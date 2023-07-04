@@ -111,3 +111,92 @@ function Example() {
 
 
 ## Table
+
+### Table定义类型
+
+```tsx
+import { Table, TableColumnType } from "antd";
+
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const columns: TableColumnType<DataType>[] = [
+  { dataIndex: "name", title: "姓名" },
+  { dataIndex: "age", title: "年龄" }
+];
+```
+
+或者使用ColumnsType
+
+```tsx
+import type { ColumnsType } from "antd/es/table";
+
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const columns: ColumnsType<DataType> = [
+  { dataIndex: "name", title: "姓名" },
+  { dataIndex: "age", title: "年龄" }
+];
+```
+
+### Antd Table sort触发请求
+
+在Antd Table中，要实现点击表头排序后触发请求的功能，你可以使用Table组件的`onChange`属性和排序相关的state来实现。
+
+首先，你需要在父组件中维护一个`sorter`和`sortOrder`的状态，并将它们传递给Table组件的`onChange`属性。
+
+```jsx
+import { Table } from 'antd';
+
+class MyTable extends React.Component {
+  state = {
+    data: [...], // 表格数据
+    sorter: {
+      field: '',
+      order: ''
+    }
+  };
+
+  handleTableChange = (pagination, filters, sorter) => {
+    // 更新排序状态
+    this.setState({ sorter });
+
+    // 发起请求，根据排序状态获取数据
+    this.fetchData(sorter.field, sorter.order);
+  };
+
+  fetchData = (field, order) => {
+    // 发起请求，获取数据
+    // 根据field和order参数进行排序，返回排序后的数据
+    // 更新state中的data状态
+  };
+
+  render() {
+    const { data, sorter } = this.state;
+
+    const columns = [
+      { title: 'ID', dataIndex: 'id', sorter: true },
+      { title: 'Name', dataIndex: 'name', sorter: true },
+      // ...
+    ];
+
+    return (
+      <Table
+        columns={columns}
+        dataSource={data}
+        onChange={this.handleTableChange}
+        sorter={sorter}
+      />
+    );
+  }
+}
+```
