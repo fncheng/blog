@@ -51,3 +51,21 @@ export default {
 @tailwind utilities;
 ```
 
+## tailwind导致Antd button透明问题
+
+在tailwind.config.js中加入如下代码关闭tailwind默认预设
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {}
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false
+  }
+}
+```
+

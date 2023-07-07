@@ -166,18 +166,16 @@ function Router(props) {
 实际应用
 
 ```tsx
-const handleRoute = (routes: RouteConfig[]): React.ReactNode =>
-    routes.map((r: RouteConfig) => {
-        if (r.childrens && r.childrens.length > 0) {
-            return (
-                <Route path={r.path}>
-                    <r.component key={r.path}>
-                        {handleRoute(r.childrens)}
-                    </r.component>
-                </Route>
-            );
-        } else return <Route {...r} key={r.path}></Route>;
-    });
+const handleRoute = (routes: RouteConfig[]) =>
+  routes.map((r: RouteConfig, i) => {
+    if (r.routes && r.routes.length > 0) {
+      return (
+        <Route path={r.path} key={i}>
+          <r.component>{handleRoute(r.routes)}</r.component>
+        </Route>
+      );
+    } else return <Route {...r} key={i}></Route>;
+  });
 
 const App = () => {
     return (
@@ -190,9 +188,12 @@ const App = () => {
 
 
 
-
-
-
+<iframe src="https://codesandbox.io/embed/react-router-qian-tao-lu-you-bian-li-ban-j29fnm?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="react-router-嵌套路由(遍历版)"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 
 
