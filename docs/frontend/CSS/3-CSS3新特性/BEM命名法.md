@@ -1,8 +1,4 @@
----
-title: BEM命名法
----
-
-BEM命名法
+## BEM命名法
 
 https://bemcss.com/
 

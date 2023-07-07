@@ -84,7 +84,28 @@ module.exports = defineConfig({
     sidebar: {
       '/frontend/前端开发常见解决方案/': getSidebar('../frontend/前端开发常见解决方案/'),
       '/frontend/前端开发常见问题/': getSidebar('../frontend/前端开发常见问题/'),
-      '/frontend/CSS/': getSidebar('../frontend/CSS/'),
+      '/frontend/CSS/': [
+        {
+          title: 'CSS布局',
+          collapsable: false,
+          children: setSidebar('../frontend/CSS/1-CSS布局/')
+        },
+        {
+          title: '文本及图片',
+          collapsable: false,
+          children: setSidebar('../frontend/CSS/2-文本及图片/')
+        },
+        {
+          title: 'CSS3新特性',
+          collapsable: false,
+          children: setSidebar('../frontend/CSS/3-CSS3新特性/')
+        },
+        {
+          title: 'CSS效果实现',
+          collapsable: false,
+          children: setSidebar('../frontend/CSS/4-CSS效果实现/')
+        }
+      ],
       // JavaScript
       '/frontend/JavaScript/': [
         {
