@@ -23,7 +23,7 @@ module.exports = defineConfig({
         text: '前端',
         items: [
           { text: 'HTML', link: '/frontend/html/js事件' },
-          { text: 'CSS', link: '/frontend/CSS/css学习' },
+          { text: 'CSS', link: '/frontend/CSS/1-CSS布局/1-浮动与定位' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
           { text: 'TypeScript', link: '/frontend/TypeScript/ts常见问题' },
           {

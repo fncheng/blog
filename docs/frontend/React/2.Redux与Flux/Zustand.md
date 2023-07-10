@@ -92,3 +92,31 @@ const useUserStore = create<userStore>()(
 );
 ```
 
+
+
+## 在Axios拦截器内使用zutand导致hooks报错
+
+在axios拦截器内使用zustand可能会导致报错，原因是axios拦截器是在全局作用域中执行的，而zustand的Hook函数只能在React函数组件中使用。
+
+要解决这个问题，您可以将拦截器的处理逻辑封装在一个自定义的函数组件中，然后在该组件内部使用zustand。然后，在拦截器内部调用该组件来执行处理逻辑。
+
+我们可以使用useStore.getState()来获取当前状态的快照
+
+```ts
+import axios from "axios";
+import { useUserStore } from "../store";
+service.interceptors.request.use(
+  (config) => {
+    const count = useUserStore.getState().userState.count;
+    console.log("count: ", count);
+    if (count) {
+      config.headers["auth"] = count;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+```
+

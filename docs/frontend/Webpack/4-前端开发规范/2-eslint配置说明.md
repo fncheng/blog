@@ -1,8 +1,4 @@
----
-title: ESLint配置文件
----
-
-
+# ESlint配置
 
 ## webpack with eslint
 
@@ -62,7 +58,7 @@ module.exports = {
 "camelcase": '['warn',{properties:'never',allow: ['default_AddressArray']}]'
 ```
 
-## ESLint允许any类型
+### ESLint允许any类型
 
 `Unexpected any. Specify a different type.eslint@typescript-eslint/no-explicit-any`
 

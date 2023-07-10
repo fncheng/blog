@@ -110,3 +110,28 @@ for (const path in pngFiles) {
 ```
 
 需要注意的是，在使用 `import.meta.glob()` 函数时，你需要在字符串中显示地指定文件名中的通配符，而且这种方式只支持识别静态的、不可变的文件路径。
+
+
+
+## Vite配置proxy
+
+修改vite.config.ts文件
+
+```ts
+export default defineConfig({
+  server: {
+    proxy: {
+      "/agent": {
+        target: "http://10.0.0.16:56790",
+        changeOrigin: true,
+        secure: false,
+        // 给header添加属性
+        headers: {
+          'auth': 'your-auth-token'
+        }
+      }
+    }
+  }
+})
+```
+
