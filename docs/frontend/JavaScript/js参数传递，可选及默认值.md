@@ -1,28 +1,3 @@
-####  文件下载
-
-header中的Content-Disposition
-
-```js
-Response.AppendHeader("Content-Disposition","attachment;filename=FileName.txt"); 
-```
-
-
-
-#### nginx配置
-
-https://blog.csdn.net/u011519550/article/details/104419016
-
-```nginx
-location ~ ^/file  {
-    if ($request_filename ~* ^.*?\.(txt|doc|pdf)$){
-            add_header Content-Disposition: 'attachment';
-            add_header  Content-Type application/octet-stream;
-    }        
-    root /home/wangjinyu;
-```
-
-
-
 ## js参数传递，可选及默认值
 
 [mdn](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Default_parameters)关于默认参数值的定义：

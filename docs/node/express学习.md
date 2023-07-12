@@ -34,3 +34,21 @@ app是应用级中间件，router是路由级中间件。路由级中间件可�
 ### express启用cors
 
 Express 上的 CORS 通过使用 `cors` 这个中间件来实现。
+
+
+
+## express返回文件
+
+```js
+router.get('/file', (req, res) => {
+  const filePath = path.resolve(__dirname, '../public/index.html')
+  res.status(200).sendFile(filePath, {
+    headers: {
+      'Content-Type': 'text/html',
+      "Content-Disposition": 'attachment;filename=FileName.html'
+    }
+  })
+})
+```
+
+加上Content-Disposition文件将会被下载

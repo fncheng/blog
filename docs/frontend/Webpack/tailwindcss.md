@@ -12,6 +12,16 @@ title: TailWindCSS
 
 Tailwindcss 换算 4 = 1rem = 16px；1=4px=0.25rem
 
+## tailwind固定height
+
+如果我想实现高度70px
+
+```html
+<div class="h-[70px]">
+  <!-- ... -->
+</div>
+```
+
 
 
 
@@ -34,24 +44,6 @@ Error: PostCSS plugin tailwindcss requires PostCSS 8.
 
 ```sh
 npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
-```
-
-
-
-## tailwindcss移除默认的reset样式
-
-使用tailwindcss后会导致Antd的Button按钮透明
-
-关闭tailwind的预置设置，修改 tailwind.config.js，添加以下代码
-
-```js
-module.exports = {
-  ...
-  ...
-  corePlugins: {
-    preflight: false
-  }
-}
 ```
 
 

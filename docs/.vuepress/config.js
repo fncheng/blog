@@ -139,6 +139,11 @@ module.exports = defineConfig({
           children: setSidebar('../frontend/JavaScript/二进制文件与流/')
         },
         {
+          title: 'Headers',
+          collapsable: false,
+          children: setSidebar('../frontend/JavaScript/Headers/')
+        },
+        {
           title: 'RegExp',
           children: setSidebar('../frontend/JavaScript/RegExp/')
         }

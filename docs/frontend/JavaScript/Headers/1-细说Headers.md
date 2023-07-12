@@ -1,4 +1,4 @@
-## Headers
+# HTTP Headers
 
 在Chrome dev tools 里Headers有三部分
 
@@ -76,26 +76,6 @@ MDN关于HTTP Headers的解释如下：
 
 Content-Type区分大小写
 
-Ajax 发送json
-
-```js
-var data = "{\n  \"appToken\":\"DKykgNwA4jAY6Cm5p\",\n  \"content\":\"Wxpusher祝你中秋节快乐!\",\n  \"summary\":\"消息摘要\",//消息摘要，显示在微信聊天页面或者模版消息卡片上，限制长度100，可以不传，不传默认截取content前面的内容。\n  \"contentType\":1,//内容类型 1表示文字  2表示html(只发送body标签内部的数据即可，不包括body标签) 3表示markdown \n  \"topicIds\":[ //发送目标的topicId，是一个数组！！！，也就是群发，使用uids单发的时候， 可以不传。\n      123\n  ],\n  \"uids\":[//发送目标的UID，是一个数组。注意uids和topicIds可以同时填写，也可以只填写一个。\n      \"UID_2UELgrdHdG2th1pyAd\"\n  ],\n  \"url\":\"http://wxpusher.zjiecode.com\" //原文链接，可选参数\n}";
-
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("POST", "http://wxpusher.zjiecode.com/api/send/message");
-xhr.setRequestHeader("Content-Type", "application/json");
-
-xhr.send(data);
-```
-
 ### [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control)
 
 Header type [General header](https://developer.mozilla.org/en-US/docs/Glossary/General_header)
@@ -134,3 +114,11 @@ ETag: W/"863-JEFnfKB5RdUN8z5hgvyL1Nu4HFE"
 
 > `Referer` 请求头包含了当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。服务端一般使用 `Referer` 请求头识别访问来源，可能会以此进行统计分析、日志记录以及缓存优化等。
 
+
+
+## Content-Disposition
+
+`Content-Disposition`是一个HTTP响应头部字段，用于指示接收端如何处理传输的数据。它通常与文件下载相关。
+
+1. `inline`: 表示将内容直接显示在浏览器中，如果是可预览的文件（如图片、PDF等），则在浏览器中显示该文件。
+2. `attachment`: 表示将内容作为附件下载，浏览器会提示用户保存文件或打开文件下载对话框。
