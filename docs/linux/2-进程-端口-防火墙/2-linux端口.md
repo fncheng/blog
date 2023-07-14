@@ -7,9 +7,23 @@ $ lsof -i:80
 
 COMMAND   PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
 node    13695 root   20u  IPv4 3281738      0t0  TCP *:http (LISTEN)
+
+lsof -i tcp:5173 # 查看tcp端口占用
 ```
 
+## netstat
 
+### netstat -tunlp
+
+`netstat -tunlp`是一个用于查看TCP和UDP网络连接以及监听端口的命令。
+
+下面是该命令的详细说明：
+
+- `-t`：显示TCP连接。
+- `-u`：显示UDP连接。
+- `-n`：以数字形式显示IP地址和端口号，而不进行域名解析。
+- `-l`：仅显示监听状态的连接。
+- `-p`：显示与每个连接相关的进程ID（PID）和进程名称。
 
 
 

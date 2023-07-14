@@ -135,3 +135,26 @@ export default defineConfig({
 })
 ```
 
+
+
+## Vite类似webpack.definePlugin的注入
+
+```ts
+export default defineConfig({
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  },
+}
+```
+
+有个奇怪的事，
+
+```ts
+console.log(`process.env.NODE_ENV`);
+```
+
+上面这段代码打印的不是字符串"process.env.NODE_ENV"，而是对应环境变量的值development
+
+
+
+与此同时，vite还有import.meta.env

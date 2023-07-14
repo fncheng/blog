@@ -272,6 +272,7 @@ module.exports = defineConfig({
           children: [
             'fetch和pull',
             'gitignore的使用',
+            'gitconfig配置文件',
             'SourceTree使用指南',
             'git常见问题',
             'git hooks'
