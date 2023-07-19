@@ -53,63 +53,6 @@ Antd Modal 的确定按钮在默认情况下确实允许快速重复点击，这
 
 
 
-## ProForm
-
-ProForm系列的表单通过name属性来作为绑定值，不需要你提前声明变量，在提交的时候会自动生成对象
-
-比如
-
-```tsx
-function Example() {
-  const onFinish = (values: any) => {
-    console.log(values); // {inputField: 'xxxxx'}
-  };
-
-  return (
-    <ProForm onFinish={onFinish} name="exampleForm">
-      <ProFormText
-        label="输入框"
-        name={'inputField'}
-        rules={[{ required: true, message: '请输入内容' }]}
-      />
-    </ProForm>
-  );
-}
-```
-
-如果你绑定的值是对象中的
-
-
-
-
-
-## Antd ProFormSwitch
-
-ProFormSwitch组件与Switch组件不同，没有 **checked** 属性
-
-正确的做法是将值存储在表单的数据中，并使用 `initialValue` 和 `name` 属性进行绑定。下面是一个示例代码：
-
-```tsx
-import { ProForm, ProFormSwitch } from '@ant-design/pro-form';
-
-function Example() {
-  return (
-    <ProForm initialValues={{ switch: true }} onFinish={(values) => console.log(values)}>
-      <ProFormSwitch
-        label="ProFormSwitch"
-        name="switch"
-      />
-    </ProForm>
-  );
-}
-```
-
-`ProFormSwitch` 组件中的 `name` 属性将会与表单数据中的 `switch` 字段进行绑定，实现值的双向绑定。当我们在界面上点击开关时，组件内部会更新表单数据中 `switch` 字段的值，从而实现了值的动态修改。
-
-需要注意的是，在使用 `initialValues` 属性时，需要将表单的 `onFinish` 属性设置为回调函数，当表单提交时，回调函数会将表单数据传递给我们进行处理。
-
-
-
 ## Table
 
 ### Table定义类型
@@ -266,4 +209,100 @@ dropdownContent = column.filterDropdown({
 ```
 
 confirm会触发doFilter，而doFilter会触发`internalTriggerFilter(getFilteredKeysSync())`，其中getFilteredKeysSync()用于获取搜索关键词，该函数返回一个`string[]`
+
+
+
+## Antd Table设置单元格点击事件
+
+通过onCell属性设置
+
+```tsx
+const columns: ProColumns<DrsApplicationInfo>[] = [
+  {
+		title: '备注',
+    dataIndex: 'remark',
+    width: 200,
+    onCell: (record) => ({
+        onDoubleClick: () => {
+            setEditingKey(record.uuid);
+        },
+    }),
+]
+```
+
+## 设置单元格可编辑
+
+第一种思路是给表格每行数据RowData加一个editing属性，用于控制是否处于编辑状态，这样做会导致可以同时编辑多行数据，如果只能编辑一行数据需要做额外处理。
+
+第二种思路是设置一个key，当要编辑的行id === key时，该行进入编辑状态
+
+
+
+## Antd Table fixed后错位
+
+错位问题实际上是表头最右侧多出了一个th元素导致的
+
+当给Table设置`scroll={{ x: '100%', y: '100%' }}`时反而不会出现错位
+
+经测试设置overflow-y: scroll 可以解决错位问题并且保持表格原貌
+
+给表格设置滚动条并解决错位问题
+
+```ts
+/**
+ * 给ProTable的body部分设置滚动条
+ * @param {number} options.extraHeight 表格body底部到可视区域的距离（默认为 70）
+ * @param {RefObject} options.ref  ProTable组件ref
+ * @returns {string} 返回表格的垂直滚动高度
+ */
+export const getTableScrollY = ({
+    extraHeight = 70,
+    ref,
+}: {
+    extraHeight?: number;
+    ref: RefObject<HTMLDivElement>;
+}) => {
+    const tSearch: HTMLElement | null | undefined = ref.current?.querySelector(
+        'div.ant-pro-table-search',
+    );
+    const tBody = ref.current?.querySelector('div.ant-table-body');
+    if (tSearch) {
+        tSearch.style.marginBottom = '10px';
+    }
+    /**
+     * scrollElement 用于解决表格fixed时出现错位的问题
+     * 给表格y轴设置overflow-y: scroll时就不会出现错位
+     */
+    const scrollElement: HTMLElement | null | undefined = ref.current?.querySelector(
+        '.ant-table-cell-fix-right.ant-table-cell-fix-right-first',
+    );
+
+    if (tBody) {
+        const { top }: DOMRect = tBody!.getBoundingClientRect();
+        const height = `calc(100vh - ${top + extraHeight}px)`;
+        const oldStyle = tBody?.getAttribute('style');
+        const newStyle = `min-height: ${height};overflow-y: ${scrollElement ? 'scroll' : 'auto'}`;
+        tBody?.setAttribute('style', `${oldStyle} ${newStyle}`);
+        return height;
+    } else throw new Error('ProTable必须设置scroll属性');
+};
+```
+
+## Antd Table column设置ellipsis不生效
+
+设置onCell后即可
+
+```tsx
+        {
+            title: '备注',
+            dataIndex: 'remark',
+            key: 'remark',
+            width: 200,
+            ellipsis: true,
+            onCell: (record) => ({
+                style: {
+                    maxWidth: 200,
+                }
+            }),
+```
 
