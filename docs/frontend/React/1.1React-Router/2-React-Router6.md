@@ -37,7 +37,7 @@ Route组件属性
 
 
 
-#### 编程式导航
+### 编程式导航
 
 useNavigate
 
@@ -100,8 +100,6 @@ function Invoice() {
   return <h1>Invoice {params.userid}</h1>;
 }
 ```
-
-
 
 ### 嵌套路由
 
@@ -192,5 +190,74 @@ const routes: RouteObject[] = [
 const router = createBrowserRouter(routes);
 
 const App = () => <RouterProvider router={router} />
+```
+
+
+
+## token无效时跳转登录页
+
+实现类似于beforeEach功能的导航守卫
+
+```tsx
+/**
+ * 路由守卫
+ * @description 验证用户token是否在有效期。
+ */
+const RouterAuth = ({ children }: { children: JSX.Element }) => {
+    const location = useLocation();
+    const token = useUser((state) => state.user.token);
+
+    if (!token) {
+        return <Navigate to="/login" state={location} replace />;
+    }
+
+    return children;
+};
+```
+
+而token则存储到全局store中，在axios拦截器中设置token清除token
+
+```ts
+service.interceptors.response.use(
+    (response) => {
+        if (response.data.errCode === 1004001) {
+            useUserStore.getState().setLoginStatus(false);
+        }
+        return response;
+    },
+    (error: AxiosError) => {
+        if (error.response?.status === 401 || error.response?.status === 500) {
+            message.error("登录凭证无效！");
+            useUserStore.getState().setToken('')
+            return Promise.reject((error.response.data as ResponseData).error);
+        }
+        return Promise.reject(error);
+    }
+);
+```
+
+
+
+## 获取URL查询参数
+
+在Vue-Router中我们可以通过$route.query获取URL查询参数，而在React-Router中没有对此进行封装，可以通过
+
+useLocation拿到未序列化的查询参数类似于`?name=zs&age=20`这种格式
+
+```ts
+const { search } = useLocation()
+const queryParams = Object.fromEntries(new URLSearchParams(location.search).entries())
+// { name: 'zs', age: 20 }
+```
+
+封装一下
+
+```ts
+/**
+ * 获取序列化后的URL查询参数 ?a=1&b=2 返回{ a:1, b:2 }
+ * @returns
+ */
+export const useQueryParams = () =>
+    Object.fromEntries(new URLSearchParams(location.search).entries());
 ```
 

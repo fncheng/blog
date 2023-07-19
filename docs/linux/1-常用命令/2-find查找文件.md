@@ -17,3 +17,23 @@ $ # find 搜索路径 [选项] 搜索内容
 ```sh
 ```
 
+
+
+## sed
+
+使用`sed`：
+
+- 替换文本：`sed 's/old/new/g' file.txt`
+
+  
+
+- 删除行：`sed '/pattern/d' file.txt`
+
+- 插入行：`sed '2i\new line' file.txt`
+
+```sh
+sed 's/foo/bar/g' file.txt # 将文件file.txt中所有的"foo"替换为"bar"
+sed '/pattern/d' file.txt # 删除文件file.txt中所有匹配模式"pattern"的行
+sed '2i\new line' file.txt # 在文件file.txt的第二行之前插入"new line"
+```
+

@@ -233,6 +233,31 @@ const router = new VueRouter({
 
 相关内容可以看这篇[文章](https://github.com/mrdulin/blog/issues/43)
 
+
+
+## 在导航守卫钩子内跳转登录页
+
+```js
+router.beforeEach((to, from, next) => {
+  // 判断用户是否已登录
+  const isLoggedIn = store.state.isLoggedIn
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    // 需要登录的页面且用户未登录，则跳转到登录页
+    if (to.path !== '/login') {
+      next('/login')
+    } else next()
+  } else {
+    // 用户已登录或不需要登录的页面，直接进入目标页面
+    next()
+  }
+})
+```
+
+其中如果不判断`to.path !== '/login'`，则会出现Maximum call stack size exceeded 无限循环的错误。
+
+
+
 ## 常见问题
 
 ### [关于 vue-router 的 beforeEach 无限循环的问题](https://github.com/fncheng/vue-learn/issues/9)

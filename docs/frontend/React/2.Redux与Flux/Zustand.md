@@ -42,6 +42,25 @@ const useUserStore = create<userStore>()(
 )
 ```
 
+### 针对特定字段
+
+```ts
+const useUserStore = create<userStore>()(
+  persist(
+    (set) => ({
+      count: 0,
+      increament: () => set((state) => ({ count: state.count + 1 }))
+    }),
+    {
+      name: "USER_INFO",
+      partialize: (state) => ({ count: state.count }),
+    }
+  )
+)
+```
+
+
+
 
 
 ## Zustand使用immer
