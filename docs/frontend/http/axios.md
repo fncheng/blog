@@ -161,3 +161,7 @@ console.log(instance.defaults);
 ### response:
 
 ![image-20210528101124476](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210528101124476.png)
+
+
+
+## 封装axios
