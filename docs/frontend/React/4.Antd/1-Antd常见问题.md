@@ -1,3 +1,5 @@
+# Antd常见问题
+
 ## Antd Form Rules
 
 Antd Form表单使用的也是async validator
@@ -50,8 +52,6 @@ Antd Modal 的确定按钮在默认情况下确实允许快速重复点击，这
   Modal 内容
 </Modal>
 ```
-
-
 
 ## Table
 
@@ -144,8 +144,6 @@ class MyTable extends React.Component {
 }
 ```
 
-
-
 ## Table filterDropdown自定义筛选
 
 filterDropdown属性是一个函数
@@ -210,8 +208,6 @@ dropdownContent = column.filterDropdown({
 
 confirm会触发doFilter，而doFilter会触发`internalTriggerFilter(getFilteredKeysSync())`，其中getFilteredKeysSync()用于获取搜索关键词，该函数返回一个`string[]`
 
-
-
 ## Antd Table设置单元格点击事件
 
 通过onCell属性设置
@@ -236,19 +232,17 @@ const columns: ProColumns<DrsApplicationInfo>[] = [
 
 第二种思路是设置一个key，当要编辑的行id === key时，该行进入编辑状态
 
-
-
 ## Antd Table fixed后错位
 
 错位问题实际上是表头最右侧多出了一个th元素导致的
 
-当给Table设置`scroll={{ x: '100%', y: '100%' }}`时反而不会出现错位
+当给Table设置`scroll: x: '100%', y: '100%'`时反而不会出现错位
 
 经测试设置overflow-y: scroll 可以解决错位问题并且保持表格原貌
 
 给表格设置滚动条并解决错位问题
 
-```ts
+```tsx
 /**
  * 给ProTable的body部分设置滚动条
  * @param {number} options.extraHeight 表格body底部到可视区域的距离（默认为 70）
@@ -288,6 +282,8 @@ export const getTableScrollY = ({
 };
 ```
 
+具体代码封装见[issues/27#issuecomment-1237690093](https://github.com/fncheng/vue-learn/issues/27#issuecomment-1237690093)
+
 ## Antd Table column设置ellipsis不生效
 
 设置onCell后即可
@@ -305,3 +301,4 @@ export const getTableScrollY = ({
                 }
             }),
 ```
+
