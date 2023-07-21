@@ -220,3 +220,34 @@ webpack5 可以使用assets module
 
 [npm](https://www.npmjs.com/package/mini-svg-data-uri)
 
+
+
+## 打包后网站ico图标丢失
+
+原因是打包时没有将ico图标文件复制到dist目录内
+
+使用CopyWebpackPlugin
+
+```js
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+  // ...
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    // ...
+  },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public/favicon.ico'),
+          to: path.resolve(__dirname, '../dist/')
+        }
+      ],
+    }),
+  ],
+  // ...
+};
+```
+

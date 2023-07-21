@@ -58,3 +58,9 @@ function Example() {
 另外通过onLoad属性可以获取ProTable request返回的表格数据
 
 onLoad: (dataSource: T[]) => void
+
+
+
+### 搜索框label宽度过小
+
+可以设置[SearchConfig](https://procomponents.ant.design/components/table#search-%E6%90%9C%E7%B4%A2%E8%A1%A8%E5%8D%95)中的labelWidth来解决

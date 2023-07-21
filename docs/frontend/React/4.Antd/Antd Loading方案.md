@@ -62,6 +62,8 @@ root.render(
 );
 ```
 
+Loading样式
+
 ```css
 .overlay {
   position: absolute;
@@ -78,11 +80,23 @@ root.render(
 }
 ```
 
+遮罩层样式
+
+```less
+.overlay {
+  background-color: hsla(0,0%,100%,.9)
+  // 转换成rgba
+  background-color: rgba(255,255,255,.9)
+}
+```
+
 
 
 ## axios拦截器控制loading
 
 这种方式属于接口级别的loading控制
+
+https://codesandbox.io/s/antd-axiosjie-kou-ji-bie-loading-g72fr9
 
 ```tsx
 import { Spin } from "antd";

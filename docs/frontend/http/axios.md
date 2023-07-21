@@ -165,3 +165,16 @@ console.log(instance.defaults);
 
 
 ## 封装axios
+
+
+
+## 类型声明
+
+### Axios拦截器中的config
+
+```ts
+export interface InternalAxiosRequestConfig<D = any> extends AxiosRequestConfig<D> {
+  headers: AxiosRequestHeaders;
+}
+```
+

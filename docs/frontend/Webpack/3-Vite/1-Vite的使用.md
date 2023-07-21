@@ -158,3 +158,26 @@ console.log(`process.env.NODE_ENV`);
 
 
 与此同时，vite还有import.meta.env
+
+
+
+## Vite通过HTML环境变量替换html模板内容
+
+在index.html中修改
+
+```html
+<link rel="icon" type="image/svg+xml" href="%VITE_LOGO_URL%" />
+```
+
+然后新建.env文件
+
+```ini
+VITE_LOGO_URL = 'rs.png'
+```
+
+注意所有变量必须以VITE开头
+
+
+
+或者使用插件[vite-plugin-html-config](https://www.npmjs.com/package/vite-plugin-html-config)、[vite-plugin-html-env](https://www.npmjs.com/package/vite-plugin-html-env)
+
