@@ -7,7 +7,9 @@
 ### 模糊匹配
 
 ```js
+// class名必须以top开头
 document.querySelector('div[class^="top"]')
+document.querySelector('div[class*="top"]')
 ```
 
 
