@@ -63,7 +63,7 @@ export interface NavigateOptions {
 
 ### Link和NavLink
 
-`<NavLink>`是`<Link>`的一个特定版本，会在匹配上当前的url的时候给已经渲染的元素添加参
+`<NavLink>`是`<Link>`的一个特定版本，会在匹配上当前的url的时候给已经渲染的元素添加参数
 
 ```html
 <a href="/b">to b</a>

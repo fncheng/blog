@@ -64,3 +64,24 @@ onLoad: (dataSource: T[]) => void
 ### 搜索框label宽度过小
 
 可以设置[SearchConfig](https://procomponents.ant.design/components/table#search-%E6%90%9C%E7%B4%A2%E8%A1%A8%E5%8D%95)中的labelWidth来解决
+
+
+
+## 获取ProForm中的表单数据
+
+可以通过调用 `form.getFieldsValue()` 方法来获取表单所有字段的值
+
+```tsx
+<StepsForm.StepForm
+    name="detectionMessage"
+    title="连接信息"
+    formRef={stepForm2}
+    layout="horizontal"
+    onFinish={handleConnectMsgFinish}
+>
+    <Button onClick={()=> {
+        console.log(stepForm2?.current.getFieldsValue())
+    }}>stepForm2</Button>
+</StepsForm.StepForm>
+```
+
