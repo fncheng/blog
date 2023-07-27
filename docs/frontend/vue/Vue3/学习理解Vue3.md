@@ -338,13 +338,29 @@ type WatchSource<T> =
 
 
 
-## 组件通信：
+## 组件通信
 
-#### 1. provide/inject注入
+### 1. provide/inject注入
 
 https://vue3js.cn/docs/zh/guide/composition-api-provide-inject.html
 
 
+
+### script setup内如何获取props
+
+可以使用`defineProps`函数来获取`props`
+
+```vue
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  message: String
+})
+
+console.log(props.message) // 获取父组件传递的message属性值
+</script>
+```
 
 
 
