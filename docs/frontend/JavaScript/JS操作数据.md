@@ -185,3 +185,19 @@ Object.values(obj)
 
 map不会修改原数组，forEach不会修改基本类型数组，会修改引用类型数组，for循环和for...of则会修改原数组。
 
+
+
+### 判断数组(对象)中是否有重复的值
+
+可以使用Set
+
+```ts
+const arr = [1, 2, 3, 4, 5];
+const set = new Set(arr);
+
+const hasDuplicates = arr.length !== set.size;
+
+console.log(hasDuplicates); // 输出: false
+```
+
+使用 `Set` 的优势是它自动去重，而且检查重复值的效率比遍历整个数组来查找重复值要高。但是，这种方法会移除重复的值
