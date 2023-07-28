@@ -24,3 +24,9 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties
 
 
 VSCode插件推荐**CSS Variable Autocomplete**
+
+## margin-block、margin-inline
+
+margin-block用于设置垂直方向的margin值
+
+margin-inline用于设置水平方向的margin值

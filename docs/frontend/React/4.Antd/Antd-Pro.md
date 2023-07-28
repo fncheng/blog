@@ -85,3 +85,36 @@ onLoad: (dataSource: T[]) => void
 </StepsForm.StepForm>
 ```
 
+ProFormList外置Button添加一行数据
+
+```tsx
+<Button
+  type="dashed"
+  style={{ width: "100%" }}
+  onClick={() => {
+    const list = proFormListRef.current?.getList();
+    console.log("list", list);
+    proFormListRef.current?.add({
+      targetHost: "10.0.0.111",
+    });
+  }}
+>
+  <PlusOutlined />
+  添加目标主机
+</Button>
+```
+
+然后隐藏ProFormList自带的creatorButtonProps
+
+```tsx
+<ProFormList
+  creatorButtonProps={false}
+>
+</ProFormList>
+```
+
+
+
+## StepForm的onFinish
+
+表单最后一步提交成功触发，如果返回`true`就会自动重置表单(包括`StepForm`变回第一步)
