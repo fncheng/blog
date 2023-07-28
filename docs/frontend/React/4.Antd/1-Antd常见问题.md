@@ -1,5 +1,81 @@
 # Antd常见问题
 
+## Form
+
+默认是通过htmlType="submit" 来触发表单提交
+
+如果我不需要htmlType="submit"，而是自定义按钮来提交
+
+```tsx
+<Button
+  onClick={() => {
+    // form.validateFields()
+    // 或者
+    myRef.current?.validateFields()
+  }}
+/>
+```
+
+### Form设置trigger触发时间
+
+在ElementUI表单校验中，可以设置trigger属性来实现触发时机
+
+在Antd中，通过设置Form.Item的validateTrigger属性来实现
+
+rules也有validateTrigger属性，但是官方描述中 **设置触发验证时机，必须是 Form.Item 的 validateTrigger 的子集**
+
+表明Form.Item中的validateTrigger是必填的
+
+输入时就校验表单
+
+修改`validateTrigger` 为 "onChange"
+
+Form.Item的validateTrigger默认为onChange，所以修改rule的validateTrigger为onChange时可以省略Form.Item的不用写
+
+```tsx
+<Form.Item
+  label='Username'
+  name='username'
+  rules={[
+    { required: true, message: 'Please input your username!' },
+    {
+      validator: (rule, value, callback) => {
+        console.log(value)
+        if (Number(value) < 100) {
+          return Promise.reject('must > 100')
+        }
+      },
+      validateTrigger: 'onChange'
+    }
+  ]}
+>
+  <Input />
+</Form.Item>
+// 或者
+<Form.Item
+  label="Username"
+  name="username"
+  validateTrigger={["onChange", "onBlur"]}
+  rules={[
+    { required: true, message: "Please input your username!" },
+    {
+      validator: (rule, value, callback) => {
+        console.log(value);
+        if (Number(value) < 100) {
+          return Promise.reject("must > 100");
+        }
+        return Promise.resolve();
+      },
+      validateTrigger: "onBlur",
+    },
+  ]}
+>
+  <Input />
+</Form.Item>;
+```
+
+
+
 ## Antd Form Rules
 
 Antd Form表单使用的也是async validator
@@ -22,16 +98,6 @@ const validateString = async (rule, value) => {
 ```
 
 
-
-### Form设置trigger触发时间
-
-在ElementUI表单校验中，可以设置trigger属性来实现触发时机
-
-在Antd中，通过设置Form.Item的validateTrigger属性来实现
-
-rules也有validateTrigger属性，但是官方描述中 **设置触发验证时机，必须是 Form.Item 的 validateTrigger 的子集**
-
-表明Form.Item中的validateTrigger是必填的
 
 ## Antd Modal 确定按钮可以快速点击多次
 
