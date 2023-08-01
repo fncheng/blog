@@ -74,7 +74,11 @@ Form.Item的validateTrigger默认为onChange，所以修改rule的validateTrigge
 </Form.Item>;
 ```
 
+### Form.Item valuePropName
 
+当Item内部是Switch时，校验无法触发，这时需要设置Item的valuePropName属性为checked
+
+valuePropName该属性为 `getValueProps` 的封装，自定义 `getValueProps` 后会失效
 
 ## Antd Form Rules
 
@@ -97,7 +101,73 @@ const validateString = async (rule, value) => {
 }
 ```
 
+## Antd的Form.Item内的Input不能实现真正意义上的双向绑定
 
+本来Form.Item内的Input组件是如下实现双向绑定的
+
+```tsx
+<Input
+   value={formState.username}
+   onChange={(e) => setFormState({ ...formState, username: e.target.value })}
+ />
+```
+
+我在无意中给表单设置rules时发现的，如果不给Item设置name属性，rules将不会生效
+
+而一旦设置了name属性后，Item内的Input就会失去双向绑定（可以试着修改数据，但是UI不会改变）
+
+```tsx
+<Form.Item
+  label='Username'
+  name='username'
+  rules={[
+    { required: true, message: 'Please input your username!' },
+    {
+      validator: (rule, value, callback) => {
+        console.log(value)
+        if (Number(value) < 100) {
+          return Promise.reject('must > 100')
+        }
+        return Promise.resolve()
+      },
+      validateTrigger: 'onBlur'
+    }
+  ]}
+>
+  <Input
+    value={formState.username}
+    onChange={(e) => setFormState({ ...formState, username: e.target.value })}
+  />
+</Form.Item>
+```
+
+在antd的表单组件中。如果给每个item组件设置了name。那么就不需要去手动实现双向绑定了。只需要通过
+form.setFieldsValue方法。将对应的数据传过去。from组件就会根据对应的name和字段名来双向绑定。
+
+## Form.Item如何绑定一个对象的属性
+
+你可以使用对象的属性路径来绑定对应的值。
+
+在 Form.Item 组件的 name 属性中使用了一个数组 `['user', 'name']` 和 `['user', 'email']` 来表示对象属性的路径。
+
+```tsx
+<Form initialValues={initialValues} onFinish={handleSubmit}>
+  <Form.Item label="Name" name={['user', 'name']}>
+    <Input />
+  </Form.Item>
+  <Form.Item label="Email" name={['user', 'email']}>
+    <Input />
+  </Form.Item>
+  <button type="submit">Submit</button>
+</Form>
+```
+
+### form.submit()和form.validateFields()
+
+https://github.com/fncheng/react-learn/issues/10
+
+1. `form.submit()`: 这个方法用于手动提交表单。当你调用 `form.submit()` 时，它会触发表单的提交操作，即执行 onFinish 回调函数。在 onFinish 回调函数中，你可以获取到表单的所有值，并进行相应的处理。
+2. `form.validateFields()`: 这个方法用于手动触发表单字段的校验。当你调用 `form.validateFields()` 时，它会对表单中的所有字段进行校验，然后返回一个 Promise 对象。你可以通过 `.then()` 方法来处理校验结果，或者使用 async/await 来等待校验完成。
 
 ## Antd Modal 确定按钮可以快速点击多次
 
