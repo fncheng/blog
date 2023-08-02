@@ -159,3 +159,16 @@ console.log(Color.Blue); // 输出: 2
 ```
 
 因此，可以看出 TypeScript 的枚举类型实际上是被转换成了一个包含属性的对象，这个对象在编译后的 JavaScript 代码中可以被引用和操作。
+
+
+
+## T泛型设置默认值
+
+```ts
+interface RequestResponse<T = any> {
+    body: T;
+    code: number;
+}
+```
+
+给泛型设置默认值后，使用的时候可以省略T

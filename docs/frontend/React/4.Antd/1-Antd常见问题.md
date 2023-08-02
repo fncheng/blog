@@ -368,6 +368,8 @@ const columns: ProColumns<DrsApplicationInfo>[] = [
 
 第二种思路是设置一个key，当要编辑的行id === key时，该行进入编辑状态
 
+https://codesandbox.io/s/antd-table-dan-yuan-ge-ke-bian-ji-lyr4mm
+
 ## Antd Table fixed后错位
 
 错位问题实际上是表头最右侧多出了一个th元素导致的
