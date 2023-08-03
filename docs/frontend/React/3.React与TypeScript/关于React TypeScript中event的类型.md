@@ -40,3 +40,28 @@ React+TypeScript的项目中定义onClick时，给event声明类型Event，ts会
 
 
 
+### 如何给函数添加像useState\<T>这样的类型声明
+
+```ts
+function useState<T>(initialValue: T): [T, (newValue: T) => void] {
+  let state = initialValue;
+
+  const setState = (newValue: T) => {
+    state = newValue;
+  };
+
+  return [state, setState];
+}
+
+// 箭头函数
+const useState = <T>(initialValue: T): [T, (newValue: T) => void] => {
+  let state = initialValue;
+
+  const setState = (newValue: T) => {
+    state = newValue;
+  };
+
+  return [state, setState];
+};
+```
+

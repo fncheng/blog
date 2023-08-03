@@ -261,3 +261,22 @@ export const useQueryParams = () =>
     Object.fromEntries(new URLSearchParams(location.search).entries());
 ```
 
+当TypeScript提示`Property 'entries' does not exist on type 'URLSearchParams'.ts(2339)`时，
+
+这是因为tsconfig.json的lib字段缺少DOM.Iterable
+
+使用Ts加上类型声明
+
+```ts
+type QueryParams<T> = { [K in keyof T]: string };
+// 用Record代替
+type QueryParams<T> = Record<keyof T, string>
+
+/**
+ * 获取序列化后的URL查询参数 ?a=1&b=2 返回{ a:1, b:2 }
+ * @returns
+ */
+export const useQueryParams = <T>(): QueryParams<T> =>
+    Object.fromEntries(new URLSearchParams(location.search).entries()) as QueryParams<T>;
+```
+

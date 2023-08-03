@@ -144,6 +144,21 @@ const validateString = async (rule, value) => {
 在antd的表单组件中。如果给每个item组件设置了name。那么就不需要去手动实现双向绑定了。只需要通过
 form.setFieldsValue方法。将对应的数据传过去。from组件就会根据对应的name和字段名来双向绑定。
 
+### 如果我需要Input和我定义的值绑定，并且能够表单校验
+
+方法一：使用 `getFieldDecorator`
+
+方法二：使用 `useForm` 钩子
+
+```tsx
+ // 当 data 发生变化时，更新表单字段的值
+  useEffect(() => {
+    form.setFieldsValue(data);
+  }, [data]);
+```
+
+这样Item的name属性就可以和Input的value属性一起使用了
+
 ## Form.Item如何绑定一个对象的属性
 
 你可以使用对象的属性路径来绑定对应的值。
@@ -438,5 +453,26 @@ export const getTableScrollY = ({
                     maxWidth: 200,
                 }
             }),
+```
+
+## CSS Modules修改Antd内部样式
+
+如同Vue的`:deep`一样，CSS Module使用`:global`来实现
+
+```less
+.listWrapper {
+    :global {
+        .ant-list-items {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    }
+}
+.listWrapper {
+    :global .ant-list-items {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+}Ï
 ```
 
