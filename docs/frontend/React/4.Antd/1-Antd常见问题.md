@@ -184,6 +184,12 @@ https://github.com/fncheng/react-learn/issues/10
 1. `form.submit()`: 这个方法用于手动提交表单。当你调用 `form.submit()` 时，它会触发表单的提交操作，即执行 onFinish 回调函数。在 onFinish 回调函数中，你可以获取到表单的所有值，并进行相应的处理。
 2. `form.validateFields()`: 这个方法用于手动触发表单字段的校验。当你调用 `form.validateFields()` 时，它会对表单中的所有字段进行校验，然后返回一个 Promise 对象。你可以通过 `.then()` 方法来处理校验结果，或者使用 async/await 来等待校验完成。
 
+### form.resetFields
+
+重置一组字段到 initialValues
+
+
+
 ## Antd Modal 确定按钮可以快速点击多次
 
 Antd Modal 的确定按钮在默认情况下确实允许快速重复点击，这可能会导致用户重复提交数据
