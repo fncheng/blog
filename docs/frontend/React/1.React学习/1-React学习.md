@@ -271,6 +271,19 @@ function Timer() {
 
 需要注意的是，清除定时器的操作不会立即执行，而是在组件销毁时才执行。同时，由于我们在依赖项列表中传入了一个空数组，所以这个 useEffect 只会在组件第一次渲染时执行。如果你需要在某个状态值发生变化时重新创建定时器，那么可以将这个状态值作为依赖项传入 useEffect 中。
 
+```tsx
+useEffect(() => {
+        const fetchData = async () => {
+            await getDetailInfo(id);
+        };
+        if (id) {
+            fetchData();
+        }
+    }, [id]);
+```
+
+当 `id` 不存在时，`useEffect` 中的回调函数不会被执行，因此不会产生额外的性能开销。
+
 
 
 ## Router路由

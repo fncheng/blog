@@ -159,6 +159,16 @@ form.setFieldsValue方法。将对应的数据传过去。from组件就会根据
 
 这样Item的name属性就可以和Input的value属性一起使用了
 
+### Antd的Form是非受控表单
+
+不过也支持受控表单
+
+1. 使用getFieldDecorator，但是getFieldDecorator在Antd4中已被废弃
+
+2. 使用useForm hooks，对于非受控表单，可以使用 `getFieldsValue` 或 `setFieldsValue` 方法来操作表单字段的值
+
+
+
 ## Form.Item如何绑定一个对象的属性
 
 你可以使用对象的属性路径来绑定对应的值。
