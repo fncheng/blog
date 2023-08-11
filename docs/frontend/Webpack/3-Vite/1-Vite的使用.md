@@ -161,7 +161,9 @@ console.log(`process.env.NODE_ENV`);
 
 
 
-## Vite通过HTML环境变量替换html模板内容
+## Vite import.meta
+
+### Vite通过HTML环境变量替换html模板内容
 
 在index.html中修改
 

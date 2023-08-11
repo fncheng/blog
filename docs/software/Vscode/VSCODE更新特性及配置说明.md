@@ -83,6 +83,12 @@ jsdoc auto complete功能于1.68版本失效了，起初我以为是这个功能
 
 解决办法：[issues#152970](https://github.com/microsoft/vscode/issues/152970)
 
+```json
+  "editor.quickSuggestions": {
+    "comments": true
+  },
+```
+
 
 
 ### Emmet
@@ -119,5 +125,5 @@ https://code.visualstudio.com/updates/v1_79#_readonly-mode
 
 将工作区的某些文件夹或文件显式标记为只读
 
-### JSDoc @param 完成
+### JSDoc @param 补全
 https://code.visualstudio.com/updates/v1_79#_jsdoc-param-completions
