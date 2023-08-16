@@ -290,7 +290,7 @@ grid:{
 
 - 半饼图
 
-  原理是data中多一组数据为所有数据之后，然后隐藏该组数据，设置 `series-pie.itemStyle.opacity = 0`
+  原理是data中多一组数据为所有数据之和，然后隐藏该组数据，设置 `series-pie.itemStyle.opacity = 0`
 
   另外设置起始角度 startAngle = 180 [echarts饼图角度起始角度位置和生长方向](https://www.cnblogs.com/Ao-min/p/13597327.html)
 

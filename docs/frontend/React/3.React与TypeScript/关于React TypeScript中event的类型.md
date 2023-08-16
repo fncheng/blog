@@ -2,6 +2,8 @@
 title: 关于React TypeScript中event的类型
 ---
 
+## 给MouseEvent添加类型声明
+
 React+TypeScript的项目中定义onClick时，给event声明类型Event，ts会报错
 
 > Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLSpanElement>'.
@@ -40,7 +42,7 @@ React+TypeScript的项目中定义onClick时，给event声明类型Event，ts会
 
 
 
-### 如何给函数添加像useState\<T>这样的类型声明
+## 如何给函数添加像useState\<T>这样的类型声明
 
 ```ts
 function useState<T>(initialValue: T): [T, (newValue: T) => void] {
