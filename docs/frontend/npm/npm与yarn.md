@@ -67,7 +67,7 @@ npm update --global                  	yarn global upgrade
 
 
 
-### 换源
+## npm mirror换源
 
 **npm更换源**
 

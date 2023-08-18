@@ -492,3 +492,57 @@ export const getTableScrollY = ({
 }Ï
 ```
 
+
+
+
+
+## TimePicker.RangePicker value回显
+
+```tsx
+<TimePicker.RangePicker
+  value={[
+    moment(formState.executePlan.startDate, "HH:mm"),
+    moment(formState.executePlan.endDate, "HH:mm"),
+  ]}
+  format={"HH:mm"}
+  onChange={(time, timeString) => {
+    setFormState({
+      executePlan: {
+        ...formState.executePlan,
+        startDate: timeString[0],
+        endDate: timeString[1],
+      },
+    });
+  }}
+/>;
+```
+
+当清空RangePicker的值时会遇到显示validate Time的问题
+
+```tsx
+const showRangePickerValue = () => {
+  if (formState.executePlan.startDate && formState.executePlan.endDate)
+    return [
+      moment(formState.executePlan.startDate, "HH:mm"),
+      moment(formState.executePlan.endDate, "HH:mm"),
+    ];
+  return null;
+};
+
+<Item label="启动时间" required>
+  <TimePicker.RangePicker
+    value={showRangePickerValue()}
+    format={"HH:mm"}
+    onChange={(time, timeString) => {
+      setFormState({
+        executePlan: {
+          ...formState.executePlan,
+          startDate: timeString[0],
+          endDate: timeString[1],
+        },
+      });
+    }}
+  />
+</Item>;
+```
+

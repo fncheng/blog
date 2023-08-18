@@ -1,6 +1,6 @@
-## 饼图
+# 饼图
 
-##### 1. 高亮扇区样式
+## 1. 高亮扇区样式
 
 [series-pie.emphasis](https://echarts.apache.org/zh/option.html#series-pie.emphasis)
 
@@ -63,9 +63,72 @@ radius: ['70%', '100%']
 
 
 
-##### 5. 饼图视觉引导线
+## 5. 饼图视觉引导线
 
 [series-pie.labelLine](https://echarts.apache.org/zh/option.html#series-pie.labelLine)
+
+```js
+series: [
+  {
+    label: {
+			show: true,
+		},
+  }
+]
+```
+
+## 自定义label
+
+```js
+option = {
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: true,
+        formatter: (params) => {
+          return `${params.name}:\nOracle: 10\nMySQL: 20\nMSSQL: 30`
+        },
+      },
+      // labelLayout: function (params) {
+      //   const isLeft = params.labelRect.x < myChart.getWidth() / 2;
+      //   const points = params.labelLinePoints;
+      //   // Update the end point.
+      //   points[2][0] = isLeft
+      //     ? params.labelRect.x
+      //     : params.labelRect.x + params.labelRect.width;
+      //   return {
+      //     labelLinePoints: points
+      //   };
+      // },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      // labelLine: {
+      //   show: true
+      // },
+      data: [
+        { value: 80, name: 'AGM' },
+        { value: 55, name: 'NBU' },
+      ]
+    }
+  ]
+};
+```
 
 
 
