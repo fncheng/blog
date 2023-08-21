@@ -135,3 +135,8 @@ jobs:
 
 当不满足构建要求后，workflow会直接跳过，避免了性能的浪费
 
+
+
+### ACCESS_TOKEN
+
+secrets.ACCESS_TOKEN通常是指Classic tokens（传统令牌）而不是Fine-grained tokens（细粒度令牌）。
