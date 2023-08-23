@@ -71,8 +71,12 @@ radius: ['70%', '100%']
 series: [
   {
     label: {
-			show: true,
-		},
+        show: true,
+        fontSize: 16,
+        formatter: (params) => {
+          return `${params.name}: ${params.value}`
+        }
+      },
   }
 ]
 ```

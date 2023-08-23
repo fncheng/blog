@@ -183,3 +183,16 @@ VITE_LOGO_URL = 'rs.png'
 
 或者使用插件[vite-plugin-html-config](https://www.npmjs.com/package/vite-plugin-html-config)、[vite-plugin-html-env](https://www.npmjs.com/package/vite-plugin-html-env)
 
+
+
+## typescript项目引入@types/node
+
+需要在tsconfig中配置
+
+```json
+{
+  //...
+  "types": ["node"]
+}
+```
+

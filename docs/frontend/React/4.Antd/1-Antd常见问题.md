@@ -546,3 +546,33 @@ const showRangePickerValue = () => {
 </Item>;
 ```
 
+
+
+## TimePicker的国际化
+
+修改DatePicker的locale
+
+```tsx
+import moment from 'moment';
+import 'moment/locale/zh-cn'; // 导入中文语言包
+
+moment.locale('zh-cn'); // 设置 moment 使用中文语言包
+```
+
+首先导入了 `moment.js` 库，并导入了中文语言包。然后，使用 `moment.locale()` 方法将日期库设置为中文语言。
+
+
+
+## Antd的Card组件
+
+```tsx
+<Card title="123" style={{ height: 300 }}>
+                <div style={{ height: '100%' }}>456</div>
+            </Card>
+```
+
+![image-20230822145932109](/Users/cheng/Library/Application Support/typora-user-images/image-20230822145932109.png)
+
+最终设置的div是在ant-card-body内部的
+
+正确的做法是给Card组件设置bodyStyle属性并设置height

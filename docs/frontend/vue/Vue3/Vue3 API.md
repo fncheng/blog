@@ -1,4 +1,4 @@
-### useState
+## useState
 
 ```js
 import { ref } from '@vue/reactivity'
@@ -13,4 +13,16 @@ const useState = function (initialState) {
 }
 export default useState
 ```
+
+
+
+## defineOptions自定义组件名
+
+```ts
+defineOptions({
+  name: 'MyIndex'
+})
+```
+
+
 

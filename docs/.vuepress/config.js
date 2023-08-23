@@ -309,7 +309,18 @@ module.exports = defineConfig({
       ],
       // Software
       '/software/': getSidebar('../software/'),
-      '/frontend/可视化开发/': getSidebar('../frontend/可视化开发/'),
+      '/frontend/可视化开发/': [
+        {
+          title: 'Echarts',
+          collapsable: false,
+          children: setSidebar('../frontend/可视化开发/echarts/')
+        },
+        {
+          title: 'Antv',
+          collapsable: false,
+          children: setSidebar('../frontend/可视化开发/antv/')
+        }
+      ],
       '/捡垃圾/': getSidebar('../捡垃圾/')
     },
     // plugins: {

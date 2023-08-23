@@ -312,6 +312,20 @@ grid:{
 
 ## 常见问题
 
+## echarts图表随着页面缩小而变化
+
+当页面缩小时，Echarts 默认情况下不会自动随着页面变化而调整大小。但是你可以通过监听 window 的 resize 事件来手动调整 Echarts 图表的大小。
+
+```tsx
+const chart = echarts.init(node.current);
+        chart.setOption(option);
+        window.addEventListener('resize', function () {
+            chart.resize();
+        });
+```
+
+
+
 
 
 ## 在小程序中使用Echarts
