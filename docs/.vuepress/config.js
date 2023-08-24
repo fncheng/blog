@@ -44,7 +44,7 @@ module.exports = defineConfig({
           },
           {
             text: '可视化',
-            link: '/frontend/可视化开发/Echarts使用'
+            link: '/frontend/可视化开发/echarts/1-Echarts使用'
           }
         ]
       },
@@ -266,6 +266,7 @@ module.exports = defineConfig({
       ],
       '/frontend/Git/': [
         { title: 'Git常用命令', collapsable: false, path: 'Git常用命令' },
+        { title: 'Git进阶命令', collapsable: false, path: 'git进阶命令' },
         {
           title: 'GIT常见',
           collapsable: false,

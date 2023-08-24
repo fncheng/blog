@@ -158,3 +158,25 @@ if [ -x .git/hooks/post-merge-newdev ]; then
   ./.git/hooks/post-merge-newdev
 fi
 ```
+
+## pre-commit保护test分支
+
+设置test分支只能从dev分支合并代码过来，不能在test直接提交代码
+
+```sh
+#!/bin/sh
+
+# 获取当前所在的分支，并将其存储在变量current_branch中
+current_branch=$(git symbolic-ref --short HEAD)
+
+if [ "$current_branch" = "test" ]; then
+# 使用git merge-base命令来检查dev分支是否是test分支的祖先分支
+  if ! git merge-base --is-ancestor dev HEAD; then
+    echo "Error: You can only merge code from the 'dev' branch into the 'test' branch."
+    exit 1
+  fi
+fi
+
+exit 0
+```
+

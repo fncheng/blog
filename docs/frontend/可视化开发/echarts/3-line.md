@@ -37,6 +37,58 @@ option = {
 };
 ```
 
+当x轴为time时间时，刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。
+
+```ts
+option = {
+  legend: {
+    data: ['image总数','当天新增image数']
+  },
+  xAxis: {
+    type: 'time'
+    // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: [
+    {
+      type: 'value',
+      position: 'left'
+    },
+    {
+      type: 'value',
+      position: 'right'
+    }
+  ],
+  series: [
+    {
+      name: 'image总数',
+      data: [
+        ['2023-08-20', 8],
+        ['2023-08-21', 10],
+        ['2023-08-22', 18],
+        ['2023-08-23', 23],
+        ['2023-08-24', 32]
+      ],
+      type: 'line',
+      yAxisIndex: 0, // y轴第一个,通过这个判断左右
+      smooth: true
+    },
+    {
+      name: '当天新增image数',
+      data: [
+        ['2023-08-20', 88],
+        ['2023-08-21', 132],
+        ['2023-08-22', 256],
+        ['2023-08-23', 333],
+        ['2023-08-24', 248]
+      ],
+      type: 'line',
+      yAxisIndex: 1, // y轴第二个
+      smooth: true
+    }
+  ]
+};
+```
+
 
 
 ### 坐标轴改成百分比%

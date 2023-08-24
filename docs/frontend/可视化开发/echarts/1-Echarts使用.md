@@ -140,7 +140,7 @@ https://www.oschina.net/question/3784921_2274394
 
 非类目轴就是除了标签类型为类目的其他坐标轴，有 时间（time），数值（value），对数（log）3种
 
-
+[xAxis.type](https://echarts.apache.org/zh/option.html#xAxis.type)
 
 ### grid
 
