@@ -200,6 +200,20 @@ https://github.com/fncheng/react-learn/issues/10
 
 
 
+## Antd Form labelCol和wrapperCol对齐
+
+控制label和field输入区域对齐的参数
+
+```tsx
+<Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}></Form>
+```
+
+这么设置可以让表单的label和输入区域对齐
+
+![image-20230825171437486](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230825171437486.png)
+
+
+
 ## Antd Modal 确定按钮可以快速点击多次
 
 Antd Modal 的确定按钮在默认情况下确实允许快速重复点击，这可能会导致用户重复提交数据

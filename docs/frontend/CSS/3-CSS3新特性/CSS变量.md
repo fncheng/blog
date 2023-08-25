@@ -30,3 +30,9 @@ VSCode插件推荐**CSS Variable Autocomplete**
 margin-block用于设置垂直方向的margin值
 
 margin-inline用于设置水平方向的margin值
+
+
+
+## width: max-content
+
+当使用 `width: max-content;` 时，元素的宽度将根据其内容自动调整到适应内容的最大宽度。这意味着元素的宽度将根据内容中最长的部分来确定。
