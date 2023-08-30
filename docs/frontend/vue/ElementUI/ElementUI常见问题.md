@@ -490,6 +490,67 @@ element ui表单验证
 
 :prop="\`tableData.${scope.$index}.date\`"
 
+### 动态prop
+
+当el-form-item是通过遍历动态生成的，prop属性也需要动态设置
+
+也就是说表单的值必须放在model中
+
+另外，每个el-form-item也必须要设置rules属性
+
+```vue
+<script>
+  export default {
+  name: 'Third',
+  data() {
+    return {
+      ruleForm: {
+        formdata: [{ name: '', age: '' }],
+      },
+      rules: {
+        name: [{ required: true, message: 'name is required!' }],
+        age: [{ required: true, message: 'age is required!' }],
+      },
+    }
+  },
+}
+</script>
+<template>
+  <el-form
+    style="width: 600px; margin-top: 20px"
+    :model="ruleForm"
+    :rules="rules"
+    label-position="left"
+    label-width="auto"
+  >
+    <div v-for="(item, index) in ruleForm.formdata" :key="index">
+      <el-form-item
+        label="用户姓名"
+        :prop="`formdata.${index}.name`"
+        :rules="rules.name"
+      >
+        <el-input v-model="item.name"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="年龄"
+        :prop="`formdata.${index}.age`"
+        :rules="rules.age"
+      >
+        <el-input v-model.number="item.age"></el-input>
+      </el-form-item>
+    </div>
+    <el-button @click="addFormItem">addFormItem</el-button>
+  </el-form>
+</template>
+
+```
+
+`el-form` 组件的 `model` 属性和 `el-form-item` 组件的 `prop` 属性之间存在关联，它们共同用于实现表单数据的双向绑定和验证。
+
+prop属性指定了表单属性在model对象中的路径
+
+
+
 ## Dialog
 
 
