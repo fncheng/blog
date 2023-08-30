@@ -485,6 +485,63 @@ export const getTableScrollY = ({
             }),
 ```
 
+## Antd Table rowSelection
+
+```tsx
+const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+<Table
+  loading={tableLoading}
+  columns={bavColumns}
+  dataSource={data}
+  rowSelection={{
+      type: 'radio',
+      selectedRowKeys,
+      onChange: (selectedRowKeys: React.Key[], selectedRows) => {
+				console.log('selectedRowKeys: ', selectedRowKeys, selectedRows);
+					setSelectedRowKeys(selectedRowKeys);
+				},
+			}}
+></Table>
+```
+
+默认情况下Table组件的 rowSelection 功能需要通过点击复选框来触发。如果希望点击表格的任意位置都能选中行，可以自定义行的点击事件
+
+```tsx
+const handleRowClick = (record) => {
+    const isSelected = selectedRows.some(row => row.id === record.id);
+    if (isSelected) {
+      setSelectedRows(selectedRows.filter(row => row.id !== record.id));
+    } else {
+      setSelectedRows([...selectedRows, record]);
+    }
+  };
+<Table
+  columns={columns}
+  dataSource={data}
+  rowSelection={{
+    selectedRowKeys: selectedRows.map(row => row.id),
+    onChange: (selectedRowKeys, selectedRows) => {
+      setSelectedRows(selectedRows);
+          },
+  }}
+  onRow={(record) => ({
+    onClick: () => handleRowClick(record),
+  })}
+/>
+```
+
+
+
+
+
+
+
 ## CSS Modules修改Antd内部样式
 
 如同Vue的`:deep`一样，CSS Module使用`:global`来实现
