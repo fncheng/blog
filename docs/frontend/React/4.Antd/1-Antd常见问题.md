@@ -642,7 +642,7 @@ moment.locale('zh-cn'); // 设置 moment 使用中文语言包
             </Card>
 ```
 
-![image-20230822145932109](/Users/cheng/Library/Application Support/typora-user-images/image-20230822145932109.png)
+![image-20230822145932109](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230822145932109.png)
 
 最终设置的div是在ant-card-body内部的
 
