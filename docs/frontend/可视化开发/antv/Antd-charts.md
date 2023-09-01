@@ -162,3 +162,38 @@ export function downloadImage(chart: any, name: string = 'G2Chart') {
 }
 ```
 
+
+
+## [label](https://charts.ant.design/api/graphic-style)
+
+绘图属性
+
+```ts
+ label: {
+   
+      type: 'inner',
+      offset: '-50%',
+      style: {
+        textAlign: 'center',
+        fill: '#000', // 文字颜色
+      },
+      autoRotate: false,
+      content: '{value}',
+    },
+```
+
+
+
+## 饼图
+
+startAngle
+
+配置坐标系的起始角度。
+
+如果想画半圆
+
+```ts
+    startAngle: Math.PI,
+    endAngle: Math.PI * 2,
+```
+
