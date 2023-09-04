@@ -74,6 +74,8 @@ Form.Item的validateTrigger默认为onChange，所以修改rule的validateTrigge
 </Form.Item>;
 ```
 
+## Form.Item给Switch绑定字段
+
 ### Form.Item valuePropName
 
 当Item内部是Switch时，校验无法触发，这时需要设置Item的valuePropName属性为checked
@@ -197,6 +199,12 @@ https://github.com/fncheng/react-learn/issues/10
 ### form.resetFields
 
 重置一组字段到 initialValues
+
+
+
+## form.getFieldValue
+
+Antd的form.getFieldValue和form.getFieldsValue是实时的，但是不会 导致页面更新，因此不是响应式的
 
 
 
