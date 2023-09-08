@@ -118,12 +118,6 @@ span {
 }
 ```
 
-### CSS float 属性
-
-float 属性定义元素在哪个方向浮动。以往这个属性总应用于图像，使文本围绕在图像周围，不过在 CSS 中，任何元素都可以浮动。浮动元素会生成一个块级框，而不论它本身是何种元素。
-
-### position 属性
-
 ## 导航栏
 
 ### 水平导航栏
@@ -153,37 +147,6 @@ float 属性定义元素在哪个方向浮动。以往这个属性总应用于�
 ### pdding 的先后顺序为：
 
 <span style="color:red;font-size:1.5em">上右下左</span>
-
-###
-
-### 样式的继承
-
-标签样式继承自最近的父辈
-
-### CSS3 border-radius 属性
-
-向 div 元素添加圆角边框
-
-### 表示方位（background-position 属性）
-
-[参考手册](https://www.w3cschool.cn/cssref/pr-background-position.html)
-
-1. 方位名词
-
-   上下左右中
-
-2. 坐标系
-
-   x,y 值
-
-```CSS
-/* 背景简写  */
-/* background：背景颜色 背景图片地址 背景平铺 背景滚动 背景位置 */
-.background{
-    background: pink url();
-}
-/* 注意：简写是有默认值的，如果之前有单一属性写法，简写的默认值会覆盖掉之前的值 */
-```
 
 ## 盒子模型
 

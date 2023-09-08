@@ -128,3 +128,5 @@ export default function App() {
 该方法用来获取：匹配特定选择器且离当前元素最近的祖先元素（也可以是当前元素本身）。如果匹配不到，则返回 null。
 
 [CodeSandBox](https://codesandbox.io/s/createprotal-closet-nk9d9m)
+
+![image-20230905184815334](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230905184815334.png)

@@ -27,6 +27,37 @@ transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|cubic-bezie
 
 ![](https://www.webhek.com/wordpress/wp-content/uploads/2015/12/bezier.png)
 
+## 下拉菜单动画
+
+[CodeSandBox](https://codesandbox.io/s/transition-dropdown-768jfp?file=/src/Transform.tsx)
+
+来看一段过渡动画
+
+```css
+.agi-zoom-in-top-enter-active,.agi-zoom-in-top-leave-active {
+    opacity: 1;
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    transition: opacity .3s cubic-bezier(.23,1,.32,1),-webkit-transform .3s cubic-bezier(.23,1,.32,1);
+    transition: transform .3s cubic-bezier(.23,1,.32,1),opacity .3s cubic-bezier(.23,1,.32,1);
+    transition: transform .3s cubic-bezier(.23,1,.32,1),opacity .3s cubic-bezier(.23,1,.32,1),-webkit-transform .3s cubic-bezier(.23,1,.32,1);
+    -webkit-transform-origin: center top;
+    transform-origin: center top
+}
+
+.agi-zoom-in-top-enter,.agi-zoom-in-top-leave-active {
+    opacity: 0;
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0)
+}
+```
+
+首先元素出现的时候启用`transition: transform .3s cubic-bezier(.23,1,.32,1),opacity .3s cubic-bezier(.23,1,.32,1)`这条规则，并且transform-origin为元素上边框中间
+
+元素消失的时候先将元素不透明度降低到1用来隐藏元素，然后将元素拍平【transform: scaleY(0)】
+
+`scaleY(0)` 将元素在垂直方向上的尺寸缩放为原来的0%，使其变得不可见（高度为0）
+
 
 
 ## transform
