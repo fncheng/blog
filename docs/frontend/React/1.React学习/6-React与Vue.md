@@ -24,3 +24,49 @@ this.setState({
 })
 ```
 
+
+
+### 数据更新
+
+React useState是异步的，这就导致我们不能像vue那样修改数据后立刻调接口，因为这样使用的请求参数仍然是原来的值。
+
+React 不会立即更新组件的状态，而是将状态更新放入队列，并在稍后的某个时刻批量处理这些更新。这可以提高性能，因为可以批量处理多个状态更新，避免了不必要的渲染。
+
+如果想要在更新数据后调接口，可以使用useEffect来监听数据的变化
+
+
+
+Vue数据更新是同步的
+
+这使得在 Vue 中更容易追踪数据的变化，但也可能导致性能问题，尤其是在大型应用中频繁更新数据时。
+
+
+
+useEffect和useAsyncEffect
+
+```tsx
+const getData = async () => {
+        let res = await request(`/bavJob/detail`, {
+            method: 'GET',
+        });
+        if (res.body) {
+           // ...
+        }
+    };
+useEffect(() => {
+  getData
+}, [])
+```
+
+```tsx
+const getData = async () => {
+        let res = await request(`/bavJob/detail`, {
+            method: 'GET',
+        });
+        if (res.body) {
+           // ...
+        }
+    };
+useAsyncEffect(getData, [])
+```
+

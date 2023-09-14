@@ -118,6 +118,8 @@ const validateString = async (rule, value) => {
 
 而一旦设置了name属性后，Item内的Input就会失去双向绑定（可以试着修改数据，但是UI不会改变）
 
+**因此，Antd Form 设置name绑定后，表单就变成非受控表单了**
+
 ```tsx
 <Form.Item
   label='Username'

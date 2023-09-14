@@ -46,3 +46,10 @@ export default useAsyncEffect;
 最后，`useAsyncEffect` 返回 `undefined`，因为它并不需要返回任何值。
 
 这就是 `useAsyncEffect` 的完整源代码。
+
+
+
+### useEffect和useAsyncEffect
+
+- `useEffect` 用于处理副作用，包括同步和异步操作，但不会等待异步操作完成。
+- `useAsyncEffect` 通常用于处理异步操作，它会等待异步操作完成后再触发下一次渲染，确保渲染时数据已经准备好。
