@@ -90,6 +90,21 @@ Loading样式
 }
 ```
 
+## 通过createPortal给页面加Loading
+
+```tsx
+const [globalLoading, setGlobalLoading] = useState<boolean>(false);
+const startLoading = () => setGlobalLoading(true);
+const stopLoading = () => setGlobalLoading(false);
+
+{globalLoading && createPortal(
+                    <div className={styles.overlay}>
+                        <Spin />
+                    </div>,
+                    document.body,
+                )}Ï
+```
+
 
 
 ## axios拦截器控制loading

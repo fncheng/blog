@@ -6,6 +6,9 @@ yAxis设置为数组-对象，series.yAxisIndex指定哪个轴
 
 ```js
 option = {
+    tooltip: {
+        trigger: 'axis'
+    },
     legend:{
         data:['治愈好转人次','好转率']
     },
@@ -87,6 +90,24 @@ option = {
     }
   ]
 };
+```
+
+
+
+### Y坐标轴显示对应名称
+
+设置好name即可
+
+```tsx
+yAxis: [{
+        name: '治愈好转人次',
+        type: 'value',
+        position:'left',
+    },{
+        name: '好转率',
+        type:'value',
+        position:'right',
+    }],
 ```
 
 

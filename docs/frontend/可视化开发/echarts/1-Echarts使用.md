@@ -105,9 +105,9 @@ echarts 中至少有这些组件：
 
 [xAxis](https://echarts.apache.org/zh/option.html#xAxis)（直角坐标系 X 轴）、[yAxis](https://echarts.apache.org/zh/option.html#yAxis)（直角坐标系 Y 轴）、[grid](https://echarts.apache.org/zh/option.html#grid)（直角坐标系底板）、[angleAxis](https://echarts.apache.org/zh/option.html#angleAxis)（极坐标系角度轴）、[radiusAxis](https://echarts.apache.org/zh/option.html#radiusAxis)（极坐标系半径轴）、[polar](https://echarts.apache.org/zh/option.html#polar)（极坐标系底板）、[geo](https://echarts.apache.org/zh/option.html#geo)（地理坐标系）、[dataZoom](https://echarts.apache.org/zh/option.html#dataZoom)（数据区缩放组件）、[visualMap](https://echarts.apache.org/zh/option.html#visualMap)（视觉映射组件）、[	](https://echarts.apache.org/zh/option.html#tooltip)（提示框组件）、[toolbox](https://echarts.apache.org/zh/option.html#toolbox)（工具栏组件）、[series](https://echarts.apache.org/zh/option.html#series)（系列）、...
 
-### [legend---图例组件](https://echarts.apache.org/zh/option.html#legend)
+## legend
 
-
+https://echarts.apache.org/zh/option.html#legend
 
 ```js
 // 图例组件
@@ -148,13 +148,13 @@ https://www.oschina.net/question/3784921_2274394
 
 图表网格，图表超出屏幕后可以设置left、right等属性，作用类似于padding
 
-### Tooltip
+## Tooltip
 
 [提示框组件](https://echarts.apache.org/zh/option.html#tooltip)
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210707095746659.png" alt="image-20210707095746659" style="zoom:50%;" />
 
-##### AxisPointer	指示器类型
+### AxisPointer指示器类型
 
 可选
 
@@ -172,7 +172,7 @@ https://www.oschina.net/question/3784921_2274394
 
   <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210324161455576.png" alt="image-20210324161455576" style="zoom:50%;" />
 
-##### [tooltip.formatter](https://echarts.apache.org/zh/option.html#tooltip.formatter)
+### [tooltip.formatter](https://echarts.apache.org/zh/option.html#tooltip.formatter)
 
 第一个参数 `params` 是 formatter 需要的数据集。
 
@@ -196,21 +196,48 @@ tooltip:{
     },
 ```
 
+自定义Tooltip
+
+```tsx
+tooltip: {
+    trigger: 'item',
+    formatter: function(params) {
+        // 自定义Tooltip的内容，使用模板字符串
+        return '<div style="font-weight: bold;">' + params.name + '</div>' +
+               '<div>数值: ' + params.value + '</div>';
+    }
+},
+```
+
 
 
 打印**params**
 
-![image-20210919161437431](/Users/cheng/Library/Application Support/typora-user-images/image-20210919161437431.png)
-
-
+![image-20230915095453671](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230915095453671.png)
 
 ### backgroundColor
 
 [背景颜色](https://echarts.apache.org/zh/option.html#backgroundColor)
 
+### [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger)
 
+触发类型
 
-### 坐标轴
+- `'item'`
+
+  数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+
+- `'axis'`
+
+  坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
+
+- `'none'`
+
+  什么都不触发。
+
+### 
+
+## yAxis坐标轴
 
 ```js
 yAxis: {
