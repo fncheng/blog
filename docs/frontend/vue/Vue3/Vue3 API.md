@@ -26,3 +26,22 @@ defineOptions({
 
 
 
+### defineEmits
+
+使用 `defineEmits` 函数，你可以明确声明组件可以触发的事件
+
+```vue
+<script setup lang="ts">
+import { defineEmits } from 'vue';
+
+// 使用 defineEmits 来定义组件可以触发的自定义事件
+const emit = defineEmits(['update:first', 'update:second']);
+
+// 在组件的逻辑中触发自定义事件
+const handleClick = () => {
+  emit('update:first', '这是 update:first 事件的数据');
+  emit('update:second', '这是 update:second 事件的数据');
+};
+</script>
+```
+

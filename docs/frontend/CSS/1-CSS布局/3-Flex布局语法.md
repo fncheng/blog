@@ -201,3 +201,21 @@ flex-shrink不受flex-grow影响
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210414230215607.png" alt="image-20210414230215607" style="zoom:50%;" />
 
+
+
+## 百分比布局
+
+有5个等宽元素按照排列，一行只能排三个，现在要求第五个元素排在6的位置
+
+使用百分比可以轻松解决
+
+```html
+<div class="flex flex-wrap">
+    <div class="w-1/3">1</div>
+    <div class="w-1/3">2</div>
+    <div class="w-1/3">3</div>
+    <div class="w-1/3">4</div>
+    <div class="w-1/3 ml-auto">5</div>
+  </div>
+```
+

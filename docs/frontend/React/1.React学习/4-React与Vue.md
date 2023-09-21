@@ -74,4 +74,26 @@ useAsyncEffect(getData, [])
 
 今天重温Vue，发现Vue和React一样，都可以将修改父组件值的方法通过props传递给子组件，然后子组件调用这个方法就可以修改对应值了。这个体现了单向数据流的特点，即组件状态只能从父流向子
 
-而Vue还多了一个emit，$emit 触发一个自定义事件，父组件监听该事件并响应。
+而Vue还多了一个emit，$emit 触发一个自定义事件，父组件监听该事件并响应。允许数据从子组件流向父组件。这是一种典型的父子组件通信模式，通常用于将子组件中的数据传递给父组件，以便在父组件中进行处理或显示。
+
+### vue的emit允许子组件将数据传递到父组件，这难道不是双向数据流吗
+
+尽管 Vue.js 中可以使用 `emit` 来实现子组件向父组件的数据传递，但这并不等同于传统意义上的双向数据流，因为数据的更改仍然是通过父组件来控制的。子组件通过 `emit` 向上传递数据，但父组件仍然需要监听事件并决定如何处理这些数据，然后才能将数据传递回子组件。
+
+总之，Vue.js 的数据流动是单向的
+
+
+
+### 在setState后立刻调接口，请求参数不是最新的
+
+这是因为useState是异步的，其实可以这么写
+
+```tsx
+const pageChange = (page: number, pageSize: number) => {
+    const params = { ...searchParams, pageNum: page, pageSize };
+    setSearchParams(params);
+    getTableDataFn(params);
+};
+```
+
+这样写getTableDataFn还符合纯函数的风格，输出只与输入有关，无副作用

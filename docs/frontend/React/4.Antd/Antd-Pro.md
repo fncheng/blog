@@ -63,7 +63,34 @@ onLoad: (dataSource: T[]) => void
 
 ### 搜索框label宽度过小
 
-可以设置[SearchConfig](https://procomponents.ant.design/components/table#search-%E6%90%9C%E7%B4%A2%E8%A1%A8%E5%8D%95)中的labelWidth来解决
+可以设置[SearchConfig](https://procomponents.ant.design/components/table#search-%E6%90%9C%E7%B4%A2%E8%A1%A8%E5%8D%95)中的labelWidth为auto来解决
+
+### formRef
+
+ProTable的formRef用于获取查询表单的form实例
+
+```tsx
+const formRef = useRef<FormInstance>();
+```
+
+
+
+## ProTable搜索区域自定义
+
+ProTable生成的搜索区域默认只能容纳三个输入框，可以通过SearchConfig中的span自定义
+
+```js
+{
+  xs: '480px',
+  sm: '576px',
+  md: '768px',
+  lg: '992px',
+  xl: '1200px',
+  xxl: '1600px',
+}
+```
+
+
 
 
 
