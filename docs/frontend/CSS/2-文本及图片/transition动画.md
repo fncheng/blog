@@ -100,3 +100,51 @@ Animation动画
 animation: name duration timing-function delay iteration-count direction fill-mode;
 ```
 
+
+
+## 使用transform给元素添加显示和隐藏动画
+
+使用 `display: none;` 样式属性的元素不会显示任何过渡动画，因为该属性会立即将元素从文档流中移除，导致元素在下一帧中就不再存在，因此无法应用过渡效果。
+
+要为元素添加过渡动画，你可以使用 CSS 的 `transition` 属性或 CSS 动画来实现。
+
+```css
+.zoom-enter {
+    transform: scaleY(1);
+    opacity: 1;
+    max-height: fit-content;
+}
+.zoom-leave {
+    max-height: 0;
+    transform: scaleY(0);
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+```
+
+这样会有一个问题，当元素收起来时，原有的高度还在那里，下面的元素不会往上移动，导致页面有空白
+
+要解决这个问题，你可以使用一种叫做“折叠元素（Collapsible Element）”的方法，以确保隐藏的元素不再占据空间。
+
+以下是一种常见的实现方式，使用 `max-height` 属性来实现折叠元素的效果：
+
+```css
+/* 初始状态 */
+.collapse-element {
+  max-height: 1000px; /* 初始高度设置为足够大，确保元素可见 */
+  transition: max-height 0.3s ease; /* 定义过渡效果 */
+  overflow: hidden; /* 隐藏溢出的内容 */
+}
+
+/* 隐藏状态 */
+.collapse-element.collapsed {
+  max-height: 0; /* 高度设置为 0，元素不可见 */
+}
+```
+
+这样设置后元素还会有空白存在
+
+通常是因为在折叠状态下元素的边框、内边距或外边距（margin）等属性仍然存在
+
+### max-height会导致transform-origin 失效

@@ -495,6 +495,30 @@ export const getTableScrollY = ({
             }),
 ```
 
+## column的render打印出来是dom，而不是数据
+
+```tsx
+render: (value, record) => {
+		console.log('value: ', value);
+    return value === 2 ? '成功' : '失败';
+},
+```
+
+![image-20230922151940750](/Users/cheng/Library/Application Support/typora-user-images/image-20230922151940750.png)
+
+这里的value打印出来不会是2，这里应该使用renderText
+
+```tsx
+renderText: (value, record) => {
+    console.log('value: ', value);
+    return value === 2 ? '成功' : '失败';
+},
+```
+
+
+
+
+
 ## Antd Table rowSelection
 
 ```tsx
