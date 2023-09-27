@@ -171,6 +171,12 @@ form.setFieldsValue方法。将对应的数据传过去。from组件就会根据
 
 2. 使用useForm hooks，对于非受控表单，可以使用 `getFieldsValue` 或 `setFieldsValue` 方法来操作表单字段的值
 
+### getValueFromEvent
+
+可以自定义表单字段的值
+
+
+
 
 
 ## Form.Item如何绑定一个对象的属性

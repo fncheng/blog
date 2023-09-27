@@ -154,7 +154,9 @@ module.exports = defineConfig({
         {
           title: 'Vue3',
           collapsable: false,
-          children: ['Vue3/从vue2迁移到vue3', 'Vue3/学习理解Vue3', 'Vue3/Vue3是如何变快的']
+          children: [
+            ...setSidebar('../frontend/vue/Vue3/')
+          ]
         },
         {
           title: 'Vue2',

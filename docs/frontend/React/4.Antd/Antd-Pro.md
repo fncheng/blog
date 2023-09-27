@@ -75,7 +75,7 @@ const formRef = useRef<FormInstance>();
 
 
 
-## ProTable搜索区域自定义
+### ProTable搜索区域自定义
 
 ProTable生成的搜索区域默认只能容纳三个输入框，可以通过SearchConfig中的span自定义
 
@@ -106,7 +106,7 @@ ProTable生成的搜索区域默认只能容纳三个输入框，可以通过Sea
 
 
 
-## 获取ProForm中的表单数据
+### 获取ProForm中的表单数据
 
 可以通过调用 `form.getFieldsValue()` 方法来获取表单所有字段的值
 
@@ -151,6 +151,33 @@ ProFormList外置Button添加一行数据
 >
 </ProFormList>
 ```
+
+### 搜索框字段转换
+
+search transform
+
+```tsx
+{
+    title: '验证结果',
+    dataIndex: 'status',
+    valueType: 'select',
+    search: {
+        transform: (value) => ({ statusList: value }),
+    },
+    fieldProps: {
+        options: [
+            { label: '成功', value: '2' },
+            { label: '失败', value: '-3,0,3,5,6,7' },
+        ],
+    },
+    width: 100,
+    renderText: (value) => showVertifyStatus(value),
+},
+```
+
+
+
+
 
 
 
