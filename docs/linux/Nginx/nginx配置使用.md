@@ -83,6 +83,9 @@ http {
 nginx -t; nginx -s reload
 ```
 
+通过systemctl启动的nginx 请使用`sudo systemctl reload nginx`,
+而通过`sudo nginx -c`启动的请使用`sudo nginx -s reload`
+
 
 
 ## Nginx 配置详解
