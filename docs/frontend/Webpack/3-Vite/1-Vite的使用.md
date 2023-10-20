@@ -196,3 +196,38 @@ VITE_LOGO_URL = 'rs.png'
 }
 ```
 
+
+
+## Vite指定依赖不打包
+
+external负责告诉Vite哪些依赖不用打包，而是使用外部引入的资源
+
+```ts
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      external: ['vue']
+    }
+  },
+})
+```
+
+## Vite打包拆分
+
+```ts
+build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vue: ['vue']
+        }
+      }
+    }
+  },
+```
+
+manualChunks 主要有两种配置的形式，可以配置为一个对象或者一个函数。
+
+在对象格式的配置中，key代表 chunk 的名称，value为一个字符串数组，每一项为第三方包的包名。
+
+https://segmentfault.com/a/1190000043891288
