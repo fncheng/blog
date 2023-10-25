@@ -24,6 +24,29 @@ function Example() {
 
 如果你绑定的值是对象中的
 
+### ProFormDependency
+
+ProFormDependency 是 Ant Design Pro Form 中用于处理表单项之间的依赖关系的工具。它用于实现在某个表单项的值发生变化时，触发其他表单项的显示、隐藏或其他操作。
+
+以下是 `ProFormDependency` 的一般用法：
+
+```tsx
+<ProFormDependency name={['aaa']}>
+  {({ aaa }) =>
+  //判断aaa的值是否等于111，如果等于就显示该组件
+    aaa === '111' && (
+      <ProFormDateTimePicker
+        label="日期"
+        width="md"
+        name="date"
+        placeholder="选择日期"
+        rules={[{ required: true }]}
+      />
+    )
+  }
+</ProFormDependency>
+```
+
 
 
 ## Antd ProFormSwitch
