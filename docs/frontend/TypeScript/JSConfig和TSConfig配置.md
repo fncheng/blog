@@ -58,9 +58,33 @@ https://www.typescriptlang.org/tsconfig
 }
 ```
 
-include
+### include
 
 `include`指定要解析的文件和目录
+
+### compilerOptions.types
+
+1. **使用默认类型声明文件**：如果您的项目依赖于一些常见的第三方库（例如Node.js或DOM），通常不需要显式设置 `compilerOptions.types` 字段。TypeScript 会自动查找和使用与这些库相关的默认类型声明文件。
+
+2. **指定自定义类型声明文件**：如果您使用了一些不包含默认类型声明文件的第三方库，或者您自己编写了类型声明文件，您可以在 `compilerOptions.types` 中列出这些类型声明文件的名称。
+
+   ```json
+   "compilerOptions": {
+     "types": ["my-custom-types", "another-custom-types"]
+   }
+   ```
+
+3. **禁用默认类型声明文件**：如果您想完全禁用默认类型声明文件的加载，您可以将 `compilerOptions.types` 字段设置为空数组。
+
+   ```json
+   "compilerOptions": {
+     "types": []
+   }
+   ```
+
+   
+
+
 
 ## tsconfig.node.json是什么
 

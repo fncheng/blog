@@ -1,6 +1,8 @@
-## Axios使用
+## Axios请求配置
 
-### 拦截器
+https://www.axios-http.cn/docs/req_config
+
+## Axios拦截器
 
 http://www.axios-js.com/zh-cn/docs/#%E6%8B%A6%E6%88%AA%E5%99%A8
 
@@ -14,7 +16,7 @@ http://www.axios-js.com/zh-cn/docs/#%E6%8B%A6%E6%88%AA%E5%99%A8
 
 
 
-
+## 请求参数类型
 
 post(**url: string**, data?: any, config?: AxiosRequestConfig)
 
@@ -248,3 +250,17 @@ source.cancel('请求取消的原因');
  **这里调用`source.cancel`是取消所有请求吗还是取消单一请求？**
 
 请注意，`source.cancel` 调用将取消使用相同 `CancelToken` 实例的所有请求，而不是单一请求。这是因为 `CancelToken` 实例是可重复使用的，它可以用于多个请求
+
+
+
+> 封装axios后，每个接口定义为一个函数，如下： ``` export const getAutoCode = (): Promise<{ body: any; code: number }> =>    axios.get("/captcha"); ``` 这样每个接口都需要定义返回类型，感觉比较麻烦，有什么较好的解决方法吗
+
+使用 TypeScript 的泛型来减少类型重复定义
+
+```ts
+// 使用通用的请求函数
+const getAutoCode = () => request<{ body: any; code: number }>('/captcha');
+
+const getUserInfo = () => request<{ name: string; age: number }>('/user/info');
+```
+
