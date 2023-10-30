@@ -120,6 +120,8 @@ const { id } = location.state;
 
 
 
+
+
 ## Router组件
 
 BrowserRouter和HashRouter都是Router组件
@@ -146,6 +148,26 @@ function Router(props) {
   )
 }
 ```
+
+### Switch组件
+
+`<Switch>` 组件的主要作用是从上到下逐一匹配路由，一旦匹配到第一个路由，就停止匹配并渲染该路由的内容。
+
+```tsx
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+        <Route component={NotFound} /> {/* 匹配不到任何路由时显示 404 页面 */}
+      </Switch>
+    </BrowserRouter>
+  );
+
+```
+
+上述代码如果不用Switch组件包裹，NotFound页面会在每个路由页面都显示
 
 
 
