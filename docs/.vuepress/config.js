@@ -51,7 +51,7 @@ module.exports = defineConfig({
       { text: 'JavaScript', link: '/frontend/JavaScript/JS操作数据' },
       // { text: 'JS', link: '/frontend/JS/运算符及操作符' },
       // { text: 'ElementUI', link: '/frontend/ElementUI/ElementUI常见问题' },
-      { text: 'Vue', link: '/frontend/vue/Vue3/从vue2迁移到vue3' },
+      { text: 'Vue', link: '/frontend/vue/Vue3/1-从vue2迁移到vue3' },
       { text: 'React', link: '/frontend/React/1.React学习/1-React学习' },
       { text: 'Webpack', link: '/frontend/Webpack/1-webpack开发环境搭建/1-webpack-dev-server' },
       { text: 'HTTP', link: '/frontend/http/细说Headers' },
@@ -154,7 +154,9 @@ module.exports = defineConfig({
         {
           title: 'Vue3',
           collapsable: false,
-          children: ['Vue3/从vue2迁移到vue3', 'Vue3/学习理解Vue3', 'Vue3/Vue3是如何变快的']
+          children: [
+            ...setSidebar('../frontend/vue/Vue3/')
+          ]
         },
         {
           title: 'Vue2',

@@ -1,6 +1,8 @@
-## Axios使用
+## Axios请求配置
 
-### 拦截器
+https://www.axios-http.cn/docs/req_config
+
+## Axios拦截器
 
 http://www.axios-js.com/zh-cn/docs/#%E6%8B%A6%E6%88%AA%E5%99%A8
 
@@ -14,7 +16,7 @@ http://www.axios-js.com/zh-cn/docs/#%E6%8B%A6%E6%88%AA%E5%99%A8
 
 
 
-
+## 请求参数类型
 
 post(**url: string**, data?: any, config?: AxiosRequestConfig)
 
@@ -176,5 +178,89 @@ console.log(instance.defaults);
 export interface InternalAxiosRequestConfig<D = any> extends AxiosRequestConfig<D> {
   headers: AxiosRequestHeaders;
 }
+```
+
+
+
+## Axios取消请求
+
+使用 Axios 发送的请求可以取消，这对于在组件卸载或其他情况下取消不再需要的请求非常有用，以避免浪费资源和处理不必要的响应。你可以使用 Axios 提供的 CancelToken 来实现请求取消。以下是如何取消 Axios 请求的一般步骤：
+
+1. 首先，你需要导入 Axios 库并创建一个 CancelToken 实例：
+
+```javascript
+import axios from 'axios';
+
+const source = axios.CancelToken.source();
+```
+
+2. 然后，在发送请求时，将 `cancelToken` 选项设置为 CancelToken 实例的 `token` 属性：
+
+```javascript
+axios.get('/api/data', {
+  cancelToken: source.token,
+})
+  .then(response => {
+    // 处理响应
+  })
+  .catch(error => {
+    if (axios.isCancel(error)) {
+      // 请求已取消
+    } else {
+      // 处理其他错误
+    }
+  });
+```
+
+3. 若要取消请求，调用 CancelToken 实例的 `cancel` 方法：
+
+```javascript
+source.cancel('请求取消的原因');
+```
+
+完整的代码示例：
+
+```javascript
+import axios from 'axios';
+
+const source = axios.CancelToken.source();
+
+axios.get('/api/data', {
+  cancelToken: source.token,
+})
+  .then(response => {
+    // 处理响应
+  })
+  .catch(error => {
+    if (axios.isCancel(error)) {
+      console.log('请求已取消', error.message);
+    } else {
+      console.log('处理其他错误', error);
+    }
+  });
+
+// 在需要时取消请求
+source.cancel('请求取消的原因');
+```
+
+这将取消发送给 `/api/data` 的请求。当调用 `source.cancel` 时，Axios 会捕获请求并将其标记为已取消。在请求的 `.catch` 部分，你可以检查是否请求被取消，然后采取适当的措施。
+
+这是一种有效的方式来取消 Axios 请求，但请确保在适当的时机取消请求，以避免不必要的网络请求。通常，可以在组件卸载、路由切换或其他需要取消请求的情况下执行取消操作。
+
+ **这里调用`source.cancel`是取消所有请求吗还是取消单一请求？**
+
+请注意，`source.cancel` 调用将取消使用相同 `CancelToken` 实例的所有请求，而不是单一请求。这是因为 `CancelToken` 实例是可重复使用的，它可以用于多个请求
+
+
+
+> 封装axios后，每个接口定义为一个函数，如下： ``` export const getAutoCode = (): Promise<{ body: any; code: number }> =>    axios.get("/captcha"); ``` 这样每个接口都需要定义返回类型，感觉比较麻烦，有什么较好的解决方法吗
+
+使用 TypeScript 的泛型来减少类型重复定义
+
+```ts
+// 使用通用的请求函数
+const getAutoCode = () => request<{ body: any; code: number }>('/captcha');
+
+const getUserInfo = () => request<{ name: string; age: number }>('/user/info');
 ```
 

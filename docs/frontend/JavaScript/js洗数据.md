@@ -42,36 +42,6 @@ const People = [
     children: null,
   },
 ];
-const Animals = [
-  {
-    id: '5',
-    parentId: '0',
-    text: 'Dog',
-    level: '1',
-    children: null,
-  },
-  {
-    id: '8',
-    parentId: '5',
-    text: 'Puppy',
-    level: '2',
-    children: null,
-  },
-  {
-    id: '10',
-    parentId: '13',
-    text: 'Cat',
-    level: '1',
-    children: null,
-  },
-  {
-    id: '14',
-    parentId: '13',
-    text: 'Kitten',
-    level: '2',
-    children: null,
-  },
-];
 
 function list_to_tree(list) {
   let map = {},
@@ -100,4 +70,99 @@ console.log(list_to_tree(People));
 ```
 
 映射
+
+使用递归的方法
+
+```js
+function arrayToTree(arr, parent = null) {
+  const tree = [];
+  for (const item of arr) {
+    if (item.parentId === parent) {
+      const children = arrayToTree(arr, item.id);
+      if (children.length) {
+        item.children = children;
+      }
+      tree.push(item);
+    }
+  }
+  return tree;
+}
+
+// 示例数据
+const data = [
+  { id: 1, name: 'Node 1', parentId: null },
+  { id: 2, name: 'Node 2', parentId: 1 },
+  { id: 3, name: 'Node 3', parentId: 1 },
+  { id: 4, name: 'Node 4', parentId: 2 },
+  { id: 5, name: 'Node 5', parentId: 3 },
+];
+
+const tree = arrayToTree(data);
+
+```
+
+
+
+
+
+## 从树结构中查找指定节点
+
+```js
+function findNodeByTitle(tree, targetTitle) {
+  for (const node of tree) {
+    if (node.title === targetTitle) {
+      return node; // 找到匹配的对象
+    }
+
+    if (node.children && node.children.length > 0) {
+      const result = findNodeByTitle(node.children, targetTitle);
+      if (result) {
+        return result; // 在子树中找到匹配的对象
+      }
+    }
+  }
+
+  return null; // 未找到匹配的对象
+}
+
+const targetTitle = "应用";
+const foundNode = findNodeByTitle(treeData, targetTitle);
+
+if (foundNode) {
+  console.log("找到目标对象:", foundNode);
+} else {
+  console.log("未找到目标对象");
+}
+```
+
+如果你担心性能问题，可以考虑使用循环迭代而不是递归。以下是一个示例，使用迭代方法来查找目标对象的代码：
+
+```js
+function findNodeByTitleIterative(tree, targetTitle) {
+  const stack = [...tree];
+
+  while (stack.length > 0) {
+    const node = stack.pop();
+
+    if (node.title === targetTitle) {
+      return node; // 找到匹配的对象
+    }
+
+    if (node.children && node.children.length > 0) {
+      stack.push(...node.children);
+    }
+  }
+
+  return null; // 未找到匹配的对象
+}
+
+const targetTitle = "应用";
+const foundNode = findNodeByTitleIterative(treeData, targetTitle);
+
+if (foundNode) {
+  console.log("找到目标对象:", foundNode);
+} else {
+  console.log("未找到目标对象");
+}
+```
 

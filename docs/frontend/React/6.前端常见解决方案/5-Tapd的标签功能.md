@@ -1,3 +1,5 @@
+# 实现标签功能
+
 Tapd的标签功能是通过往body上插入一个组件来实现的
 
 ![image-20230901105303487](/Users/cheng/Library/Application Support/typora-user-images/image-20230901105303487.png)
@@ -122,6 +124,8 @@ export default function App() {
   );
 }
 ```
+
+## Elemnt.closet
 
 这里用到了[Element.closest()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/closest)
 

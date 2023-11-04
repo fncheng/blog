@@ -180,3 +180,6 @@ fi
 exit 0
 ```
 
+
+
+## 拿到git reflog第一条commit ID

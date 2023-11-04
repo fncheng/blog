@@ -127,3 +127,11 @@ https://code.visualstudio.com/updates/v1_79#_readonly-mode
 
 ### JSDoc @param 补全
 https://code.visualstudio.com/updates/v1_79#_jsdoc-param-completions
+
+
+
+## Emmet支持CSS Modules
+
+https://code.visualstudio.com/updates/v1_80#_improved-emmet-support-for-css-modules-in-jsxtsx
+
+输入`..test`，生成`<div styleName={styles.test}>|</div>`

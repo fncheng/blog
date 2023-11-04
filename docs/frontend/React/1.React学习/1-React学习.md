@@ -222,8 +222,6 @@ useEffect首次不执行
 
 useEffect的第二个参数，可用来监听依赖的变化。
 
-
-
 ### useEffect和useLayoutEffect
 
 useEffect可以起到watch的作用
@@ -239,9 +237,9 @@ useEffect[callback, dep]
 - `useEffect` 在组件渲染完成后执行，它是在浏览器绘制完成后异步执行的。这意味着它不会阻塞浏览器的渲染过程，因此适用于不需要同步更新 UI 的副作用操作。
 - `useLayoutEffect` 在组件渲染完成后同步执行，它会在浏览器绘制之前执行。这意味着它会阻塞浏览器的渲染过程，因此在性能敏感的场景下应谨慎使用。使用 `useLayoutEffect` 可能会导致用户感知的延迟或者页面不流畅。
 
+## useEffect清理函数用来清理什么
 
-
-## useEffect清除定时器
+### useEffect清除定时器
 
 在使用 useEffect 的过程中，如果你需要清除定时器，可以使用 useEffect 的返回函数来实现。
 
@@ -283,6 +281,22 @@ useEffect(() => {
 ```
 
 当 `id` 不存在时，`useEffect` 中的回调函数不会被执行，因此不会产生额外的性能开销。
+
+### 取消网络请求
+
+ 如果你在 `useEffect` 中发起了网络请求（例如使用 `fetch` 或 Axios），你应该在清理函数中取消或中断这些请求，以避免不必要的请求和资源浪费。
+
+```tsx
+useEffect(() => {
+  const request = axios.get('/api/data');
+
+  return () => {
+    request.cancel(); // 取消网络请求
+  };
+}, []);
+```
+
+
 
 
 

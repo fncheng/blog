@@ -102,6 +102,22 @@ vite中的 [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-imp
 const modules = import.meta.glob('../views/**/*.vue')
 ```
 
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20231027175202246.png" alt="image-20231027175202246" style="zoom:67%;" />
+
+```ts
+const handleAsyncRoutes = (routes: RouteConfig[]): RouteRecordRaw[] =>
+  routes.map((route) => {
+    return {
+      path: route.path,
+      component: modules[`../pages/${route.component}.vue`]
+    }
+  })
+const asyncRoutes = handleAsyncRoutes(routesMap)
+asyncRoutes.forEach((route) => router.addRoute(route))
+```
+
+这样页面就可以正常显示了
+
 
 
 ### 动态导入No match found for location with path 问题
@@ -199,4 +215,4 @@ console.log(env) // 报错
 
 ### 关于vite动态导入
 
-传送门👉【[vite动态导入](https://fncheng.github.io/blog/frontend/Webpack/3-Vite/Vite%E7%9A%84%E4%BD%BF%E7%94%A8.html#vite%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)】
+传送门👉【[vite动态导入](https://fncheng.github.io/blog/frontend/Webpack/3-Vite/1-Vite%E7%9A%84%E4%BD%BF%E7%94%A8.html#vite%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)】

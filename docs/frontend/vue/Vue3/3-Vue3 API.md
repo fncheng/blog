@@ -1,3 +1,7 @@
+---
+title: Vue3 API
+---
+
 ## useState
 
 ```js
@@ -44,4 +48,18 @@ const handleClick = () => {
 };
 </script>
 ```
+
+## v-memo
+
+https://cn.vuejs.org/api/built-in-directives.html#v-memo
+
+类似于useMemo，缓存一个组件，当依赖不变时，组件内部将不会更新。
+
+```vue
+<div v-memo="[valueA, valueB]">
+  ...
+</div>
+```
+
+搭配 `v-for` 使用 `v-memo`，确保两者都绑定在同一个元素上。**`v-memo` 不能用在 `v-for` 内部。**
 

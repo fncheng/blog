@@ -171,6 +171,12 @@ form.setFieldsValue方法。将对应的数据传过去。from组件就会根据
 
 2. 使用useForm hooks，对于非受控表单，可以使用 `getFieldsValue` 或 `setFieldsValue` 方法来操作表单字段的值
 
+### getValueFromEvent
+
+可以自定义表单字段的值
+
+
+
 
 
 ## Form.Item如何绑定一个对象的属性
@@ -494,6 +500,30 @@ export const getTableScrollY = ({
                 }
             }),
 ```
+
+## column的render打印出来是dom，而不是数据
+
+```tsx
+render: (value, record) => {
+		console.log('value: ', value);
+    return value === 2 ? '成功' : '失败';
+},
+```
+
+![image-20230922151940750](/Users/cheng/Library/Application Support/typora-user-images/image-20230922151940750.png)
+
+这里的value打印出来不会是2，这里应该使用renderText
+
+```tsx
+renderText: (value, record) => {
+    console.log('value: ', value);
+    return value === 2 ? '成功' : '失败';
+},
+```
+
+
+
+
 
 ## Antd Table rowSelection
 

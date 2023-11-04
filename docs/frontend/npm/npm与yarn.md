@@ -16,19 +16,17 @@ yarn对比npmhttps://zhuanlan.zhihu.com/p/23493436
 
 安装模块
 
-```bash
-npm install [package]
-```
-
 **-S, --save 安装包信息将加入到dependencies（生产阶段的依赖）**
 
-- `-D, --save-dev`: Package will appear in your `devDependencies`.
-
 ```bash
-npm install gulp --save 或 npm install gulp -S
+npm install [package]
 
 yarn add [package]
+
+pnpm add [package]
 ```
+
+
 
 ***yarn add package*-name@tag 安装具体的“tag” (比如， beta 、 next 或者 *latest* )。**
 
@@ -46,6 +44,8 @@ package.json 文件的 dependencies 字段：
 npm install gulp --save-dev 或 npm install gulp -D
 
 yarn add [package] [--dev/-D]
+
+pnpm add -D [package]
 ```
 
 package.json 文件的 devDependencies字段：

@@ -24,6 +24,29 @@ function Example() {
 
 如果你绑定的值是对象中的
 
+### ProFormDependency
+
+ProFormDependency 是 Ant Design Pro Form 中用于处理表单项之间的依赖关系的工具。它用于实现在某个表单项的值发生变化时，触发其他表单项的显示、隐藏或其他操作。
+
+以下是 `ProFormDependency` 的一般用法：
+
+```tsx
+<ProFormDependency name={['aaa']}>
+  {({ aaa }) =>
+  //判断aaa的值是否等于111，如果等于就显示该组件
+    aaa === '111' && (
+      <ProFormDateTimePicker
+        label="日期"
+        width="md"
+        name="date"
+        placeholder="选择日期"
+        rules={[{ required: true }]}
+      />
+    )
+  }
+</ProFormDependency>
+```
+
 
 
 ## Antd ProFormSwitch
@@ -75,7 +98,7 @@ const formRef = useRef<FormInstance>();
 
 
 
-## ProTable搜索区域自定义
+### ProTable搜索区域自定义
 
 ProTable生成的搜索区域默认只能容纳三个输入框，可以通过SearchConfig中的span自定义
 
@@ -90,11 +113,23 @@ ProTable生成的搜索区域默认只能容纳三个输入框，可以通过Sea
 }
 ```
 
+在TailWindCSS中
+
+```css
+{
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '1536px'
+}
+```
 
 
 
 
-## 获取ProForm中的表单数据
+
+### 获取ProForm中的表单数据
 
 可以通过调用 `form.getFieldsValue()` 方法来获取表单所有字段的值
 
@@ -139,6 +174,33 @@ ProFormList外置Button添加一行数据
 >
 </ProFormList>
 ```
+
+### 搜索框字段转换
+
+search transform
+
+```tsx
+{
+    title: '验证结果',
+    dataIndex: 'status',
+    valueType: 'select',
+    search: {
+        transform: (value) => ({ statusList: value }),
+    },
+    fieldProps: {
+        options: [
+            { label: '成功', value: '2' },
+            { label: '失败', value: '-3,0,3,5,6,7' },
+        ],
+    },
+    width: 100,
+    renderText: (value) => showVertifyStatus(value),
+},
+```
+
+
+
+
 
 
 
