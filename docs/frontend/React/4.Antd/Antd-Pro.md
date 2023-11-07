@@ -49,6 +49,8 @@ ProFormDependency 是 Ant Design Pro Form 中用于处理表单项之间的依�
 
 
 
+
+
 ## Antd ProFormSwitch
 
 ProFormSwitch组件与Switch组件不同，没有 **checked** 属性
@@ -198,6 +200,52 @@ search transform
 },
 ```
 
+### Antd ProTable columns fieldProps.options无效
+
+```tsx
+const [opts, setOpts] = useState<any[]>([]);
+// 其中opts会从接口获取数据，但是发现setOpts后表单中的选项没有变化
+{
+            title: "角色",
+            dataIndex: "role",
+            width: 200,
+            valueType: "select",
+            fieldProps: {
+                mode: "multiple",
+                options: opts
+                showSearch: true,
+                onSearch: (newValue: string) => {
+                    console.log("newValue: ", newValue);
+                },
+            },
+        }
+```
+
+经查发现需要使用request属性来获取远程数据https://github.com/ant-design/pro-components/issues/7570
+
+```tsx
+{
+            title: "角色",
+            dataIndex: "role",
+            width: 200,
+            valueType: "select",
+            request: async () => {
+                let res = await getAllRole();
+                return res.map((item) => ({
+                    label: item.name,
+                    value: item.uuid,
+                }));
+            },
+            fieldProps: {
+                mode: "multiple",
+                showSearch: true,
+                onSearch: (newValue: string) => {
+                    console.log("newValue: ", newValue);
+                },
+            },
+        }
+```
+
 
 
 
@@ -207,3 +255,4 @@ search transform
 ## StepForm的onFinish
 
 表单最后一步提交成功触发，如果返回`true`就会自动重置表单(包括`StepForm`变回第一步)
+
