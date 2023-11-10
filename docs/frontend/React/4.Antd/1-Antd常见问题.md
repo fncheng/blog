@@ -600,7 +600,7 @@ const handleRowClick = (record) => {
         max-height: 400px;
         overflow-y: auto;
     }
-}Ï
+}
 ```
 
 
@@ -687,3 +687,11 @@ moment.locale('zh-cn'); // 设置 moment 使用中文语言包
 最终设置的div是在ant-card-body内部的
 
 正确的做法是给Card组件设置bodyStyle属性并设置height
+
+
+
+## Message组件报错
+
+[antd: message] Static function can not consume context like dynamic theme. Please use 'App' component instead.
+
+https://www.jianshu.com/p/ea0d6159b8ff

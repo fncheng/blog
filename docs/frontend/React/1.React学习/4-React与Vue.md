@@ -97,3 +97,11 @@ const pageChange = (page: number, pageSize: number) => {
 ```
 
 这样写getTableDataFn还符合纯函数的风格，输出只与输入有关，无副作用
+
+
+
+## 重新渲染
+
+我们知道在Vue中，当一个组件的state发生变化，而这个state没有在视图中使用到时，组件是不会重新渲染的
+
+而在React中，只要state变化了就会触发re-render
