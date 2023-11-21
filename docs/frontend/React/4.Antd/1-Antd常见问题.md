@@ -695,3 +695,16 @@ moment.locale('zh-cn'); // 设置 moment 使用中文语言包
 [antd: message] Static function can not consume context like dynamic theme. Please use 'App' component instead.
 
 https://www.jianshu.com/p/ea0d6159b8ff
+
+
+
+## Antd Table column record[dataIndex] 获取值
+
+Antd Table column dataIndex是个数组，然后在column的render中通过record[dataIndex]来获取值
+
+发现获取不到
+
+```tsx
+record[`${col.dataIndex}`]
+```
+

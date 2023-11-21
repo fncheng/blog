@@ -344,7 +344,7 @@ location ^~ /t/ {
 在nginx中配置proxy_pass代理转发时，如果在proxy_pass后面的url加/，表示绝对根路径；如果没有/，表示相对路径，把匹配的路径部分也给代理走。
 
 ```nginx
-# 假设访问 http://192.168.1.1/proxy/test.html 
+# 假设访问 http://127.0.0.1/proxy/test.html 
 location /proxy/ {
 	proxy_pass http://127.0.0.1/;
 }

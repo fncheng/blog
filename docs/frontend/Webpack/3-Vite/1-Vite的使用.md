@@ -15,7 +15,7 @@ export default defineConfig({
 
 这样设置之后便可以识别PNG文件了
 
-## vite动态导入
+## vite动态导入和懒加载
 
 我们在从vue2迁移到vue3时使用过一个api [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)来解决动态导入的问题
 
@@ -33,6 +33,46 @@ const module = await import(`./dir/${file}.js`)
 但是变量只支持一层深的文件名，如果file是`foo/bar`，导入将会失败
 
 如果需要深层次的动态导入，可以使用glob导入
+
+```tsx
+const modules = import.meta.glob('../pages/**/*.vue')
+const routesMap: RouteConfig[] = [
+  {
+    path: '/home',
+    component: 'Home/index'
+  },
+  {
+    path: '/about',
+    component: 'About/index'
+  },
+  {
+    path: '/create-element',
+    component: 'CreateElement/index',
+  },
+  {
+    path: '/mount-blade',
+    component: 'MountBlade/index'
+  }
+]
+
+const handleAsyncRoutes = (routes: RouteConfig[]): RouteRecordRaw[] =>
+  routes.map((route) => {
+    console.log('route: ', route.component);
+    return {
+      path: route.path,
+      component: modules[`../pages/${route.component}.vue`]
+      // component: () => import(`../pages/${route.component}.vue`) 无效
+    }
+  })
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: staticRoutes
+})
+const asyncRoutes = handleAsyncRoutes(routesMap)
+asyncRoutes.forEach((route) => router.addRoute(route))
+```
+
+
 
 
 

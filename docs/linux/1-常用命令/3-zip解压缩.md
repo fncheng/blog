@@ -37,3 +37,13 @@ zip -r ./dstbackup.zip ./dstbackup
 $ zip -r basic.zip example/basic/ -x "example/basic/node_modules/*" -x "example/basic/build/*" -x "example/basic/coverage/*"
 ```
 
+
+
+## zip不带dist目录
+
+-D：压缩文件内不建立目录名称；
+
+```sh
+zip -Dr dist.zip dist/*
+```
+
