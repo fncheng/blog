@@ -105,3 +105,9 @@ const pageChange = (page: number, pageSize: number) => {
 我们知道在Vue中，当一个组件的state发生变化，而这个state没有在视图中使用到时，组件是不会重新渲染的
 
 而在React中，只要state变化了就会触发re-render
+
+
+
+## 生命周期
+
+在 Vue.js 中，子组件的更新并不会直接触发父组件的 `updated` 钩子。

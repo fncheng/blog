@@ -201,3 +201,81 @@ console.log(hasDuplicates); // 输出: false
 ```
 
 使用 `Set` 的优势是它自动去重，而且检查重复值的效率比遍历整个数组来查找重复值要高。但是，这种方法会移除重复的值
+
+### JavaScript中的各种循环和中断循环
+
+1. **for 循环:**
+
+2. **while 循环:**
+
+3. **do-while 循环:**
+
+4. **for...of 循环:**
+
+5. **for...in 循环:**
+
+   ```js
+   const object = { a: 1, b: 2, c: 3 };
+   for (const key in object) {
+       if (object[key] === 2) {
+           break; // 中断循环
+       }
+       console.log(key, object[key]);
+   }
+   ```
+
+6. **forEach() 方法:**
+
+break可以中断for循环、while、for...of、for...in
+
+forEach 不支持中断，可以使用throw new Error抛出异常来中断，使用return可以跳过当次循环
+
+for...of循环可以用break中断，可以用continue跳过本次循环
+
+### 遍历Map
+
+1. **使用 `for...of` 循环:**
+
+   ```js
+   const myMap = new Map([
+       ['key1', 'value1'],
+       ['key2', 'value2'],
+       ['key3', 'value3']
+   ]);
+   
+   for (const [key, value] of myMap) {
+       console.log(key, value);
+   }
+   ```
+
+2. **使用 `forEach` 方法:**
+
+   ```js
+   myMap.forEach((value, key) => {
+       console.log(key, value);
+   });
+   ```
+
+3. **遍历键（keys）:**
+
+   ```js
+   for (const key of myMap.keys()) {
+       console.log(key);
+   }
+   ```
+
+4. **遍历值（values）:**
+
+   ```js
+   for (const value of myMap.values()) {
+       console.log(value);
+   }
+   ```
+
+5. **使用 `entries` 方法:**
+
+   ```js
+   for (const entry of myMap.entries()) {
+       console.log(entry[0], entry[1]);
+   }
+   ```

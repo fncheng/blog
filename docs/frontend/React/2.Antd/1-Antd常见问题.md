@@ -483,6 +483,10 @@ export const getTableScrollY = ({
 
 具体代码封装见[issues/27#issuecomment-1237690093](https://github.com/fncheng/vue-learn/issues/27#issuecomment-1237690093)
 
+使用这个方法后，如果从一个页面滚动到底部，然后跳转到另一个页面，会出现底部大部分空白的情况。
+
+这是因为浏览器在页面之间的跳转中通常会保留滚动的状态，跳转到另一个页面时，视口的距离会继承第一个页面的视口距离，导致该方法计算出现问题。
+
 ## Antd Table column设置ellipsis不生效
 
 设置onCell后即可
