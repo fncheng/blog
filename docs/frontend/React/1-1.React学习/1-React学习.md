@@ -435,3 +435,21 @@ createPortal(children, domNode, key?)
 - 简化代码：非受控组件不需要为每个表单元素都维护一个状态变量，可以简化代码。
 - 适用于简单的表单：对于只包含少量简单字段的表单，非受控组件可能更加方便和快速。
 - 快速获取表单数据：通过 ref 来访问表单元素，可以在需要的时候快速获取表单数据。
+
+
+
+## React组件props设置默认值
+
+```tsx
+const { maxTagNum, maxTagLength } = Object.assign(
+        { maxTagNum: 4, maxTagLength: 16 },
+        { ...props }
+    );
+```
+
+这样写略显冗长，可以更简洁地使用解构赋值的默认值
+
+```tsx
+const { maxTagNum = 4, maxTagLength = 16 } = props;
+```
+

@@ -196,14 +196,18 @@ module.exports = defineConfig({
       ],
       '/frontend/React/': [
         {
-          title: 'REACT',
+          title: 'React',
           collapsable: false,
-          children: setSidebar('../frontend/React/1.React学习/')
+          children: setSidebar('../frontend/React/1-1.React学习/')
+        },
+        {
+          title: 'ReactRouter',
+          children: setSidebar('../frontend/React/1-2.React-Router/')
         },
         {
           title: 'Redux与Flux',
-          collapsable: false,
-          children: setSidebar('../frontend/React/2.Redux与Flux/')
+          collapsable: true,
+          children: setSidebar('../frontend/React/1-3.Redux与Flux/')
         },
         {
           title: 'React与TypeScript',
@@ -212,14 +216,14 @@ module.exports = defineConfig({
               title: 'TSConfig配置说明',
               path: 'https://github.com/fncheng/webpack-learn/issues/4'
             },
-            ...setSidebar('../frontend/React/3.React与TypeScript/')
+            ...setSidebar('../frontend/React/1-4.React与TypeScript/')
           ]
         },
         {
           title: 'Antd',
           collapsable: false,
           children: [
-            ...setSidebar('../frontend/React/4.Antd/'),
+            ...setSidebar('../frontend/React/2.Antd/'),
             {
               title: 'ProTable ProColumns类型',
               path: 'https://github.com/fncheng/react-learn/issues/5'
@@ -228,12 +232,12 @@ module.exports = defineConfig({
         },
         {
           title: 'UMI',
-          children: setSidebar('../frontend/React/5.Umi/')
+          children: setSidebar('../frontend/React/3.Umi/')
         },
         {
           title: '前端常见解决方案',
           collapsable: false,
-          children: [...setSidebar('../frontend/React/6.前端常见解决方案/')]
+          children: [...setSidebar('../frontend/React/4.前端常见解决方案/')]
         }
       ],
       '/frontend/http/': getSidebar('../frontend/http/'),

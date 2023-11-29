@@ -39,11 +39,19 @@ $ zip -r basic.zip example/basic/ -x "example/basic/node_modules/*" -x "example/
 
 
 
-## zip不带dist目录
+### zip不带dist目录
 
 -D：压缩文件内不建立目录名称；
 
 ```sh
 zip -Dr dist.zip dist/*
+```
+
+### 创建一个全新的压缩文件而不是添加内容到现有的压缩文件
+
+-m：将文件压缩并加入压缩文件后，删除原始文件，即把文件移到压缩文件中；
+
+```sh
+zip -m new_archive.zip file1.txt file2.txt directory/
 ```
 
