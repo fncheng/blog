@@ -20,21 +20,44 @@ linux上进程有5种状态:
 4. 僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)
 5. 停止(进程收到SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU信号后停止运行运行)
 
-ps工具标识进程的5种状态码:
-
-- D 不可中断 uninterruptible sleep (usually IO)
-- R 运行 runnable (on run queue)
-- S 中断 sleeping
-- T 停止 traced or stopped
-- Z 僵死 a defunct (”zombie”) process
-
 
 
 ```sh
-ps -aux 
+$ ps -aux 
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+# 用户
 ```
 
+1. **USER:** 进程所属的用户。
 
+2. **PID (Process ID):** 进程的唯一标识符，用于在系统中识别和管理进程。
+
+3. **%CPU:** 进程使用的 CPU 百分比。它表示进程在最近一次更新时占用 CPU 的百分比。
+
+4. **%MEM:** 进程使用的物理内存百分比。
+
+5. **VSZ (Virtual Memory Size):** 进程使用的虚拟内存的大小，以 KB 为单位。这包括进程使用的所有虚拟内存，包括实际物理内存和交换空间。
+
+6. **RSS (Resident Set Size):** 进程实际占用的物理内存的大小，以 KB 为单位。它表示进程当前在 RAM 中的实际占用。
+
+7. **TTY:** 终端类型。如果进程是在终端上启动的，这里将显示终端类型，否则显示 `?`。
+
+8. STAT:
+
+    进程状态。常见的状态包括：
+
+   - **D (Disk Sleep):** 不可中断，通常是进程在等待磁盘 I/O。
+
+   - **R (Running):** 进程正在运行。
+   - **S (Sleeping):** 进程处于休眠状态。
+   - T 停止 traced or stopped
+   - **Z (Zombie):** 进程已经终止，但是其父进程还没有等待回收它的资源。
+
+9. **START:** 进程启动的时间。
+
+10. **TIME:** 进程累计的 CPU 使用时间。
+
+11. **COMMAND:** 进程的命令行。表示进程是通过哪个命令启动的。
 
 
 

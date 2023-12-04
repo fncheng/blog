@@ -2,11 +2,31 @@
 title: linux防火墙
 ---
 
+## iptables
+
+```sh
+#
+sudo iptables -L
+```
+
+
+
 ## Centos
 
-### Linux端口常用命令
+### firewalld和firewall-cmd
 
-⚠️注意：firewall-cmd是cenots上的防火墙管理工具
+`firewall-cmd` 和 `firewalld` 是 CentOS/RHEL 系统中用于配置和管理防火墙的两个关联工具。
+
+`firewalld` 是一个动态的防火墙管理器，用于配置 iptables 规则。它提供了一个 D-Bus 接口和一个命令行接口，可以通过这两个接口进行防火墙规则的配置和管理。`firewalld` 允许用户在运行时动态地更改防火墙规则，而无需重启防火墙服务。
+
+`firewall-cmd` 是用于与 `firewalld` 交互的命令行工具。它提供了一种简化的方式来配置 `firewalld`，并执行防火墙操作。`firewall-cmd` 命令通过调用 `firewalld` 的 D-Bus 接口来实现防火墙的配置。
+
+主要命令和用法：
+
+- **`--add-service`：** 添加一个服务。
+- **`--add-port`：** 添加一个端口。
+- **`--list-all`：** 列出当前防火墙规则的详细信息。
+- **`--reload`：** 重新加载防火墙规则。
 
 > ```bash
 > firewall-cmd --zone=public --add-port=8888/tcp --permanent	#开启端口

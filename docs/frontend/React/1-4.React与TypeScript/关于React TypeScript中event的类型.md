@@ -67,3 +67,26 @@ const useState = <T>(initialValue: T): [T, (newValue: T) => void] => {
 };
 ```
 
+
+
+## 设置属性排斥
+
+在 TypeScript 中，您可以使用联合类型（Union Types）来表示两个属性相互排斥的情况。通过定义一个类型，该类型包含两个属性，但这两个属性的值不能同时存在，从而实现相互排斥的效果。
+
+```ts
+type ExclusiveProperties = {
+  optionA?: string;
+  optionB?: string;
+} & {
+  optionA?: string;
+} & {
+  optionB?: string;
+};
+
+// 错误示例，不能同时存在 optionA 和 optionB
+const obj: ExclusiveProperties = {
+  optionA: 'valueA',
+  optionB: 'valueB', // Error: Property 'optionB' is incompatible with index signature.
+};
+```
+

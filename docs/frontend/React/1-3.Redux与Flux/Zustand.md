@@ -18,7 +18,9 @@ const useUserStore = create<userStore>((set) => ({
 export { useUserStore };
 ```
 
+### getState
 
+`getState()` 用于获取当前的状态
 
 ## Zustand persist
 
