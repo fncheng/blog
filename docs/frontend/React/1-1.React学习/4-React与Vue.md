@@ -111,3 +111,11 @@ const pageChange = (page: number, pageSize: number) => {
 ## 生命周期
 
 在 Vue.js 中，子组件的更新并不会直接触发父组件的 `updated` 钩子。
+
+
+
+### watch和useEffect、computed和useMemo
+
+在Vue.js中，`watch` 是一个选项，用于监视数据的变化，并在数据变化时执行相应的操作。当监听的数据变化时，可以执行一些副作用，比如发起网络请求、执行动画等。
+
+`useEffect` 是 React 中用于处理副作用的 Hook。它接收一个回调函数，在组件渲染时（挂载阶段）或某个特定依赖项发生变化时执行。可以用于处理数据获取、订阅、手动操作 DOM 等副作用。

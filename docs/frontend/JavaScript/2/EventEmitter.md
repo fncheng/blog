@@ -52,15 +52,18 @@ export default class PubSub {
   }
   // 移除事件监听器
   removeListener(type) {
-    const length = this.handlers[type].length
-    if (length === 1) {
-      // delete
+    if (type in this.handlers) {
+      const length = this.handlers[type].length
+      if (length === 1) {
+        delete this.handlers[type]
+      }
     }
   }
   emit(type) {
     // args 为回调函数传入的参数
     // 截取传入的事件处理函数
     const args = [...arguments].slice(1)
+    // 获取事件处理函数数组
     const eventList = this.handlers[type]
     /**
      * 循环遍历触发handlers中对应type的所有事件处理函数
@@ -68,9 +71,13 @@ export default class PubSub {
      * item()
      * args 为事件处理函数传入的参数的集合:Array
      */
-    for (const item of eventList) {
-      // item(args)
-      item.apply(this, args)
+    // 如果 handlers 中存在该事件类型
+    if(eventList) {
+      // 循环遍历触发 handlers 中对应 type 的所有事件处理函数
+      for (const item of eventList) {
+        // item(args)
+        item.apply(this, args)
+    	}
     }
   }
 }
