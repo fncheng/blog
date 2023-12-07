@@ -171,9 +171,63 @@ form.setFieldsValue方法。将对应的数据传过去。from组件就会根据
 
 2. 使用useForm hooks，对于非受控表单，可以使用 `getFieldsValue` 或 `setFieldsValue` 方法来操作表单字段的值
 
-### getValueFromEvent
+> Form 仅会对变更的 Field 进行刷新，从而避免完整的组件刷新可能引发的性能问题。因而你无法在 render 阶段通过 `form.getFieldsValue` 来实时获取字段值，而 `useWatch` 提供了一种特定字段访问的方式，从而使得在当前组件中可以直接消费字段的值。
 
-可以自定义表单字段的值
+如果想要实时获取表单字段
+
+```tsx
+const { useForm, useWatch } = Form
+
+function App() {
+	const [form] = useForm<FormState>()
+  const age = useWatch('age', form)
+  return (
+  	{age && age > 20 && <div>ag &gt; 20</div>}
+  )
+}
+```
+
+> 同时，如果为了更好的渲染性能，你可以通过 Field 的 renderProps 仅更新需要更新的部分。
+
+```tsx
+const MyForm = () => {
+  const onFinish = (values) => {
+    console.log('表单提交的数据:', values);
+  };
+
+  return (
+    <Form onFinish={onFinish}>
+      <Form.Item
+        name="name"
+        label="姓名"
+        rules={[
+          {
+            required: true,
+            message: '请输入姓名',
+          },
+        ]}
+      >
+        <Field name="name">
+          {({ field }) => (
+            // 这里打印 field：{value: 'zs33123233', onChange: ƒ}
+            <Input {...field}
+              placeholder="请输入姓名"
+              onChange={(e) => {
+                // 在这里自定义处理字段值的逻辑
+                const newValue = e.target.value;
+                // ...
+                field.onChange(e); // 触发字段值的更新
+              }}
+             />
+          )}
+        </Field>
+      </Form.Item>
+    </Form>
+  );
+};
+```
+
+
 
 
 
