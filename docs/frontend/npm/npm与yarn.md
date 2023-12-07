@@ -119,6 +119,16 @@ npx 等效于  yarn create
 
 
 
+## 清除缓存
+
+```sh
+yarn cache clean
+```
+
+
+
+
+
 ## 从yarn迁移到yarn2
 
 只需在具体项目下执行
@@ -144,3 +154,4 @@ npmRegistryServer: "https://registry.npmmirror.com/"
 ```
 
 日常命令同一代
+
