@@ -4,9 +4,15 @@
 
 https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
 
+transition是以下四个属性的缩写：
+
+```css
+transition: <property> <duration> <timing-function> <delay>;
+```
+
 > CSS transitions 可以决定哪些属性发生动画效果 (明确地列出这些属性)，何时开始 (设置 delay），持续多久 (设置 duration) 以及如何动画 (定义*timing function*，比如匀速地或先快后慢)。
 
-
+**`transition-property`** 指定应用过渡属性的名称
 
 ### transition-timing-function
 
