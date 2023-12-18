@@ -279,3 +279,24 @@ manualChunks 主要有两种配置的形式，可以配置为一个对象或者�
 在对象格式的配置中，key代表 chunk 的名称，value为一个字符串数组，每一项为第三方包的包名。
 
 https://segmentfault.com/a/1190000043891288
+
+
+
+## 静态资源copy
+
+[vite-plugin-static-copy](https://www.npmjs.com/package/vite-plugin-static-copy)，类似CopyWebpackPlugin的功能
+
+```ts
+import { viteStaticCopy } from "vite-plugin-static-copy";
+plugins: [
+  viteStaticCopy({
+    targets: [
+        {
+            src: resolve(__dirname, "./static/"),
+            dest: resolve(__dirname, "./dist/"),
+        },
+    ],
+	}),
+]
+```
+

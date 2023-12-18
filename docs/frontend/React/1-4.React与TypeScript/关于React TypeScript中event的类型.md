@@ -90,3 +90,6 @@ const obj: ExclusiveProperties = {
 };
 ```
 
+## 类型命名风格
+
+interface以I开头，入参以Params结尾；出参以Result结尾，如果是表格查询，返回的内部对象应该以Record结尾
