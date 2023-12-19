@@ -69,7 +69,7 @@ const userMap: UserRecord = {
 ```
 在上面的例子中，我们使用 Record 定义了一个 UserRecord 类型，表示一组以数字为键、以 User 类型的值的对象。然后通过定义一个 userMap 对象，表示一个包含了若干个用户数据的对象。
 
-## Partial\<Type>
+## Partial\<T>
 
 在 TypeScript 中，`Partial<T>` 是一个内置的工具类型，用于将对象类型 `T` 的所有属性变为可选。换句话说，`Partial<T>` 可以创建一个新的类型，该类型与 `T` 具有相同的属性，但这些属性都是可选的。
 
@@ -84,6 +84,10 @@ type PartialPerson = Partial<Person>;
 
 const partialPerson: PartialPerson = {
   name: 'John',
+};
+// 实现Partial\<T>
+type MyPartial<T> = {
+    [K in keyof T]?: T[K];
 };
 ```
 

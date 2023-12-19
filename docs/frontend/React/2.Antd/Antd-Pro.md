@@ -26,6 +26,8 @@ function Example() {
 
 ### ProFormDependency
 
+> ProFormDependency 是一个简化版本的 Form.Item，它默认内置了 noStyle 与 shouldUpdate，我们只需要配置 name 来确定我们依赖哪个数据，ProFormDependency 会自动处理 diff 和并且从表单中提取相应的值。
+
 ProFormDependency 是 Ant Design Pro Form 中用于处理表单项之间的依赖关系的工具。它用于实现在某个表单项的值发生变化时，触发其他表单项的显示、隐藏或其他操作。
 
 以下是 `ProFormDependency` 的一般用法：
@@ -46,6 +48,73 @@ ProFormDependency 是 Ant Design Pro Form 中用于处理表单项之间的依�
   }
 </ProFormDependency>
 ```
+
+````tsx
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+// 创建一个 Context
+const ProFormDependencyContext = createContext();
+
+const ProFormDependency = ({ name, children }) => {
+  // 使用 useState 来保存依赖项的值
+  const [dependencies, setDependencies] = useState({});
+  
+  // 使用 useEffect 来监听依赖项的变化
+  useEffect(() => {
+    // 根据依赖项的变化，更新状态
+    setDependencies((prevDependencies) => {
+      const newDependencies = { ...prevDependencies };
+      name.forEach((dependency) => {
+        // 根据具体的逻辑更新依赖项的值
+        newDependencies[dependency] = /* 根据实际情况获取依赖项的值 */;
+      });
+      return newDependencies;
+    });
+  }, [/* 根据实际情况传入依赖项 */]);
+
+  return (
+    // 将依赖项的值提供给子组件
+    <ProFormDependencyContext.Provider value={dependencies}>
+      {children(dependencies)}
+    </ProFormDependencyContext.Provider>
+  );
+};
+
+// 自定义 Hook，用于在子组件中获取依赖项的值
+const useProFormDependency = () => {
+  return useContext(ProFormDependencyContext);
+};
+
+export { ProFormDependency, useProFormDependency };
+````
+
+
+
+### Form.Item和dependencies属性
+
+当dependencies依赖的字段更新后，Form.Item内部也会随之更新
+
+```tsx
+<Form.Item label='lll' dependencies={['ipaddress']}>{(form)=> {
+    console.log('props: ', form.getFieldValue('ipaddress'));
+    return <Input value={form.getFieldValue('ipaddress')} />
+}}</Form.Item>
+
+// noStyle用于取消默认div的占位
+<Form.Item dependencies={["ipaddress"]} noStyle>
+	{(props) => {
+	    const ipaddress = props.getFieldValue("ipaddress");
+	    console.log("props: ", ipaddress);
+	    return ipaddress > 10 ? (
+	        <Form.Item label="dsada" name={"ipaddress2"}>
+	            <Input />
+	        </Form.Item>
+	    ) : null;
+	}}
+</Form.Item>
+```
+
+
 
 
 
