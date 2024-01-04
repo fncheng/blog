@@ -82,6 +82,22 @@ Form.Item的validateTrigger默认为onChange，所以修改rule的validateTrigge
 
 valuePropName该属性为 `getValueProps` 的封装，自定义 `getValueProps` 后会失效
 
+### getValueFromEvent
+
+设置如何将 event 的值转换成字段值
+
+```tsx
+<ProFormCheckbox
+  label="支持ASM"
+  name={"asm"}
+  getValueFromEvent={(e: CheckboxChangeEvent) => {
+    return e.target.checked ? 1 : 0;
+  }}
+/>;
+```
+
+
+
 ## Antd Form Rules
 
 Antd Form表单使用的也是async validator
