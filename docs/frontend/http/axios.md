@@ -14,6 +14,45 @@ http://www.axios-js.com/zh-cn/docs/#%E6%8B%A6%E6%88%AA%E5%99%A8
 
 删除规则：eject
 
+```js
+import axios from 'axios';
+
+// 创建一个 Axios 实例
+const instance = axios.create({
+  baseURL: 'https://api.example.com',
+});
+
+// 请求拦截器
+instance.interceptors.request.use(
+  (config) => {
+    // 在请求发送之前做一些处理，例如添加请求头等
+    console.log('Request Interceptor:', config);
+    return config;
+  },
+  (error) => {
+    // 处理请求错误
+    console.error('Request Error Interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+// 响应拦截器
+instance.interceptors.response.use(
+  (response) => {
+    // 在响应数据被处理之前做一些处理
+    console.log('Response Interceptor:', response);
+    return response;
+  },
+  (error) => {
+    // 处理响应错误
+    console.error('Response Error Interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+export default instance;
+```
+
 
 
 ## 请求参数类型

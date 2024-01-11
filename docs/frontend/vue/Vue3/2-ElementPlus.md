@@ -53,3 +53,14 @@ const submitForm = () => {
 </template>
 ```
 
+Table ref
+
+```ts
+const tableRef = ref<InstanceType<typeof ElTable>>();
+<ElTable
+      border
+      row-key="uuid"
+      ref="tableRef"
+/>
+```
+

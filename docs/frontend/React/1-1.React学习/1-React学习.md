@@ -296,7 +296,26 @@ useEffect(() => {
 }, []);
 ```
 
+## Suspense
 
+`React Suspense` 是 React 中用于处理异步操作的一种机制，它允许组件在等待异步数据时展示一个备用的 UI，而不是阻塞整个 UI 渲染。
+
+```tsx
+// 异步加载的组件
+const AsyncComponent = React.lazy(() => import('./AsyncComponent'));
+function App() {
+  return (
+    <div>
+      <h1>My App</h1>
+      {/* 使用 Suspense 包裹需要等待异步操作的组件 */}
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* 异步组件，会在加载完成前显示 fallback 内容 */}
+        <AsyncComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
 
 
 

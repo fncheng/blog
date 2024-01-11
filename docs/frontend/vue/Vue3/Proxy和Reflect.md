@@ -48,3 +48,6 @@ proxiedProduct.price = 20;
 console.log(proxiedProduct["price"]);
 ```
 
+
+
+Reflect.getPrototypeOf用于获取一个对象的原型（prototype）
