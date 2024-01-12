@@ -48,6 +48,8 @@ RecycleScroller组件的class 外部height必须得有，items和item-size属性
 
 自带的ElSelectV2和RecycleScroller
 
+RecycleScroller的内存占用比ElSelectV2要好，但是RecycleScroller回显有问题
+
 ```vue
 <ElSelectV2
         v-model="selected"
