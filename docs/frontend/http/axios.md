@@ -290,6 +290,77 @@ source.cancel('请求取消的原因');
 
 请注意，`source.cancel` 调用将取消使用相同 `CancelToken` 实例的所有请求，而不是单一请求。这是因为 `CancelToken` 实例是可重复使用的，它可以用于多个请求
 
+### 使用AbortController并封装之
+
+```js
+export const getRequest = (controller: AbortController) =>
+  request({
+    url: 'http://127.0.0.1:3000/route',
+    method: 'get',
+    signal: controller.signal
+  }); // request是封装的axios实例
+```
+
+```vue
+<script setup lang="ts">
+/**
+ * 用来判断是否发出了请求
+ */
+let HAS_REQUEST = false;
+
+let controller = new AbortController();
+const handleRequest = async () => {
+  HAS_REQUEST = true;
+  let res = await getRequest(controller);
+  console.log('res: ', res);
+
+  HAS_REQUEST = false;
+};
+
+const cancelRequest = () => {
+  if (HAS_REQUEST) {
+    controller.abort();
+    controller = new AbortController();
+    console.log('请求被取消了！');
+  }
+};
+</script>
+
+<template>
+  <div>
+    <button @click="handleRequest">发起请求</button>
+    <button @click="cancelRequest">取消请求</button>
+  </div>
+</template>
+```
+
+关于错误捕获的封装
+
+取消请求会发出一个未捕获的CanceledError错误并在控制台输出，可在响应拦截器中捕获并处理
+
+```js
+service.interceptors.response.use(
+  (response) => {
+    if (response.status === 200) {
+      return response.data;
+    }
+  },
+  (err) => {
+    Promise.reject(err).catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log('Request canceled', err.message);
+      } else console.error('Request failed', err);
+    });
+  }
+);
+```
+
+
+
+
+
+
+
 
 
 > 封装axios后，每个接口定义为一个函数，如下： ``` export const getAutoCode = (): Promise<{ body: any; code: number }> =>    axios.get("/captcha"); ``` 这样每个接口都需要定义返回类型，感觉比较麻烦，有什么较好的解决方法吗

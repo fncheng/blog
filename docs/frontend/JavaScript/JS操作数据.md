@@ -34,7 +34,7 @@ title: JS操作数据方法
 
   - 变短
 
-    `slice`截取数组 [ begin,end ) 从 begin 到 end (不包括end) **不会改变原数组**
+    `slice`截取数组 [ begin,end ) 从 begin 到 end (不包括end) **不会改变原数组**，slice(0)可以浅拷贝数组。
 
     `splice`通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组
 
@@ -74,12 +74,6 @@ array.splice(start, delCount)
 // 从start开始删，删除delCount个元素，返回值为被删除的元素合集
 // 如果不写delCount，则表示删除start后面的所有元素，包括start
 ```
-
-### slice
-
-截取数组 [ begin,end ) 从 begin 到 end (不包括end) **不会改变原数组**。
-
-利用这个特性，slice(0)可以浅拷贝数组
 
 ### Array.from
 

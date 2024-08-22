@@ -94,6 +94,8 @@ yarn add eslint
 
 ## 路由动态导入
 
+以下代码通过将每个页面打包成单独的js文件，以解决打包单个文件过大，首屏加载慢的问题。
+
 vite中的 [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)
 
 首先引入所有路由文件

@@ -17,7 +17,7 @@ export default defineConfig({
 
 ## vite动态导入和懒加载
 
-我们在从vue2迁移到vue3时使用过一个api [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)来解决动态导入的问题
+我们在从vue2迁移到vue3时使用过一个api [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)来解决动态导入的问题 ( [传送门](https://fncheng.github.io/blog/frontend/vue/Vue3/1-%E4%BB%8Evue2%E8%BF%81%E7%A7%BB%E5%88%B0vue3.html#%E8%B7%AF%E7%94%B1%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5) )
 
 - `import.meta.glob`: 通过动态导入`默认懒加载`，通过遍历加 `then` 方法可拿到对应的模块文件详情信息
 - `import.meta.globEager`: 直接引入所有的模块, 即静态 `import`

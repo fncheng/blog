@@ -33,6 +33,8 @@ Vue-CLI的sourceMap默认为false
 
 查看的是loader转译后的代码
 
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240305140949430.png" alt="image-20240305140949430" style="zoom: 60%;" />
+
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210906142633254.png" alt="image-20210906142633254" style="zoom:60%;" />
 
 ##### eval-cheap-module-source-map
