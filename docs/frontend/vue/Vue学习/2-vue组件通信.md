@@ -202,12 +202,18 @@ inject(key: string, defaultValue: any, treatDefaultAsFactory: boolean)
 
 ## 4.事件总线EventBus(非父子)
 
-EventBus其实就是一个空的Vue实例
+EventBus其实就是一个新的Vue实例
 
 ```js
 //event-bus.js
 import Vue from 'vue'
+
 const EventBus = new Vue()
+
+EventBus.$on('message', (data) => {
+  console.log('get message', data)
+})
+
 export default EventBus
 ```
 
@@ -215,32 +221,28 @@ export default EventBus
 
 ```vue
 //About.vue向UserProfile.vue传递
-//About.vue
-//html
-<div class="about">
-  <h1>This is an about page</h1>
-  非父子:<button @click="sendMsg">send msg</button>
-</div>
+<template>
+	<button @click="handleEventBus">EventBus</button>
+</template>
 
-//js
-import EventBus from "../event-bus"
+<script>
+import EventBus, { handleEvent } from '@/store/eventbus'
 export default {
-  data() {
-    return {
-      count: 0,
-      msg: "Hello"
-    }
+  created() {
+    EventBus.$on('message', handleEvent)
+  },
+  beforeDestroy() {
+    // debugger
+    EventBus.$off('message', handleEvent)
+    console.log('销毁EventBus')
   },
   methods: {
-    changeCount() {
-      this.count++
-      this.$emit("countChange", this.count)
-    },
-    sendMsg() {
-      EventBus.$emit("msgSend", this.msg)
+    handleEventBus() {
+      EventBus.$emit('message', { someData: 123 })
     }
   }
 }
+</script>
 ```
 
 ```vue
@@ -275,16 +277,21 @@ export default {
 }
 ```
 
-```vue
-//App.vue
-//html
-<about></about>
-我是兄弟组件:<userprofile></userprofile>
-```
+需要注意的是：**`EventBus`** 不会自动销毁，通常需要你手动调用 `off` 或类似的方法来移除事件监听器。
+
+**EventBus实例重用问题**
+
+ `EventBus` 是在整个应用生命周期中只创建一次，当你调用 `EventBus.$off` 时，它会从全局事件总线上移除事件监听器，如果离开页面后再进入页面，就会导致你无法触发事件
 
 [eventbus存在问题](https://juejin.im/post/5d358280e51d4556bc06704d#heading-5),所以需要在使用完后手动销毁它,在beforDestory和destoryed中使用$off
 
 `vm.__patch__(vm._vnode, null)`用来触发所有的destory钩子函数。
+
+
+
+## EvevntBus、EventEmitter和Mitt
+
+`EventBus` 是一种设计模式，通常用于前端应用中实现组件之间的通信。它可以基于 `EventEmitter`、`Mitt` 或其他事件管理工具实现。
 
 ## $refs
 

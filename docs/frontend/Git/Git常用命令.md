@@ -133,6 +133,8 @@ git reset HEAD^
 3.git reset -hard  #彻底回退到某个版本，本地的源码也会变成为上一个版本的内容
 ```
 
+### Undo last commit
+
 vscode 中 undo last commit 的原理是：
 
 ```sh
@@ -140,7 +142,7 @@ $ git reset --soft HEAD~1 # 撤销上一次commit
 $ git reset --hard HEAD~1 # 撤销上一次commit 并将commit的文件删除
 ```
 
->  **请不要随意使用 git reset --hard 这将导致你的工作去所有未保存的修改丢失。**
+>  **请不要随意使用 git reset --hard 这将导致你的工作区所有未保存的修改丢失。**
 
 ### HEAD
 

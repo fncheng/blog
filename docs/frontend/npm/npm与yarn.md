@@ -155,3 +155,6 @@ npmRegistryServer: "https://registry.npmmirror.com/"
 
 日常命令同一代
 
+
+
+## pnpm
