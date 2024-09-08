@@ -1,3 +1,29 @@
+在前端一些依赖包中，我们经常能看见有es目录，dist目录和lib目录等，这些目录有什么区别呢？
+
+### 1. es 目录
+
+`es` 目录中的文件通常是使用 ES Modules（ESM）规范导出的模块，文件后缀通常是 `.js` 或 `.mjs`。它们的特点和用途如下：
+
+- **模块系统**: 使用 ES Modules（`import` 和 `export` 语法）。
+- **Tree Shaking 支持**: 由于 ES Modules 支持静态分析，构建工具（如 Webpack、Vite、Rollup）可以更有效地进行 Tree Shaking，从而移除未使用的代码，减小打包体积。
+- **现代浏览器支持**: 现代浏览器原生支持 ES Modules，因此 `es` 目录适合直接在浏览器端加载。
+- **性能**: 在构建工具中使用时，`es` 模块的导入通常更高效，构建速度较快。
+
+### 2. lib目录
+
+`lib` 目录中的文件通常是使用 CommonJS 规范导出的模块，文件后缀通常是 `.js`。它们的特点和用途如下：
+
+- **模块系统**: 使用 CommonJS（`require` 和 `module.exports` 语法）。
+- **兼容性更广**: CommonJS 是 Node.js 默认的模块规范，因此对 Node.js 和传统构建工具的兼容性较好。
+- **不支持 Tree Shaking**: CommonJS 的模块方式不支持静态分析，构建工具无法对其进行 Tree Shaking，因此可能会引入不必要的代码。
+- **适用于老旧环境**: 如果项目中使用的构建工具不支持 ES Modules，或需要兼容旧版环境，`lib` 目录会更适合。
+
+### 3.dist目录
+
+**最终打包文件**: `dist` 目录通常包含了经过打包、压缩和优化的最终产物，是为生产环境准备的。它是开发者发布包时给用户使用的版本。
+
+
+
 ## CommandJS
 
 https://javascript.ruanyifeng.com/nodejs/module.html#toc1
@@ -72,7 +98,7 @@ instance.over(1)
 >
 > 所以`require('module_Name')`的结果其实是module.exports属性，是一个对象。
 
-## ES6 Module
+## ESM（ES Modules）
 
 https://juejin.im/post/6844903623273480200
 
@@ -154,11 +180,19 @@ CommonJS主要是服务端模块规范，Node.js采用，
 
 这会来说下UMD
 
-## UMD
+## UMD（Universal Module Definition）
 
 UMD全名叫通用模块定义规范（Universal Module Definition）
 
 它可以通过运行时或者编译时让同一个代码模块在使用 CommonJs、CMD 甚至是 AMD 的项目中运行。
+
+**特点**:
+
+- **通用性**: UMD 设计为在多种环境下都能正常运行，包括 AMD（如 RequireJS）、CommonJS（如 Node.js）、以及浏览器的全局变量模式。它能适应大部分 JavaScript 运行环境。
+- **自执行函数**: 通过一个自执行函数包装模块，UMD 会检测当前的模块环境，如果是 CommonJS，则使用 `module.exports`，如果是 AMD，则使用 `define`，否则直接将模块暴露为全局变量。
+- **动态加载**: UMD 可以在浏览器中通过 `<script>` 标签直接引入，也可以在 Node.js 环境中使用 `require()`。
+- **兼容性**: UMD 是一个兼容性最佳的方案，但为了实现这种兼容性，UMD 文件通常较大，且不支持 Tree Shaking。
+- **主要用途**: 适用于发布第三方库，确保最大限度的兼容性，特别是在需要支持老旧环境或多个模块系统的项目中。
 
 ```js
 ((root, factory) => {
@@ -177,7 +211,19 @@ UMD全名叫通用模块定义规范（Universal Module Definition）
 });
 ```
 
-就是检测到node就走CommonJs规范，检测到浏览器就走AMD规范
+简单来说，就是它是一个自调用函数，检测到node就走CommonJs规范，检测到浏览器就走AMD规范
+
+
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240907221303543.png" alt="image-20240907221303543" style="zoom: 67%;" />
+
+### 总结
+
+- **AMD** 是一种用于浏览器端的异步模块定义规范，旨在提高模块加载效率和依赖管理。它使用 `define` 函数来定义模块和其依赖，并支持异步加载，适合大型前端应用。
+- **CommonJS** 主要用于 Node.js 环境，模块同步加载，适合服务器端开发，但在浏览器中使用时需要通过工具转换。
+- **ESM (ES Modules)** 是现代 JavaScript 的标准模块系统，支持静态分析、Tree Shaking 和异步加载，适用于前端和后端开发。
+
+AMD 的设计初衷是为了在浏览器中实现模块化和异步加载，它在模块化的早期阶段解决了许多问题，但随着 ES Modules 的普及，它逐渐被 ESM 所取代。
 
 ## vue不同构建版本的解释
 
@@ -203,7 +249,7 @@ vue.runtime.esm-browser.js
 vue.runtime.esm-browser.prod.js
 ```
 
-
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240908103655473.png" alt="image-20240908103655473" style="zoom:67%;" />
 
 ### 参考
 

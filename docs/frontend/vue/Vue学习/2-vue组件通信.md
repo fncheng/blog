@@ -169,7 +169,22 @@ Vue.prototype.$emit = (event: string, ...args: unknown[]) =>
 	emit(this: Vue, event: string, ...args: unknown[])
 ```
 
+### Vue3的emit使用
 
+[defineEmits](https://fncheng.github.io/blog/frontend/vue/Vue3/1.3-Vue3%20API.html#defineemits)
+
+```ts
+import { defineEmits } from 'vue';
+
+// 使用 defineEmits 来定义组件可以触发的自定义事件
+const emit = defineEmits(['update:first', 'update:second']);
+
+// 在组件的逻辑中触发自定义事件
+const handleClick = () => {
+  emit('update:first', '这是 update:first 事件的数据');
+  emit('update:second', '这是 update:second 事件的数据');
+};
+```
 
 
 
@@ -196,6 +211,27 @@ export default {
 ```
 
 inject(key: string, defaultValue: any, treatDefaultAsFactory: boolean)
+
+### Vue3中的provide/inject
+
+```ts
+export interface IGlobalConfig {
+  name: string;
+}
+
+const globalConfig = reactive({
+  name: 'name'
+});
+provide('globalConfig', globalConfig);
+```
+
+```ts
+import { type IGlobalConfig } from '@/App.vue';
+import { inject } from 'vue';
+const globalConfig = inject<IGlobalConfig>('globalConfig');
+```
+
+
 
 
 
@@ -292,6 +328,43 @@ export default {
 ## EvevntBus、EventEmitter和Mitt
 
 `EventBus` 是一种设计模式，通常用于前端应用中实现组件之间的通信。它可以基于 `EventEmitter`、`Mitt` 或其他事件管理工具实现。
+
+Vue3中没有EventBus了，取而代之的是mitt
+
+> **与**[Node 的 EventEmitter 具有](https://nodejs.org/api/events.html#events_class_eventemitter)相同的名称和理念
+>
+> Mitt 是专为浏览器开发的，它没有任何依赖项，并且支持 IE9+。
+
+```ts
+import mitt from 'mitt';
+
+type Events = {
+  message: object;
+};
+
+const Mitt = mitt<Events>();
+Mitt.on('message', (data) => {
+  console.log('get message', data);
+});
+
+export default Mitt;
+```
+
+```vue
+<template>
+  <span @click="handleEvents">child-a</span>
+</template>
+
+<script setup lang="ts">
+import Mitt from '@/store/mitt';
+
+const handleEvents = () => {
+  Mitt.emit('message', { someData: 123 });
+};
+</script>
+```
+
+
 
 ## $refs
 

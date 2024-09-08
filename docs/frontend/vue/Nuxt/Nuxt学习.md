@@ -74,3 +74,15 @@ export default defineNuxtRouteMiddleware((to) => {
 ```
 
 **避免冗余的跳转**：使用 `router.push` 可能导致不必要的跳转或重复调用
+
+
+
+
+
+## Nuxt项目遇到问题
+
+引入Element-plus后出现报错
+
+> Uncaught SyntaxError: The requested module '/_nuxt/node_modules/.pnpm/dayjs@1.11.13/node_modules/dayjs/dayjs.min.js?v=61c84073' does not provide an export named 'default' 
+
+解决办法：https://github.com/element-plus/element-plus/issues/8165#issuecomment-2094041331
