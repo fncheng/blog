@@ -1,8 +1,8 @@
 // const nav = require('./nav')
 // const sidebar = require('./sidebar')
-const { defineConfig } = require('@vuepress/types')
-const { getSidebar, setSidebar } = require('./utils.js')
-console.log('setSidebar: ', setSidebar)
+const { defineConfig } = require('@vuepress/types');
+const { getSidebar, setSidebar } = require('./utils.js');
+console.log('setSidebar: ', setSidebar);
 
 module.exports = defineConfig({
   base: '/blog/',
@@ -26,10 +26,6 @@ module.exports = defineConfig({
           { text: 'CSS', link: '/frontend/CSS/1-CSS布局/1-浮动与定位' },
           { text: 'Npm', link: '/frontend/npm/npm与yarn' },
           { text: 'TypeScript', link: '/frontend/TypeScript/ts常见问题' },
-          {
-            text: '前端工程化',
-            link: '/frontend/前端工程化/Jenkins构建'
-          },
           {
             text: '前端开发常见解决方案',
             link: '/frontend/前端开发常见解决方案/图片懒加载'
@@ -154,9 +150,7 @@ module.exports = defineConfig({
         {
           title: 'Vue3',
           collapsable: false,
-          children: [
-            ...setSidebar('../frontend/vue/Vue3/')
-          ]
+          children: [...setSidebar('../frontend/vue/Vue3/')]
         },
         {
           title: 'Vue2',
@@ -242,10 +236,30 @@ module.exports = defineConfig({
       ],
       '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
-      // 前端工程化
-      '/frontend/前端工程化/': getSidebar('../frontend/前端工程化/'),
       '/小程序/': getSidebar('../小程序/'),
       // Webpack
+      // '/frontend/Webpack/': [
+      //   {
+      //     title: 'Webpack',
+      //     collapsable: true,
+      //     children: [
+      //       {
+      //         title: '搭建Webpack开发环境',
+      //         // collapsable: false,
+      //         children: setSidebar(
+      //           '../frontend/Webpack/1-webpack开发环境搭建/',
+      //           '1-webpack开发环境搭建'
+      //         )
+      //       },
+      //       {
+      //         title: 'Webpack优化',
+      //         // collapsable: false,
+      //         children: setSidebar('../frontend/Webpack/2-Webpack优化/')
+      //       }
+      //     ]
+      //   }
+      // ],
+      // 前端工程化
       '/frontend/Webpack/': [
         {
           title: '搭建Webpack开发环境',
@@ -257,17 +271,25 @@ module.exports = defineConfig({
         },
         {
           title: 'Webpack优化',
-          collapsable: false,
+          collapsable: true,
           children: setSidebar('../frontend/Webpack/2-Webpack优化/')
         },
         {
           title: 'Vite',
-          collapsable: false,
+          collapsable: true,
           children: setSidebar('../frontend/Webpack/3-Vite/')
         },
         {
           title: '前端开发规范',
           children: setSidebar('../frontend/Webpack/4-前端开发规范/')
+        },
+        {
+          title: '持续集成与构建',
+          children: setSidebar('../frontend/Webpack/5-Jenkins/')
+        },
+        {
+          title: '微前端',
+          children: setSidebar('../frontend/Webpack/6-微前端/')
         }
       ],
       '/frontend/Git/': [
@@ -337,6 +359,11 @@ module.exports = defineConfig({
     // 		collapsable: true, // 设置为true,开启折叠
     // 	}
     // },
+    // algolia: {
+    //   apiKey: '<API_KEY>',
+    //   indexName: '<INDEX_NAME>',
+    //   appId: '<APP_ID>'
+    // },
     smoothScroll: true
   },
   plugins: {
@@ -349,4 +376,4 @@ module.exports = defineConfig({
       someTest: 'someTest-------------------------------------'
     }
   }
-})
+});
