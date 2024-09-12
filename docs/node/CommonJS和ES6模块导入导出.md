@@ -227,7 +227,12 @@ AMD 的设计初衷是为了在浏览器中实现模块化和异步加载，它�
 
 ## vue不同构建版本的解释
 
+在 Vue.js 的 `dist` 目录下，你会找到多个不同版本的 Vue 构建文件。这些文件的命名和内容针对不同的使用场景和需求
+
 ```js
+// 这是 Vue 的 CommonJS 构建版本，主要用于 Node.js 环境或构建工具（如 Webpack）的 CommonJS 模块。
+vue.common.js
+
 // 服务端渲染。 通过 `require()` 在 Node.js 服务器端渲染使用。
 vue.cjs.js
 vue.cjs.prod.js

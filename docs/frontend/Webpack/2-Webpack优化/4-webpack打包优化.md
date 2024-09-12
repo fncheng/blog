@@ -397,3 +397,60 @@ contenthash表示由文件内容产生的hash值，内容不同产生的contenth
 
 ### webpack module、chunk、bundle
 
+
+
+## Webpack分包/外部化依赖
+
+### 1.externals配置
+
+```js
+module.exports = {
+  // ... 其他配置
+  externals: {
+    vue: 'Vue',
+    'element-plus': 'ElementPlus',
+  },
+};
+```
+
+通过上面的配置，Webpack 不会将 `vue` 和 `element-plus` 打包进生成的文件中，而是依赖于全局的 `Vue` 和 `ElementPlus`。
+
+你需要在 HTML 中通过 CDN 引入对应的库。例如：
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+```
+
+如果你的项目是不能联网的，这时候无法使用CDN服务，我们一般会通过**copy-webpack-plugin**将对应资源copy至指定目录
+
+在使用`externals` 和 `copy-webpack-plugin` 后，Vue 和 Vue Router 的代码不会被打包到你的项目中，因为它们被定义为外部依赖，需要在 HTML 中手动引入。这种方式通过减少打包体积、提高构建速度来优化性能，但也意味着你需要手动在 HTML 文件中添加相应的 `<script>` 标签。
+
+### 遇到的问题
+
+报错**Uncaught TypeError: Illegal constructor**
+
+
+
+### 2.SplitChunksPlugin 将依赖打包成单独文件
+
+也可以不使用CDN或script标签引入的方式，而是使用Webpack来将依赖包打成单独文件，或将几个依赖打到一个文件中
+
+```js
+module.exports = {
+  // ... 其他配置
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](vue|element-plus)[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+};
+```
+
