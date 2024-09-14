@@ -12,6 +12,8 @@ title: React与Vue
 
 ## React 与 Vue 不同点
 
+### 1.Immutable和Proxy
+
 React和Vue的一个突出区别就是Immutable 数据不可变性
 
 Vue讲究的是双向绑定，修改状态时直接对数据进行赋值
@@ -24,7 +26,11 @@ this.setState({
 })
 ```
 
+### 2.re-render机制
 
+在 React 中，组件的重新渲染是通过 `setState`触发，是可控的；
+
+而Vue是响应式系统，一旦响应式数据发生变化，Vue 会自动追踪到这些变化，并触发视图更新，是不可控的
 
 ### 数据更新
 

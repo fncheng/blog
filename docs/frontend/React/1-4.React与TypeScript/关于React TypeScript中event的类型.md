@@ -6,7 +6,7 @@ title: 关于React TypeScript中event的类型
 
 React+TypeScript的项目中定义onClick时，给event声明类型Event，ts会报错
 
-> Type '(e: Event) => void' is not assignable to type 'MouseEventHandler<HTMLSpanElement>'.
+> Type '(e: Event) => void' is not assignable to type 'MouseEventHandler\<HTMLSpanElement>'.
 >
 >   Types of parameters 'e' and 'event' are incompatible.
 >

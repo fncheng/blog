@@ -472,3 +472,53 @@ const { maxTagNum, maxTagLength } = Object.assign(
 const { maxTagNum = 4, maxTagLength = 16 } = props;
 ```
 
+
+
+## 高阶组件
+
+定义高阶组件
+
+```tsx
+const withAuth = (Component1: React.ComponentType<any>, requiredPermission: boolean) => (props: any) => {
+
+  if (requiredPermission) {
+    return null
+  }
+  return <Component1 {...props} />;
+};
+
+const Button: React.FC<{ text: string }> = ({ text }) => (
+  <button style={{ color: "red" }}>{text}</button>
+);
+
+export default () => {
+  const ButtonWithPermission = withAuth(Button, true);
+  const ButtonWithoutPermission = withAuth(Button, false);
+
+  return (
+    <>
+      <span>About</span>
+      <ButtonWithPermission text='About' />
+      <ButtonWithoutPermission text='About' />
+    </>
+  );
+};
+```
+
+withAuth有两个连续的箭头函数，该怎么理解呢
+
+**第一层箭头函数**：
+
+这是一个 **高阶函数**，它接收一个 React 组件 `Component1` 作为参数。
+
+返回一个返回值是一个新的函数（箭头函数），本质上是一个React组件。
+
+而React组件的特点就是将所有属性作为props传递，所以text相当于传递给这个函数组件
+
+小技巧，同时使用解构和props
+
+```tsx
+const Button = ({ text, ...props }) => (
+  <button style={{ color: "red" }} {...props}>{text}</button>
+);
+```
