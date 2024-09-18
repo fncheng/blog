@@ -317,7 +317,31 @@ function App() {
 }
 ```
 
+```tsx
+const About1: React.FC = () => {
+  const [number, setNumber] = useState(0)
 
+  const getNumber = async () => {
+    const number = await useNumber()
+    setNumber(number)
+  }
+
+  useEffect(() => {
+    getNumber()
+  }, [])
+  
+  console.log('render')
+  return (
+    <Suspense fallback={<div>Loading number...</div>}>
+      <div style={{ color: 'red' }}>Here is the number: {number}</div>
+    </Suspense>
+  )
+}
+```
+
+这段代码中的fallback为什么没有生效？
+
+这是因为`Suspense` 主要用于处理异步组件。它会在组件加载的过程中显示 `fallback` 内容，直到组件加载完成，`Suspense` 的 `fallback` 不能用于处理普通的数据加载，比如在 `useEffect` 中获取的数据。
 
 ## Router路由
 

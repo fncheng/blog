@@ -92,9 +92,13 @@ yarn add eslint
 
 
 
-## 路由动态导入
+## 路由模块的按需加载
 
 以下代码通过将每个页面打包成单独的js文件，以解决打包单个文件过大，首屏加载慢的问题。
+
+两种方式
+
+### 1.import.meta.glob
 
 vite中的 [import.meta.glob](https://cn.vitejs.dev/guide/features.html#glob-import)
 
@@ -120,7 +124,9 @@ asyncRoutes.forEach((route) => router.addRoute(route))
 
 这样页面就可以正常显示了
 
+### 2.动态import
 
+针对单个文件使用动态import
 
 ### 动态导入No match found for location with path 问题
 
