@@ -359,11 +359,11 @@ module.exports = defineConfig({
     // 		collapsable: true, // 设置为true,开启折叠
     // 	}
     // },
-    algolia: {
-      apiKey: '8ef45c3b880d9f19fca1ae9bba0436c2',
-      indexName: 'fnchengio',
-      appId: 'MJF77CWOOC'
-    },
+    // algolia: {
+    //   apiKey: '8ef45c3b880d9f19fca1ae9bba0436c2',
+    //   indexName: 'fnchengio',
+    //   appId: 'MJF77CWOOC'
+    // },
     smoothScroll: true
   },
   plugins: {
