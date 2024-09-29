@@ -263,6 +263,26 @@ git merge --no-commit chengdev
 
 `git merge --no-commit` 命令可以执行分支合并操作，但是不自动创建新的合并提交。这通常用于需要手动解决合并冲突的情况。
 
+### 合并指定文件(checkout)
+
+当我们做一些定制化需求时，通常会基于开发分支比如dev分支checkout 一个分支出来开发，然后在dev上进行一些通用功能的开发。假如我们现在有一部分dev上的功能要添加到release上，该怎么做
+
+merge dev into release？
+
+这样会把dev上的所有功能都迁移过来，不符合要求
+
+cherry-pick？
+
+cherry-pick是将一个文件的某个特定提交（commit）合并过来，貌似可行，不过需要去一个个查看commit id
+
+checkout也可用来提取特定文件
+
+```sh
+git checkout dev -- path/to/your/file
+```
+
+这样做的效果是只将 `dev` 分支上的某个文件合并到 `release` 分支
+
 
 
 ## Rebase

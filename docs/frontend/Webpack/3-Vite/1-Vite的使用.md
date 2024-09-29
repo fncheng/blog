@@ -300,3 +300,25 @@ plugins: [
 ]
 ```
 
+
+
+## Vite开发环境首屏白屏的问题
+
+在 Vite 项目中，依赖项通常会被当作独立的模块直接通过 `ESM`（ES Modules）加载。这与传统的打包工具（如 Webpack）不同，Vite 的开发服务器直接利用浏览器原生支持的 `ESM` 机制。然而，这种方式对某些庞大的第三方依赖包（如 `lodash`、`moment` 等）效率较低。为了解决这个问题，Vite 会对第三方依赖进行**预构建**。
+
+如果不使用预构建，比如我们引入lodash-es中debounce方法
+
+在开发环境下的浏览器中会同时有800多个请求，每个lodash的方法都被请求了一遍
+
+<img src="C:\Users\chengdong2\AppData\Roaming\Typora\typora-user-images\image-20240927153859692.png" alt="image-20240927153859692" style="zoom:67%;" />
+
+预构建的文件在node_modules/.vite/deps目录下
+
+如果是第一次启动（冷启动），要等deps目录内预构建完成页面才会显示出来
+
+如果以下 `3` 个地方都没有改动，`Vite` 将一直使用缓存文件:
+
+1. `package.json` 的 `dependencies` 字段
+2. 各种包管理器的 `lock` 文件
+3. `optimizeDeps` 配置内容
+
