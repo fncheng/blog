@@ -50,7 +50,7 @@ git branch <branch-name> <hash> ## 从指定hash记录创建新分支
 
 
 
-### checkout
+## checkout
 
 ```sh
 -b <branch>           create and checkout a new branch
@@ -89,6 +89,18 @@ git branch --unset-upstream [<branchname>]
 # 添加push仓库
 git remote set-url --add origin --push git@gitlab.com:fncheng/blog.git
 ```
+
+### 清空工作区 (checkout -- .)
+
+```sh
+git checkout -- .
+
+git checkout .
+```
+
+
+
+
 
 
 
