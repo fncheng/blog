@@ -93,9 +93,11 @@ git remote set-url --add origin --push git@gitlab.com:fncheng/blog.git
 ### 清空工作区 (checkout -- .)
 
 ```sh
-git checkout -- .
-
 git checkout .
+
+git checkout -- .
+# -- 是为了明确区分 “命令选项” 和 “文件路径”。
+# 在旧版本的 Git 中，使用 -- 是为了避免文件名与命令选项冲突。
 ```
 
 
