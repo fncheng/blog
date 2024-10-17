@@ -161,7 +161,7 @@ export default {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
-  fill: currentColor;
+  fill: currentColor; /* 使图标颜色继承字体颜色 */
   overflow: hidden;
 }
 </style>

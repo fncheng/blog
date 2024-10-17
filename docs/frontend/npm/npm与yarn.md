@@ -158,3 +158,25 @@ npmRegistryServer: "https://registry.npmmirror.com/"
 
 
 ## pnpm
+
+
+
+
+
+## yarn报错
+
+error Error: certificate has expired
+    at TLSSocket.onConnectSecure (node:_tls_wrap:1659:34)
+    at TLSSocket.emit (node:events:517:28)
+    at TLSSocket._finishInit (node:_tls_wrap:1070:8)
+    at ssl.onhandshakedone (node:_tls_wrap:856:12)
+
+解决办法：
+
+尝试禁用SLL证书
+
+```sh
+yarn config set strict-ssl false
+```
+
+然后重新安装

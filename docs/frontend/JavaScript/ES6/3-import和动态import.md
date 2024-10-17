@@ -25,3 +25,35 @@
 
 [动态import和Promise的关系](https://github.com/fncheng/fe/issues/21)
 
+
+
+## 使用loadable-components动态导入
+
+https://loadable-components.com/docs/dynamic-import/
+
+需要注意的是，必须有cacheKey这个属性
+
+```tsx
+const AsyncPage = loadable(
+    (props: { page: string }) => import(/* @vite-ignore */ `../pages/${props.page}/index.tsx`),
+    {
+        fallback: <div> Layout Loading...</div>,
+        cacheKey: (props) => props.page,
+    }
+);
+```
+
+
+
+使用p-min-delay来解决页面加载过快的闪烁问题
+
+```tsx
+const AsyncPage = loadable(
+    (props: { page: string }) => pMinDelay(import(`../pages/${props.page}/index.tsx`), 500),
+    {
+        fallback: <div> Layout Loading...</div>,
+        cacheKey: (props) => props.page,
+    }
+);
+```
+

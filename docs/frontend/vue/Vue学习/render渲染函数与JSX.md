@@ -374,3 +374,81 @@ yarn add @vue/babel-plugin-jsx -D
 
 Vite使用JSX => https://cn.vitejs.dev/guide/features.html#jsx
 
+vite.config.ts
+
+```ts
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueJsx(),
+})
+```
+
+此外编辑器不认识tsx标签，报类型错误，需要在tsconfig.json中配置
+
+```json
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "jsxImportSource": "vue",
+    }
+}
+```
+
+tsx组件
+
+```tsx
+import { defineComponent, ref } from "vue"
+
+export default defineComponent({
+  setup() {
+    const count = ref(100)
+    const handleClick = () => {
+      count.value++
+    }
+
+    return () => (
+      <div>
+        <span>{count.value}</span>
+        <button onClick={handleClick}>click</button>
+      </div>
+    )
+  }
+})
+```
+
+需要注意的事项：
+
+1. return需要返回一个Function，这与React不同
+2. 通过ref声明的变量在JSX中需要通过`.value`去访问
+
+
+
+### 接收props有两种方式
+
+1. defineComponent方式
+
+   ```tsx
+   import { defineComponent, ref } from "vue"
+   
+   export default defineComponent({
+     props: {
+       name: String
+     },
+     setup(props) {
+       const count = ref(100)
+       const handleClick = () => {
+         count.value++
+       }
+   
+       return () => (
+         <div>
+           <span>{props.name}</span>
+           <span>{count.value}</span>
+           <button onClick={handleClick}>click</button>
+           <input type="text" v-model={count.value} />
+         </div>
+       )
+     }
+   })
+   ```

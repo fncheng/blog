@@ -40,7 +40,7 @@ ReactDOM.render(
 );
 ```
 
-## React的beforeEach
+## React的beforeEach实现
 
 Vue的路由守卫beforeEach在页面路由发生变化时便会执行。
 React没有提供类似的Api，但是AppApp 组件在每次路由变化时都会被执行。于是我们可以通过 React Router 的一些功能来实现类似的效果。
@@ -131,26 +131,38 @@ export const routes: RouteConfig[] = [
 App.tsx
 
 ```tsx
-export function App1() {
-    const [isLogin, setLogin] = useState<boolean>(() => {
-        const storeValue = localStorage.getItem("isLogin");
-        return storeValue ? JSON.parse(storeValue) : false;
-    });
+export default function App() {
+    const { isLogin } = useContext(GlobalContext);
 
     const location = useLocation();
+    const matches = useMatches();
+    // to 即我们要跳转的页面路由元信息
+    const to = matches.find((item) => item.pathname === location.pathname);
+    console.log("to: ", to);
     const navigate = useNavigate();
-    console.log('location: ', location);
 
     const handleRouteChange = () => {
         console.log("------全局路由守卫------", isLogin);
+        // 如果未登录，且去的页面不是登录页，则重定向到登录页
         if (!isLogin && location.pathname !== "/login") {
             navigate("/login");
+        }
+        // 如果已登录，不可直接去登录页，应通过logout退出登录来跳转登录页
+        if (isLogin && location.pathname === "/login") {
+            navigate("/");
+        }
+        // 需要鉴权的页面
+        if (to?.handle?.meta?.requireAuth) {
+            // 判断有没有这个页面的权限
+            // ...
+            // 没有则跳转至指定页
+            navigate("/unpermission");
         }
     };
 
     useEffect(() => {
         handleRouteChange();
-    }, [location.pathname]);
+    }, [location]);
 
     return <AppLayout />;
 }
@@ -161,7 +173,7 @@ index.tsx
 ```tsx
 root.render(
     <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
+        <Router />
     </Suspense>
 );
 ```
@@ -217,7 +229,7 @@ export const useGlobalContext = () => {
 root.render(
     <GlobalProvider>
         <Suspense fallback={<Loading />}>
-            <RouterProvider router={router} />
+            <Router />
         </Suspense>
     </GlobalProvider>
 );
@@ -228,3 +240,80 @@ root.render(
 如果没有订阅该 `Context` 的组件不会受到影响，因此不会重新渲染。
 
 React 使用的是浅比较（`Object.is`），如果 `value` 是一个引用类型（比如对象或数组），即使它的内容没有变化，只要引用变了，所有消费该 `Context` 的组件都会重新渲染。
+
+
+
+
+
+最终实现
+
+```tsx
+const routes = [
+    // ...
+]
+
+const router = createBrowserRouter(routes);
+
+const Router = () => <RouterProvider router={router} />;
+
+export default Router;
+```
+
+
+
+## 使用loadable-components实现lazy load和code splitting
+
+在此之前我们通过React.lazy和Suspense实现了路由模块的懒加载和代码分割
+
+现在我了解到loadable-components这个库也可以实现以上效果并且功能更多还支持SSR
+
+首先安装@loadable/component
+
+```sh
+pnpm add @loadable/component
+```
+
+使用loadable方法加载组件
+
+```tsx
+const Home = loadable(() => import("../pages/Home/index"));
+```
+
+还可以实现 *Full dynamic import*，即带变量的路径导入
+
+```tsx
+const AsyncPage = loadable(
+    (props: { page: string }) => pMinDelay(import(`../pages/${props.page}/index.tsx`), 300),
+    {
+        fallback: <div> Layout Loading...</div>,
+        cacheKey: (props) => props.page,
+    }
+);
+
+const routes: RouteObject[] = [
+    {
+        path: "layout",
+        element: <Layout1 />,
+        children: [
+            {
+                path: "1",
+                element: <AsyncPage page="layout1-1" />,
+            },
+            {
+                path: "2",
+                element: <AsyncPage page="layout1-2" />,
+            },
+        ],
+    },
+];
+```
+
+需要注意的是，如果你没有使用babel插件（`@loadable/babel-plugin`），那么你在使用*Full dynamic import*时，必须要设置cacheKey字段
+
+当页面因加载过快出现闪烁问题时，我们还可以通过 *p-min-delay* 来延迟加载，以优化用户体验
+
+```tsx
+import pMinDelay from "p-min-delay";
+const Home = loadable(() => pMinDelay(import("../pages/Home/index"), 300);
+```
+
