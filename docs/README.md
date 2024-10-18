@@ -35,3 +35,17 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 养成一个良好的书写习惯是相当有必要的
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240103165902119.png" alt="image-20240103165902119" style="zoom: 50%;" />
+
+
+
+## Vue代码书写顺序推荐
+
+1. defineProps、defineEmits
+2. ref / reactive等
+3. 跟组件相关的非响应式变量
+4. ref引用
+5. 自定义hooks
+6. compted
+7. watch
+8. methods
+9. defineExpose

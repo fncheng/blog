@@ -176,3 +176,7 @@ interface RequestResponse<T = any> {
 ```
 
 给泛型设置默认值后，使用的时候可以省略T
+
+
+
+ReturnType
