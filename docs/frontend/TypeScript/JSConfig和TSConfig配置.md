@@ -62,6 +62,8 @@ https://www.typescriptlang.org/tsconfig
 
 `include`指定要解析的文件和目录
 
+> 默认情况下，只会对 `includes` 指定的文件给出类型检查和提示。
+
 ### compilerOptions.types
 
 1. **使用默认类型声明文件**：如果您的项目依赖于一些常见的第三方库（例如Node.js或DOM），通常不需要显式设置 `compilerOptions.types` 字段。TypeScript 会自动查找和使用与这些库相关的默认类型声明文件。
@@ -117,7 +119,7 @@ https://www.typescriptlang.org/tsconfig
 
 
 
-
+### 推荐配置
 
 ```json5
 {
@@ -138,6 +140,7 @@ https://www.typescriptlang.org/tsconfig
     "isolatedModules": true, // 该属性要求所有文件都是 ES Module 模块。
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react", // 加入额外的jsx属性
 
     /* Linting */
     "strict": true,

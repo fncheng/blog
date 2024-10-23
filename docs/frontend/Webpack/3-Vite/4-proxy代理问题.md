@@ -20,7 +20,30 @@ server: {
 },
 ```
 
+当接口匹配到/adms时，就会代理到http://10.0.0.1:8080
+
 这里rewrite的作用是当匹配到对应请求时，将/adms替换为""，至于为什么要替换成“”,这里是因为后端的api并不是以/adms开头的
+
+### 经过代理的请求在浏览器中显示的还是原来的Request URL
+
+```ts
+server: {
+    port: 9001,
+    proxy: {
+      '/proxyApi/': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/proxyApi/, '')
+      }
+    }
+  }
+```
+
+
+
+![image-20241022095329375](C:/Users/chengdong2/AppData/Roaming/Typora/typora-user-images/image-20241022095329375.png)
+
+比如我上面将带有`/proxyApi/`的请求代理到http://localhost:3000，并且通过rewrite去除掉/proxyApi/,最终请求的地址为http://localhost:3000/route，但是浏览器中显示的还是localhost:9001/proxyApi/route,这是前端服务器所在的地址。
 
 10.0.0.1通过设置nginx，访问10.0.0.1:80/adms时反代到10.0.0.1:8080
 
@@ -33,10 +56,14 @@ server: {
 如果要代理到nginx，我们就不能再访问端口了，中间件最终要访问的地址应是10.0.0.1:80/adms，这样才会命中nginx的规则
 
 ```js
-"/adms": {
-		target: "http://10.0.0.1",
-		secure: false,
-		rewrite: (path) => path.replace(/^\/adms/, "/adms"),
+server: {
+    proxy: {
+        "/adms": {
+            target: "http://10.0.0.1",
+            secure: false,
+            rewrite: (path) => path.replace(/^\/adms/, "/adms"),
+        },
+    },
 },
 ```
 

@@ -45,7 +45,7 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 3. 跟组件相关的非响应式变量
 4. ref引用
 5. 自定义hooks
-6. compted
+6. computed
 7. watch
 8. methods
 9. defineExpose

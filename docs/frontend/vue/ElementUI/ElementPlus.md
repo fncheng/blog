@@ -1,3 +1,3 @@
 ## Table
 
-![image-20241018173417422](C:\Users\chengdong2\AppData\Roaming\Typora\typora-user-images\image-20241018173417422.png)
+![image-20241018173417422](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241018173417422.png)
