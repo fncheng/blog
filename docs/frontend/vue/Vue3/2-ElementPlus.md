@@ -64,3 +64,12 @@ const tableRef = ref<InstanceType<typeof ElTable>>();
 />
 ```
 
+
+
+## Table
+
+### 第一列为可勾选
+
+手动添加一个 `el-table-column`，设 `type` 属性为 `selection` 即可
+
+第一列为序号，手动添加一个 `el-table-column`，设 `type` 属性为 `index` 即可

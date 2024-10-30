@@ -317,3 +317,91 @@ import pMinDelay from "p-min-delay";
 const Home = loadable(() => pMinDelay(import("../pages/Home/index"), 300);
 ```
 
+
+
+
+
+## pMinDelay实现
+
+pMinDelay源码很简单：
+
+```ts
+function pMinDelay(promise, minimumDelay, options = {}) {
+    let delayPromise = new Promise(resolve => setTimeout(resolve, minimumDelay));
+
+    // If `delayRejection` is true, delay both fulfillment and rejection of the promise
+    if (options.delayRejection) {
+        return Promise.all([promise, delayPromise]).then(
+            values => values[0],
+            error => Promise.reject(error)
+        );
+    }
+
+    // If `delayRejection` is false or not provided, just race the two promises
+    return Promise.all([promise, delayPromise]).then(() => promise);
+}
+
+export default pMinDelay;
+```
+
+`p-min-delay` 确保：
+
+1. **至少等待设定的延迟时间**。
+2. 如果 Promise 比设定时间早完成，延迟时间过后立即返回结果。
+3. 如果 Promise 加载时间超过了设定的延迟时间，Promise 一完成就会立即返回结果，不会额外等待。
+
+
+
+==pMinDelay使用Promise.race,那么不是应该率先返回其中的promise而不是delayPromise吗，因为promise比较快?==
+
+**即使`Promise.race`先返回了 `delayPromise`，最后仍然返回 `promise`**。这是通过 `.then(() => promise)` 这一部分实现的。
+
+
+
+来看两段代码，这两段代码有什么区别？
+
+```tsx
+const loadWithDelay = (cb: Promise<any>, time: number) =>
+    new Promise((resolve) =>
+        setTimeout(() => {
+            resolve(cb);
+        }, time)
+    );
+```
+
+返回的 `Promise` 在指定的延迟后立即fullfilled，并返回传入的 `Promise` 对象，而不管它的状态。
+
+```tsx
+const loadWithDelay = (cb: Promise<any>, time: number) =>
+    new Promise((resolve) =>
+        setTimeout(() => {
+            resolve();
+        }, time)
+    ).then(() => cb);
+```
+
+上面的代码优化下：
+
+```tsx
+const loadWithDelay = (cb: Promise<any>, time: number) =>
+    new Promise((resolve) => setTimeout(resolve, time)).then(() => cb);
+```
+
+返回的 `Promise` 在指定的延迟后执行 `cb`，并根据 `cb` 的结果来决定返回的 `Promise` 的解决或拒绝状态。
+
+
+
+两段代码都可以模拟模块的延迟加载
+
+### 手动实现pMinDelay
+
+现在让我们使用setTimeout手动实现一个pMinDelay
+
+```tsx
+const loadWithDelay = (promise: Promise<any>, time: number) => {
+    const delay = (d: number) => new Promise((resolve) => setTimeout(resolve, d));
+    const delayPromise = delay(time);
+    return Promise.all([promise, delayPromise]).then(() => promise);
+};
+```
+
