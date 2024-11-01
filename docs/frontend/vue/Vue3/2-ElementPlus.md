@@ -64,3 +64,59 @@ const tableRef = ref<InstanceType<typeof ElTable>>();
 />
 ```
 
+
+
+## Table
+
+### 第一列为可勾选
+
+手动添加一个 `el-table-column`，设 `type` 属性为 `selection` 即可
+
+第一列为序号，手动添加一个 `el-table-column`，设 `type` 属性为 `index` 即可
+
+
+
+## :vissible.sync修改为v-model
+
+在ElementPlus中，很多组件的显示隐藏属性visible（比如el-drawer）用法都改成了v-model了
+
+Vue2中
+
+```vue
+<template>
+	<el-drawer :visible.sync="visible"></el-drawer>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        drawer: false,
+        direction: 'rtl',
+      };
+    },
+</script>
+```
+
+在Vue3中
+
+```vue
+<template>
+    <ElDrawer
+      v-model:model-value="visible"
+      title="I'm the title"
+      :with-header="false"
+      :append-to-body="true"
+    >
+      <span>I'm the content</span>
+    </ElDrawer>
+</template>
+
+<!-- 也可以直接使用v-model="visible" -->
+<!-- 或者使用下面的写法 -->
+<ElDrawer
+      :model-value="visible"
+      @update:model-value="visible = $event"
+    >
+      <span>I'm the content</span>
+    </ElDrawer>
+```

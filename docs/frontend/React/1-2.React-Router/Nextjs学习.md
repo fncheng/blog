@@ -15,3 +15,9 @@ Nextjs有App Router和Pages Router两种路由方式
    **数据获取**：使用新的 `fetch` API 进行数据获取，支持服务器端和客户端的数据获取方式。
 
 两种路由可以同时使用，但路由解析时会优先考虑 `pages` 目录中的路由。如果某个 URL 路径在 `pages` 中已定义，Next.js 会首先使用 `pages` 目录的路由，而忽略 `app` 目录中的相同路径。
+
+
+
+在App Router中无法使用useRouter
+
+`useRouter` 钩子被 **弃用**。而是引入了新的方式来获取路由信息，主要通过 `usePathname`、`useSearchParams` 和 `useRouter`（位于 `next/navigation` 模块）等方法。

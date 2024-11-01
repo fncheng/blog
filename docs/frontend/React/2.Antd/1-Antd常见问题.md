@@ -509,7 +509,7 @@ https://codesandbox.io/s/antd-table-dan-yuan-ge-ke-bian-ji-lyr4mm
 
 经测试设置overflow-y: scroll 可以解决错位问题并且保持表格原貌
 
-给表格设置滚动条并解决错位问题
+给表格设置内部滚动条并解决错位问题
 
 ```tsx
 /**
@@ -556,6 +556,64 @@ export const getTableScrollY = ({
 使用这个方法后，如果从一个页面滚动到底部，然后跳转到另一个页面，会出现底部大部分空白的情况。
 
 这是因为浏览器在页面之间的跳转中通常会保留滚动的状态，跳转到另一个页面时，视口的距离会继承第一个页面的视口距离，导致该方法计算出现问题。
+
+### 进一步优化
+
+使用ResizeObserver动态监听表格尺寸变化
+
+```tsx
+const useTableScrollY = ({
+  extraHeight = 66,
+  ref,
+}: {
+  extraHeight?: number;
+  ref: RefObject<HTMLDivElement>;
+}) => {
+  const setTableBodyHeight = (tBody: HTMLElement, top: number) => {
+    const height = `calc(100vh - ${top + extraHeight}px)`;
+    const existingStyle = tBody.style.maxHeight;
+    if (existingStyle !== height) {
+      tBody.style.maxHeight = height;
+      tBody.style.minHeight = height;
+      tBody.style.overflowY = scrollElement ? "scroll" : "auto";
+    }
+  };
+  /**
+   * scrollElement 用于解决表格fixed时出现错位的问题
+   * 给表格y轴设置overflow-y: scroll时就不会出现错位
+   */
+  const scrollElement: HTMLElement | null | undefined =
+    ref.current?.querySelector(
+      ".ant-table-cell-fix-right.ant-table-cell-fix-right-first"
+    );
+
+  useEffect(() => {
+    const currentRef = ref.current;
+    const tBody = currentRef?.querySelector(
+      "div.ant-table-body"
+    ) as HTMLElement;
+    if (!tBody) {
+      console.warn("ProTable 必须设置 scroll 属性");
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (tBody) {
+        const { top } = tBody.getBoundingClientRect();
+        setTableBodyHeight(tBody, top);
+      }
+    });
+
+    resizeObserver.observe(tBody);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [extraHeight, ref.current]);
+};
+```
+
+
 
 ## Antd Table column设置ellipsis不生效
 
