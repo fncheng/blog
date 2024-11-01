@@ -182,7 +182,6 @@ tab_width = 2
 end_of_line = lf
 max_line_length = 80
 trim_trailing_whitespace = true
-trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false

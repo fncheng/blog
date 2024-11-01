@@ -4,6 +4,8 @@
 
 假设后端服务部署在10.0.0.1:8080上，在不开启跨域的前提下，我们没法直接访问
 
+比如express服务不开启cors（不启用app.use(cors)）
+
 一般通过代理的方式来访问后端服务
 
 比如vite server proxy的设置
@@ -66,6 +68,38 @@ server: {
     },
 },
 ```
+
+
+
+### changeOrigin配置
+
+假设你的 Vue 应用在 `http://localhost:8080` 上运行，后端 API 服务在 `http://127.0.0.1:3000` 上运行。前端通过代理来发送请求：
+
+```ts
+module.exports = {
+  server: {
+    port: 10001,
+    proxy: {
+        '/test': {
+            target: 'http://127.0.0.1:3000',
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/test/, '/test'),
+        }
+    }
+  },
+};
+```
+
+#### 请求的变化：
+
+- **客户端原始请求**：
+  - URL: `http://localhost:8080/api/users`
+  - Origin: `http://localhost:8080`
+- **代理后请求**（`changeOrigin: true` 时）：
+  - URL: `http://api.example.com/users`
+  - Origin: `http://api.example.com` （代理服务器将 `Origin` 修改为目标地址）
+
+如果 `changeOrigin` 为 `false`，那么后端服务器会收到带有原始 `Origin` 的请求（即 `http://localhost:8080`）。有些后端服务会对 `Origin` 进行严格校验，因此可能会拒绝来自不同域名的请求，这时就需要将 `changeOrigin` 设置为 `true`。
 
 
 
