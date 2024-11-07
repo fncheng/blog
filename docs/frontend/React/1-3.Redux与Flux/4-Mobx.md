@@ -233,29 +233,56 @@ const [state] = useState(() =>
 )
 ```
 
-```jsx
-const TimerView = observer(() => {
-  const timer = useLocalObservable(() => ({
-    count: 0,
-    increment() {
-      this.count = this.count + 1;
-    }
-  }));
+counterStore.ts
 
-  return (
-    <div>
-      <span>{timer.count}</span>
-      <button
-        onClick={() => {
-          console.log(timer);
-          timer.increment();
-        }}
-      >
-        btn
-      </button>
-    </div>
-  );
-});
+```tsx
+export const counterStore1 = () => {
+    const store = observable<CounterStore>({
+        count: 0
+    })
+    store.increment = () => (store.count += 1)
+
+    return store
+}
+
+export const counterStore = () => {
+    const store = useLocalObservable<CounterStore>(() => ({
+        count: 0
+    }))
+    const increment = () => (store.count += 1)
+
+    return { ...store, increment }
+}
+```
+
+使用store
+
+```tsx
+import { observer } from 'mobx-react'
+import counterStore, { counterStore1 } from './store'
+import { useState } from 'react'
+
+const Mobx = observer(() => {
+    const { count, increment } = counterStore()
+    const [state] = useState(counterStore1())
+    const { count: count1, increment: increment1 } = state
+    return (
+        <div>
+            <div>
+                <h5>counterStore</h5>
+                <button onClick={increment}>set count</button>
+                <span>{count}</span>
+            </div>
+            <div>
+                <h5>counterStore1</h5>
+                <button onClick={increment1}>set count</button>
+                <span>{count1}</span>
+            </div>
+        </div>
+    )
+})
+
+export default Mobx
 ```
 
 

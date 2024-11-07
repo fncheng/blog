@@ -5,13 +5,13 @@ const abortController = new AbortController();
 const { signal } = abortController;
 
 const getNumber = async () => {
-        const number = await useNumber(signal);
-        setNumber(number);
-    };
+    const number = await useNumber(signal);
+    setNumber(number);
+};
 useEffect(() => {
-        getNumber();
-        return () => abortController.abort()
-    }, []);
+    getNumber();
+    return () => abortController.abort()
+}, []);
 ```
 
 ```ts

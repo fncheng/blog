@@ -25,6 +25,16 @@
 
 [动态import和Promise的关系](https://github.com/fncheng/fe/issues/21)
 
+### dynamic-import-vars
+
+[动态导入的四条规则](https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations)
+
+1. Imports must start with `./` or `../`.
+
+   即所有导入都必须相对于导入文件开始
+
+2. 导入必须以文件扩展名结尾
+
 
 
 ## 使用loadable-components动态导入

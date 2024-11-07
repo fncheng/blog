@@ -100,7 +100,13 @@ git checkout -- .
 # 在旧版本的 Git 中，使用 -- 是为了避免文件名与命令选项冲突。
 ```
 
+## git clean
 
+git clean用于清理工作区
+
+```sh
+git clean -fx
+```
 
 
 

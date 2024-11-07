@@ -168,6 +168,25 @@ console.log(Color.Blue); // 输出: 2
 
 因此我们可以通过Color.Red访问到0，Color[0]访问到 Red
 
+在代码中尽量少用魔法数字，取而代之的是使用枚举，并且避免使用中文作为枚举成员的名称，比如以下代码：
+
+```tsx
+enum TAB_NAME {
+    MY_TEMPLATE = 0,
+    PRESET_TEMPLATE = 1
+}
+const TabNameMap = {
+    [TAB_NAME.MY_TEMPLATE]: '我的模板',
+    [TAB_NAME.PRESET_TEMPLATE]: '预置模板'
+}
+```
+
+
+
+
+
+
+
 ## T泛型设置默认值
 
 ```ts

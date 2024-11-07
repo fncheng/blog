@@ -10,12 +10,10 @@ interface userStore {
   increament: () => void;
 }
 
-const useUserStore = create<userStore>((set) => ({
+export const useUserStore = create<userStore>((set) => ({
   count: 0,
   increament: () => set((state) => ({ count: state.count + 1 }))
 }));
-
-export { useUserStore };
 ```
 
 ### getState
