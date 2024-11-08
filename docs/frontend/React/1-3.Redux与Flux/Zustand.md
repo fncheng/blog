@@ -42,6 +42,22 @@ const useUserStore = create<userStore>()(
 )
 ```
 
+设置storage选项
+
+```ts
+export const zStore = create<CounterStore>()(
+    persist(
+        (set) => ({
+            count: 0,
+            increment: () => set((state) => ({ count: state.count + 2 }))
+        }),
+        { name: 'Counter', storage: createJSONStorage(() => sessionStorage) }
+    )
+)
+```
+
+
+
 ### 针对特定字段
 
 ```ts
@@ -68,17 +84,20 @@ const useUserStore = create<userStore>()(
 在Zustand中使用immer时，`produce`函数应该写在`set`函数内部
 
 ```tsx
-import create from 'zustand';
-import produce from 'immer';
-
-const useStore = create((set) => ({
-  count: 0,
-  increment: () => {
-    set(produce((state) => {
-      state.count += 1;
-    }));
-  },
-}));
+export const zStore = create<CounterStore>()(
+    immer(
+        persist(
+            (set) => ({
+                count: 0,
+                increment: () =>
+                    set((state) => {
+                        state.count += 2
+                    })
+            }),
+            { name: 'Counter', storage: createJSONStorage(() => sessionStorage) }
+        )
+    )
+)
 ```
 
 
@@ -110,6 +129,30 @@ const useUserStore = create<userStore>()(
   )
 );
 ```
+
+### selector
+
+在 Zustand 中，`selector` 是一个用于优化和筛选状态的工具。它允许你从整个状态树中只订阅某一部分状态，而不是订阅整个 store。这样可以有效减少组件的重渲染次数，提升性能
+
+```ts
+const { count, increment } = useStore(zStore, useShallow((store) => ({
+    count: store.count,
+    increment: store.increment
+})))
+```
+
+等效于
+
+```ts
+const { count, increment } = zStore(useShallow(store) => ({
+    count: store.count,
+    increment: store.increment
+})))
+```
+
+这里为什么要用useShallow，原因是Zustand 默认情况下会使用 `Object.is` 来对比状态的变化，而 `Object.is` 在对比对象时，会检查引用是否相同。
+
+当你使用 `useStore` 的 `selector` 返回一个对象时，如果每次渲染时返回的是一个新对象（即便里面的值没变），Zustand 会认为状态发生了变化，因为对象的引用不一样。这就会导致组件频繁重新渲染，甚至可能导致栈溢出等问题。
 
 
 

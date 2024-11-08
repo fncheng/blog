@@ -840,3 +840,51 @@ Antd Table column dataIndex是个数组，然后在column的render中通过recor
 record[`${col.dataIndex}`]
 ```
 
+
+
+
+
+
+
+## Antd的按需加载
+
+在之前我们通过babel-plugin-import或vite-plugin-imp来实现Antd在Webpack和Vite下的按需加载
+
+Webpack
+
+```ts
+module.exports = {
+  plugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es', // 或者是 'lib'
+        style: 'css', // 如果需要加载 less 文件，将 'css' 改为 'true'
+      },
+    ],
+  ],
+};
+```
+
+Vite
+
+```ts
+export default defineConfig({
+  plugins: [
+    react(),
+    vitePluginImp({
+      libList: [
+        {
+          libName: 'antd',
+          style: (name) => `antd/es/${name}/style`,
+        },
+      ],
+    }),
+  ],
+});
+```
+
+这样一来，在使用 Ant Design 组件时，就会自动按需引入样式文件
+
+在Antd 5.x版本开始后，无需额外的 vite-plugin-imp，官方已经对 **按需加载** 进行了优化，默认支持了基于 ESModules 的按需加载机制
