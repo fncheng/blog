@@ -55,7 +55,7 @@ const { signal } = useAbortController();
 
 进一步优化
 
-### useAbortRequest
+## useAbortRequest
 
 ```ts
 export const useAbortRequest = <T>(asyncFunction: (signal: AbortSignal) => Promise<T>) => {
@@ -163,3 +163,138 @@ export const useAbortRequest = <T>(asyncFunction: (signal: AbortSignal) => Promi
 
 - **写法**：这是箭头函数的完整形式，使用大括号 `{}` 来包裹函数体。
 - **行为**：返回一个箭头函数，该函数在其函数体内执行 `controller.abort()`，并显式地使用 `return` 返回 `controller.abort()` 的结果（通常是 `undefined`）。
+
+
+
+## AbortController取消请求的三种封装方式
+
+### 第一种：自定义hooks
+
+封装自定义hooks，hooks方式即上面第一种useAbortRequest
+
+### 第二种：工厂函数
+
+封装一个axios工厂函数
+
+```ts
+const service = axios.create({
+    baseURL: '/proxyApi',
+    timeout: 20000
+})
+
+export const axiosRequestWithAbort = <T>(
+    options: AxiosRequestConfig = {}
+): { request: Promise<T>; controller: AbortController } => {
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    const config: AxiosRequestConfig = { ...options, signal }
+    const request = service(config)
+    return { request, controller }
+}
+
+// 使用
+export const getNumberAbort = () =>
+axiosRequestWithAbort<{ number: number }>({
+    url: '/test/getNumber',
+    method: 'get'
+})
+
+useEffect(() => {
+    const { request, controller } = getNumberAbort()
+    const fetchData = async () => {
+        const data = await request
+        if (data?.number) {
+            setNumber(data.number)
+        }
+    }
+    fetchData()
+    return () => {
+        controller.abort()
+    }
+})
+```
+
+
+
+### 第三种：为所有请求都创建一个AbortController
+
+```ts
+service.interceptors.request.use(
+    (config) => {
+        // 请求拦截器，添加 AbortController,
+        // 保存当前请求的 controller，key 可以用请求 URL 等唯一标识
+        const controller = new AbortController()
+        config.signal = controller.signal
+
+        if (config.url) {
+            controllers.set(config.url, controller)
+        }
+        
+        return config
+    },
+    (error) => Promise.reject(error)
+)
+
+// 响应拦截器，移除已完成请求的 AbortController
+service.interceptors.response.use(
+    (response) => {
+        if (response.config.url) {
+            controllers.delete(response.config.url)
+        }
+        if (response.status === 200) {
+            return response.data
+        }
+    },
+    (err) => {
+        Promise.reject(err).catch((err) => {
+            // 如果请求被取消了
+            if (axios.isCancel(err)) {
+                console.log('Request canceled', err.message)
+            } else console.error('Request failed', err)
+        })
+    }
+)
+
+export function abortRequest(url: string) {
+    const controller = controllers.get(url)
+    if (controller) {
+        controller.abort()
+        controllers.delete(url)
+    }
+}
+```
+
+需要取消请求时，只需调用abortRequest即可
+
+优化：当同时发起相同的请求，而query参数不同时
+
+Map的key需要设置成唯一
+
+```ts
+service.interceptors.request.use(
+    (config) => {
+        // 请求拦截器，添加 AbortController,
+        // 保存当前请求的 controller，key 可以用请求 URL 等唯一标识
+        const controller = new AbortController()
+        config.signal = controller.signal
+        let key = config.url
+        if (config.params) {
+            key = `${config.url}?${qs.stringify(config.params)}`
+        }
+        if (key && controllers.has(key)) {
+            controllers.get(key)?.abort()
+        }
+        if (key) {
+            controllers.set(key, controller)
+        }
+
+        const store = useUserStore.getState()
+        console.log('store: ', store.username)
+
+        return config
+    },
+    (error) => Promise.reject(error)
+)
+```
+

@@ -275,7 +275,13 @@ git merge new_barnch into (old_branch) # 当前分支是old_branch
 git merge --no-commit chengdev
 ```
 
-### git merge --squasg
+### git merge --squash
+
+```sh
+git merge --squash develop_xxx
+```
+
+
 
 `git merge --squash` 命令可以将多次提交合并为一个提交。它的原理是：在进行合并操作时，不生成新的合并提交，而是将所有需要合并的提交应用到当前分支上，同时合并结果会以未提交的方式出现在你的工作目录中，你可以在合并操作完成后手动执行 `git commit` 命令来创建新的提交，从而将所有合并操作压缩为一个提交。
 
@@ -295,7 +301,7 @@ cherry-pick？
 
 cherry-pick是将一个文件的某个特定提交（commit）合并过来，貌似可行，不过需要去一个个查看commit id
 
-checkout也可用来提取特定文件
+其实checkout也可用来提取特定文件
 
 ```sh
 git checkout dev -- path/to/your/file

@@ -45,8 +45,23 @@ app.mount('#app')
 ```
 app.name对应的是你的翻译文本文件中json字段，这里我直接用的是js对象即zh_CN和en
 
+## 在qiankun微前端架构中使用
 
-### 在使用qiankun的子应用中使用
+主应用中通过 setGlobalState 修改状态
+
+```ts
+const initialState = { language: 'zh_CN' };
+const actions = initGlobalState(initialState);
+
+actions.setGlobalState({
+  language: 'en'
+});
+```
+
+
+
+### 子应用中使用
+
 首先在全局状态store中定义一个属性language用于控制语言的切换
 
 ```ts
