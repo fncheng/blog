@@ -887,4 +887,4 @@ export default defineConfig({
 
 这样一来，在使用 Ant Design 组件时，就会自动按需引入样式文件
 
-在Antd 5.x版本开始后，无需额外的 vite-plugin-imp，官方已经对 **按需加载** 进行了优化，默认支持了基于 ESModules 的按需加载机制
+在Antd 5.x版本开始后，无需额外的 vite-plugin-imp，官方已经对 [**按需加载**](https://ant.design/docs/react/getting-started-cn#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD) 进行了优化，默认支持了基于 ESModules 的按需加载机制
