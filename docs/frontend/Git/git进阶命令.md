@@ -13,3 +13,21 @@
 该命令会返回引用的完整名称，例如`refs/heads/master`，表示当前所在的分支是`master`。
 
 ` git symbolic-ref --short`可以返回缩写master
+
+
+
+## git worktree
+
+**添加工作树（Add a worktree）**
+
+```sh
+git worktree add <path> <branch>
+git worktree add ../skybox-main-1.0.X-gn 1.0.X-gn
+```
+
+移除工作树（Remove a worktree）
+
+```sh
+git worktree remove <path>
+```
+

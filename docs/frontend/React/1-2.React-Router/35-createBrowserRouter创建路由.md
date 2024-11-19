@@ -405,3 +405,9 @@ const loadWithDelay = (promise: Promise<any>, time: number) => {
 };
 ```
 
+使用loadWithDelay
+
+```tsx
+const Test = lazy(() => loadWithDelay(import('../pages/Test/index.tsx'), 2000))
+```
+
