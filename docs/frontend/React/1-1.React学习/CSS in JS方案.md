@@ -82,7 +82,16 @@ export default defineConfig({
   ],
 });
 ```
+没有@emotion/babel-plugin时，build后的产物：
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241121141957450.png" alt="image-20241121141957450" style="zoom:67%;" />
+
+有@emotion/babel-plugin的构建产物：
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241121142135482.png" alt="image-20241121142135482" style="zoom:67%;" />
+
 ### 优先级
+
 此外，通过styled创建的组件，在使用时再给组件添加使用css创建的样式，css的样式优先级高于styled
 
 ```tsx

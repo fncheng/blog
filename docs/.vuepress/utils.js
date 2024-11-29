@@ -11,6 +11,7 @@ function resolve() {
 // console.log(resolve('/Users/cheng/Nutstore Files/我的坚果云/blog/docs/frontend/Git/Flow'));
 /**
  * 自动设置侧边栏
+ * 返回结果为  Array<文件名.md>
  * resolve(filePath) 返回路径全名 将相对路径改为绝对路径
  * @param {String} filePath 路径
  * @returns 一个md文件名的数组
@@ -35,43 +36,19 @@ function getSidebar(filePath, count = 0) {
       // count!==0 表示该目录是子菜单， push的值为 '../frontend/Webpack/'.slice(2) + val
       ;/md$/i.test(val) && count === 0 ? res.push(val) : res.push(`${filePath.slice(2)}${val}`)
     }
-    // console.log(fs.statSync(resolve(val)))
-    // if (fs.statSync(val).isDirectory()) {
-    //   console.log(123)
-    // }
   })
-  // console.log('result', res)
   return res
   // return fs.readdirSync(resolve(filePath)).filter((val) => /md$/.test(val))
 }
-function main(path) {
-  let res = []
-  res.push(utilSidebar(resolve(path)))
-  console.log('res', res)
-}
+
 /**
- * @description:
- * @param {*} absoultePath 绝对路径
- * @return {*}
+ * Constructs a sidebar by reading all markdown files in the specified directory.
+ * 返回结果为 Array<目录/文件.md>
+ * setSidebar生成的是children的值，适用于更精细化的控制
+ *
+ * @param {String} filePath - The path to the directory containing markdown files.
+ * @returns {Array<String>} An array of strings representing the relative paths to the markdown files.
  */
-function utilSidebar(path) {
-  fs.readdirSync(path).map((val) => {
-    // console.log('val', val)
-    // val 为文件夹或文件的名字
-    let absoultePath = resolve(path, val) // 将文件或文件夹的路径转换为绝对路径
-    // console.log('absoultePath: ', absoultePath)
-    // 如果是文件夹
-    if (fs.statSync(absoultePath).isDirectory()) {
-      // console.log('是文件夹')
-      return { title: val, children: [utilSidebar(absoultePath)] }
-    }
-    // 如果是file
-    else {
-      // console.log('是文件', /md$/i.test(val))
-      return /md$/i.test(val) && val
-    }
-  })
-}
 
 const setSidebar = (filePath) => {
   const folders = filePath.split('/')

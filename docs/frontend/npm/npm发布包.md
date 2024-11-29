@@ -34,6 +34,12 @@ aliases: author
 
 
 
+## npm publish
+
+```sh
+npm publish --registry https://registry.npmmirror.com
+```
+
 
 
 ### 可以指定仓库源

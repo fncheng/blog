@@ -347,41 +347,34 @@ React 的 forwardRef 是一种用于传递 ref 给子组件的技术。它允许
 使用 forwardRef，您可以在父组件中创建 ref，并将其传递给子组件，从而使父组件能够直接引用子组件的 DOM 元素或实例。
 
 ```tsx
-import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 
-// 子组件
-const ChildComponent = forwardRef((props, ref) => {
-  const inputRef = useRef();
+export interface LazyRef {
+    lazy: () => void
+}
 
-  useImperativeHandle(ref, () => ({
-    // 暴露给父组件的方法
-    focus: () => {
-      inputRef.current.focus();
-    },
-    // 暴露给父组件的其他属性或方法
-    // ...
-  }));
+interface LazyProps extends React.HTMLAttributes<HTMLDivElement> {
+    ref?: React.Ref<LazyRef>
+    onSome?: () => void
+}
 
-  return <input type="text" ref={inputRef} />;
-});
+const Lazy = forwardRef<LazyRef, LazyProps>((props, ref) => {
+    const divRef = useRef<HTMLDivElement>(null)
+    useImperativeHandle(ref, () => ({
+        // 暴露给父组件的方法
+        lazy: () => {
+            console.log('say lazy')
+        }
+    }))
 
-// 父组件
-const ParentComponent = () => {
-  const childRef = useRef();
+    return (
+        <div ref={divRef} {...props}>
+            lazy
+        </div>
+    )
+})
 
-  const handleClick = () => {
-    childRef.current.focus(); // 通过 ref 调用子组件方法
-  };
-
-  return (
-    <div>
-      <ChildComponent ref={childRef} /> {/* 将 ref 传递给子组件 */}
-      <button onClick={handleClick}>Focus</button> {/* 调用子组件的方法 */}
-    </div>
-  );
-};
-
-export default ParentComponent;
+export default Lazy
 ```
 
 在使用 `ref` 获取子组件引用时，有两个注意事项：
@@ -396,39 +389,7 @@ useImperativeHandle 是 React 中的一个自定义 Hook，它允许您定义在
 useImperativeHandle 接受两个参数：ref 和一个回调函数。在回调函数中，您可以返回一个对象，该对象将成为通过 ref 引用的组件的实例。
 
 ```tsx
-import React, { useRef, useImperativeHandle, forwardRef } from 'react';
-
-const ChildComponent = forwardRef((props, ref) => {
-  const inputRef = useRef();
-
-  useImperativeHandle(ref, () => ({
-    // 暴露给父组件的方法或属性
-    focus: () => {
-      inputRef.current.focus();
-    },
-    // 其他暴露给父组件的方法或属性
-    // ...
-  }));
-
-  return <input type="text" ref={inputRef} />;
-});
-
-const ParentComponent = () => {
-  const childRef = useRef();
-
-  const handleClick = () => {
-    childRef.current.focus(); // 通过 ref 调用子组件方法
-  };
-
-  return (
-    <div>
-      <ChildComponent ref={childRef} /> {/* 将 ref 传递给子组件 */}
-      <button onClick={handleClick}>Focus</button> {/* 调用子组件的方法 */}
-    </div>
-  );
-};
-
-export default ParentComponent;
+<Lazy ref={lazyRef} onClick={() => lazyRef.current?.lazy()} />
 ```
 
 

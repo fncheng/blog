@@ -144,3 +144,11 @@ const message = `删除该${label}后将无法恢复，请确认是否要删除`
 const label = row.type === 'doc' ? t('del_dialog.title_doc') : "文件夹"
 message = t('del_dialog.message', [label]),
 ```
+
+
+
+> defineProps() in \<script setup> cannot reference locally declared variables because it will be hoisted outside of the setup() function. If your component options require initialization in the module scope, use a separate normal \<script> to export the options instead.
+
+在defineProps中使用了usei18n返回的t就出现了这个问题
+
+`defineProps` 是一个编译器宏，会被提升到模块的顶层，而 `useI18n` 返回的内容是运行时才初始化的，导致无法直接引用。

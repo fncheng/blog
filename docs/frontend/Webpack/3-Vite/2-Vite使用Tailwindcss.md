@@ -69,3 +69,16 @@ export default {
 }
 ```
 
+## TailWindCSS样式名按顺序排列
+
+```sh
+pnpm add prettier prettier-plugin-tailwindcss -D
+```
+
+```json
+// .prettierrc
+{
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
+

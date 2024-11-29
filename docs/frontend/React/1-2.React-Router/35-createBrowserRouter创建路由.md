@@ -243,8 +243,6 @@ React 使用的是浅比较（`Object.is`），如果 `value` 是一个引用类
 
 
 
-
-
 最终实现
 
 ```tsx
@@ -261,153 +259,27 @@ export default Router;
 
 
 
-## 使用loadable-components实现lazy load和code splitting
+## 路由元信息meta的实现
 
-在此之前我们通过React.lazy和Suspense实现了路由模块的懒加载和代码分割
-
-现在我了解到loadable-components这个库也可以实现以上效果并且功能更多还支持SSR
-
-首先安装@loadable/component
-
-```sh
-pnpm add @loadable/component
-```
-
-使用loadable方法加载组件
+React-Router6中的route.meta通过useMatches和route.handle来实现
 
 ```tsx
-const Home = loadable(() => import("../pages/Home/index"));
-```
-
-还可以实现 *Full dynamic import*，即带变量的路径导入
-
-```tsx
-const AsyncPage = loadable(
-    (props: { page: string }) => pMinDelay(import(`../pages/${props.page}/index.tsx`), 300),
-    {
-        fallback: <div> Layout Loading...</div>,
-        cacheKey: (props) => props.page,
-    }
-);
-
-const routes: RouteObject[] = [
-    {
-        path: "layout",
-        element: <Layout1 />,
-        children: [
-            {
-                path: "1",
-                element: <AsyncPage page="layout1-1" />,
-            },
-            {
-                path: "2",
-                element: <AsyncPage page="layout1-2" />,
-            },
-        ],
+{
+  	path: "test",
+    element: <Test />,
+    handle: {
+        meta: { title: "Test", description: "This is the test page." },
     },
-];
+},
 ```
 
-需要注意的是，如果你没有使用babel插件（`@loadable/babel-plugin`），那么你在使用*Full dynamic import*时，必须要设置cacheKey字段
-
-当页面因加载过快出现闪烁问题时，我们还可以通过 *p-min-delay* 来延迟加载，以优化用户体验
+在页面组件中使用useMatches
 
 ```tsx
-import pMinDelay from "p-min-delay";
-const Home = loadable(() => pMinDelay(import("../pages/Home/index"), 300);
-```
-
-
-
-
-
-## pMinDelay实现
-
-pMinDelay源码很简单：
-
-```ts
-function pMinDelay(promise, minimumDelay, options = {}) {
-    let delayPromise = new Promise(resolve => setTimeout(resolve, minimumDelay));
-
-    // If `delayRejection` is true, delay both fulfillment and rejection of the promise
-    if (options.delayRejection) {
-        return Promise.all([promise, delayPromise]).then(
-            values => values[0],
-            error => Promise.reject(error)
-        );
-    }
-
-    // If `delayRejection` is false or not provided, just race the two promises
-    return Promise.all([promise, delayPromise]).then(() => promise);
-}
-
-export default pMinDelay;
-```
-
-`p-min-delay` 确保：
-
-1. **至少等待设定的延迟时间**。
-2. 如果 Promise 比设定时间早完成，延迟时间过后立即返回结果。
-3. 如果 Promise 加载时间超过了设定的延迟时间，Promise 一完成就会立即返回结果，不会额外等待。
-
-
-
-==pMinDelay使用Promise.race,那么不是应该率先返回其中的promise而不是delayPromise吗，因为promise比较快?==
-
-**即使`Promise.race`先返回了 `delayPromise`，最后仍然返回 `promise`**。这是通过 `.then(() => promise)` 这一部分实现的。
-
-
-
-来看两段代码，这两段代码有什么区别？
-
-```tsx
-const loadWithDelay = (cb: Promise<any>, time: number) =>
-    new Promise((resolve) =>
-        setTimeout(() => {
-            resolve(cb);
-        }, time)
-    );
-```
-
-返回的 `Promise` 在指定的延迟后立即fullfilled，并返回传入的 `Promise` 对象，而不管它的状态。
-
-```tsx
-const loadWithDelay = (cb: Promise<any>, time: number) =>
-    new Promise((resolve) =>
-        setTimeout(() => {
-            resolve();
-        }, time)
-    ).then(() => cb);
-```
-
-上面的代码优化下：
-
-```tsx
-const loadWithDelay = (cb: Promise<any>, time: number) =>
-    new Promise((resolve) => setTimeout(resolve, time)).then(() => cb);
-```
-
-返回的 `Promise` 在指定的延迟后执行 `cb`，并根据 `cb` 的结果来决定返回的 `Promise` 的解决或拒绝状态。
-
-
-
-两段代码都可以模拟模块的延迟加载
-
-### 手动实现pMinDelay
-
-现在让我们使用setTimeout手动实现一个pMinDelay
-
-```tsx
-const loadWithDelay = (promise: Promise<any>, time: number) => {
-    const delay = (d: number) => new Promise((resolve) => setTimeout(resolve, d));
-    const delayPromise = delay(time);
-    return Promise.all([promise, delayPromise]).then(() => promise);
-};
-```
-
-使用loadWithDelay
-
-```tsx
-const Test = lazy(() => loadWithDelay(import('../pages/Test/index.tsx'), 2000))
+const location = useLocation();
+const matches = useMatches();
+// to 即我们要跳转的页面路由元信息
+const to = matches.find((item) => item.pathname === location.pathname);
+console.log("to: ", to);
 ```
 

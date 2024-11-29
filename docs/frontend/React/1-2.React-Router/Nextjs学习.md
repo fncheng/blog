@@ -1,3 +1,5 @@
+
+
 Nextjs有App Router和Pages Router两种路由方式
 
 1. Pages Router
@@ -21,3 +23,6 @@ Nextjs有App Router和Pages Router两种路由方式
 在App Router中无法使用useRouter
 
 `useRouter` 钩子被 **弃用**。而是引入了新的方式来获取路由信息，主要通过 `usePathname`、`useSearchParams` 和 `useRouter`（位于 `next/navigation` 模块）等方法。
+
+### dynamic
+

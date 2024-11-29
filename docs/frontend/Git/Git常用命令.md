@@ -192,11 +192,15 @@ git log [fileName] # 查看文件修改记录
 git reset [commitID] [fileName] # 将文件回退到指定的commitID
 ```
 
-sourceTree用法：
+### sourceTree回退文件：
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210618110731278.png" alt="image-20210618110731278" style="zoom:50%;" />
 
 
+
+### VSCode Git Lens插件回退文件：
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241129140617624.png" alt="image-20241129140617624" style="zoom:50%;" />
 
 #### 版本回退
 

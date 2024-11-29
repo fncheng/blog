@@ -45,7 +45,7 @@ server: {
 
 ![image-20241022095329375](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241022095329375.png)
 
-比如我上面将带有`/proxyApi/`的请求代理到http://localhost:3000，并且通过rewrite去除掉/proxyApi/,最终请求的地址为http://localhost:3000/route，但是浏览器中显示的还是localhost:9001/proxyApi/route,这是前端服务器所在的地址。
+比如我上面将带有`/proxyApi/`的请求代理到http://localhost:3000，并且通过rewrite去除掉/proxyApi,最终请求的地址为http://localhost:3000/route，但是浏览器中显示的还是localhost:9001/proxyApi/route,这是前端服务器所在的地址。
 
 10.0.0.1通过设置nginx，访问10.0.0.1:80/adms时反代到10.0.0.1:8080
 
