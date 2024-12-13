@@ -313,7 +313,7 @@ module.exports = defineConfig({
           children: [
             'git管理及风格/1-将本地仓库推送到Github',
             'git管理及风格/2-git bash等软件走代理',
-            'git管理及风格/3-Git Commit风格',
+            // 'git管理及风格/3-Git Commit风格',
             'git管理及风格/4-迭代开发git分支管理'
           ]
         }
