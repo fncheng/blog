@@ -325,3 +325,8 @@ renderWithQiankun({
 });
 ```
 
+
+
+## 样式污染的问题
+
+qiankun中子应用的样式会覆盖主应用的样式

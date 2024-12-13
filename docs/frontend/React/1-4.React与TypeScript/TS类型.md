@@ -200,4 +200,44 @@ interface RequestResponse<T = any> {
 
 
 
-ReturnType
+## ReturnType
+
+
+
+## Parameters
+
+`Parameters<typeof FConfirm>[0]` 是一个 TypeScript 工具类型，它的作用是提取函数 `FConfirm` 的第一个参数的类型。
+
+`Parameters<T>` 是一个 TypeScript 的内置泛型工具类型，用来获取函数类型 `T` 的参数类型组成的元组。
+
+`<typeof FConfirm>` 表示获取 `FConfirm` 函数的类型。
+
+`[0]` 表示获取第一个参数类型。
+
+
+
+## InstanceType的使用
+
+InstanceType用于获取构造函数或类的实例类型。
+
+```ts
+class MyClass {
+  constructor(name: string) {
+    this.name = name;
+  }
+  name: string;
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+
+// 使用 InstanceType 获取 MyClass 的实例类型
+type MyClassInstance = InstanceType<typeof MyClass>;
+```
+
+又或者ElemenUI中获取组件Ref时的定义
+
+```ts
+const treeRef = ref<InstanceType<typeof ElTree>>()
+```
+

@@ -29,3 +29,9 @@ React的函数组件都是一个个函数，当组件重新渲染时，函数会
 
 - 初次渲染时，React 使用 `initialValue` 来初始化 state。
 - 后续渲染时，React 不会再次使用 `initialValue`，而是返回之前存储的 state 值。
+
+
+
+React组件渲染流程是从根组件开始的，但更新是基于变更的组件树中受影响的部分。
+
+即我们常说的React组件渲染是自上而下的，父组件re-render会触发子组件的re-render（除非通过memo等手段优化）

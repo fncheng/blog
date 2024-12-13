@@ -31,3 +31,8 @@ git worktree add ../skybox-main-1.0.X-gn 1.0.X-gn
 git worktree remove <path>
 ```
 
+- 优先使用 `git worktree prune` 自动清理无效的工作树。
+
+- 如果不行，可以手动删除 `.git/worktrees` 中对应的记录。
+
+- 避免直接用 `rm -rf` 删除工作树目录，正确的方式是通过 `git worktree remove <path>`。

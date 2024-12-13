@@ -14,3 +14,25 @@ https://react-dev-inspector.zthxxx.me/docs/inspector-component
 在Vite项目中选择dom打开对应组件
 
 https://react-dev-inspector.zthxxx.me/docs/integration/vite
+
+
+
+## Vite构建产物分析
+
+Rollup Plugin Visualizer
+
+https://www.npmjs.com/package/rollup-plugin-visualizer
+
+```sh
+npm i rollup-plugin-visualizer -D
+```
+
+Usage with vite (vite.config.js)
+
+```ts
+module.exports = {
+  plugins: [visualizer()],
+};
+```
+
+vite-bundle-analyzer

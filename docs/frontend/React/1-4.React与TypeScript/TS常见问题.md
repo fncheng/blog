@@ -59,3 +59,31 @@ Property 'value' does not exist on type 'EventTarget'.
 原因：event.target是一个HTMLElement，它是所有HTML元素的父级，但不能保证具有属性value。
 
 解决：`(e.target as HTMLInputElement).value`
+
+
+
+## 声明合并（Module Augmentation）
+
+假设 Some 来自某个库或其他模块
+
+```ts
+export interface Some {
+    key: string
+    label: string
+}
+```
+
+然后在扩展声明文件中添加新的属性：
+
+```ts
+declare module '@/router/utils.ts' {
+    interface Some {
+        value: string
+    }
+}
+```
+
+这个时候Some就拥有了value属性
+
+
+

@@ -152,3 +152,11 @@ message = t('del_dialog.message', [label]),
 在defineProps中使用了usei18n返回的t就出现了这个问题
 
 `defineProps` 是一个编译器宏，会被提升到模块的顶层，而 `useI18n` 返回的内容是运行时才初始化的，导致无法直接引用。
+
+
+
+### Invalid linked format
+
+El-Form 校验提示出现Invalid linked format，原因是vue-i18n的9以上的版本中@被用作特殊字符处理，直接用会报错
+
+**解决方法**：把`@`改为`{'@'}`。例如：`"validation.regExp.name": "仅允许输入字母、数字与_.{'@'}字符"`

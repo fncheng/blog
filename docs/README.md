@@ -40,7 +40,7 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240103165902119.png" alt="image-20240103165902119" style="zoom: 50%;" />
 
-
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20241203160615176.png" alt="image-20241203160615176" style="zoom: 75%;" />
 
 ## Vue代码书写顺序推荐
 
