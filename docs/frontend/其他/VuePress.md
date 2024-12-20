@@ -221,3 +221,10 @@ jobs:
 
    如果你打算发布到 `https://<USERNAME>.github.io/<REPO>/`（也就是说你的仓库在 `https://github.com/<USERNAME>/<REPO>`），则将 `base` 设置为 `"/<REPO>/"`。
 
+
+
+## 开启algolia搜索
+
+https://blog.csdn.net/weixin_44495599/article/details/132022146
+
+alogolia crawler控制台：https://crawler.algolia.com/admin/crawlers

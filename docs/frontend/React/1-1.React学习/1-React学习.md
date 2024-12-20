@@ -319,27 +319,6 @@ function App() {
 
 
 
-## Router路由
-
-Router包裹
-
-`<Link>`和`<NavLink>`是用来包裹显示的跳转链接的 精确匹配`exact`
-
-`<Route>` 路由出口--->用来包裹点击跳转链接后要显示的内容
-
-
-
-```jsx
-<Route exact path="/home" component={Home} />
-
-// 等效于 
-<Route exact path="/home">
-     <Detail>
-</Route>
-```
-
-
-
 ## React forwardRef
 
 React 的 forwardRef 是一种用于传递 ref 给子组件的技术。它允许父组件能够访问或操作子组件中的 DOM 元素或组件实例。
@@ -483,3 +462,29 @@ const Button = ({ text, ...props }) => (
   <button style={{ color: "red" }} {...props}>{text}</button>
 );
 ```
+
+
+
+## useState的懒初始化
+
+React 的 `useState` 支持两种初始化方式：
+
+1.直接传递值
+
+```tsx
+const [items, setItems] = useState(getLocalItems()); // 注意这里直接调用了函数
+```
+
+
+
+2.传递函数（懒初始化）
+
+```tsx
+const [items, setItems] = useState(() => getLocalItems()); // 懒初始化
+```
+
+React 只会调用这个函数一次，之后会记住返回的初始值。重新渲染时，不会再调用这个函数。
+
+性能优化：
+
+如果计算初始值的逻辑较重（例如从 `localStorage` 读取数据、解析 JSON、进行复杂计算等），使用懒初始化可以避免每次渲染都重复执行这段逻辑。

@@ -75,6 +75,16 @@ array.splice(start, delCount)
 // 如果不写delCount，则表示删除start后面的所有元素，包括start
 ```
 
+插入元素
+
+```js
+array.splice(start, deleteCount, ...items)
+```
+
+- `start`: 从哪个位置开始操作（start是指插入项的下标）。
+- `deleteCount`: 删除的元素数量。插入时设为 `0`。
+- `...items`: 要插入的新元素。
+
 ### Array.from
 
 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/from

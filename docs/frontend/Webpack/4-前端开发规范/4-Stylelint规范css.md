@@ -26,7 +26,7 @@ $ npx stylelint "path/*.css"
 
 插件提供自动修复功能，在`setting.json`中添加如下代码
 
-```jsonc
+```json5
 "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": true,
 },

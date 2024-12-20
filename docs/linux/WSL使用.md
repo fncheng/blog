@@ -2,7 +2,7 @@
 
 换阿里云的源
 
-```list
+```sh
 http://mirrors.aliyun.com/ubuntu/
 ```
 

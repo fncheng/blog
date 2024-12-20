@@ -45,8 +45,8 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 ## Vue代码书写顺序推荐
 
 1. defineProps、defineEmits
-2. ref / reactive等
-3. 跟组件相关的非响应式变量
+2. 跟组件相关的非响应式变量
+3. ref / reactive等
 4. ref引用
 5. 自定义hooks
 6. computed
