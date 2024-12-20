@@ -1,5 +1,3 @@
-ReactRouter7新特性
-
 ## Link的viewTransition属性
 
 可以给Link、NavLink、Form属性添加viewTransition属性，以添加路由切换时的过渡动画。
