@@ -87,3 +87,28 @@ declare module '@/router/utils.ts' {
 
 
 
+## 类型声明文件中的export { }
+
+在 TypeScript 中，顶层的代码默认处于全局作用域中。如果没有显式地将文件声明为模块，任何在文件顶层定义的类型、变量或接口都可能污染全局作用域，导致命名冲突或其他不可预期的行为。
+
+通过在文件中添加 `export {};` 或 `import` 声明，即可将该文件标记为 **模块**。模块作用域中的内容不会自动添加到全局作用域，从而避免污染全局命名空间。
+
+当 TypeScript 编译器看到 `export {};` 时，会认为该文件是一个模块，即使它没有导出任何内容。模块不会与其他模块或全局作用域冲突：
+
+```ts
+export {} // 确保这是一个模块，避免全局污染
+
+declare global {
+    interface Window {
+        __POWERED_BY_QIANKUN__: boolean
+        __INJECTED_PUBLIC_PATH_BY_QIANKUN__: string
+    }
+}
+```
+
+### 具体场景中的用途
+
+1. **在声明文件中**：
+   为了扩展全局类型（例如 `window`），声明必须出现在模块文件中。否则 TypeScript 不允许你使用 `declare global`。
+2. **避免与库的类型冲突**：
+   如果你在一个全局作用域中修改类型声明，而没有标记为模块，当另一个库对同一类型进行扩展时，可能导致冲突。

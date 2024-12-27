@@ -38,6 +38,8 @@
 
 ### proxy_pass 不加斜杠
 
+如果 `proxy_pass` 后不带 `/`，Nginx 会将 **客户端请求路径的匹配部分** 拼接到 `proxy_pass` 后。
+
 ```nginx
 location /users/ {
     proxy_pass http://127.0.0.1:9001;
@@ -47,6 +49,8 @@ location /users/ {
 我们访问http://localhost:1024/users/123.txt，实际访问代理地址：http://127.0.0.1:9001/users/123.txt
 
 ### proxy_pass 加斜杠
+
+如果 `proxy_pass` 后带有 `/`，Nginx 会 **移除匹配部分**，将剩余的路径拼接到目标地址上。
 
 ```nginx
 location /users/ {

@@ -422,3 +422,138 @@ export async function loader() {
 ```
 
 `Suspense` 和 `Await` 的作用是确保页面资源和接口数据能够并行加载，并且不会阻塞组件渲染的过程。
+
+
+
+
+
+## 使用Vue实现并发渲染
+
+我们可以用vue-router的beforeEnter来实现类似的效果
+
+```ts
+{
+    path: 'about1',
+        component: () => import('@/pages/About1.vue'),
+            beforeEnter: (to, from, next) => {
+                const { number, name, abortController } = useFetchData()
+                to.meta.number = number
+                to.meta.name = name
+                to.meta.abortController = abortController
+                next()
+            }
+},
+```
+
+这里的 number 和 name 都是promise
+
+在页面中
+
+```ts
+const number = ref()
+const name = ref()
+
+const route = useRoute()
+const abortController = route.meta.abortController
+
+const getLoader = async () => {
+    const numberVal = await route.meta.number
+    number.value = numberVal
+    const nameVal = await route.meta.name
+    name.value = nameVal
+}
+
+getLoader()
+
+onBeforeUnmount(() => {
+    abortController.abort('请求取消')
+})
+```
+
+这段代码中，如果numberVal执行的时间比nameVal长，那么页面会在numberVal 执行完后一次性渲染更新所有内容
+
+**使用Promise.all**
+
+```ts
+const getLoader = async () => {
+    const [numberVal2, nameVal2] = await Promise.all([route.meta.number, route.meta.name])
+    number.value = numberVal2
+    name.value = nameVal2
+}
+```
+
+与上面不同的是，Promise.all会等待所有promise都完成后才会进行页面更新。
+
+**使用then**
+
+```ts
+const getLoader = async () => {
+    const numberVal = route.meta.number
+    const nameVal = route.meta.name
+    numberVal.then((n) => {number.value = n})
+    nameVal.then((n) => {name.value = n})
+}
+```
+
+这段代码的效果是先执行完的先更新，后执行完的后更新，不用考虑谁比较快。
+
+
+
+## 封装一个Await组件
+
+Await组件
+
+```vue
+<template>
+    <slot v-if="error" name="error"></slot>
+    <slot v-else name="default" :data="data"></slot>
+</template>
+
+<script setup lang="ts">
+import { defineOptions, ref } from 'vue'
+
+defineOptions({ name: 'AwaitComponent' })
+
+const props = defineProps<{ resolve: any }>()
+defineSlots<{ default: (props: { data: any }) => any; error: () => any }>()
+
+const data = ref(null)
+const error = ref<boolean>(false)
+
+try {
+    data.value = await props.resolve
+} catch (e) {
+    console.error(e)
+    error.value = true
+}
+</script>
+```
+
+接收两个插槽
+
+组件的props resolve接收一个promise，这个promise在组件内fullfilled后被通过data传递给父组件（跟render props有点像，也是传递给父组件，不过是通过回调函数）
+
+父组件配合Suspense使用
+
+```vue
+<template>
+	<Suspense>
+    	<template #fallback>Please wait...</template>
+			<Await :resolve="number">
+    			<template #default="slotProps">
+					<div :style="{ color: 'red' }">Number: {{ slotProps.data }}</div>
+    			</template>
+    			<template #error>
+					<div>Error</div>
+   			    </template>
+			</Await>
+		</template>
+	</Suspense>
+</template>
+<script setup lang="ts">
+    const Await: (typeof import('../components/Await.vue'))['default'] = defineAsyncComponent(
+        () => import('../components/Await.vue')
+    )
+</script>
+```
+
