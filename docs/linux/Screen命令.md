@@ -1,10 +1,6 @@
----
+## Screen命令
 
-title: Screen命令
-tags:
-- linux
-description: Linux中的Screen可用于将任务在后台运行
----
+Linux中的Screen可用于将任务在后台运行
 
 ### 参考连接
 

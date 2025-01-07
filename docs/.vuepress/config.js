@@ -331,6 +331,11 @@ module.exports = defineConfig({
           children: setSidebar('../linux/2-进程-端口-防火墙/')
         },
         {
+          title: '系统',
+          collapsable: false,
+          children: setSidebar('../linux/3-系统/')
+        },
+        {
           title: 'Nginx',
           collapsable: false,
           children: setSidebar('../linux/Nginx/')

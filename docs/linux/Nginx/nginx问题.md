@@ -1,3 +1,5 @@
+# nginx常见问题
+
 ## nginx location 加斜杠和不加斜杠
 
 区别在于是否匹配子路径

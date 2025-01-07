@@ -1,9 +1,4 @@
----
-title: crontab定时执行任务
-tags:
-- Linux
-description: crontab用来定时执行一些任务。
----
+## Crontab定时任务
 
 ### 目录介绍
 
