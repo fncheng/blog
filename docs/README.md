@@ -53,3 +53,34 @@ chore: 改变构建流程，或者添加依赖、工具，杂项等
 7. watch
 8. methods
 9. defineExpose
+
+
+
+## Vue代码建议
+
+1. 代码中尽量少在watch内去修改ref或reactive声明的变量，这样做可以减少项目中的调试麻烦，否则，数据变化很难去追踪
+
+
+
+
+
+## 关于组件设计的几点建议
+
+1. **组件设计应尽量简单，简化使用**
+
+   我在开发中遇到过封装的组件，光其配置就要写70多行，这种组件，使用起来极其麻烦，究其原因还是没有设计好
+
+   <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20250106104611553.png" alt="image-20250106104611553" style="zoom:50%;" />
+
+   我们看这个组件的代码结构，发现包含如此多的子组件，其实像这种组件，我们在设计的时候可以考虑将其分拆模块化，将其拆成一个个小组件，使用的时候就组装这些小组件，就像Form和Form.Item这种方式
+
+   ```tsx
+   <Component>
+       <Component.A></Component.A>
+       <Component.B></Component.B>
+   </Component>
+   ```
+
+   <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20250106104707849.png" alt="image-20250106104707849" style="zoom:67%;" />
+
+   这么做，还有个好处，就是当我这个组件有些部分不需要时，只要不使用这部分模块就可以，非常方便定制化。

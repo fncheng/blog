@@ -120,3 +120,39 @@ Vue2中
       <span>I'm the content</span>
     </ElDrawer>
 ```
+
+
+
+## 按需引入
+
+unplugin-vue-components和unplugin-auto-import分别是做什么的
+
+unplugin-vue-components是按需自动导入组件
+
+- **自动导入 Vue 组件**：无需手动在每个文件中写 `import` 语句。
+
+- 根据组件的使用情况，**按需引入组件及其相关依赖**，优化打包结果，避免引入未使用的组件。
+
+unplugin-auto-import是自动导入API
+
+- **自动导入常用的 API**，如 Vue 的 `ref`、`reactive`、`computed`，或者你指定的第三方库（如 Vue Router 的 `useRouter`）。
+- 避免反复手动写 `import { ref } from 'vue'`，提高开发效率。
+- 提供全局类型支持，保证编辑器有良好的类型提示。
+
+
+
+如果只是想要自动导入ElementPlus的样式
+
+则使用另外的插件 **unplugin-element-plus**
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import ElementPlus from 'unplugin-element-plus/vite'
+
+export default defineConfig({
+  // ...
+  plugins: [ElementPlus({})],
+})
+```
+
