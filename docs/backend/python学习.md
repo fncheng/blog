@@ -12,7 +12,7 @@ def get_name():
 
 
 
-make_response(response, status_code)
+### make_response(response, status_code)
 
 - `response`：可以是字符串、字典（通过 `jsonify` 转换为 JSON 响应）、或其他响应对象。
 - `status_code`：HTTP 状态码，默认为 200。
@@ -47,3 +47,81 @@ else:
 在Python中，`if not`语句用于检查一个条件是否为假。如果条件为假，则执行相应的代码块
 
 类似于JS中的 if (!boolean)
+
+
+
+## Blueprint
+
+在 Flask 中，`Blueprint` 是一个组织和结构化应用程序的方式，允许您将应用程序的路由、处理函数和其他功能分组到不同的模块中。
+
+main.py
+
+```py
+from app import app
+import os
+
+if __name__ == "__main__":
+    if not os.path.exists("./upload"):
+        os.makedirs("./upload")
+    app.run(port=3000, debug=True)
+```
+
+\__init__.py
+
+```py
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
+import os
+import time
+
+app = Flask(__name__)
+CORS(app)
+
+from .name import name_bp
+from .number import number_bp
+
+app.register_blueprint(name_bp)
+app.register_blueprint(number_bp)
+```
+
+number.py
+
+```py
+from flask import Blueprint, make_response, jsonify
+import time
+
+number_bp = Blueprint("number", __name__)
+
+
+@number_bp.route("/test/getNumber", methods=["GET"])
+def get_number():
+    time.sleep(3)
+    response = make_response(jsonify({"number": 999}), 200)
+    response.headers.set("X-Custom-Header", "Test")
+    return response
+```
+
+- **创建 Blueprint**: `name_bp = Blueprint("name", __name__)` 创建了一个名为 "name" 的蓝图
+
+- **定义路由**: 使用 `@name_bp.route('/hello')` 定义一个新的路由 `/hello`，并将其绑定到 `hello` 函数。
+- **注册 Blueprint**: 使用 `app.register_blueprint(name_bp, url_prefix='/name')` 将蓝图注册到应用程序，并为所有路由添加一个前缀 `/name`。这意味着访问 `http://localhost:5000/name/hello` 会触发 `hello` 函数。
+
+文件结构
+
+```code
+project/
+│
+├── app/
+│   ├── __init__.py
+│   ├── name.py
+│   └── number.py
+└── main.py
+```
+
+
+
+## os模块
+
+### os.listdir
+
+列出指定目录中的所有条目（即ls -l）
