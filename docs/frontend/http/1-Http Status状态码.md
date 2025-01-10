@@ -1,11 +1,4 @@
----
-title: Http Status状态码
-tags:
-- http
-
----
-
-## Http状态码
+## Http StatusCode
 
 [参考链接](https://blog.csdn.net/unclebober/article/details/86626117?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522159168396419195264507374%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=159168396419195264507374&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_blog_default-1-86626117.pc_v2_rank_blog_default&utm_term=%E7%8A%B6%E6%80%81%E7%A0%81)
 

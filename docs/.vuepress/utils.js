@@ -49,7 +49,6 @@ function getSidebar(filePath, count = 0) {
  * @param {String} filePath - The path to the directory containing markdown files.
  * @returns {Array<String>} An array of strings representing the relative paths to the markdown files.
  */
-
 const setSidebar = (filePath) => {
   const folders = filePath.split('/')
   const name = folders[folders.length - 2]

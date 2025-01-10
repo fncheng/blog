@@ -50,7 +50,7 @@ module.exports = defineConfig({
       { text: 'Vue', link: '/frontend/vue/Vue3/1-从vue2迁移到vue3' },
       { text: 'React', link: '/frontend/React/1-1.React学习/1-React学习' },
       { text: 'Webpack', link: '/frontend/Webpack/1-webpack开发环境搭建/1-webpack-dev-server' },
-      { text: 'HTTP', link: '/frontend/http/细说Headers' },
+      { text: 'HTTP', link: '/frontend/http/4-细说Headers' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
       { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
       { text: 'linux', link: '/linux/linux目录结构及文件夹介绍' },
@@ -133,11 +133,6 @@ module.exports = defineConfig({
           title: '二进制文件与流',
           collapsable: false,
           children: setSidebar('../frontend/JavaScript/二进制文件与流/')
-        },
-        {
-          title: 'Headers',
-          collapsable: false,
-          children: setSidebar('../frontend/JavaScript/Headers/')
         },
         {
           title: 'RegExp',
@@ -234,7 +229,6 @@ module.exports = defineConfig({
           children: [...setSidebar('../frontend/React/4.前端常见解决方案/')]
         }
       ],
-      '/frontend/http/': getSidebar('../frontend/http/'),
       '/frontend/npm/': getSidebar('../frontend/npm/'),
       '/小程序/': getSidebar('../小程序/'),
       // Webpack
@@ -291,6 +285,14 @@ module.exports = defineConfig({
           title: '微前端',
           children: setSidebar('../frontend/Webpack/6-微前端/')
         }
+      ],
+      '/frontend/http/': [
+        '../frontend/http/1-Http Status状态码.md',
+        '../frontend/http/2-http协议.md',
+        '../frontend/http/3-Http跨域.md',
+        '../frontend/http/4-细说Headers.md',
+        '../frontend/http/5-contentType.md',
+        '../frontend/http/6-前端缓存之http篇.md'
       ],
       '/frontend/Git/': [
         { title: 'Git常用命令', collapsable: false, path: 'Git常用命令' },
