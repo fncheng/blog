@@ -322,3 +322,27 @@ plugins: [
 2. 各种包管理器的 `lock` 文件
 3. `optimizeDeps` 配置内容
 
+
+
+## Vite项目中移除sass警告
+
+Deprecation Warning: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+项目中出现如上警告是因为使用了旧的sass api，对应链接中提到了可以用`silenceDeprecations: ['legacy-js-api']`来暂时隐藏警告。
+
+在Vite项目中则需要如下配置
+
+```ts
+defineConfig({
+    css: {
+        preprocessorOptions: {
+            sass: {
+                silenceDeprecations: ['legacy-js-api']
+            }
+        }
+    }, 
+})
+```
+

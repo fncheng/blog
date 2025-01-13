@@ -125,3 +125,48 @@ project/
 ### os.listdir
 
 列出指定目录中的所有条目（即ls -l）
+
+
+
+
+
+## 开启虚拟环境
+
+```py
+python -m venv venv_name
+
+# 激活虚拟环境（Linux/Macos）
+source .venv/bin/activate
+```
+
+
+
+
+
+## Flask动态路由
+
+```py
+# 使用 <int:id>
+@app.route('/status/<int:id>', methods=['GET'])
+def get_status_by_id(id):
+    return jsonify({"id": id, "status": "active"})
+
+# 使用 <float:version>
+@app.route('/version/<float:version>', methods=['GET'])
+def get_version(version):
+    return jsonify({"version": version})
+
+# 使用 <path:subpath>
+@app.route('/path/<path:subpath>', methods=['GET'])
+def get_subpath(subpath):
+    return jsonify({"subpath": subpath})
+
+# 使用 <uuid:identifier>
+@app.route('/uuid/<uuid:identifier>', methods=['GET'])
+def get_uuid(identifier):
+    return jsonify({"uuid": str(identifier)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+

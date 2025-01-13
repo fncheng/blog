@@ -135,3 +135,9 @@ https://code.visualstudio.com/updates/v1_79#_jsdoc-param-completions
 https://code.visualstudio.com/updates/v1_80#_improved-emmet-support-for-css-modules-in-jsxtsx
 
 输入`..test`，生成`<div styleName={styles.test}>|</div>`
+
+
+
+## 查看函数调用链Show Call Hierarchy
+
+右键，有个选项Show Call Hierarchy，可以查看函数在哪里被调用了
