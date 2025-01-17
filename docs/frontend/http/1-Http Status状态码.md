@@ -46,6 +46,19 @@ Status Code: 304 Not Modified
 
 
 
+### 302 Found
+
+HTTP状态码302 Found表示请求的资源临时被移动到另一个URI。通常，服务器会在响应头中包含一个`Location`字段，指明客户端应当进行重新请求的URI。
+
+```http
+HTTP/1.1 302 Found
+Location: http://www.example.com/newpage
+```
+
+
+
+
+
 **4XXHTTP状态码表示请求可能出错，会妨碍服务器的处理。**
 
 ```http

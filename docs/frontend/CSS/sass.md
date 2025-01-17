@@ -25,6 +25,19 @@ Sass @import 在以下情况不会导入 sass 文件：
 
 变量支持块级作用域，嵌套规则内定义的变量只能在嵌套规则内使用（局部变量），不在嵌套规则内定义的变量则可在任何地方使用（全局变量）。将局部变量转换为全局变量可以添加 `!global` 声明：
 
+sass用$，css中用--，var引用
+
+```scss
+$content: "First content"; //sass
+
+:root {
+  --header-height: 86px; // css
+}
+height: var(--header-height); // css 使用
+```
+
+
+
 ### 插值语句#{ }
 
 通过 `#{}` 插值语句可以在选择器或属性名中使用变量：
