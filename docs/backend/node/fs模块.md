@@ -76,3 +76,17 @@ fs.appendFile(file, data, options, callback)
 ## chmod
 
 使用 Node.js 中的 `chmod` 函数时，可以使用类似 `0o755` 的八进制数来指定权限标识，来给文件赋予相应的权限。需要注意的是，不要随意给文件开放过高的权限，以保护文件的安全性。
+
+
+
+## fs.mkdirSync和fs.mkdirsSync
+
+`fs.mkdirSync` 是 Node.js 标准库中的同步方法，用于创建一个新目录。如果目录已经存在，或者路径中的某个父目录不存在，则会抛出错误。
+
+`fs.mkdirsSync` 是 `fs-extra` 库中的同步方法，用于递归地创建目录。如果路径中的某个父目录不存在，它会自动创建这些父目录。
+
+
+
+## fs.unlink
+
+删除文件

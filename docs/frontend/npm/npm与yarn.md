@@ -65,6 +65,91 @@ npm update --global                  	yarn global upgrade
 																			yarn upgrade
 ```
 
+## npm安装包-npm install
+
+**版本号`~`、`^`、`*`的区别**
+
+^: 会匹配最新的大版本依赖包，比如^1.2.3会匹配所有1.x.x的包，包括1.3.0，但是不包括2.0.0
+
+~: 会匹配最近的小版本依赖包，比如~1.2.3会匹配所有1.2.x版本，但是不包括1.3.0
+
+安装指定版本的包
+
+```sh
+npm i package_name@latest
+npm i package_name@4 
+# 安指定大版本最新的包，比如大版本4最新的包是4.12，则安装的就是4.12，但是package.json中显示的是4
+```
+
+从指定源安装
+
+```sh
+yarn add intelligent-form --registry http://192.168.0.168:4873/
+# 指定registry
+```
+
+
+
+
+
+## npm发布包-npm publish
+
+第一步注册用户
+
+```sh
+npm adduser [--registry=url] [--scope=@orgname] [--auth-type=legacy]
+
+aliases: login, add-user
+```
+
+如果不是第一次使用，那么执行登录
+
+```sh
+npm login
+```
+
+### npm包添加贡献者
+
+npm-owner
+
+https://www.npmjs.cn/cli/owner/
+
+```sh
+npm owner add <user> [<@scope>/]<pkg>
+npm owner rm <user> [<@scope>/]<pkg>
+npm owner ls [<@scope>/]<pkg>
+
+aliases: author
+```
+
+### 发布
+
+```sh
+npm publish --registry https://registry.npmmirror.com
+```
+
+除此之外可以指定仓库源
+
+```sh
+npm login --registry https://registry.npmjs.org/ # 指定npm源
+...
+npm publish --access public --registry https://registry.npmjs.org/
+```
+
+### 常见问题
+
+1. 长时间登不上去，先看看npm registery源是哪个，因为发布到npm上所以需要先切换到npm源
+
+2. You must sign up for private packages
+
+   @xxx开头的包默认是私有包，npm发布私有包是需要收费的，--access public指定为公共包
+
+   ```sh
+   npm publish --access public
+   ```
+
+   
+
 
 
 ## npm mirror换源

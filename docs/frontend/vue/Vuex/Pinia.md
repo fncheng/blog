@@ -5,7 +5,16 @@ Pinia 支持两种定义 `store` 的方式：`Options API` 和 `Setup API`
 Options：
 
 ```ts
-
+export const useMainStore = defineStore('main', {
+    state: () => ({
+        count: 0
+    }),
+    actions: {
+        increment() {
+            this.count++
+        }
+    }
+})
 ```
 
 Setup:

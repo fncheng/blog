@@ -30,3 +30,5 @@ http://nodejs.cn/api/stream/event_data.html
 
 - `chunk` [Buffer](http://nodejs.cn/api/buffer.html#buffer_class_buffer) | String | any数据块。 对于非对象模式的流， `chunk` 可以是字符串或 `Buffer`。 对于对象模式的流， `chunk` 可以是任何 JavaScript 值，除了 `null`。
 
+
+

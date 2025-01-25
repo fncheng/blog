@@ -242,3 +242,20 @@ const useStore = create(set => {
 });
 ```
 
+## Zustand渲染优化-shallow的使用
+
+我们知道，React通过setState来修改状态本质上替换整个state，当state是个对象时，修改state中的某个属性，会导致其他属性的引用也发生变化，从而触发不必要的渲染。
+
+在Zustand中的实际表现为：
+
+A组件使用Zustand state.a，B组件使用了Zustand state.b，当修改state.a时，会导致B组件re-render
+
+```ts
+const { name, updateName } = useZStore(
+    useShallow((store) => ({
+        name: store.name,
+        updateName: store.updateName
+    }))
+)
+```
+

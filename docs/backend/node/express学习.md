@@ -52,3 +52,39 @@ router.get('/file', (req, res) => {
 ```
 
 加上Content-Disposition文件将会被下载
+
+
+
+## express设置header的几种方法
+
+### res.setHeader
+
+```ts
+res.setHeader('Content-Type', 'text/plain');
+```
+
+
+
+### res.header 或 res.set
+
+```ts
+res.set({
+    'Content-Type': 'text/plain',
+    'X-Custom-Header': 'CustomHeaderValue'
+});
+```
+
+
+
+发送文件
+
+```ts
+// 方法一 res.sendFile
+res.sendFile(audioPath)
+
+// 方法二 fileStream.pipe(res)
+// 适用于需要对文件流进行更高级操作的场景，提供了更高的灵活性，但需要手动处理更多细节。
+const fileStream = fs.createReadStream(audioPath)
+fileStream.pipe(res)
+```
+

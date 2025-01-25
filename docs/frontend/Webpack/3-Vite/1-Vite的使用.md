@@ -346,3 +346,37 @@ defineConfig({
 })
 ```
 
+
+
+## Vite中的base和路由Router中的base有什么区别
+
+VueRouter中的base或ReactRouer中的basename是用来给url添加后缀的，比如设置base: '/app'后，
+
+原来访问 `http://localhost:7101/home` 就变成了 `http://localhost:7101/vue-app/home` 
+
+
+
+而部署到服务器后，nginx配置可能如下
+
+```nginx
+server {
+  listen 20003;
+  server_name localhost;
+  root /opt/homebrew/var/web;
+
+  location /vue-app/ {
+    alias /opt/homebrew/var/web/vue-app/dist/;
+    expires 1h;
+    try_files $uri $uri/ /index.html;
+  }
+}
+```
+
+这时候访问 `http://localhost:20003/vue-app/` 发现无法访问
+
+我们打开Network发现http://localhost:20003/vue-app/ doc文件是可以正常请求到的，但是js、css等资源文件无法请求到
+
+http://localhost:20003/assets/index-DZeKhjX2.js无法命中nginx到规则，应该访问http://localhost:20003/vue-app/assets/index-DZeKhjX2.js 才对
+
+这时候就跟我们的打包工具有关了，Vite的话需要设置build base = '/vue-app/'
+
