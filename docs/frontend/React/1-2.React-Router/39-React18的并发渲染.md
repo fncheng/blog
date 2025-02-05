@@ -520,14 +520,33 @@ defineSlots<{ default: (props: { data: any }) => any; error: () => any }>()
 const data = ref(null)
 const error = ref<boolean>(false)
 
-try {
-    data.value = await props.resolve
-} catch (e) {
-    console.error(e)
-    error.value = true
-}
+await props.resolve
+    .then((res) => (data.value = res))
+    .catch((e) => {
+        console.error(e)
+        error.value = true
+    })
 </script>
 ```
+
+不能采用下面这种写法：
+
+因为只有Await组件的渲染被阻塞了，外部的Suspense组件检测到阻塞，会认为内容尚未准备好，于是Suspense到fallback部分才会显示。所以必须在setup顶层等待resolve的执行完成
+
+```ts
+const init = async () => {
+    try {
+        data.value = await props.resolve
+    } catch (e) {
+        console.error(e)
+        error.value = true
+    }
+}
+
+await init()
+```
+
+
 
 接收两个插槽
 

@@ -298,3 +298,48 @@ service.interceptors.request.use(
 )
 ```
 
+
+
+## AbortController的另一用处-移除事件处理函数
+
+对，没错，AbortController还可以用来取消事件监听
+
+```ts
+const listener = () => {
+    console.log('click')
+}
+let abortController: AbortController
+
+const buttonStartEvent = () => {
+    if (abortController) {
+        abortController.abort('重复点击，取消事件')
+    }
+    abortController = new AbortController()
+    const signal = abortController.signal
+    window.addEventListener('click', listener, { signal })
+}
+const buttonStopEvent = () => {
+    abortController.abort('取消事件')
+    // window.removeEventListener('click', listener)
+}
+```
+
+AbortController的强大之处，在使用removeEventListener移除事件处理函数时，需要确保addEventListener和removeEventListener的第二个参数listener是同一个。而使用AbortController则无需考虑这个。
+
+### AbortController的abort的reason属性有什么用
+
+AbortController.abort(reason?: any)
+
+```ts
+const abortController = new AbortController()
+const signal = abortController.signal
+
+signal.addEventListener('abort', () => {
+    if (signal.reason instanceof Error) {
+        console.error('Aborted with error:', signal.reason.message)
+    } else {
+        console.log('Aborted:', signal.reason)
+    }
+})
+```
+

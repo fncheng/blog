@@ -26,3 +26,68 @@ Nextjs有App Router和Pages Router两种路由方式
 
 ### dynamic
 
+## Next.js AppRouter目录结构
+
+```sh
+my-next-app/
+├── app/                # App Router 的核心目录（必须存在）
+│   ├── layout.tsx      # 根布局文件（跨页面共享）
+│   ├── page.tsx        # 根页面（访问 `/`）
+│   ├── loading.tsx     # 加载状态组件
+│   ├── error.tsx       # 错误边界组件
+│   ├── not-found.tsx   # 404 页面
+│   ├── global.css      # 全局样式
+│   ├── dashboard/      # 访问 `/dashboard`，支持嵌套路由
+│   │   ├── page.tsx    # `dashboard` 主页
+│   │   ├── layout.tsx  # `dashboard` 作用域的布局
+│   │   ├── settings/   # 访问 `/dashboard/settings`
+│   │   │   ├── page.tsx
+│   │   │   ├── loading.tsx
+│   │   │   ├── error.tsx
+│   │   │   ├── not-found.tsx
+│   │   └── analytics/  # 访问 `/dashboard/analytics`
+│   │       ├── page.tsx
+│   │       ├── layout.tsx
+│   │       ├── loading.tsx
+│   │       ├── error.tsx
+│   │       ├── not-found.tsx
+│   ├── api/            # API 路由（Server Actions 或 API 处理）
+│   │   ├── hello/      # 访问 `/api/hello`
+│   │   │   ├── route.ts # API 处理文件（等价于 pages/api）
+│   ├── (auth)/         # 可选的分组路由（作用于子目录）
+│   │   ├── login/      # 访问 `/login`
+│   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx
+│   ├── (marketing)/    # 另一个路由分组
+│   │   ├── home/       # 访问 `/home`
+│   │   │   ├── page.tsx
+├── components/         # 复用组件
+│   ├── Button.tsx
+│   ├── Header.tsx
+├── public/             # 静态资源目录
+│   ├── favicon.ico
+│   ├── images/
+├── styles/             # 样式文件目录
+│   ├── globals.css
+│   ├── theme.module.css
+├── next.config.js      # Next.js 配置文件
+├── package.json        # 依赖管理
+├── tsconfig.json       # TypeScript 配置
+└── .eslintrc.js        # ESLint 配置
+```
+
+
+
+## build忽略eslint报错
+
+修改 `next.config.js`
+
+```js
+// next.config.js
+module.exports = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
+```
+
