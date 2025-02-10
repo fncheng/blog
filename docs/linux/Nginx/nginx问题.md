@@ -146,6 +146,14 @@ server {
 
 - 默认 `/index.html` 是基于 `root` 的路径，而你的静态文件在 `alias` 指定的目录下，所以路径不匹配。
 
+### try_files $uri $uri/ /vue-app/index.html;中的/vue-app/指的是什么？
+
+> 在 `try_files $uri $uri/ /vue-app/index.html;` 这行配置中,/vue-app/是指浏览器url中的路径还是指资源文件在服务器上的路径?
+
+`/vue-app/index.html` 指的是 **浏览器 URL 路径**，而不是服务器上的实际文件路径。
+
+如何理解`try_files $uri $uri/ /vue-app/index.html;`呢，即先找$uri，再找$uri/，找不到最终再查找/vue-app/index.html，也就是匹配/vue-app/规则
+
 
 
 ## return 和rewrite重定向

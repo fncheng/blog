@@ -15,7 +15,7 @@ import 'pdfjs-dist/web/pdf_viewer.css'
 // import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?worker'
 
 // pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(new pdfWorker())
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/pdf.worker.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).href
 
 interface PDFViewerProps {
     fileUrl: string // PDF 文件的 URL
@@ -84,6 +84,26 @@ export default defineConfig({
 ```
 
 这种方法可以有效避免 CDN 依赖，尤其适合在内网环境或生产部署时直接使用本地文件
+
+### 在Vite项目中引入worker文件
+
+方式一：利用 Vite 的 URL 机制动态生成 worker 地址
+
+```ts
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
+// 使用 Vite 内置的 URL 机制获取 pdf.worker.js 的打包后路径
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.js", import.meta.url).href;
+```
+
+式二：将 worker 文件放到 public或assets 目录
+
+需要注意的是，如果设置了route base，那么你的路径也需要带上base
+
+```ts
+pdfjsLib.GlobalWorkerOptions.workerSrc =  '/app/assets/pdf.worker.mjs'
+```
+
+
 
 
 

@@ -52,7 +52,7 @@ module.exports = defineConfig({
       { text: 'Webpack', link: '/frontend/Webpack/1-webpack开发环境搭建/1-webpack-dev-server' },
       { text: 'HTTP', link: '/frontend/http/4-细说Headers' },
       { text: 'Git', link: '/frontend/Git/Git常用命令' },
-      { text: 'Node', link: '/node/CMD和ES6模块导入导出' },
+      { text: 'Node', link: '/backend/node/CMD和ES6模块导入导出' },
       { text: 'linux', link: '/linux/linux目录结构及文件夹介绍' },
       {
         text: '软件设置',
@@ -320,7 +320,7 @@ module.exports = defineConfig({
           ]
         }
       ],
-      '/frontend/node/': getSidebar('../node/'),
+      '/backend/node/': getSidebar('../backend/node/'),
       '/linux/': [
         {
           title: '常用命令',
