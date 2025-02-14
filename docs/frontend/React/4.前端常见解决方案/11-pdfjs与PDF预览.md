@@ -95,7 +95,7 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.js", import.meta.url).href;
 ```
 
-式二：将 worker 文件放到 public或assets 目录
+方式二：将 worker 文件放到 public或assets 目录
 
 需要注意的是，如果设置了route base，那么你的路径也需要带上base
 

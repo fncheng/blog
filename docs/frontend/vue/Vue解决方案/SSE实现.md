@@ -1,4 +1,23 @@
-## SSE实现逐字符展示
+# SSE实现逐字符展示
+
+## 使用EventSource
+
+```ts
+const start = () => {
+    const source = new EventSource('/proxyApi/events')
+    source.addEventListener('message', (e) => {
+        console.log('Message from server:', e.data)
+        content.value += `${e.data}\n\n`
+        const message = e.data
+        if (message === '[DONE]') {
+            source.close()
+        }
+    })
+    return source.close
+}
+```
+
+
 
 前端代码
 
@@ -83,6 +102,151 @@ function displayMessageWithEffect(message: string) {
 改完之后发现字符显示的效果变快了
 
 这是因为 `requestAnimationFrame` 被触发的频率较高，通常它会在每个浏览器的重绘周期内执行，也就是通常每秒 60 次（每个帧大约 16.7 毫秒）。这个频率远远高于原来使用 `setInterval(100)` 的 100 毫秒一次的间隔，所以字符显示速度明显加快了。
+
+
+
+## 文字逐字展示（打字机效果）
+
+方案一：直接更新DOM
+
+```ts
+const start = () => {
+    const source = new EventSource('/proxyApi/events')
+    source.addEventListener('message', async (e) => {
+        console.log('Message from server:', e.data)
+        const chars: string[] = e.data.split('')
+        for (const char of chars) {
+            content.value += char
+            await new Promise((resolve) => setTimeout(resolve, 20))
+        }
+        // content.value += `${e.data}\n\n`
+        const message = e.data
+        if (message === '[DONE]') {
+            source.close()
+        }
+        // displayMessageWithEffect(message)
+    })
+    return source.close
+}
+```
+
+优化方案：
+
+#### **使用文档片段（DocumentFragment）**
+
+```ts
+const fragment = document.createDocumentFragment();
+const tempEl = document.createElement('div');
+fragment.appendChild(tempEl);
+
+for (const char of chars) {
+  tempEl.textContent += char;
+  await delay(50);
+}
+
+outputEl.appendChild(fragment); // 单次DOM操作
+```
+
+```ts
+const start = () => {
+    const source = new EventSource('/proxyApi/events')
+    source.addEventListener('message', async (e) => {
+        console.log('Message from server:', e.data)
+        const container = document.getElementById('sse')
+        if (container) {
+            const fragment = document.createDocumentFragment()
+            const tempEl = document.createElement('p')
+            fragment.appendChild(tempEl)
+            container.appendChild(fragment)
+            const chars: string[] = e.data.split('')
+            for (const char of chars) {
+                tempEl.textContent += char
+                await sleep(20)
+            }
+        }
+        const message = e.data
+        if (message === '[DONE]') {
+            source.close()
+        }
+    })
+    return source.close
+}
+```
+
+
+
+#### **利用 CSS 动画优化渲染**
+
+```css
+#output {
+  will-change: contents; /* 提前声明变化属性 */
+  contain: content;       /* 限制浏览器重排范围 */
+}
+```
+
+#### **任务调度优化**
+
+```js
+function scheduleUpdate(char) {
+  requestAnimationFrame(() => {
+    outputEl.textContent += char;
+  });
+}
+```
+
+#### 实现自定义打字机
+
+```ts
+interface TypewriterOptions {
+    chunkSize?: number
+    delay?: number
+}
+
+class Typewriter {
+    private target: HTMLElement
+    private chunkSize: number
+    private delay: number
+    private buffer: string[]
+    private isRendering: boolean
+    constructor(targetEl: HTMLElement, { chunkSize = 5, delay = 30 }: TypewriterOptions = {}) {
+        this.target = targetEl
+        this.chunkSize = chunkSize
+        this.delay = delay
+        this.buffer = []
+        this.isRendering = false
+    }
+
+    addText(text: string) {
+        this.buffer.push(...text.split(''))
+        if (!this.isRendering) this.render()
+    }
+
+    async render(): Promise<void> {
+        this.isRendering = true
+        while (this.buffer.length > 0) {
+            const chunk = this.buffer.splice(0, this.chunkSize)
+            // 使用 DocumentFragment 避免多次 DOM 更新
+            const fragment = document.createDocumentFragment()
+            const span = document.createElement('span')
+            span.innerHTML = chunk.join('')
+            fragment.appendChild(span)
+            this.target.appendChild(fragment)
+            await new Promise((resolve) =>
+                requestAnimationFrame(() => setTimeout(resolve, this.delay))
+            )
+        }
+        this.isRendering = false
+    }
+}
+
+export default Typewriter
+
+// 使用
+// const writer = new Typewriter(document.getElementById('output')!, { chunkSize: 10 })
+// writer.addText('Hello, World!')
+```
+
+
 
 
 

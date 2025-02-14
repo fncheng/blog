@@ -1,6 +1,6 @@
 ## SvgIcon组件
 
-#### 封装SvgIcon组件
+### 封装SvgIcon组件
 
 ```vue
 <template>
@@ -72,7 +72,7 @@ app.component('SvgIcon', SvgIcon);
 app.mount('#app');
 ```
 
-### vite-plugin-svg-icons
+### 使用vite-plugin-svg-icons生成组件
 
 ```ts
 import { defineConfig } from 'vite'
@@ -91,3 +91,49 @@ export default defineConfig({
 })
 ```
 
+
+
+## 方法三：直接导入 SVG 并封装成组件
+
+安装 `vite-svg-loader`：
+
+```sh
+pnpm add vite-svg-loader -D
+```
+
+配置vite.config.ts
+
+```ts
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader';
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    svgLoader(),
+  ],
+});
+```
+
+直接在组件中使用
+
+```vue
+<script setup lang="ts">
+import HomeIcon from '@/assets/icons/home.svg';
+</script>
+
+<template>
+  <HomeIcon />
+</template>
+```
+
+
+
+
+
+| 方法                     | 适用场景                                           | 优势                        | 缺点                           |
+| ------------------------ | -------------------------------------------------- | --------------------------- | ------------------------------ |
+| `vite-plugin-svg-icons`  | 适用于大量小图标，按 `<SvgIcon name="xxx" />` 使用 | 使用方便，自动管理          | 仅适用于 symbol 方式           |
+| `vite-plugin-svg-sprite` | 适用于合并多个 SVG 进行 sprite 使用                | 体积小，适用于 UI 组件库    | 需要手动管理 `<use>` 标签      |
+| `vite-svg-loader`        | 适用于少量 SVG 直接导入                            | 直接当 Vue 组件使用，易管理 | 适用于少量图标，不适合大量使用 |

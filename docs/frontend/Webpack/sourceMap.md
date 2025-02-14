@@ -51,3 +51,14 @@ Vue-CLI的sourceMap默认为false
 
 生产环境：不设置devtool，速度最快，体积最小
 
+
+
+webpack如何配置sourcemap
+
+```js
+module.exports = {
+  mode: 'development',
+  devtool: 'eval-source-map',
+}
+```
+

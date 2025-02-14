@@ -47,6 +47,10 @@ $ zip -r basic.zip example/basic/ -x "example/basic/node_modules/*" -x "example/
 zip -Dr dist.zip dist/*
 ```
 
+>需要注意的是：macOS的归档实用工具（Archive Utility）在解压ZIP文件时，通常会自动创建一个与ZIP文件同名的目录并将内容解压到该目录中。这是macOS系统的默认行为。
+>
+>所以如果希望避免这种情况，就需要在命令后使用unzip命令解压文件。
+
 ### 创建一个全新的压缩文件而不是添加内容到现有的压缩文件
 
 -m：将文件压缩并加入压缩文件后，删除原始文件，即把文件移到压缩文件中；

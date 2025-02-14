@@ -43,7 +43,7 @@
 如果 `proxy_pass` 后不带 `/`，Nginx 会将 **客户端请求路径的匹配部分** 拼接到 `proxy_pass` 后。
 
 ```nginx
-location /users/ {
+location /users {
     proxy_pass http://127.0.0.1:9001;
 }
 ```
@@ -100,6 +100,45 @@ server {
 
 
 
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    # 使用 root 指令
+    location /images/ {
+        root /var/www/html/;
+    }
+
+    # 使用 alias 指令
+    location /pictures/ {
+        alias /var/www/html/images/;
+    }
+}
+```
+
+- 请求 http://example.com/images/picture.jpg 将映射到 /var/www/html/images/picture.jpg
+- 请求 http://example.com/pictures/picture.jpg 将映射到 /var/www/html/images/picture.jpg
+
+
+
+举例：
+
+```nginx
+location /skybox-aicc-portal/ {
+    root /Users/cheng/iFly/ZGH/zs-portal-zgh/;
+    try_files $uri $uri/ /skybox-aicc-portal/index.html;
+}
+# 代理静态资源，防止 404
+location /skybox-aicc-portal/ {
+    alias /Users/cheng/iFly/ZGH/zs-portal-zgh/skybox-aicc-portal/;
+}
+```
+
+这里两个配置效果相同
+
+
+
 **`root` 与 `alias`**：当使用 `root` 时，Nginx 会将 URI 和 `root` 拼接起来。而使用 `alias` 时，Nginx 会将请求的路径替换成 `alias` 指定的目录，避免路径拼接错误。
 
 ```nginx
@@ -153,6 +192,33 @@ server {
 `/vue-app/index.html` 指的是 **浏览器 URL 路径**，而不是服务器上的实际文件路径。
 
 如何理解`try_files $uri $uri/ /vue-app/index.html;`呢，即先找$uri，再找$uri/，找不到最终再查找/vue-app/index.html，也就是匹配/vue-app/规则
+
+## alias带斜杠和不带斜杠
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    # 带斜杠的 alias
+    location /pictures/ {
+        alias /var/www/html/images/;
+    }
+
+    # 不带斜杠的 alias
+    location /photos/ {
+        alias /var/www/html/images;
+    }
+}
+```
+
+- 访问 `http://example.com/pictures/picture.jpg` 将映射到 `/var/www/html/images/picture.jpg`。
+- 访问 `http://example.com/photos/picture.jpg` 将映射到 `/var/www/html/images/photos/picture.jpg`。
+
+### 解释
+
+- **带斜杠的 `alias`**：只替换 `location` 匹配到的部分，不会添加额外的斜杠，路径直接连接。
+- **不带斜杠的 `alias`**：在 `alias` 路径和请求的 URI 部分之间添加一个斜杠，结果是路径连接。
 
 
 

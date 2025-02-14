@@ -64,3 +64,13 @@ export const useUserStore = defineStore('userStore', () => {
    const store = useCounterStore();
    const { count } = toRefs(store); // 使用 toRefs 保持响应式
    ```
+
+4. **使用pinia提供的 `storeToRefs`**
+
+   ```ts
+   import { storeToRefs } from 'pinia'
+   const counterStore = useCounterStore()
+   const { name } = storeToRefs(counterStore)  // ✅ 保持响应性
+   ```
+
+   

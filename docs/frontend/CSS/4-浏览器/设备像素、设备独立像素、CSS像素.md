@@ -85,3 +85,119 @@ img标签的sizes属性和srcset属性
 1. 一个**媒体条件**（`(max-width:480px)`）——你会在 [CSS topic](https://developer.mozilla.org/en-US/docs/Learn/CSS)中学到更多的。但是现在我们仅仅讨论的是媒体条件描述了屏幕可能处于的状态。在这里，我们说“当可视窗口的宽度是480像素或更少”。
 2. 一个空格
 3. 当媒体条件为真时，图像将填充的**槽的宽度**（`440px`）
+
+
+
+### CSS image-set语法
+
+```css
+background-image: image-set(
+  "image-1x.jpg" 1x,
+  "image-2x.jpg" 2x,
+  "image-3x.jpg" 3x
+)
+```
+
+`1x`、`2x`、`3x` 代表 **设备像素比（DPR）**，浏览器会根据屏幕分辨率选择最合适的图片。
+
+
+
+## 像素比（DPR）
+
+获取设备像素比——window.devicePixelRatio
+
+```ts
+```
+
+使用 `matchMedia()` 监听 DPR 变化
+
+```js
+const dprQuery = window.matchMedia("(resolution: 2dppx)");
+dprQuery.addEventListener("change", (e) => {
+  if (e.matches) {
+    console.log("DPR 变为 2");
+  }
+})
+```
+
+
+
+### DPPX和resolution
+
+`resolution` 媒体查询可以检查以下三种单位之一：
+
+- **dpi** — 每英寸点数（dots per inch）
+- **dpcm** — 每厘米点数（dots per centimeter）
+- **dppx** — 每像素单位点数（dots per px unit）
+
+`1dppx` 代表 **1 倍像素密度**，`2dppx` 代表 **2x DPR**
+
+如果你需要在 **CSS 中使用 DPR**，可以通过 `:root` 变量传递：
+
+```css
+:root {
+  --dpr: 1; /* 默认值 */
+}
+
+@media (resolution: 2dppx) {
+  :root {
+    --dpr: 2;
+  }
+}
+
+@media (resolution: 3dppx) {
+  :root {
+    --dpr: 3;
+  }
+}
+```
+
+然后在 **JS 读取 CSS 变量**：
+
+```js
+const dpr = getComputedStyle(document.documentElement).getPropertyValue("--dpr");
+console.log("DPR:", dpr);
+```
+
+示例：
+
+```css
+@media screen and (max-resolution: 300dpi) {
+    .title {
+        color: blue;
+    }
+}
+@media screen and (max-resolution: 192dpi) {
+    .title {
+        color: green;
+    }
+}
+@media screen and (max-resolution: 128dpi) {
+    .title {
+        color: yellow;
+    }
+}
+
+@media (resolution: 1x) {
+    .content {
+        color: red;
+    }
+}
+@media (resolution: 2x) {
+    .content {
+        color: blue;
+    }
+}
+
+@media (min-resolution: 1dppx) {
+    .bg {
+        background-color: pink;
+    }
+}
+@media (min-resolution: 2dppx) {
+    .bg {
+        background-color: lightgreen;
+    }
+}
+```
+

@@ -182,3 +182,13 @@ git config --local pull.rebase true
 	rebase = true
 ```
 
+
+
+## git clone时只克隆一个分支
+
+--single-branch的使用
+
+```sh
+git clone --single-branch --branch <分支名> <远程仓库URL>
+```
+

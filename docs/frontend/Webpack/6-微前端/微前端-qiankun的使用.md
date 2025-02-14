@@ -330,3 +330,30 @@ renderWithQiankun({
 ## 样式污染的问题
 
 qiankun中子应用的样式会覆盖主应用的样式
+
+
+
+## Vite项目qiankun子应用中图片无法展示
+
+主应用：localhost:8099，子应用：localhost:8080
+
+发现请求的图片地址为`http://localhost:8099/src/assets/images/logo_footer.png`
+
+所以拿不到图片，但是这只影响开发环境，在生产环境是没有问题的
+
+需要配置server.origin
+
+```ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    origin: 'http://localhost:8080',  // 配置服务器的 origin
+    // 其他的服务器配置
+    port: 3000,
+    open: true,
+  },
+  // 其他的 Vite 配置
+});
+```
+
