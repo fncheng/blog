@@ -209,6 +209,44 @@ console.log(`process.env.NODE_ENV`);
 
 
 
+## Vite中使用环境变量
+
+在vite.config.ts中引入env文件并使用
+
+```ts
+import { defineConfig, loadEnv } from 'vite';
+
+export default defineConfig(({ mode }) => {
+    // 加载对应 `mode` 的环境变量
+    const env = loadEnv(mode, process.cwd(), 'VITE_');
+    return defineConfig({
+        server: {
+            host: 'localhost',
+            port: 8081,
+            proxy: {
+                '/proxyApi/': {
+                    target: env.VITE_DEV_API_PRXOXYAPI,
+                    // rewrite: (path) => path.replace(/^\/proxyApi\/skybox-desktop/, ''),
+                },
+            },
+        },
+    })
+
+}
+```
+
+### 构建时指定环境
+
+```sh
+vite build --mode development
+```
+
+
+
+
+
+
+
 ## Vite import.meta
 
 ### Vite通过HTML环境变量替换html模板内容

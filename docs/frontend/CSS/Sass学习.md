@@ -1,10 +1,10 @@
 ---
-title: css import
+title: Sass
 ---
 
 
 
-### css中的@import
+### CSS中的@import
 
 **`@import `**[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)[@规则](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule)，用于从其他样式表导入样式规则。这些规则必须先于所有其他类型的规则，[`@charset`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/@charset) 规则除外; 因为它不是一个[嵌套语句](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Syntax#nested_statements)，@import不能在[条件组的规则](https://developer.mozilla.org/zh-CN/docs/Web/CSS/At-rule#conditional_group_rules)中使用。
 
@@ -22,6 +22,12 @@ Sass 拓展了 `@import` 的功能，允许其导入 SCSS 或 Sass 文件。被�
 @import './styles/base.scss'
 ```
 
+## @use
+
+`@use` 是用来引入外部样式文件的现代方法，取代了旧的 `@import`。它有更好的作用域控制和性能优化。
+
+
+
 ## 变量
 
 sass用$，css中用--，var引用
@@ -35,3 +41,6 @@ $content: "First content"; //sass
 height: var(--header-height); // css 使用
 ```
 
+
+
+Vue中Sass使用路径别名：`~@`

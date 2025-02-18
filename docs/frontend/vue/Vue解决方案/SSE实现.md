@@ -288,3 +288,8 @@ router.get('/events', async (req, res) => {
 })
 ```
 
+
+
+## 使用@microsoft/fetch-event-source
+
+https://github.com/Azure/fetch-event-source

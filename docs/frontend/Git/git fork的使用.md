@@ -1,3 +1,9 @@
+---
+title: git fork的使用
+---
+
+
+
 # fetch和pull
 
 ## fetch和pull
@@ -152,3 +158,16 @@ git checkout -b <分支名> origin/<分支名>
 ```
 
 5️⃣ **推送到你的 Fork 仓库**：
+
+
+
+
+
+如果你有原仓库的写入权限，git push upstream --delete dev 会删除原仓库的dev分支
+
+```sh
+git push upstream --delete dev
+```
+
+
+

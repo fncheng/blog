@@ -1,8 +1,8 @@
 ---
-title: vue2迁移到vue3
+title: 从Vue2迁移到Vue3
 ---
 
-## vue3项目搭建
+## Vue3项目搭建
 
 Vue3项目搭建
 

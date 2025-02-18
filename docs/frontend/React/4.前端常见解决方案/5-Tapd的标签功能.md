@@ -2,7 +2,7 @@
 
 Tapd的标签功能是通过往body上插入一个组件来实现的
 
-![image-20230901105303487](/Users/cheng/Library/Application Support/typora-user-images/image-20230901105303487.png)
+![image-20230901105303487](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230901105303487.png)
 
 
 
