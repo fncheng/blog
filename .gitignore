@@ -5,6 +5,7 @@ img/
 # file
 # *.png
 *.md
+test.js
 
 # !docs/.vuepress/
 !docs/**/*.md

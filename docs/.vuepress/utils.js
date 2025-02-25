@@ -37,6 +37,7 @@ function getSidebar(filePath, count = 0) {
       ;/md$/i.test(val) && count === 0 ? res.push(val) : res.push(`${filePath.slice(2)}${val}`)
     }
   })
+  res = res.sort((a, b) => a.split('-')[0] - b.split('-')[0])
   return res
   // return fs.readdirSync(resolve(filePath)).filter((val) => /md$/.test(val))
 }
@@ -55,6 +56,7 @@ const setSidebar = (filePath) => {
   return fs
     .readdirSync(resolve(filePath))
     .filter((val) => /md$/i.test(val))
+    .sort((a, b) => a.split('-')[0] - b.split('-')[0]) // 排序从小到大
     .map((file) => `${name}/${file}`)
 }
 
