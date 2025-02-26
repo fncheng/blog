@@ -269,6 +269,47 @@ VITE_LOGO_URL = 'rs.png'
 
 或者使用插件[vite-plugin-html-config](https://www.npmjs.com/package/vite-plugin-html-config)、[vite-plugin-html-env](https://www.npmjs.com/package/vite-plugin-html-env)
 
+## Vite中的路径处理
+
+new URL('./src', import.meta.url) 和 path.resolve
+
+```ts
+const imageUrl = new URL('./images/picture.png', import.meta.url);
+console.log(imageUrl.href);
+```
+
+这会输出 `picture.png` 文件的绝对 URL。
+
+new URL('./src', import.meta.url)
+
+- 这是在 ES 模块 (ESM) 中构建相对于当前模块的文件或目录 URL 对象的方法。
+
+
+
+Vite 会自动将 `public/` 目录下的文件映射到根路径，并且文件路径不需要包含 `public` 前缀。
+
+比如说下面这段代码
+
+```ts
+import pdf2 from '/vue-app/pdfjs/web/example2.pdf'
+const pdfUrl2 = ref(pdf2)
+const pdfViewerUrl = ref(`/vue-app/pdfjs/web/viewer.html?file=${pdfUrl2.value}`)
+```
+
+其中/vue-app/是 Vite base，而pdfjs目录是放在public中的，这里不论是import还是pdfViewerUrl的引用，都没有用public作为开头，这是因为Vite 会自动将 `public/` 目录下的文件映射到根路径。
+
+如果修改了base，代码中也需要变更，比较麻烦
+
+优化方案：使用new URL和import.meta来取代
+
+```ts
+const pdf2 = new URL('/pdfjs/web/example2.pdf', import.meta.url).href
+const pdfUrl2 = ref(pdf2)
+const pdfViewerUrl = ref(`/vue-app/pdfjs/web/viewer.html?file=${pdfUrl2.value}`)
+```
+
+
+
 
 
 ## typescript项目引入@types/node
@@ -418,3 +459,13 @@ http://localhost:20003/assets/index-DZeKhjX2.js无法命中nginx到规则，应�
 
 这时候就跟我们的打包工具有关了，Vite的话需要设置build base = '/vue-app/'
 
+
+
+## import代码中的node:fs和fs有什么不同
+
+`node:fs` 和 `fs` 本质上是同一个模块，但有一些语义上的区别：
+
+**`node:fs` 是官方推荐的导入方式**（从 Node.js 16.0.0 开始引入）
+
+- 使用 `node:` 前缀可以更明确地表明这是一个 **Node.js 内置模块**，避免与 `node_modules` 目录中的第三方 `fs` 模块发生混淆。
+- 这个方式适用于 **ESM（ES 模块）** 和 **CommonJS**。

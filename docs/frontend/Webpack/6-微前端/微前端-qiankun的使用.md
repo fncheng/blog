@@ -1,5 +1,14 @@
 ## 使用qiankun
 
+### 参数介绍
+
+- name - `string` - 必选，微应用的名称，微应用之间必须确保唯一。
+- entry - `string | { scripts?: string[]; styles?: string[]; html?: string }` - 必选，微应用的入口。
+
+
+
+
+
 ### 主应用
 
 ```js
@@ -163,6 +172,47 @@ module.exports = {
 通过 Qiankun 提供的 `setGlobalState` 方法，将新的语言状态传递给子应用。
 
 
+
+## qiankun主应用和子应用路由
+
+如果主应用和子应用都采用 **hash** 模式，那么只需主应用中registerMicroApps 时的 activeRule，和主应用中跳转子应用的链接设置为相同值即可
+
+主应用和子应用的router-base 均可设为 `/`，子应用需要设置base（webpack为publicPath）
+
+需要设置：
+
+- 子应用Vite base 或 Webpack publicPath
+
+nginx配置如下：
+
+```nginx
+server {
+    listen 29001;
+    server_name localhost;
+
+    # 主应用
+    location / {
+        alias /Users/cheng/Github/webpack-learn/dist/;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+	#子应用
+    location ^~ /skybox-desktop/ {
+        alias /Users/cheng/Github/frontend-learn/dist/static/;
+        index index.html;
+        try_files $uri $uri/ /skybox-desktop/index.html;
+    }
+}
+```
+
+### qiankun报错Cannot redefine property: $router
+
+[解决方案](https://qiankun.umijs.org/zh/faq#vue-router-%E6%8A%A5%E9%94%99-uncaught-typeerror-cannot-redefine-property-router)
+
+> 可以从以下方式中选择一种来解决问题：
+>
+> 1. 在主应用中不使用 CDN 等 external 的方式来加载 `Vue` 框架，使用前端打包软件来加载模块
+> 2. 在主应用中，将 `window.Vue` 变量改个名称，例如 `window.Vue2 = window.Vue; delete window.Vue`
 
 ## Vite项目使用qiankun
 

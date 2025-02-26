@@ -84,3 +84,19 @@ a[class~="logo"] {
 [👉Vue deep scope](https://vue-loader.vuejs.org/zh/guide/scoped-css.html#%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8)
 
 有些像 Sass 之类的预处理器无法正确解析 `>>>`。这种情况下你可以使用 `/deep/` 或 `::v-deep` 操作符取而代之——两者都是 `>>>` 的别名，同样可以正常工作。
+
+
+
+Vue3中深度作用选择器写法：
+
+:deep()
+
+```css
+.part-content {
+  :deep(.el-input-group__append) {
+    padding-inline: 0.6771vw;
+  }
+}
+```
+
+全局样式 :global()

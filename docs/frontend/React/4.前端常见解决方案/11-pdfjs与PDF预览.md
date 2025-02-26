@@ -313,3 +313,41 @@ const handleNextPage = () => {
 }
 ```
 
+如何正确引入pdf.worker
+
+写法一：
+
+```ts
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.mjs',
+    import.meta.url
+).toString()
+```
+
+
+
+## Web Viewer方式预览
+
+还可以利用`pdf.js` 提供的 **Web Viewer** (`viewer.html`) 来加载 PDF 文件，可以直接在 `<iframe>` 中使用，非常方便，并且支持完整的 `pdf.js` 交互功能，如分页、缩放、搜索等。
+
+```html
+<iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://example.com/sample.pdf"
+  width="100%"
+  height="600px"
+></iframe>
+```
+
+先下载二进制blob，然后提供给WebViewer
+
+```ts
+const pdfViewerUrl = ref('')
+const pdfUrl = ref('')
+
+getDownloadPdf().then((res) => {
+  console.log('res', res)
+  pdfUrl.value = URL.createObjectURL(res)
+  pdfViewerUrl.value = `/pdfjs/web/viewer.html?file=${pdfUrl.value}`
+})
+```
+

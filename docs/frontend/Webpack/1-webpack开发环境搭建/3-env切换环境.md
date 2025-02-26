@@ -15,6 +15,10 @@ title: env文件的使用
 .env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
 ```
 
+优先级：
+
+ `.env.local` > `.env.development` > `.env`
+
 
 
 实际上，这些文件是用于配合webpack切换开发环境的。
@@ -180,11 +184,6 @@ process {
   TERM_PROGRAM_VERSION: '1.55.2',
   LANG: 'zh_CN.UTF-8',
   COLORTERM: 'truecolor',
-  VSCODE_GIT_IPC_HANDLE: '/var/folders/p2/cn9jx_j10dg_xnr90k64cszr0000gn/T/vscode-git-82c20a0e31.sock',
-  GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-  VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-  VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-  TERM: 'xterm-256color',
   _: '/usr/local/bin/webpack'
 }
 ```

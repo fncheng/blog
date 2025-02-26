@@ -112,3 +112,23 @@ declare global {
    为了扩展全局类型（例如 `window`），声明必须出现在模块文件中。否则 TypeScript 不允许你使用 `declare global`。
 2. **避免与库的类型冲突**：
    如果你在一个全局作用域中修改类型声明，而没有标记为模块，当另一个库对同一类型进行扩展时，可能导致冲突。
+
+
+
+## 双重类型断言
+
+在 TypeScript 中，**双重类型断言**指的是对一个值应用两次 `as` 类型断言，通常是为了绕过 TypeScript 的类型检查。
+
+```ts
+interface RouteQuery {
+  docLibId: string
+  docLibName: string
+  docLibversion: string
+  docId: string
+  docStatus: string
+}
+
+const route = useRoute()
+const query = route.query as unknown as RouteQuery
+```
+

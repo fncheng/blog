@@ -43,7 +43,7 @@ export default function App() {
 }
 ```
 
-使用React-Window提供的虚拟渲染
+使用React-Window提供的虚拟渲染实现虚拟列表
 
 ```tsx
 import { FixedSizeList as List } from 'react-window';

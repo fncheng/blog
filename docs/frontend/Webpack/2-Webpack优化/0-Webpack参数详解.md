@@ -284,11 +284,31 @@ module.exports = {
 
 > “嘿，webpack 编译器，当你碰到「在 `require()`/`import` 语句中被解析为 '.txt' 的路径」时，在你对它打包之前，先 **use(使用)** `raw-loader` 转换一下。”
 
-#### [output.publicPath](https://webpack.docschina.org/configuration/output/#outputpublicpath)
+
+
+## publicPath
+
+[output.publicPath](https://webpack.docschina.org/configuration/output/#outputpublicpath)
 
 部署应用包时的基本 URL。和服务器资源路径无关。
 
+```js
+const router = new Router({
+  mode: 'hash',
+  base: '/my-app/', // 设置 base 路径
+  routes: [ /* 路由配置 */ ]
+})
+```
+
+如果设置了router的base，则也要设置 `publicPath` 为 `/my-app/`
+
 如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 `https://www.my-app.com/my-app/`，则设置 `publicPath` 为 `/my-app/`。
+
+
+
+vue-router 的base设置为/app-vue 后，output.publicPath也应设置为同样的值，这样才能确保资源访问时的引用路径正确
+
+
 
 打包后资源的引用路径，比如js的引用。当publicPath设置为'static'后
 
@@ -309,6 +329,8 @@ filename: ''
 >
 > - 当使用基于 HTML5 `history.pushState` 的路由时；即mode: 'history'时
 > - 当使用 `pages` 选项构建多页面应用时。
+
+
 
 #### [output.filename](https://webpack.docschina.org/configuration/output/#outputfilename)
 

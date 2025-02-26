@@ -1,19 +1,53 @@
+---
+title: 虚拟列表方案
+---
+
+
+
 ## vue-virtual-scroller
 
 https://codesandbox.io/p/devbox/vue-virtual-scroller-tfjnjl
 
+```sh
+npm i vue-virtual-scroller@next
+pnpm add vue-virtual-scroller@next
+```
+
+main.ts中引入
+
+```ts
+import { RecycleScroller, DynamicScroller } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+
+const app = createApp(App)
+app.component('RecycleScroller', RecycleScroller)
+app.component('DynamicScroller', DynamicScroller)
+```
+
+
+
+
+
+### RecycleScroller
+
+适用于**每个列表项高度相同** 或者 **高度可预估** 的情况
+
+✅ **必须指定 min-item-size / item-size（每个项的固定高度）**
+
 ```vue
 <script setup lang="ts">
-const showCount = ref(5);
+import { ref, computed } from 'vue'
 
-const itemHeight = computed(() => 200 / showCount.value);
+const showCount = ref(5)
+
+const itemHeight = computed(() => 200 / showCount.value)
 
 const list = ref(
-  Array.from({ length: 100 }, (v, i) => ({
-    id: i
-  }))
-);
-console.log(list.value);
+    Array.from({ length: 100 }, (v, i) => ({
+        id: String(i),
+        title: `title ${i}`
+    }))
+)
 </script>
 
 <template>
@@ -43,6 +77,33 @@ console.log(list.value);
 需要注意的是
 
 RecycleScroller组件的class 外部height必须得有，items和item-size属性也是必须的
+
+### DynamicScroller
+
+适用于 **每个列表项高度不固定** 的情况，它能 **动态计算每个项的高度**，从而提供更准确的虚拟滚动。
+
+✅ **自动计算列表项高度，适用于内容高度不固定的情况**
+✅ 适用于 **富文本、聊天消息、评论区等场景**
+✅ **需要使用 `DynamicScrollerItem` 子组件来自动计算高度**
+
+- min-item-size / item-size 必须指定
+
+```vue
+<DynamicScroller class="scroller" :items="list" :min-item-size="itemHeight">
+            <template #default="{ item, index }">
+                <DynamicScrollerItem :item="item" :size-dependencies="[item.title]">
+                    <div class="dynamic-item flex">
+                        <h4>{{ index + 1 }}</h4>
+                        <p>{{ item.title }}</p>
+                    </div>
+                </DynamicScrollerItem>
+            </template>
+        </DynamicScroller>
+```
+
+
+
+
 
 ## ElSelect的虚拟滚动
 
@@ -118,3 +179,4 @@ vue-virtual-scroller使用了transform来更新可见区域数据
 4. **浏览器兼容性：**
    - **`transform` 优势：** `transform` 在现代浏览器中有很好的兼容性，但在一些老版本浏览器可能存在兼容性问题。
    - **默认更新优势：** 默认的更新可见区域数据通常具有较好的兼容性，适用于更广泛的浏览器。
+

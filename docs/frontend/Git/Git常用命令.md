@@ -523,3 +523,18 @@ See 'git difftool --tool-help' or 'git help config' for more details.
 ```sh
 git log --name-only # 查看每次commit修改了哪些文件
 ```
+
+
+
+## tag
+
+git标签使用
+
+```sh
+git tag <tag-name>
+# 给特定提交打标签
+git tag <tag-name> <commit-hash>
+# 如果你只想查看符合特定模式的标签，可以使用 -l 选项配合模式：
+git tag -l "v1.*"
+```
+
