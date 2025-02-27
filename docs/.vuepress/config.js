@@ -287,12 +287,7 @@ module.exports = defineConfig({
         }
       ],
       '/frontend/http/': [
-        '../frontend/http/1-Http Status状态码.md',
-        '../frontend/http/2-http协议.md',
-        '../frontend/http/3-Http跨域.md',
-        '../frontend/http/4-细说Headers.md',
-        '../frontend/http/5-contentType.md',
-        '../frontend/http/6-前端缓存之http篇.md'
+        ...getSidebar('../frontend/http/')
       ],
       '/frontend/Git/': [
         { title: 'Git常用命令', collapsable: false, path: 'Git常用命令' },
