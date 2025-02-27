@@ -1,9 +1,3 @@
----
-title: git fork的使用
----
-
-
-
 # fetch和pull
 
 ## fetch和pull
@@ -112,7 +106,7 @@ git merge upstream/main
 
 
 
-### 方法 1：手动 Fork 后，仅克隆指定分支
+**方法 1：手动 Fork 后，仅克隆指定分支**
 
 > 适用于：**你只能在 Gitee/GitHub 上 Fork 整个仓库，但本地只想拉取某个分支**
 
@@ -127,7 +121,7 @@ git clone --single-branch --branch develop https://gitee.com/yourname/repo.git
 
 
 
-### 方法 2：使用 `git remote` 只同步某个分支
+**方法 2：使用 `git remote` 只同步某个分支**
 
 > 适用于：**你不想在 Gitee/GitHub 上 Fork 整个仓库，而是想手动同步指定分支**
 

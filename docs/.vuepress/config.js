@@ -301,7 +301,7 @@ module.exports = defineConfig({
           title: 'GIT常见',
           collapsable: false,
           children: [
-            'fetch和pull',
+            'git fork的使用',
             'gitignore的使用',
             'gitconfig配置文件',
             'SourceTree使用指南',
