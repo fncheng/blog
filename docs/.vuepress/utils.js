@@ -37,7 +37,9 @@ function getSidebar(filePath, count = 0) {
       ;/md$/i.test(val) && count === 0 ? res.push(val) : res.push(`${filePath.slice(2)}${val}`)
     }
   })
-  res = res.sort((a, b) => a.split('-')[0] - b.split('-')[0])
+  if (res.length > 1) {
+    res = sortedArr(res)
+  }
   return res
   // return fs.readdirSync(resolve(filePath)).filter((val) => /md$/.test(val))
 }
@@ -53,12 +55,28 @@ function getSidebar(filePath, count = 0) {
 const setSidebar = (filePath) => {
   const folders = filePath.split('/')
   const name = folders[folders.length - 2]
-  return fs
-    .readdirSync(resolve(filePath))
-    .filter((val) => /md$/i.test(val))
-    .sort((a, b) => a.split('-')[0] - b.split('-')[0]) // 排序从小到大
-    .map((file) => `${name}/${file}`)
+  const result = fs.readdirSync(resolve(filePath)).filter((val) => /md$/i.test(val))
+  // 只有一个文件时不做排序处理
+  if (result.length > 1) {
+    return result.sort((a, b) => a.split('-')[0] - b.split('-')[0]).map((file) => `${name}/${file}`)
+  } else return result.map((file) => `${name}/${file}`)
 }
+
+/**
+ * 对数组进行排序
+ * @param {*} arr
+ * @returns
+ */
+const sortedArr = (arr) =>
+  arr.sort((a, b) => {
+    if (typeof a !== 'string') {
+      return 1
+    }
+    if (typeof b !== 'string') {
+      return -1
+    }
+    return a.split('-')[0] - b.split('-')[0]
+  })
 
 module.exports = {
   getSidebar,
