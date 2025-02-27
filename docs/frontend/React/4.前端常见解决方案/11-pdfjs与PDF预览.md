@@ -351,3 +351,85 @@ getDownloadPdf().then((res) => {
 })
 ```
 
+### 控制pdf翻页
+
+如果 `Web Viewer` 是嵌套在 `iframe` 里，你需要 **获取 iframe 内部的 `PDFViewerApplication`**
+
+```ts
+const iframe = document.getElementById("pdfIframe"); // 获取 iframe
+const pdfViewer = iframe.contentWindow.PDFViewerApplication; // 访问 iframe 内部对象
+
+// 翻页
+pdfViewer.page++; // 下一页
+pdfViewer.page--; // 上一页
+```
+
+下载pdf并展示
+
+```ts
+const pdfViewerUrl = ref('')
+const pdfUrl = ref('')
+
+const iframeRef = useTemplateRef('iframeRef')
+/** iframe文档 */
+let iframeDocument: Document | null | undefined
+let pdfDocument: PDFDocumentProxy | undefined
+let pdfViewerApp: any
+
+const downloadPdfFun = async () => {
+  console.log('123', props.filePath)
+  let res = await downloadPdf(props.filePath)
+  if (res) {
+    console.group('respdf==============: ', res)
+    pdfUrl.value = URL.createObjectURL(res)
+    pdfViewerUrl.value = `/pdfjs/web/viewer.html?file=${pdfUrl.value}`
+    loading.value = false
+    iframeRef.value?.addEventListener('load', () => {
+      /** 等待iframe加载完成 */
+      // iframeDocument = iframeRef.value?.contentDocument || iframeRef.value?.contentWindow?.document
+      // console.group('iframeDocument: ', iframeDocument)
+      // const el = iframeDocument?.querySelector('#mainContainer')
+      // console.log('el: ', el)
+      if (iframeRef.value?.contentWindow) {
+        const pdfWindow = iframeRef.value.contentWindow
+        pdfViewerApp = iframeRef.value.contentWindow.PDFViewerApplication
+        console.group('pdfViewerApp: ', pdfViewerApp)
+        pdfViewerApp.eventBus.on('documentloaded', () => {
+          /** 等待PDFViewerApplication加载完成 */
+          iframeDocument = pdfWindow.document
+          console.log('PDF文档加载完成', iframeDocument)
+          // 创建高亮区域
+          let div = iframeDocument.createElement('div')
+          div.style.backgroundColor = 'rgba(75, 114, 239, 0.2)'
+          div.style.left = '5%'
+          div.style.right = '5%'
+          div.style.position = 'absolute'
+          div.id = 'layerUnique'
+
+          const pagesCount = pdfViewerApp.pagesCount
+          pdfDocument = pdfViewerApp.pdfDocument
+          console.log('pdfDocument: ', pdfDocument)
+        })
+      }
+    })
+  }
+}
+```
+
+**优化点**
+
+1. **`PDFViewerApplication` 访问时机**
+   - 你在 `iframe` `load` 事件中直接访问 `PDFViewerApplication`，但它可能还未初始化完成，建议使用 `webviewerloaded` 事件监听。
+2. **`documentloaded` 事件**
+   - 你使用 `eventBus.on('documentloaded', callback)` 来监听 PDF 加载完成，但如果 `pdf.js` 的版本较新，应该监听 `pagesinit` 事件更稳定。
+3. **iframe 的 `contentWindow` 安全性**
+   - 你可以在 `iframe` 加载完成后，先检查 `contentWindow` 是否可用。
+
+
+
+### contentDocument和contentWindow.document的区别
+
+| 属性                          | 说明                                      | 兼容性                                   | 推荐使用 |
+| ----------------------------- | ----------------------------------------- | ---------------------------------------- | -------- |
+| iframe.contentDocument        | 直接访问 iframe 内部的 document           | 现代浏览器支持，但部分旧版 IE 可能不支持 | ✅ 推荐   |
+| iframe.contentWindow.document | 先访问 iframe 的 window，再获取 dÏocument | 更通用，兼容所有浏览器                   | ✅ 可选   |
