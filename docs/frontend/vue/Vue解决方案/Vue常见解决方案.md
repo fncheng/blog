@@ -98,6 +98,19 @@ while ((node = walker.nextNode())) {
 }
 ```
 
+Vue2
+
+```js
+const devtools = window.__VUE_DEVTOOLS_GLOBAL_HOOK__
+const Vue = $('#app').__vue__.__proto__.constructor
+Vue.config.devtools = true
+devtools.emit('init', Vue)
+```
+
+
+
+
+
 Vue3
 
 ```js

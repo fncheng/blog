@@ -54,6 +54,10 @@ Command Shift 3 全屏截图
 
 
 
+### macos自带录屏功能
+
+
+
 ### macOS聚焦搜索高级搜索
 
 https://support.apple.com/zh-cn/guide/mac-help/mh15155/11.0/mac/11.0
