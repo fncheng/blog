@@ -80,3 +80,57 @@ export const useUserStore = defineStore('userStore', () => {
    ```
 
    
+
+### 方法和store同时需要解构的情况
+
+可以分开解构
+
+```ts
+const store = useUserStore()
+const { setUserConfig } = store
+const { userConfig } = storeToRefs(store)
+```
+
+
+
+## pinia-plugin-persistedstate
+
+```ts
+export const useUserStore = defineStore('user', () => {
+    const state = reactive({
+        name: 'pinia',
+        age: 100
+    })
+    return { state }
+    },
+    {
+        persist: true
+    }
+)
+```
+
+高级用法：
+
+```ts
+export const useUserStore = defineStore(
+    'user',
+    () => {
+        const state = reactive({
+            name: 'pinia',
+            age: 100
+        })
+        const setName = (name: string) => {
+            state.name = name
+        }
+        return { state, setName }
+    },
+    {
+        persist: {
+            key: 'user', // 存储的key
+            storage: localStorage, // 存储方式
+            pick: ['state.name', 'state.age'] // 指定要持久化的字段
+        }
+    }
+)
+```
+

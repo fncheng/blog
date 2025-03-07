@@ -104,3 +104,9 @@ $ pkgutil --files PKGID
 1. 关系统偏好里的自动更新
 2. 删除~/Library/Preferences/com.apple.preferences.softwareupdate.plist 文件
 3. defaults write com.apple.systempreferences AttentionPrefBundleIDs 0 && killall Dock
+
+
+
+## workflow工作流程
+
+workflow文件保存在/Users/cheng/Library/Services/目录下

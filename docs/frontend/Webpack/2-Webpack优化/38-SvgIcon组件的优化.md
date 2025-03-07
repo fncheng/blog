@@ -137,3 +137,29 @@ import HomeIcon from '@/assets/icons/home.svg';
 | `vite-plugin-svg-icons`  | 适用于大量小图标，按 `<SvgIcon name="xxx" />` 使用 | 使用方便，自动管理          | 仅适用于 symbol 方式           |
 | `vite-plugin-svg-sprite` | 适用于合并多个 SVG 进行 sprite 使用                | 体积小，适用于 UI 组件库    | 需要手动管理 `<use>` 标签      |
 | `vite-svg-loader`        | 适用于少量 SVG 直接导入                            | 直接当 Vue 组件使用，易管理 | 适用于少量图标，不适合大量使用 |
+
+
+
+
+
+## svg的背景色和颜色
+
+SVG path 中的 fill 和 stroke 属性
+
+1. **fill（填充）属性**：
+   - 定义路径内部的填充颜色
+   - 可以使用以下值：
+     - 颜色名称：`fill="red"`
+     - 十六进制颜色：`fill="#ff0000"`
+     - RGB 值：`fill="rgb(255,0,0)"`
+     - none（无填充）：`fill="none"`
+   - 还可以设置填充透明度：`fill-opacity="0.5"`
+2. **stroke（描边）属性**：
+   - 定义路径轮廓的颜色和样式
+   - 主要属性包括：
+     - `stroke`：描边颜色
+     - `stroke-width`：描边宽度
+     - `stroke-opacity`：描边透明度
+     - `stroke-linecap`：线条端点样式（butt/round/square）
+     - `stroke-linejoin`：线条连接处样式（miter/round/bevel）
+     - `stroke-dasharray`：虚线模式
