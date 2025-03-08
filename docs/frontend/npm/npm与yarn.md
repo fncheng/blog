@@ -244,6 +244,14 @@ npmRegistryServer: "https://registry.npmmirror.com/"
 
 ## pnpm
 
+安装pnpm
+
+```sh
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
+
+
+
 
 
 
