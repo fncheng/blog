@@ -1,8 +1,8 @@
 ---
-title: SourceMap
+title: SourceMap的使用
 ---
 
-
+## 什么是SourceMap
 
 [Webpack doc](https://webpack.docschina.org/configuration/devtool/#root)
 
@@ -53,7 +53,7 @@ Vue-CLI的sourceMap默认为false
 
 
 
-webpack如何配置sourcemap
+## webpack如何配置sourcemap
 
 ```js
 module.exports = {
