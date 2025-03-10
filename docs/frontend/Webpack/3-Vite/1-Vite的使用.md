@@ -213,6 +213,8 @@ console.log(`process.env.NODE_ENV`);
 
 在vite.config.ts中引入env文件并使用
 
+### loadEnv的使用
+
 ```ts
 import { defineConfig, loadEnv } from 'vite';
 

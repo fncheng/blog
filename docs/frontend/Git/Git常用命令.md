@@ -538,3 +538,9 @@ git tag <tag-name> <commit-hash>
 git tag -l "v1.*"
 ```
 
+通过tag查找对应commit hash
+
+```sh
+git rev-parse '1.0-Build1220_develop_v1.6.3'
+```
+

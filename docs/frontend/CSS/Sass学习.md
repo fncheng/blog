@@ -26,6 +26,11 @@ Sass 拓展了 `@import` 的功能，允许其导入 SCSS 或 Sass 文件。被�
 
 `@use` 是用来引入外部样式文件的现代方法，取代了旧的 `@import`。它有更好的作用域控制和性能优化。
 
+```scss
+@use "element-plus/theme-chalk/src/mixins/config" as *;
+@use "element-plus/theme-chalk/src/common/var" as *;
+```
+
 
 
 ## 变量
