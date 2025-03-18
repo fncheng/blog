@@ -220,6 +220,10 @@ module.exports = defineConfig({
           ]
         },
         {
+          title: 'Next.js',
+          children: setSidebar('../frontend/React/1-5.Nextjs/')
+        },
+        {
           title: 'UMI',
           children: setSidebar('../frontend/React/3.Umi/')
         },

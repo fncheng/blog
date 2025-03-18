@@ -1,6 +1,6 @@
 # Vite
 
-## 处理图片
+## 处理无法识别的图片格式
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230315153812420.png" alt="image-20230315153812420" style="zoom: 50%;" />
 
@@ -73,6 +73,16 @@ asyncRoutes.forEach((route) => router.addRoute(route))
 ```
 
 
+
+## 在Vite中使用图片
+
+**1.直接使用public目录**
+
+public目录下的图片不会被Vite处理，适用于不会变化的静态资源
+
+**2.使用import语法（推荐）**
+
+Vite 会自动优化并生成带哈希的 URL，避免缓存问题。适用于组件内动态使用的图片。
 
 
 

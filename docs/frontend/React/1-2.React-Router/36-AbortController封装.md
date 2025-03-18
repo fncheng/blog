@@ -1,3 +1,9 @@
+---
+title: AboutController的封装
+---
+
+
+
 ## 使用AbortController中止请求
 
 ```tsx

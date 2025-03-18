@@ -132,3 +132,29 @@ const route = useRoute()
 const query = route.query as unknown as RouteQuery
 ```
 
+
+
+## 你应该停止使用Enum
+
+为什么应该避免使用Enum
+
+1. 编译后代码膨胀
+
+   TypeScript 的 `enum` 默认会被编译成 JavaScript 对象，这会导致额外的运行时开销。
+
+2. 不兼容 Tree Shaking
+
+3. 反向映射可能带来的安全问题
+
+**解决方案：**
+ 如果必须使用 `enum`，可以使用 `const enum`，它会在编译时直接内联，而不会生成 JavaScript 对象：
+
+```ts
+const enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+```
+

@@ -161,3 +161,4 @@ md.renderer.rules.math_block = blockRenderer;
 - **pending**: 待处理的普通文本
 - bMarks: 每行开始位置的数组
 - eMarks: 每行结束位置的数组
+- tShift：每行的缩进量，用于确定当前行的实际内容起始位置

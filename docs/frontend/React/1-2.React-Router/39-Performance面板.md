@@ -1,3 +1,7 @@
+---
+title: Performance面板的使用
+---
+
 Performance面板中的Idle
 
 在 Chrome DevTools 的 Performance 面板中，"Idle" 状态表示浏览器在当前没有任务执行或渲染工作时处于空闲状态。这通常是指浏览器没有正在处理的 JavaScript 代码、用户输入或其他活动。
