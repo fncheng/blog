@@ -23,14 +23,37 @@ import addonRoutes from '~pages'
 addonRoutes.forEach((route: RouteRecordRaw) => router.addRoute(route))
 ```
 
+如果是React
+
+```ts
+import addonRoutes from '~react-pages'
+
+const routes = [
+    ...addonRoutes
+]
+const router = createBrowserRouter(routes, { basename: '/app' })
+const Router = () => <RouterProvider router={router} />
+```
+
+
+
 声明类型
 
 ```ts
 // vite-plugin-pages.d.ts
-declare module 'virtual:generated-pages' {
+declare module '~react-pages' {
   import { RouteObject } from 'react-router-dom'
   const routes: RouteObject[]
   export default routes
 } 
 ```
 
+
+
+## 生成嵌套路由
+
+目录结构如下图所示，其中left.tsx中需要有Outlet
+
+具体可以看：https://github.com/hannoeru/vite-plugin-pages?tab=readme-ov-file#nested-routes
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20250320104517624.png" alt="image-20250320104517624" style="zoom:67%;" />
