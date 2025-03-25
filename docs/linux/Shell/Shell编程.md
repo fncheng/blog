@@ -174,12 +174,6 @@ TIMESTAMP=$(date +"%m%d%H%M")
 # 设置压缩包名称
 ZIP_NAME="${SOURCE_DIR}-Build${TIMESTAMP}.zip"
 
-# 检查skybox-desktop目录是否存在
-if [ ! -d "${SOURCE_DIR}" ]; then
-    echo "错误：${SOURCE_DIR}目录不存在"
-    exit 1
-fi
-
 # 运行构建命令
 echo "正在构建项目..."
 cd ${SOURCE_DIR}
@@ -194,6 +188,12 @@ fi
 echo "构建成功，开始打包..."
 cd ..
 
+# 检查skybox-desktop目录是否存在
+if [ ! -d "${SOURCE_DIR}" ]; then
+    echo "错误：${SOURCE_DIR}目录不存在"
+    exit 1
+fi
+
 # 创建压缩包
 echo "正在创建压缩包 ${ZIP_NAME}..."
 zip -r "${ZIP_NAME}" ${SOURCE_DIR}/
@@ -205,5 +205,11 @@ else
     echo "压缩包创建失败"
     exit 1
 fi
+```
+
+如果压缩的时候不需要目录本身，则只需改成
+
+```sh
+(cd ${SOURCE_DIR} && zip -r "../${ZIP_NAME}" .)
 ```
 

@@ -84,7 +84,46 @@ https://www.typescriptlang.org/tsconfig
    }
    ```
 
-   
+
+
+
+## types
+
+`types` 选项用于**指定 TypeScript 需要包含的类型包**。它的作用是告诉编译器**只加载指定的类型定义文件**，而忽略未列出的全局类型。
+
+任何没有显式列出的 `@types/*` 包的类型（如 `@types/react`），**都不会被自动包含**。
+
+
+
+## typeRoots
+
+`typeRoots` 选项用于**指定 TypeScript 应该在哪些目录下查找类型声明文件**。它的作用是控制**类型搜索路径**，即 TypeScript **会自动加载这些目录下的所有 `.d.ts` 文件**。
+
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["./custom-types", "./node_modules/@types"]
+  }
+}
+```
+
+**作用**：
+
+- TypeScript **只会从 `custom-types` 和 `node_modules/@types` 目录**加载类型声明文件，而不会自动加载 `node_modules/@types` 以外的 `.d.ts`。
+- 可以用于管理自己的 `d.ts` 类型文件，而不受 `node_modules/@types` 的干扰。
+
+
+
+### **如果两者同时使用**
+
+如果你同时设置了 `typeRoots` 和 `types`，它们的行为是：
+
+- `typeRoots` **决定** TypeScript 从哪些目录查找类型声明文件。
+- `types` **决定** 仅加载 `node_modules/@types/` 下的哪些包。
+
+### 
+
+
 
 
 

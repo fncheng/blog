@@ -62,7 +62,7 @@ Property 'value' does not exist on type 'EventTarget'.
 
 
 
-## 声明合并（Module Augmentation）
+## 声明扩展（Module Augmentation）
 
 假设 Some 来自某个库或其他模块
 
@@ -84,6 +84,12 @@ declare module '@/router/utils.ts' {
 ```
 
 这个时候Some就拥有了value属性
+
+⚠️需要注意的是：
+
+**`interface` 可以被 `declare module` 扩展**（接口合并）
+
+**`type` 不能被 `declare module` 扩展**（类型别名无法合并）
 
 
 

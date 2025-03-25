@@ -1,0 +1,110 @@
+---
+title: TanstackQuery使用
+---
+
+
+
+`TanStack Query`（以前称为 `React Query`）是一个用于数据获取、缓存和同步的库，主要用于 React 和 Vue（称为 `@tanstack/vue-query`）。它可以帮助管理服务器状态，并优化数据获取的体验。
+
+- **数据缓存**：自动缓存请求结果，减少不必要的请求。
+- **自动重试**：网络错误时会自动重试请求。
+
+https://tanstack.com/query/v5/docs/framework/react/quick-start
+
+
+
+默认情况下，`TanStack Query` 会在**页面重新聚焦**时重新获取数据：
+
+```ts
+useQuery({
+  queryKey: ['posts'],
+  queryFn: fetchPosts,
+  refetchOnWindowFocus: true, // 默认就是 true
+});
+```
+
+```ts
+const { data, error, isLoading } = useQuery({
+  queryKey: ['posts', userId],
+  queryFn: fetchPosts,
+  staleTime: 1000 * 60 * 5,  // 数据在 5 分钟内不会重新请求
+  cacheTime: 1000 * 60 * 10, // 数据在 10 分钟后会被清除
+  refetchOnWindowFocus: true,
+  refetchInterval: 5000,  // 每 5 秒重新请求数据
+  onError: (error) => {
+    console.error('请求失败:', error);
+  },
+  onSuccess: (data) => {
+    console.log('数据获取成功:', data);
+  },
+});
+```
+
+## 封装自定义 Query Hooks
+
+```ts
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+
+const fetchUser = async (userId) => {
+  const { data } = await axios.get(`/api/users/${userId}`);
+  return data;
+};
+
+export const useUserQuery = (userId) => {
+  return useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+    enabled: !!userId, // 仅在 userId 存在时执行查询
+    staleTime: 5 * 60 * 1000, // 数据 5 分钟后变“陈旧”
+  });
+};
+```
+
+
+
+## 乐观更新
+
+乐观更新是指在服务器响应之前，先假设操作成功并更新 UI。useMutation 配合 queryClient 可以实现这一点。
+
+**场景**：用户点赞一篇帖子，立即更新点赞数，而不是等待服务器返回。
+
+```tsx
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+function LikeButton({ postId }) {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (newLike) => api.postLike(postId, newLike),
+    onMutate: async (newLike) => {
+      // 在 mutation 执行前取消旧查询，避免冲突
+      await queryClient.cancelQueries(['post', postId]);
+      // 获取旧数据
+      const previousPost = queryClient.getQueryData(['post', postId]);
+      // 乐观更新
+      queryClient.setQueryData(['post', postId], (old) => ({
+        ...old,
+        likes: old.likes + 1,
+      }));
+      // 返回旧数据，以便回滚
+      return { previousPost };
+    },
+    onError: (err, newLike, context) => {
+      // 如果出错，回滚到旧数据
+      queryClient.setQueryData(['post', postId], context.previousPost);
+    },
+    onSettled: () => {
+      // 不管成功或失败，重新获取最新数据
+      queryClient.invalidateQueries(['post', postId]);
+    },
+  });
+
+  return (
+    <button onClick={() => mutation.mutate({ liked: true })}>
+      Like ({queryClient.getQueryData(['post', postId])?.likes || 0})
+    </button>
+  );
+}
+```
+
