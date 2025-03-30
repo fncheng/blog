@@ -293,3 +293,40 @@ router.get('/events', async (req, res) => {
 ## 使用@microsoft/fetch-event-source
 
 https://github.com/Azure/fetch-event-source
+
+安装
+
+```sh
+pnpm add @microsoft/fetch-event-source
+```
+
+使用
+
+```ts
+import { fetchEventSource } from '@microsoft/fetch-event-source'
+
+const ctrl = new AbortController()
+const signal = ctrl.signal
+fetchEventSource('/proxyApi/events', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        foo: 'bar'
+    }),
+    signal,
+    onmessage: (e) => {
+        console.log('Message from server:', e.data)
+        // content.value += `${e.data}\n\n`
+        const message = e.data
+        if (message === '[DONE]') {
+            ctrl.abort()
+        }
+        displayMessageWithEffect(message)
+    }
+})
+const dispose = () => ctrl.abort()
+return dispose
+```
+

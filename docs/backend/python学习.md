@@ -136,7 +136,7 @@ project/
 python -m venv venv_name
 
 # 激活虚拟环境（Linux/Macos）
-source .venv/bin/activate
+source venv_name/bin/activate
 ```
 
 

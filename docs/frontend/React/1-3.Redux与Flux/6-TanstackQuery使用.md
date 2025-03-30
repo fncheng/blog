@@ -40,6 +40,12 @@ const { data, error, isLoading } = useQuery({
 });
 ```
 
+### queryKey带参数
+
+`queryKey: ['user', userId]`
+
+
+
 ## 封装自定义 Query Hooks
 
 ```ts
@@ -105,6 +111,117 @@ function LikeButton({ postId }) {
       Like ({queryClient.getQueryData(['post', postId])?.likes || 0})
     </button>
   );
+}
+```
+
+## 分页查询
+
+原本的分页查询逻辑
+
+```tsx
+import { fetchComments } from './api'
+import { useEffect, useState } from 'react'
+
+export default function () {
+    const [pageNum, setPageNum] = useState(1)
+    const [data, setData] = useState<any[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState(false)
+
+    const getData = async () => {
+        setIsLoading(true)
+        try {
+            let res = await fetchComments({ postId: pageNum })
+            setData(res)
+        } catch (error) {
+            console.error(error)
+            setError(true)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+    useEffect(() => {
+        getData()
+    }, [pageNum])
+
+    console.log('render')
+
+    if (isLoading) return <p>Loading...</p>
+    if (error) return <p>Error loading posts</p>
+
+    return (
+        <div>
+            <ul>{data?.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
+            <button onClick={() => setPageNum(pageNum + 1)}>{pageNum}</button>
+        </div>
+    )
+}
+```
+
+使用useQuery后
+
+```tsx
+import { useQuery } from '@tanstack/react-query'
+import { fetchComments } from './api'
+import { useState } from 'react'
+
+export default function () {
+    const [pageNum, setPageNum] = useState(1)
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['users', pageNum],
+        queryFn: () => fetchComments({ postId: pageNum })
+        // staleTime: 1000 * 60 * 5 // 5 分钟内不重新请求
+    })
+
+    console.log('render')
+
+    if (isLoading) return <p>Loading...</p>
+    if (error) return <p>Error loading posts</p>
+
+    return (
+        <div>
+            <ul>{data?.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
+            <button onClick={() => setPageNum(pageNum + 1)}>{pageNum}</button>
+        </div>
+    )
+}
+```
+
+### 使用useInfiniteQuery无限滚动
+
+```tsx
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { fetchComments } from './api'
+
+export default function () {
+    const { data, error, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, isPending } = useInfiniteQuery({
+        queryKey: ['users', 'infinite'],
+        queryFn: ({ pageParam }) => fetchComments({ postId: pageParam }),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => lastPage.postId + 1,
+        staleTime: 1000 * 60 * 3 // 5 分钟内不重新请求
+    })
+    console.log('data: ', data)
+
+    console.log('render')
+
+    if (isPending) return <div>加载中...</div>
+    if (isLoading) return <p>Loading...</p>
+    if (error) return <p>Error loading posts</p>
+
+    return (
+        <div>
+            <ul>
+                {data.pages.map((page) => {
+                    return page.data.map((item) => <li key={item.id}>{item.name}</li>)
+                })}
+            </ul>
+            <span>{hasNextPage}</span>
+            <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+                {isFetchingNextPage ? '加载中...' : '加载更多'}
+            </button>
+        </div>
+    )
 }
 ```
 

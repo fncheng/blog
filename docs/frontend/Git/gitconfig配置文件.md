@@ -54,3 +54,13 @@ git config --global user.name "xxxx"
 	email = some@play.com
 	name = Alex
 ```
+
+
+
+## 设置单个仓库的用户和邮箱
+
+```sh
+git config --local user.name "你的用户名"
+git config --local user.email "你的邮箱"
+```
+

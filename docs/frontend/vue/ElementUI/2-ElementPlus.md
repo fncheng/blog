@@ -208,8 +208,13 @@ export default defineConfig({
 })
 ```
 
+## ElSelect
 
+限制展示的tag数量
+
+需要同时设置 collapse-tags 和 max-collapse-tags 属性
 
 ## ElOption的value属性绑定对象
 
 当ElOption 的 :value 绑定的是对象时，需要设置value-key（一般是id） 作为唯一标识字段
+
