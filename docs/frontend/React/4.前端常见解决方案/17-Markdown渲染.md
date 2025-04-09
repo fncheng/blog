@@ -98,6 +98,25 @@ import createKatexPlugin from "@kangc/v-md-editor/lib/plugins/katex/npm"
 VMdPreview.use(createKatexPlugin())
 ```
 
+## 关于v-md-editor中数学公式渲染不出来的问题
+
+v-md-editor不能识别 `\[...\]` 和 `\(...\)` 语法
+
+解决办法是不要使用v-md-editor自带的katex插件，改成使用自安装的katex
+
+即v-md-editor组件不要执行`VMdPreview.use(createKatexPlugin())`
+
+最终传入的content需要执行以下代码
+
+```ts
+const renderContent = computed(() => {
+    let processed = renderBlockMath(content)
+    processed = renderInlineMath(processed)
+    // Then process markdown
+    return processed
+})
+```
+
 
 
 ## 富文本编辑器ckeditor
@@ -109,3 +128,4 @@ pnpm add @ckeditor/ckeditor5-vue
 ```
 
 `@ckeditor/ckeditor5-build-classic` 是 **CKEditor 官方预构建的 Classic 版本**，它已经包含了一些基础插件和配置，适用于大多数富文本编辑场景。
+

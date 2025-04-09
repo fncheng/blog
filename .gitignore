@@ -1,6 +1,11 @@
 node_modules/
 dist/
 img/
+docs/常用技巧/
+docs/游戏/
+docs/服务器/
+docs/搞机折腾/
+docs/购物/
 
 # file
 # *.png

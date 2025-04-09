@@ -162,3 +162,9 @@ md.renderer.rules.math_block = blockRenderer;
 - bMarks: 每行开始位置的数组
 - eMarks: 每行结束位置的数组
 - tShift：每行的缩进量，用于确定当前行的实际内容起始位置
+
+
+
+## markdown-it-katex
+
+markdown-it-katex已经很久不维护了，如需使用还请使用@vscode/markdown-it-katex

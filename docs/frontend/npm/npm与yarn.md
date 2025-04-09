@@ -308,6 +308,12 @@ Manage your store:
       store status         Checks for modified packages in the store
 ```
 
+### pnpm安装目录
+
+使用brew安装的pnpm所在目录为**/opt/homebrew/Cellar/pnpm/**
+
+不要执行pnpm self-update命令，这样会在~/Library/pnpm/.tools/目录下安装一个新的pnpm
+
 
 
 

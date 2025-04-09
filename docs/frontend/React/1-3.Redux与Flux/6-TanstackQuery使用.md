@@ -225,3 +225,21 @@ export default function () {
 }
 ```
 
+
+
+## 自动取消请求
+
+TanStack Query支持自动取消请求，前提是你给接口请求传递了一个AbortSignal实例。当查询变得过时或不活跃时（比如组件卸载），这个 signal 会被中止。
+
+```tsx
+const { data, error, isLoading } = useQuery({
+        queryKey: ['posts'],
+        queryFn: ({ signal }) => fetchPosts({ signal })
+    })
+
+export const fetchPosts = async ({ signal }: { signal: AbortSignal }) => {
+    const { data }: { data: PostItem[] } = await axios.get('https://jsonplaceholder.typicode.com/posts', { signal })
+    return data
+}
+```
+
