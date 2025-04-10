@@ -8,6 +8,8 @@ title: 虚拟列表方案
 
 https://codesandbox.io/p/devbox/vue-virtual-scroller-tfjnjl
 
+https://vue-virtual-scroller-demo.netlify.app/
+
 ```sh
 npm i vue-virtual-scroller@next
 pnpm add vue-virtual-scroller@next
@@ -180,3 +182,6 @@ vue-virtual-scroller使用了transform来更新可见区域数据
    - **`transform` 优势：** `transform` 在现代浏览器中有很好的兼容性，但在一些老版本浏览器可能存在兼容性问题。
    - **默认更新优势：** 默认的更新可见区域数据通常具有较好的兼容性，适用于更广泛的浏览器。
 
+
+
+## TypeScript支持
