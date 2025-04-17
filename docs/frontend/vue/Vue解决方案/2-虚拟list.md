@@ -185,3 +185,23 @@ vue-virtual-scroller使用了transform来更新可见区域数据
 
 
 ## TypeScript支持
+
+```ts
+declare module 'vue-virtual-scroller' {
+    import type { DefineComponent } from 'vue'
+    export const RecycleScroller: DefineComponent<{
+        items: Array<any>
+        itemSize?: number
+        minItemSize?: number
+        keyField?: string
+    }>
+
+    export const DynamicScroller: DefineComponent<{
+        items: Array<any>
+        itemSize: number
+    }>
+
+    export const DynamicScrollerItem: DefineComponent<{}>
+}
+```
+

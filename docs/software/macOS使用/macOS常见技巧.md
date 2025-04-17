@@ -110,3 +110,9 @@ $ pkgutil --files PKGID
 ## workflow工作流程
 
 workflow文件保存在/Users/cheng/Library/Services/目录下
+
+
+
+### macos下VSCode插件安装目录
+
+~/.vscode/extensions/

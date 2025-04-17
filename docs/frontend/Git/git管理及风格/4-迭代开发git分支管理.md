@@ -30,6 +30,20 @@ https://juejin.cn/post/6844904069652299784
 
 稳定版本代码分支，不能在此分支直接修改代码， 只接受 hotfix、release 分支的代码合并，每次从 release/hotfix 分支合并必须打版本号 tag，以方便后续的代码追溯。该分支上部署自动化测试脚本，在每次代码提交至该分支后都会触发测试，以此保证主分支核心功能的稳定。
 
+## 分支命名规范建议
+
+- **`feature/xxx`**：新功能开发。
+
+- **`bugfix/xxx`**：非紧急的 bug 修复。
+
+- **`hotfix/xxx`**：紧急 bug 修复。
+
+- **`release/xxx`**：准备发布的版本。
+
+- **`experiment/xxx`**：实验性功能。
+
+
+
 
 
 ## Trunk Based Development 主干开发模型

@@ -2,7 +2,7 @@
 title: TanstackQuery使用
 ---
 
-
+## TanstackQuery使用
 
 `TanStack Query`（以前称为 `React Query`）是一个用于数据获取、缓存和同步的库，主要用于 React 和 Vue（称为 `@tanstack/vue-query`）。它可以帮助管理服务器状态，并优化数据获取的体验。
 
@@ -243,3 +243,42 @@ export const fetchPosts = async ({ signal }: { signal: AbortSignal }) => {
 }
 ```
 
+
+
+
+
+## queryClient.fetchQuery和useQuery的区别
+
+1.queryClient.fetchQuery
+
+```ts
+const qc = new QueryClient()
+const number = qc.fetchQuery({
+  queryKey: ['number'],
+  queryFn: ({ signal }) => useNumber(signal),
+})
+```
+
+**特点：**
+
+- `number` 是一个 `Promise<T>`。
+- 会**立即执行请求**（同步发起），无响应式绑定。
+- **不会触发组件重新渲染**。
+- 可以手动放在逻辑流程中使用，比如在 `beforeEnter`、`async setup`、或某个封装函数中使用。
+- 适合 “**我现在就要请求数据，然后把结果传出去**” 的场景。
+
+2.useQuery
+
+```ts
+const { data: number } = useQuery({
+  queryKey: ['number'],
+  queryFn: ({ signal }) => useNumber(signal),
+})
+```
+
+**特点：**
+
+- `number` 是一个 `ref<T | undefined>`，**响应式**。
+- 适合用于组件中，用来绑定模板显示。
+- 会在组件加载时自动请求（除非 `enabled: false`）。
+- 自带 loading/error 状态、缓存、自动重新请求等。

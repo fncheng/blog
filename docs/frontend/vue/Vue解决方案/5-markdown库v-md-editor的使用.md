@@ -1,4 +1,4 @@
-## v-md-editor
+## @kangc/v-md-editor
 
 使用
 
@@ -20,20 +20,9 @@ import parserNpm from './parser-npm';
 export default creator(parserNpm);
 ```
 
-当我们引入npm.js时，实际上引入的是creator(parserNpm)的返回值
+我们再来看creator的代码
 
-```js
-import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm'
-
-VMdEditor.use(vuepressTheme)
-VMdEditor.use(createKatexPlugin())
-/* createKatexPlugin 就是creator(parserNpm)
-createKatexPlugin() 说明creator(parserNpm)返回的是一个函数
- 
- 
-*/
-
-// creator是一个函数,这个函数返回一个createKatexPlugin函数
+```ts
 export default function (parser) {
   return function createKatexPlugin(katexOptions) {
     return {
@@ -43,8 +32,101 @@ export default function (parser) {
     };
   };
 }
-// 而parserNpm 则是parserCreator(katex)
+```
 
+1. creator函数是一个高阶函数，接收一个参数parser
+
+- 参数parser，通常由parser-npm.js 提供，它负责扩展 Markdown 解析器以支持 KaTeX。
+
+- 返回一个函数createKatexPlugin
+
+   该函数接受一个katexOptions参数，用于传递KaTeX相关的配置选项。
+
+2. createKatexPlugin函数返回一个包含install方法的对象：
+
+- 这个对象是一个Vue插件，内部定义了一个install方法。
+
+- install方法接受一个VMdEditor参数，表示Markdown编辑器实例。
+
+- 在install方法中，调用VMdEditor.vMdParser.use方法，传入先前的parser和katexOptions，将KaTeX解析功能添加到Markdown解析器中。
+
+
+
+再来看parser-npm.js的代码
+
+```ts
+import parserCreator from './parser-creator';
+import katex from 'katex';
+
+export default parserCreator(katex);
+```
+
+- parserCreator接收katex作为参数
+
+**综上可知，引入的parserNum就是parserCreator(katex)函数返回的结果，而parser-creator返回一个parser函数**
+
+将parser函数作为参数，传递给creator函数
+
+也就是说最终得到的createKatexPlugin函数，已经绑定了parser函数
+
+
+
+整个过程的执行流程如下：
+
+```txt
+用户代码
+  ↓
+VMdEditor.use(createKatexPlugin())
+  ↓
+createKatexPlugin(katexOptions) → 返回 { install }
+  ↓
+install(VMdEditor)
+  ↓
+VMdEditor.vMdParser.use(parser, katexOptions)
+  ↓
+parser(vMdParser, katexOptions)
+  ↓
+vMdParser.extendMarkdown((mdParser) => ...)
+  ↓
+mdParser.use(markdownItKatex, { ...katexOptions, katex })
+  ↓
+markdown-it 支持 KaTeX，公式渲染成功
+```
+
+
+
+
+
+parser-creator的代码
+
+```ts
+import markdownItKatex from '@/utils/markdown-it-katex';
+export default function parserCreator(katex) {
+  return function parser(vMdParser, katexOptions) {
+    vMdParser.extendMarkdown((mdParser) => {
+      if (katex) {
+        mdParser.use(markdownItKatex, {
+          ...katexOptions,
+          katex,
+        });
+      }
+    });
+  };
+}
+```
+
+- parserCreator是一个高阶函数，接收katex作为参数，返回另一个函数
+
+
+
+
+
+当我们引入npm.js时，实际上引入的是creator(parserNpm)的返回值
+
+```js
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm'
+
+// 而parserNpm 则是parserCreator(katex)
 // parserCreator也是一个函数，返回一个parser函数
 // parserCreator 返回一个能使用 markdownItKatex 插件的解析器函数
 // 当编辑器初始化时，这个解析器函数会被调用
@@ -63,9 +145,33 @@ export default function parserCreator(katex) {
 // 所以creator(parserNpm) 就是createKatexPlugin(parser)
 ```
 
+**1.export default function parserCreator(katex)**
 
+这是一个高阶函数，接受一个参数 katex。
 
+**参数 katex**：这里传入的是 KaTeX 库的实例（通常是从 import katex from 'katex' 导入的）。
 
+**返回**：parserCreator 返回另一个函数（parser），这使得 parserCreator 成为一个函数工厂（Function Factory），用于生成定制化的解析器函数。
+
+**为什么用高阶函数？**
+
+- 高阶函数允许将 katex（KaTeX 实例）“绑定”到返回的 parser 函数中，形成闭包（Closure）。这样，parser 函数可以在后续调用时访问 katex，而无需重复传递。
+- 这种设计提高了代码的模块化和可复用性，允许在不同上下文中生成不同的解析器。
+
+---
+
+**2.return function parser(vMdParser, katexOptions)**
+
+再来分析返回的parser函数，有两个参数
+
+- **vMdParser**：@kangc/v-md-editor 提供的解析器实例。它是一个对象，包含 extendMarkdown 方法，用于扩展底层的 Markdown 解析器。
+- **katexOptions**：一个可选的对象，包含 KaTeX 的配置选项，例如 { throwOnError: false, errorColor: '#cc0000' }。
+
+**返回**：parser 函数本身不直接返回值，而是通过调用 vMdParser.extendMarkdown 修改 vMdParser 的行为。
+
+---
+
+**3. vMdParser.extendMarkdown((mdParser) => {...})**
 
 
 
