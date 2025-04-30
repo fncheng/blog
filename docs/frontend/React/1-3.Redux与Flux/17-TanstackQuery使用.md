@@ -267,6 +267,15 @@ const number = qc.fetchQuery({
 - 可以手动放在逻辑流程中使用，比如在 `beforeEnter`、`async setup`、或某个封装函数中使用。
 - 适合 “**我现在就要请求数据，然后把结果传出去**” 的场景。
 
+**适用场景**
+
+在组件外使用、需要用 Promise 的地方，例如：
+
+- `router.beforeEnter`
+- `setup()` 外部的初始化
+- 需要预拉取数据（SSG/SSR）
+- 想手动等待数据加载完成
+
 2.useQuery
 
 ```ts

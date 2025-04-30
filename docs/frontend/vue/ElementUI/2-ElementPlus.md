@@ -6,6 +6,10 @@
 
 model、rule、prop三者缺一不可
 
+model：必须是一个ref或reactive响应式对象
+
+rules的类型：`Arrayable<FormItemRule>`
+
 ```vue
 <script setup lang="ts">
   // ...
@@ -63,6 +67,27 @@ const tableRef = ref<InstanceType<typeof ElTable>>();
       ref="tableRef"
 />
 ```
+
+
+
+如果表单是通过provide传入的全局变量，model可以直接使用
+
+```vue
+const formContext = useFormContext()
+
+<ElForm :model="formContext">
+    <ElFormItem
+                prop="name"
+                :rules="[{ required: true, message: '请输入姓名', trigger: ['blur', 'change'] }]"
+                >
+        <ElInput v-model:model-value="formContext.name"></ElInput>
+    </ElFormItem>
+</ElForm>
+```
+
+
+
+
 
 
 

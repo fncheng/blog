@@ -51,3 +51,19 @@ Vscode @builtin 插件 目录：
 
 ### VScode emmet
 
+
+
+## VSCode插件vsix下载
+
+手动构造
+
+```
+https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{publisher}/vsextensions/{extension}/{version}/vspackage
+```
+
+以Vue-Offical为例：
+
+```
+https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Vue/vsextensions/volar/2.2.10/vspackage
+```
+

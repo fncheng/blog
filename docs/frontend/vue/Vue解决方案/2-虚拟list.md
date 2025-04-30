@@ -205,3 +205,32 @@ declare module 'vue-virtual-scroller' {
 }
 ```
 
+
+
+## items更新后视图没刷新的问题
+
+源码中关于items数据的更新逻辑：
+
+watch监听items，然后触发updateVisibleItems
+
+```vue
+watch: {
+    items () {
+      this.updateVisibleItems(true)
+    },
+}
+```
+
+
+
+```ts
+watch: {
+    items: {
+      handler() {
+        this.updateVisibleItems(true);
+      },
+      deep: true,
+    },
+}
+```
+

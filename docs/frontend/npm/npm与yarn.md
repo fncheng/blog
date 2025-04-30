@@ -26,6 +26,14 @@ yarn add [package]
 pnpm add [package]
 ```
 
+### 从指定源下载
+
+```sh
+pnpm add axios --registry=https://registry.npmmirror.com
+```
+
+
+
 
 
 ***yarn add package*-name@tag 安装具体的“tag” (比如， beta 、 next 或者 *latest* )。**
@@ -64,6 +72,18 @@ package.json 文件的 devDependencies字段：
 npm update --global                  	yarn global upgrade
 																			yarn upgrade
 ```
+
+### peerDependencies
+
+什么是peerDependencies，有什么用？
+
+peerDependencies 是 npm（或 yarn/pnpm）里 package.json 文件中的一个字段，
+意思是：“我的包需要宿主项目（或者使用我的人）也安装某个依赖，而且版本要满足我的要求”。
+
+简单来说：
+自己不直接安装，而是要求用我这个包的人，必须在他的项目里也安装，并且版本要合适。
+
+
 
 ## npm安装包-npm install
 
