@@ -1,3 +1,5 @@
+## 页面滚动导致getBoundingClientRect问题
+
 页面滚动到底部，再跳转至一个新的页面，新的页面会使用getBoundingClientRect计算元素的top值，但是发现计算出来的top值居然是负值，而且是个很大的数字
 
 问了gpt，说是原因可能如下：

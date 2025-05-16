@@ -42,3 +42,26 @@ margin-inline用于设置水平方向的margin值
 ## inset属性
 
 `inset` 是一个 CSS 属性，它是 `top`、`right`、`bottom` 和 `left` 属性的简写属性
+
+
+
+## CSS原生语法现已支持嵌套
+
+与SCSS的区别
+
+&符号的含义不同
+
+在SCSS中：
+
+- &表示当前选择器本身
+- 可以拼接到任何位置
+
+```scss
+.button {
+  &-primary {
+    color: blue;
+  }
+}
+```
+
+而在原生CSS中，`&-primary` 是不支持的，CSS 不允许选择器中直接拼接

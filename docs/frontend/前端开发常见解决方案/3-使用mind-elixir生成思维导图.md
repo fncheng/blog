@@ -2,6 +2,8 @@
 
 文档：https://docs.mind-elixir.com/zh-Hans/docs/getting-started/quick-start
 
+Github：https://github.com/ssshooter/mind-elixir-core
+
 ```ts
 import MindElixir, { E } from 'mind-elixir';
 
@@ -117,6 +119,51 @@ new MindElixir({
 ## 居中展示
 
 `mind.toCenter()`
+
+### 实现画布居中
+
+```ts
+const toCenter = () => {
+  mind.toCenter()
+  const mainNode = mind.map.querySelector('.main-node-container') as HTMLElement
+  if (mainNode) {
+    mainNode.style.transform = 'translateX(-25%)'
+  }
+}
+```
+
+自适应缩放并居中显示
+
+```ts
+const toCenter = () => {
+  mind.toCenter()
+  const mainNode = mind.map.querySelector('.main-node-container') as HTMLElement
+  const containerNode = mindmapContainer.value
+  if (mainNode && containerNode) {
+    const padding = 40
+
+    const scaleToWidth = containerNode.clientWidth - padding // 需要缩放至的数值
+    const scaleToHeight = containerNode.clientHeight - padding
+
+    const originalWidth = mainNode.clientWidth // 原始宽度
+    const originalHeight = mainNode.clientHeight
+
+    const scaleX = scaleToWidth / originalWidth // 需要缩放的比例
+    const scaleY = scaleToHeight / originalHeight
+
+    const scale = Math.min(scaleX, scaleY, 1) // 计算需要缩放的比例，不超过1
+    mind.scale(scale)
+    // 设置居中
+    mainNode.style.left = '50%'
+    mainNode.style.top = '50%'
+    mainNode.style.transform = `translate(-50%, -50%)`
+  }
+}
+```
+
+
+
+
 
 ## 自定义toolbar
 
