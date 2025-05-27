@@ -57,6 +57,52 @@ const submitForm = () => {
 </template>
 ```
 
+### 表单校验配合Promise使用
+
+```ts
+const isValid = await formRef.value?.validate()
+if (isValid) {
+  console.log('✅ 表单通过验证')
+} else {
+  console.log('❌ 表单未通过验证')
+}
+```
+
+
+
+❌ 这种写法会让 `validate()` 不再返回 Promise：
+
+```ts
+formRef.value?.validate((valid) => {
+  // ❌ 此时不能再用 await 或 Promise.all
+})
+```
+
+要么就自己封装
+
+```ts
+const validate = () => {
+  return new Promise<boolean>((resolve, reject) => {
+    formRef.value?.validate((valid: boolean, invalidFields) => {
+      console.log('invalidFields: ', invalidFields)
+      if (valid) {
+        resolve(true)
+      } else {
+        reject(invalidFields)
+      }
+    })
+  })
+}
+```
+
+如果使用第一种方法，有个缺点就是不能拿到callback中第二个参数invalidFields，即哪些字段没通过表单校验
+
+
+
+
+
+
+
 Table ref
 
 ```ts
@@ -193,6 +239,18 @@ const props: CascaderProps = {
 ```
 
 经验证，也支持异步多选及多选数据回显
+
+
+
+### 设置不必选中最后一级
+
+```ts
+checkStrictly: true
+```
+
+
+
+
 
 
 

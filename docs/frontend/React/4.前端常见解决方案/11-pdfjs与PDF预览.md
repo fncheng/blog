@@ -433,3 +433,16 @@ const downloadPdfFun = async () => {
 | ----------------------------- | ----------------------------------------- | ---------------------------------------- | -------- |
 | iframe.contentDocument        | 直接访问 iframe 内部的 document           | 现代浏览器支持，但部分旧版 IE 可能不支持 | ✅ 推荐   |
 | iframe.contentWindow.document | 先访问 iframe 的 window，再获取 dÏocument | 更通用，兼容所有浏览器                   | ✅ 可选   |
+
+
+
+## 触发pdfjs自带的搜索功能
+
+```ts
+const pdfViewerApp = iframeRef.value.contentWindow.PDFViewerApplication
+
+pdfViewerApp.findBar.open()
+pdfViewerApp.findBar.findField.value = 'admin';
+pdfViewerApp.findBar.dispatchEvent(new Event('input'));
+```
+
