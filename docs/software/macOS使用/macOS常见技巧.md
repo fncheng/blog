@@ -56,6 +56,8 @@ Command Shift 3 全屏截图
 
 ### macos自带录屏功能
 
+Command + Shift + 5
+
 
 
 ### macOS聚焦搜索高级搜索

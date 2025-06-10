@@ -394,6 +394,26 @@ git reset --hard 6cdb64a
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230610130640062.png" alt="image-20230610130640062" style="zoom:50%;" />
 
+### rebase保留原有提交时间
+
+使用rebase时默认情况下提交时间会变成reabse的时间，其实要保留原有的提交时间也是可以的
+
+```sh
+git rebase --committer-date-is-author-date main
+```
+
+这样，**提交时间会强制设为作者时间**
+
+git中有commit date和author date
+
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20250603152206479.png" alt="image-20250603152206479" style="zoom:50%;" />
+
+
+
+
+
+
+
 ## Revert
 
 ### 回退某个commit

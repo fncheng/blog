@@ -234,3 +234,6 @@ watch: {
 }
 ```
 
+但是这样可能会有性能问题，因为并不需要针对深层嵌套属性进行监控
+
+最好的办法还是在items更新后手动调用 updateVisibleItems(true) 
