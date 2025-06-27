@@ -194,11 +194,19 @@ function scheduleUpdate(char) {
 }
 ```
 
-#### 实现自定义打字机
+## 实现自定义打字机
+
+这个打字机用于将**纯文本**逐字符展示
 
 ```ts
 interface TypewriterOptions {
+    /**
+     * 每一帧输出多少个字符（一次“打”多少字）
+     */
     chunkSize?: number
+    /**
+     * 每一帧的时间间隔（ms），越小越快
+     */
     delay?: number
 }
 
@@ -248,7 +256,191 @@ export default Typewriter
 
 
 
+### Vue中的实现
 
+```ts
+interface TypeWriterOptions {
+    /**
+     * 每一帧输出多少个字符（一次“打”多少字）
+     */
+    chunkSize?: number
+    /**
+     * 每一帧的时间间隔（ms），越小越快
+     */
+    delay?: number
+    /**
+     * 每次更新的回调
+     */
+    onUpdate?: (currentText: string) => void
+}
+
+class TypeWriter {
+    private buffer: string[] = []
+    private chunkSize: number
+    private delay: number
+    private isRendering = false
+    private currentText = ''
+    private onUpdate?: (text: string) => void
+    constructor({ chunkSize = 2, delay = 80, onUpdate }: TypeWriterOptions = {}) {
+        this.chunkSize = chunkSize
+        this.delay = delay
+        this.onUpdate = onUpdate
+    }
+
+    addText(text: string) {
+        this.buffer.push(...text.split(''))
+        if (!this.isRendering) this.render()
+    }
+
+    async render(): Promise<void> {
+        this.isRendering = true
+        while (this.buffer.length > 0) {
+            const chunk = this.buffer.splice(0, this.chunkSize).join('')
+            this.currentText += chunk
+            this.onUpdate?.(this.currentText)
+            await new Promise((resolve) =>
+                requestAnimationFrame(() => setTimeout(resolve, this.delay))
+            )
+        }
+        this.isRendering = false
+    }
+
+    destory() {
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+    }
+}
+
+export default TypeWriter
+
+// 使用
+// const writer = new Typewriter(document.getElementById('output')!, { chunkSize: 10 })
+// writer.addText('Hello, World!')
+```
+
+requestAnimationFrame有个问题：不会在后台运行，也就是切换浏览器标签页后，文字不会继续输出，会被暂停！！！
+
+### 支持暂停和恢复
+
+```ts
+export interface TypeWriterOptions {
+    /**
+     * 每一帧输出多少个字符（一次“打”多少字）
+     */
+    chunkSize?: number
+    /**
+     * 每一帧的时间间隔（ms），越小越快
+     */
+    delay?: number
+    /**
+     * 每次更新的回调
+     */
+    onUpdate?: (currentText: string) => void
+    onFinished?: () => void
+}
+
+class TypeWriter {
+    private buffer: string[] = []
+    private chunkSize: number
+    private delay: number
+    private isRendering = false
+    private isPaused = false
+    private currentText = ''
+    private onUpdate?: (text: string) => void
+    private onFinished?: () => void
+    constructor({ chunkSize = 2, delay = 80, onUpdate, onFinished }: TypeWriterOptions = {}) {
+        this.chunkSize = chunkSize
+        this.delay = delay
+        this.onUpdate = onUpdate
+        this.onFinished = onFinished
+    }
+
+    addText(text: string) {
+        this.buffer.push(...text.split(''))
+        if (!this.isRendering) this.render()
+    }
+
+    async render(): Promise<void> {
+        this.isRendering = true
+        while (this.buffer.length > 0) {
+            if (this.isPaused) {
+                await new Promise((resolve) => setTimeout(resolve, 50))
+                continue
+            }
+            const chunk = this.buffer.splice(0, this.chunkSize).join('')
+            this.currentText += chunk
+            this.onUpdate?.(this.currentText)
+
+            await new Promise((resolve) => setTimeout(resolve, this.delay))
+        }
+        this.isRendering = false
+        if (!this.buffer.length) {
+            this.onFinished?.()
+        }
+    }
+
+    pause() {
+        this.isPaused = true
+    }
+
+    resume() {
+        if (this.isPaused) {
+            this.isPaused = false
+            if (!this.isRendering) this.render()
+        }
+    }
+
+    destory() {
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+    }
+}
+
+export default TypeWriter
+
+// 使用
+// const writer = new Typewriter(document.getElementById('output')!, { chunkSize: 10 })
+// writer.addText('Hello, World!')
+```
+
+关于render的优化
+
+另一种实现方式：递归 + `setTimeout` 的“回调式写法”
+
+```ts
+render() {
+    this.isRendering = true
+    const step = () => {
+        if (this.destroyed || this.buffer.length === 0) {
+            this.isRendering = false
+            if (!this.destroyed) this.onFinished?.()
+            return
+        }
+
+        if (this.isPaused) {
+            this.timer = setTimeout(step, 50)
+            return
+        }
+
+        const chunk = this.buffer.splice(0, this.chunkSize).join('')
+        this.currentText += chunk
+        this.onUpdate?.(this.currentText)
+        this.timer = setTimeout(step, this.delay)
+    }
+
+    step()
+}
+```
+
+setTimeout其实和requestAnimationFrame有同样的问题，切换标签页至后台时，setTimeout会有一个最小间隔限制（一般是1000ms）：`setTimeout(fn, delay)` 在非活动标签页中，`delay` 会被**强制提升到最小值**
+
+此时页面输出会变得很慢，所以此方案也不行。
+
+最佳解决方案：
+
+当标签切换至后台时，页面输出可以停止，但是文字仍然会推进缓存中，当切回来时，一次性输出缓存的页面数据
 
 
 
@@ -286,6 +478,39 @@ router.get('/events', async (req, res) => {
     res.end()
   })
 })
+```
+
+使用
+
+```ts
+const writerInstance = ref<TypeWriter | null>(null)
+let timeout = ref<number>()
+
+const initWriterInstance = () => {
+    writerInstance.value = new TypeWriter({
+        chunkSize: 2,
+        delay: 80,
+        onUpdate: (text) => {
+            content.value = text
+        }
+    })
+}
+
+const handleStartTypewriterDemo = () => {
+    if (writerInstance.value) {
+        writerInstance.value.destory()
+        clearTimeout(timeout.value)
+    }
+    writerInstance.value?.addText('你好，这是一个打字机的演示！\n你可以在任意时刻追加更多文本。')
+    timeout.value = setTimeout(() => {
+        writerInstance.value?.addText('\n这是追加的新内容！支持多段输入。')
+    }, 2000)
+}
+```
+
+### 封装成hooks
+
+```ts
 ```
 
 

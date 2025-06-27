@@ -82,6 +82,58 @@ const renderedContent = computed(() => {
 1. `/\\\[((.|\n)+?)\\\]/g` 这条正则用来匹配块级数学公式 `\` 和 `\]`语法
 1. `/\\\((.+?)\\\)/g` 这条正则用于匹配行内数学公式 `\(` 和 `)\`
 
+## 封装一个工具函数renderAllMath
+
+```ts
+export function renderAllMath(content: string) {
+    if (!content) return content
+    let processed = content
+    // 1. 渲染 $$...$$（块级）
+    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (match, formula) => {
+        try {
+            return katex.renderToString(formula, {
+                displayMode: true,
+                throwOnError: false
+            })
+        } catch (e) {
+            console.error('KaTeX $$...$$ Error:', e)
+            return match
+        }
+    })
+    // 2. 渲染 \[...\]（MathJax 块级风格）
+    processed = processed.replace(/\\\[([\s\S]+?)\\\]/g, (match, formula) => {
+        try {
+            return katex.renderToString(formula, {
+                displayMode: true,
+                throwOnError: false
+            })
+        } catch (e) {
+            console.error('KaTeX \\[...\\] Error:', e)
+            return match
+        }
+    })
+    // 3. 渲染 \(...\)（行内公式）
+    processed = processed.replace(/\\\((.+?)\\\)/g, (match, formula) => {
+        try {
+            return katex.renderToString(formula, {
+                displayMode: false,
+                throwOnError: false
+            })
+        } catch (e) {
+            console.error('KaTeX \\(...\\) Error:', e)
+            return match
+        }
+    })
+    return processed
+}
+```
+
+说明：
+
+正则`/\\\[((.|\n)+?)\\\]/g`简化为`/\\\[([\s\S]+?)\\\]/g`
+
+- `[\s\S]` 能匹配任意字符（包括换行），比 `(.|\n)` 更常见
+
 
 
 
@@ -128,4 +180,35 @@ pnpm add @ckeditor/ckeditor5-vue
 ```
 
 `@ckeditor/ckeditor5-build-classic` 是 **CKEditor 官方预构建的 Classic 版本**，它已经包含了一些基础插件和配置，适用于大多数富文本编辑场景。
+
+
+
+```ts
+const renderContent = computed(() => {
+  const latexRegex = /\$\$(.*?)\$\$/g
+  let match
+  let replacedHtml = props.htmlStr
+  while ((match = latexRegex.exec(props.htmlStr)) !== null) {
+    const latexFormula = match[1]
+    const katexRendered = katex.renderToString(latexFormula, {
+      throwOnError: false
+    })
+    replacedHtml = replacedHtml.replace(match[0], katexRendered)
+  }
+  return replacedHtml
+})
+```
+
+修改成
+
+```ts
+const renderContent = computed(() => {
+  const latexRegex = /\$\$(.*?)\$\$/g;
+  return props.htmlStr.replace(latexRegex, (match, latexFormula) => {
+    return katex.renderToString(latexFormula, {
+      throwOnError: false
+    });
+  });
+});
+```
 

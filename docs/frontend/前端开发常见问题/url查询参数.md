@@ -1,4 +1,4 @@
-通过url获取查询参数
+## 通过url获取查询参数
 
 ```ts
 function parseQuery(search: string): Record<string, string> {

@@ -213,3 +213,58 @@ fi
 (cd ${SOURCE_DIR} && zip -r "../${ZIP_NAME}" .)
 ```
 
+
+
+## shell中单引号和双引号的区别
+
+单引号是完全原样输出，变量、命令不会被解析
+
+双引号允许变量替换
+
+## curl设置Cookie
+
+来看一段脚本
+
+```sh
+curl 'http://172.29.245.11:2230/skynet/api/v3/repo/files/ant-paas' \
+  -H 'Accept: application/json;charset=UTF-8' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' \
+  -H 'Origin: http://172.29.245.11:2230' \
+  -H 'Referer: http://172.29.245.11:2230/' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36' \
+  -b cookiejar.txt \
+  -F "files=@DXfront-Build-0616-1027.zip;type=application/zip"
+
+```
+
+`-F "files=@DXfront-Build-0616-1027.zip;type=application/zip"`：`@` 后跟的是文件路径，不需要 `${}`，除非你是 shell 脚本里动态拼接的变量，那也要先 `export` 或 `set`。
+
+
+
+
+
+使用curl设置Cookie有两种方式
+
+一种是curl -b 从文件中读取
+
+另一种是curl -H(--cookie) 字符串设置
+
+```sh
+curl -H "Cookie: $COOKIE" http://172.29.245.11:2230/skynet/api/v3/repo/files/ant-paas
+// 或
+curl --cookie "$COOKIE" http://172.29.245.11:2230/skynet/api/v3/repo/files/ant-paas
+```
+
+### -b 或 --cookie
+
+向服务器发送 Cookie，用法为从文件中读取cookie
+
+### -c 或 --cookie-jar
+
+将响应中的 `Set-Cookie` 写入文件
+
+当服务器响应头中包含Set-Cookie，curl 会将其保存到 `cookie.txt` 中（可配合后续请求使用）
+
+### -H 或 --header
+
+手动设置 HTTP 请求头
