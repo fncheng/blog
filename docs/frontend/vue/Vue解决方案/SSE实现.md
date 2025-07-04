@@ -442,6 +442,387 @@ setTimeout其实和requestAnimationFrame有同样的问题，切换标签页至�
 
 当标签切换至后台时，页面输出可以停止，但是文字仍然会推进缓存中，当切回来时，一次性输出缓存的页面数据
 
+```ts
+export interface TypeWriterOptions {
+    /**
+     * 每一帧输出多少个字符（一次“打”多少字）
+     */
+    chunkSize?: number
+    /**
+     * 每一帧的时间间隔（ms），越小越快
+     */
+    delay?: number
+    /**
+     * 每次更新的回调
+     */
+    onUpdate?: (currentText: string) => void
+    onFinished?: () => void
+}
+
+class TypeWriter {
+    private buffer: string[] = []
+    private chunkSize: number
+    private delay: number
+    private isRendering = false
+    private isPaused = false
+    private destroyed = false
+    private currentText = ''
+    private onUpdate?: (text: string) => void
+    private onFinished?: () => void
+    private animationFrameId: number | null = null
+    private timeoutId: number | null = null
+    constructor({ chunkSize = 2, delay = 80, onUpdate, onFinished }: TypeWriterOptions = {}) {
+        this.chunkSize = chunkSize
+        this.delay = delay
+        this.onUpdate = onUpdate
+        this.onFinished = onFinished
+        this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
+        document.addEventListener('visibilitychange', this.handleVisibilityChange)
+    }
+
+    private handleVisibilityChange() {
+        if (document.hidden) {
+            // Tab is hidden, process text without rendering to accumulate it
+            // No need to set isPaused, as render will handle it
+        } else {
+            // Tab is visible again, immediately update with current accumulated text
+            this.onUpdate?.(this.currentText)
+            // Resume rendering if it was paused or not finished
+            if (!this.isRendering && this.buffer.length > 0) {
+                this.render()
+            }
+        }
+    }
+
+    addText(text: string) {
+        this.buffer.push(...text.split(''))
+        if (!this.isRendering) this.render()
+    }
+
+    async render(): Promise<void> {
+        this.isRendering = true
+        while (!this.destroyed && this.buffer.length > 0) {
+            if (this.isPaused) {
+                await new Promise((resolve) => setTimeout(resolve, 50))
+                continue
+            }
+
+            const chunk = this.buffer.splice(0, this.chunkSize).join('')
+            this.currentText += chunk
+
+            if (!document.hidden) {
+                this.onUpdate?.(this.currentText)
+                await new Promise<void>((resolve) => {
+                    this.animationFrameId = requestAnimationFrame(() => {
+                        this.timeoutId = setTimeout(() => {
+                            this.animationFrameId = null
+                            this.timeoutId = null
+                            resolve()
+                        }, this.delay)
+                    })
+                })
+            } else {
+                // If hidden, just accumulate text, don't update UI or delay
+                // The onUpdate will be called when tab becomes visible again
+            }
+        }
+        this.isRendering = false
+        if (!this.buffer.length && !document.hidden) {
+            this.onFinished?.()
+        }
+    }
+
+    pause() {
+        this.isPaused = true
+    }
+
+    resume() {
+        if (this.isPaused) {
+            this.isPaused = false
+            if (!this.isRendering) this.render()
+        }
+    }
+
+    destroy() {
+        this.destroyed = true
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+        this.isPaused = false
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange)
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId)
+            this.animationFrameId = null
+        }
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId)
+            this.timeoutId = null
+        }
+    }
+
+    reset() {
+        this.destroyed = false
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+        this.isPaused = false
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId)
+            this.animationFrameId = null
+        }
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId)
+            this.timeoutId = null
+        }
+    }
+}
+
+export default TypeWriter
+```
+
+### 使用时间驱动
+
+```ts
+export interface TypeWriterOptions {
+    /**
+     * 每一帧输出多少个字符（一次“打”多少字）
+     */
+    chunkSize?: number
+    /**
+     * 每一帧的时间间隔（ms），越小越快
+     */
+    delay?: number
+    /**
+     * 页面不可见时是否跳过延时
+     * true = 页面隐藏时仍然触发 delay
+     * false = 页面隐藏时快速输出到缓冲
+     * 默认 false
+     */
+    respectVisibilityDelay?: boolean
+    /**
+     * 每次更新的回调
+     */
+    onUpdate?: (currentText: string) => void
+    onFinished?: () => void
+}
+
+/**
+ * 对外可读的打字机状态
+ */
+export interface TypeWriterState {
+    isRendering: boolean
+    isPaused: boolean
+    isDestroyed: boolean
+    currentText: string
+}
+
+class TypeWriter {
+    private buffer: string[] = []
+    private chunkSize: number
+    private delay: number
+    private respectVisibilityDelay: boolean
+    private isRendering = false
+    private isPaused = false
+    private destroyed = false
+    private currentText = ''
+    private onUpdate?: (text: string) => void
+    private onFinished?: () => void
+    private renderPromise: Promise<void> | null = null
+    private timeoutId: number | null = null
+
+    private startTime: number | null = null
+    private baseChars: number = 0
+    private lastVisibleTime: number | null = null
+
+    private visibilityHandler?: () => void
+    constructor({
+        chunkSize = 2,
+        delay = 80,
+        onUpdate,
+        onFinished,
+        respectVisibilityDelay = true
+    }: TypeWriterOptions = {}) {
+        if (chunkSize < 1 || !Number.isFinite(chunkSize)) {
+            throw new Error('chunkSize must be a positive integer')
+        }
+        if (delay < 0 || !Number.isFinite(delay)) {
+            throw new Error('delay must be a non-negative integer')
+        }
+        this.chunkSize = Math.floor(chunkSize)
+        this.delay = Math.floor(delay)
+        this.onUpdate = onUpdate
+        this.onFinished = onFinished
+        this.respectVisibilityDelay = respectVisibilityDelay
+
+        if (typeof document !== 'undefined') {
+            this.visibilityHandler = this.handleVisibilityChange.bind(this)
+            document.addEventListener('visibilitychange', this.visibilityHandler)
+        }
+    }
+
+    /**
+     * 页面可见性变化
+     */
+    private handleVisibilityChange() {
+        if (typeof document === 'undefined') return
+        if (!document.hidden) {
+            this.refreshCurrentText()
+            this.onUpdate?.(this.currentText)
+            if (!this.isRendering && this.buffer.length > 0) {
+                this.render()
+            }
+        }
+    }
+
+    addText(text: string) {
+        if (this.destroyed) return
+        if (!text) return
+        this.buffer.push(...text.split(''))
+        // 如果是第一次开始写，记录时间基线
+        if (!this.startTime) {
+            this.startTime = Date.now()
+            this.baseChars = this.currentText.length
+        }
+        if (!this.isRendering) this.render()
+    }
+
+    private async _doRender() {
+        this.isRendering = true
+        try {
+            while (!this.destroyed && this.buffer.length > 0) {
+                if (this.isPaused) {
+                    await this.delayFor(50)
+                    continue
+                }
+
+                if (!this.shouldRenderFrame()) {
+                    // 页面隐藏时啥都不做，不拼接，不耗时
+                    await this.delayFor(200)
+                    continue
+                }
+
+                // 页面可见时，实时推算应该显示到哪里
+                this.refreshCurrentText()
+                this.onUpdate?.(this.currentText)
+
+                await this.delayFor(this.delay)
+            }
+            if (!this.destroyed && this.buffer.length === 0 && this.shouldRenderFrame()) {
+                this.onFinished?.()
+            }
+        } finally {
+            this.isRendering = false
+            this.renderPromise = null
+        }
+    }
+    /**
+     * 根据当前时间推断应该显示到多少字符
+     */
+    private refreshCurrentText() {
+        if (!this.startTime) return
+        const now = Date.now()
+        const elapsed = now - this.startTime
+        const totalSteps = Math.floor(elapsed / this.delay)
+        const targetChars = this.baseChars + totalSteps * this.chunkSize
+
+        // 组装所有走到的文字
+        const fullText = this.currentText + this.buffer.join('')
+        this.currentText = fullText.slice(0, targetChars)
+
+        // 更新 buffer
+        const remaining = fullText.slice(targetChars)
+        this.buffer = remaining.split('')
+    }
+    /**
+     * 开始渲染
+     */
+    async render(): Promise<void> {
+        if (this.renderPromise || this.destroyed) return
+        this.renderPromise = this._doRender()
+        return this.renderPromise
+    }
+
+    pause() {
+        if (this.destroyed) return
+        this.isPaused = true
+    }
+
+    resume() {
+        if (this.destroyed) return
+        this.isPaused = false
+        if (!this.isRendering) this.render()
+    }
+
+    /**
+     * 销毁，彻底停止并清理
+     */
+    destroy() {
+        if (this.destroyed) return
+        this.destroyed = true
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+        this.isPaused = false
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId)
+            this.timeoutId = null
+        }
+        if (typeof document !== 'undefined' && this.visibilityHandler) {
+            document.removeEventListener('visibilitychange', this.visibilityHandler)
+        }
+    }
+
+    /**
+     * 重置到初始状态
+     */
+    reset() {
+        this.destroyed = false
+        this.buffer = []
+        this.currentText = ''
+        this.isRendering = false
+        this.isPaused = false
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId)
+            this.timeoutId = null
+        }
+        if (typeof document !== 'undefined' && this.visibilityHandler) {
+            document.removeEventListener('visibilitychange', this.visibilityHandler)
+            document.addEventListener('visibilitychange', this.visibilityHandler)
+        }
+    }
+
+    /**
+     * 外部可读取状态
+     */
+    getState(): TypeWriterState {
+        return {
+            isRendering: this.isRendering,
+            isPaused: this.isPaused,
+            isDestroyed: this.destroyed,
+            currentText: this.currentText
+        }
+    }
+
+    private delayFor(ms: number) {
+        return new Promise((resolve) => {
+            this.timeoutId = setTimeout(resolve, ms)
+        })
+    }
+    /**
+     * 判断是否在当前状态下应该做 UI 渲染
+     */
+    private shouldRenderFrame(): boolean {
+        if (typeof document === 'undefined') return true
+        if (!document.hidden) return true
+        return this.respectVisibilityDelay
+    }
+}
+
+export default TypeWriter
+```
+
+
+
 
 
 ## nodejs实现SSE
