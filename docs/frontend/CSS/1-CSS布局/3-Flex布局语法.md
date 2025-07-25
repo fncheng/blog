@@ -71,6 +71,14 @@ title: Flex布局
 }
 ```
 
+### align-items: stretch
+
+作用是让所有 flex 子元素在「交叉轴」方向上自动拉伸，填满父容器。
+
+
+
+
+
 #### align-content
 
 `align-content`属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。

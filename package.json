@@ -17,5 +17,8 @@
     "@vuepress/plugin-back-to-top": "^1.8.2",
     "@vuepress/types": "^1.9.9",
     "vuepress": "^1.9.9"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13"
   }
 }
