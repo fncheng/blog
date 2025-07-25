@@ -1,4 +1,4 @@
-name: Github Pages
+name: Deploy VuePress to GitHub Pages
 
 on:
   push:
@@ -6,35 +6,39 @@ on:
       - master
     paths:
       - '**'
-      
 jobs:
-  docs:
+  deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[build]')}}
+    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[build]') }}
 
     steps:
-      - name: Checkout
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # 可以根据您的VuePress版本调整Node.js版本
+          node-version: '16' # 根据你的 VuePress 版本调整
 
-      - name: Cache dependencies
+      - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
+          path: |
+            **/node_modules
+            ~/.yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: vuepress-deploy
-        uses: jenkey2011/vuepress-deploy@v1
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TARGET_REPO: fncheng/blog
-          TARGET_BRANCH: gh-pages
-          BUILD_SCRIPT: yarn && yarn docs:build
-          BUILD_DIR: docs/.vuepress/dist
-          # CNAME: https://www.xxx.com
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build VuePress site
+        run: yarn docs:build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vuepress/dist
+          publish_branch: gh-pages
