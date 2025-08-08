@@ -80,7 +80,7 @@ const list = ref(
 
 RecycleScroller组件的class 外部height必须得有，items和item-size属性也是必须的
 
-### DynamicScroller
+## DynamicScroller
 
 适用于 **每个列表项高度不固定** 的情况，它能 **动态计算每个项的高度**，从而提供更准确的虚拟滚动。
 
@@ -102,6 +102,54 @@ RecycleScroller组件的class 外部height必须得有，items和item-size属性
             </template>
         </DynamicScroller>
 ```
+
+出现文本重叠的情况
+
+设置 :active属性
+
+`DynamicScrollerItem` 的工作机制是：
+
+- 它会在 `:active="true"` 时，**真实挂载组件并测量高度**；
+- 如果是 `:active="false"`，则不会渲染 DOM 内容，仅保留数据结构；
+- `DynamicScroller` 会自动决定哪些项应该 active（可视区域内的项）；
+- 但如果你手动管理 `:active`（常用于自定义渲染策略），你必须保证：
+  - 可视区域内的项是 active 的；
+  - 否则不会测量或更新高度，就会导致错位或重叠。
+
+
+
+设置active后滚动变得更丝滑了，同时也不会出现快速滚动时页面内容空白的问题
+
+## 滚动到底部和顶部
+
+无论你用的是 `RecycleScroller` 还是 `DynamicScroller`，要**滚动到顶部或底部**，常见有两种方式：
+
+方法一：直接操作 DOM 的 `scrollTop` 属性
+
+```ts
+// 滚动到顶部
+scrollerRef.value?.$el.scrollTop = 0
+
+// 滚动到底部
+scrollerRef.value?.$el.scrollTop = scrollerRef.value?.$el.scrollHeight
+```
+
+方法二：使用 `scrollToItem(index)` 方法（推荐）
+
+```ts
+// 滚动到第 0 项（顶部）
+scrollerRef.value?.scrollToItem(0)
+
+// 滚动到最后一项（底部）
+scrollerRef.value?.scrollToItem(items.length - 1)
+```
+
+DynamicScroller组件第一次初始化时没滚动也会执行一遍scroll-end事件
+
+#### 1. **初始内容高度不足，容器不满**
+
+- `DynamicScroller` 会根据数据动态计算 item 高度。
+- 如果**初始数据量少，高度不足以撑满容器**，就会立即触发 `scroll-end`，提示你“我已经到底了”，可以加载更多数据。
 
 
 
@@ -204,6 +252,49 @@ declare module 'vue-virtual-scroller' {
     export const DynamicScrollerItem: DefineComponent<{}>
 }
 ```
+
+定义组件类型
+
+```ts
+export type RecycleScrollerType = DefineComponent<
+  RecycleScrollerProps,
+  {},
+  {},
+  {},
+  {},
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  RecycleScrollerEmits,
+  string,
+  VNodeProps & AllowedComponentProps & ComponentCustomProps,
+  Readonly<RecycleScrollerProps> & {
+    onResize?: (() => any) | undefined;
+    onVisible?: (() => any) | undefined;
+    onHidden?: (() => any) | undefined;
+    onUpdate?: ((startIndex: number, endIndex: number, visibleStartIndex: number, visibleEndIndex: number) => any) | undefined;
+    'onScroll-start'?: (() => any) | undefined;
+    'onScroll-end'?: (() => any) | undefined;
+  },
+  RecycleScrollerExpose
+>;
+```
+
+优化：使用 `DefineComponent` 的命名参数形式。从 Vue 3.3 起你可以这样写，使用对象来声明各部分
+
+```ts
+export type DynamicScrollerType = DefineComponent<{
+  props: DynamicScrollerProps
+  emits: RecycleScrollerEmits
+  expose: DynamicScrollerExpose
+  slots: SlotsType<DynamicScrollerSlots>
+}>
+```
+
+
+
+
+
+
 
 
 

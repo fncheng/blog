@@ -68,6 +68,8 @@ Random.name()
 
 ## Vite使用mockjs
 
+在vite中使用mockjs
+
 ```sh
 ```
 
@@ -137,5 +139,62 @@ export default [
     },
   },
 ] as MockMethod[];
+```
+
+
+
+编写mock请求
+
+```ts
+import { MockMethod } from 'vite-plugin-mock';
+import Mock from 'mockjs';
+
+export default [
+  {
+    url: '/agent/proxyApi/flames-agent-manager/flames/api/v1/share4M/extract',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        data: {
+          name: Mock.mock('@cname'),
+          age: Mock.mock('@integer(20, 50)'),
+        },
+      };
+    },
+  },
+  {
+    url: '/agent/proxyApi/flames-agent-manager/flames/api/v1/share4M/check4Object',
+    method: 'post',
+    response: () => {
+      return {
+        code: 0,
+        data: {
+          name: Mock.mock('@cname'),
+          age: Mock.mock('@integer(20, 50)'),
+        },
+      };
+    },
+  },
+] as MockMethod[];
+
+```
+
+可以设置statusCode来模拟HTTP状态码
+
+```ts
+declare interface MockMethod {
+    url: string;
+    method?: MethodType;
+    timeout?: number;
+    statusCode?: number;
+    response?: ((this: RespThisType, opt: {
+        url: Recordable;
+        body: Recordable;
+        query: Recordable;
+        headers: Recordable;
+    }) => any) | any;
+    rawResponse?: (this: RespThisType, req: IncomingMessage, res: ServerResponse) => void;
+}
 ```
 

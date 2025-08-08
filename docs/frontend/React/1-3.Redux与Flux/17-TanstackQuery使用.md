@@ -291,3 +291,43 @@ const { data: number } = useQuery({
 - 适合用于组件中，用来绑定模板显示。
 - 会在组件加载时自动请求（除非 `enabled: false`）。
 - 自带 loading/error 状态、缓存、自动重新请求等。
+
+
+
+## TanstackQuery处理分页
+
+一、**普通分页**（例如：表格分页按钮切页）
+
+```ts
+const pageParams = ref({ pageNum: 1, pageSize: 20 })
+
+const query = useQuery({
+  queryKey: computed(() => ['taskLog', pageParams.value.pageNum]),
+  queryFn: () => getLogList({ ...pageParams.value }),
+  keepPreviousData: true, // 保留前一页数据避免闪烁
+})
+```
+
+这里queryKey为什么要用computed，如果直接用`['taskLog', pageParams.value.pageNum]`，不是响应式的，会导致queryKey不更新
+
+v5版本已经没有keepPreviousData属性了，请使用`placeholderData: (previousData) => previousData`代替
+
+
+
+二、**无限滚动分页**（useInfiniteQuery）
+
+```ts
+const pageSize = 20
+
+const infiniteQuery = useInfiniteQuery({
+  queryKey: ['taskLog', taskId.value],
+  initialPageParam: 1,
+  queryFn: ({ pageParam }) => getLogList({ pageNum: pageParam, pageSize }),
+  getNextPageParam: (lastPage, pages) => {
+    const hasMore = lastPage.payload.pageNum * pageSize < lastPage.payload.total
+    return hasMore ? lastPage.payload.pageNum + 1 : undefined
+  },
+  enabled: computed(() => !!taskId.value)
+})
+```
+

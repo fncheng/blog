@@ -164,6 +164,9 @@ export function secondsToDuration(totalSeconds: number): string {
 dayjs实现：
 
 ```ts
+import dayjs from "dayjs"
+import duration from 'dayjs/plugin/duration'
+dayjs.extend(duration)
 /**
  * 将 "HH:mm:ss" 格式的持续时间字符串转换为总秒数。
  * 例如: "01:05:30" 会被转换为 3930 秒。
@@ -174,8 +177,8 @@ export function durationToSeconds(durationStr: string): number {
   if (!durationStr || typeof durationStr !== 'string') {
     return 0;
   }
-  // dayjs.duration可以解析HH:mm:ss格式的字符串
-  const d = dayjs.duration(durationStr);
+  // dayjs.duration无法HH:mm:ss格式的字符串，使用parseHHMMSS工具函数
+  const d = parseHHMMSS(durationStr);
   return d.asSeconds();
 }
 

@@ -505,7 +505,7 @@ const getLoader = async () => {
 
 
 
-## 封装一个Await组件
+## 在Vue中封装一个Await组件
 
 Await组件
 
