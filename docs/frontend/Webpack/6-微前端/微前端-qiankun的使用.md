@@ -1,4 +1,4 @@
-## 使用qiankun
+# 使用qiankun
 
 ### 参数介绍
 
@@ -214,7 +214,7 @@ server {
 > 1. 在主应用中不使用 CDN 等 external 的方式来加载 `Vue` 框架，使用前端打包软件来加载模块
 > 2. 在主应用中，将 `window.Vue` 变量改个名称，例如 `window.Vue2 = window.Vue; delete window.Vue`
 
-## Vite项目使用qiankun
+# Vite项目使用qiankun
 
 Vite使用qiankun与Webpack有些不同，主要集中在子应用方面，`vite-plugin-qiankun` 主要负责适配和兼容问题。
 
@@ -405,5 +405,28 @@ export default defineConfig({
   },
   // 其他的 Vite 配置
 });
+```
+
+## qiankun子应用图片及资源无法展示的问题
+
+本地开发时vite是通过fs来加载图片等资源的，但是使用的是主应用的路径去加载，所以会出现问题
+
+这个时候需要设置正确的加载路径，比如如下代码：
+
+```ts
+const configURL = qiankunWindow.__POWERED_BY_QIANKUN__
+  ? qiankunWindow.__INJECTED_PUBLIC_PATH_BY_QIANKUN__
+  : '/';
+
+/**
+ * 获取本地配置文件
+ * @returns 
+ */
+export const getConfig = () => {
+  return $localReq.commonRequest({
+    url: `${configURL}config/config.json?t=${Date.now()}`,
+    method: 'get'
+  });
+};
 ```
 

@@ -192,6 +192,21 @@ git log [fileName] # 查看文件修改记录
 git reset [commitID] [fileName] # 将文件回退到指定的commitID
 ```
 
+比如
+
+```sh
+git reset HEAD^ packages/agent-talk/src/index.vue
+
+git checkout HEAD^ -- packages/agent-talk/src/index.vue
+
+# 2.23+更推荐
+git restore --source=HEAD^ -- packages/agent-talk/src/index.vue
+```
+
+
+
+
+
 ### sourceTree回退文件：
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20210618110731278.png" alt="image-20210618110731278" style="zoom:50%;" />
