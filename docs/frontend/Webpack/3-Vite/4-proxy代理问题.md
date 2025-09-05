@@ -114,3 +114,58 @@ module.exports = {
 Vite server proxy 的路径匹配是按照配置顺序的。如果两个规则都匹配了同一个路径，将使用第一个匹配的规则。
 
 比如第一个匹配路径 "/api"，而第二个匹配路径 "/api/data"，则使用/api
+
+
+
+
+
+## Vite的代理配置模糊匹配
+
+Vite 的 `proxy` 配置是基于 `[path-to-match]` 的键值对方式，它支持使用 **`RegExp` (正则表达式)** 来实现模糊匹配。
+
+比如下面这个配置：
+
+```ts
+'^/agent/proxyApi/flames-agent-manager/.*prompts': {
+  target: 'http://10.1.196.177:30032/',
+    // changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/agent\/proxyApi\/flames-agent-manager/, ''),
+      headers: { cookie },
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            const target = options.target
+            console.log('target: ', target);
+            const protocol = proxyReq.protocol || 'http:'
+            proxyReq.setHeader('SKYBOX_TOKEN_USER_KEY', 'eyJ0ZW5hbnRJZCI6IjMxNDk0OGMzLTcyYmQtNDc0MS1hNWU1LWY0ZTI4ZTBlYTI0YyIsInRlbmFudE5hbWUiOiLmmJ/ngavmmbrog73kvZPlubPlj7Ao56ef5oi3KSIsImlkIjoiNjc0MDcyNzQtMWZlMS00ZGU4LWJmYmQtODliMTk4YWE4NTJlIiwiYWNjb3VudCI6ImFkbWluIiwibmFtZSI6IuW5s+WPsOeuoeeQhuWRmCIsInR5cGUiOjEsInN0YXR1cyI6MSwib3JnSWQiOiItMSIsInJvbGVzIjpbIkZMTV9TWVNfREFUQV9BRE1JTiIsIkZMTV9TVVBFUl9BRE1JTiIsIkZMTV9BRE1JTiJdLCJhcHBDb2RlIjoiZmxhbWVzLWFnZW50In0=')
+            console.log(
+              '[Proxy Debug] target:',
+              `${target.replace(/\/$/, '')}${proxyReq.path}`
+            )
+          })
+        },
+},
+```
+
+其中还涉及到了configure的使用
+
+
+
+## Vite proxy bypass的用法与作用
+
+### 什么是 bypass
+
+在 Vite 的 `server.proxy` 配置里，通常用来转发请求：
+
+```ts
+'/agent/domain.json': {
+  target: DEV_URL,
+  bypass: (req, res, proxyOptions) => {
+    const json = fs.readFileSync('./dev-config/domain.json', 'utf-8')
+    res.setHeader('Content-Type', 'application/json')
+    res.end(json)
+    console.log('req.url: ', req.url);
+    return req.url
+  }
+},
+```
+

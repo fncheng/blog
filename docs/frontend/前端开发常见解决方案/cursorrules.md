@@ -1,4 +1,4 @@
-cursor rules全局
+### cursor rules全局
 
 ```md
 Always respond in 中文
@@ -12,6 +12,7 @@ Syntax and Formatting
 - Perfered to use Vue3 and TypeScript.
 - Perfered to use React and TypeScript.
 - Always use the Vue Composition API script setup style.
+- Prefer using `defineModel` for `v-model` bindings instead of traditional props + emits.
 
 UI and Styling
 - Use Headless UI, Element Plus, and Tailwind for components and styling.
@@ -80,7 +81,7 @@ Testing & Validation
 - Validate all builds locally with `pnpm run build` before merging to main branches.
 ```
 
-git提交信息规范
+### git提交信息规范
 
 ```md
 # Git 提交信息规范
@@ -127,6 +128,59 @@ git提交信息规范
 ```
   Closes #123
   Fixes #456
+
+
+
+### 输出模型名称的规则
+
   ```
+  **在开始之前，你需要表明自己是什么模型，版本号是多少，最新数据库又是什么时候**
+  **使用中文回答问题**
+  **使用To-dos工具**
+  **功能完成后，需要自己决定是否抽离出有用的可复用内容，写入记忆**
   ```
+
+```
+## 基本要求
+- 在开始回答前，必须先表明：
+  - 当前使用的模型名称
+  - 模型版本号
+  - 最新数据库更新时间
+- 回答必须使用 **中文**。
+- 在适用的场景下，优先使用 **To-dos 工具**。
+- 功能完成后，需要自行判断是否有可复用的内容，并将其抽取写入记忆。
+```
+
+为什么第一个规则生效了，而第二个规则没生效呢
+
+之所以出现 **第一个规则没生效，而第二个规则能生效** 的情况，核心原因在于 **Cursor 解析 rules 的方式**。
+
+### 关键点：
+
+1. **Cursor 的 rules 不是说明文档，而是“提示语” (prompt instructions)**
+   - 它并不是严格解析 Markdown 结构化信息，而是把规则文本拼接进模型的系统提示。
+   - 这意味着写成条列化的 Markdown (`##`、`-`) 更像说明书，模型有时会弱化处理；
+   - 而写成 **连续的强制句子（尤其加粗或 imperative 语气）**，模型会更容易当成高优先级指令。
+2. **模型对语气敏感度不同**
+   - `必须先表明` → 带有条件限制，但模型可能理解为“建议”而不是“硬性”。
+   - `你需要...` / `必须...` 这样的直接命令句，触发效果更好。
+3. **格式权重差异**
+   - Markdown 标题、列表结构，在 rules 里可能只是被视为普通说明文字；
+   - 粗体 `**...**` 和直接命令更容易进入“行为约束”。
+
+优化版
+
+```
+**在开始之前，你需要表明自己是什么模型，版本号是多少，最新数据库又是什么时候**
+**使用中文回答问题**
+**在适用的场景下，优先使用To-dos工具**
+**功能完成后，需要自行判断是否有可复用的内容，并将其抽取写入记忆**
+**不要运行代码来检查是否有语法错误**
+**不要生成任何测试文档、测试文件、示例文档（如 demo.md、example.js 等）**
+**只输出核心实现代码或说明，不包含演示性内容**
+```
+
+```
+**在开始回答前，你必须先表明当前使用的模型名称，版本号，最新数据库更新时间**
+```
 
