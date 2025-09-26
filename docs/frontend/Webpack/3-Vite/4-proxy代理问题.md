@@ -169,3 +169,21 @@ Vite 的 `proxy` 配置是基于 `[path-to-match]` 的键值对方式，它支�
 },
 ```
 
+
+
+
+
+
+
+## 智能体开发中的vite代理
+
+首先是pdfjs代理
+
+```ts
+'/pdfjs/': {
+  target: DEV_URL,
+  secure: false,
+  changeOrigin: true
+}
+```
+

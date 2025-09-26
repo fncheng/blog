@@ -240,21 +240,33 @@ const props: CascaderProps = {
 
 经验证，也支持异步多选及多选数据回显
 
-
-
 ### 设置不必选中最后一级
 
 ```ts
 checkStrictly: true
 ```
 
+### 设置勾选时不触发lazyLoad
 
+checkStrictly: true
 
+这样勾选时就不会触发加载了，只有点击节点时才会触发
 
+```ts
+multiple: true,
+  checkStrictly: true,
+```
 
+当按上面配置设置后，勾选父节点和其下子节点，绑定数据为
 
+```ts
+[
+  ["3905643effe74e17902a77e243f1a4e1"],
+  ["3905643effe74e17902a77e243f1a4e1","bc3d45b07a354674a8086682d74bfdb6"]
+]
+```
 
-
+可以看出第二项包含了父节点的信息，如何让它不含父节点信息呢
 
 
 
