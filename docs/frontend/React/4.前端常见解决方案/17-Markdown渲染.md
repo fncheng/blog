@@ -1,4 +1,4 @@
-## Markdown中数学公式的渲染
+# Markdown中数学公式的渲染
 
 来看一段GPT返回的文本
 
@@ -150,7 +150,7 @@ import createKatexPlugin from "@kangc/v-md-editor/lib/plugins/katex/npm"
 VMdPreview.use(createKatexPlugin())
 ```
 
-## 关于v-md-editor中数学公式渲染不出来的问题
+### 关于v-md-editor中数学公式渲染不出来的问题
 
 v-md-editor不能识别 `\[...\]` 和 `\(...\)` 语法
 
@@ -171,44 +171,169 @@ const renderContent = computed(() => {
 
 
 
-## 富文本编辑器ckeditor
+## 编写一个Katex Markdown渲染组件
 
-```sh
-npm install @ckeditor/ckeditor5-vue
+```vue
+<template>
+    <MdPreview :content="renderContent"></MdPreview>
+</template>
 
-pnpm add @ckeditor/ckeditor5-vue
-```
+<script setup lang="ts">
+import MdPreview from '@/components/MdPreview/index.vue'
+import { renderAllMath } from '@/app/utils/katex'
+import 'katex/dist/katex.min.css'
+import { computed } from 'vue'
+const { content } = defineProps<{ content: string }>()
 
-`@ckeditor/ckeditor5-build-classic` 是 **CKEditor 官方预构建的 Classic 版本**，它已经包含了一些基础插件和配置，适用于大多数富文本编辑场景。
-
-
-
-```ts
 const renderContent = computed(() => {
-  const latexRegex = /\$\$(.*?)\$\$/g
-  let match
-  let replacedHtml = props.htmlStr
-  while ((match = latexRegex.exec(props.htmlStr)) !== null) {
-    const latexFormula = match[1]
-    const katexRendered = katex.renderToString(latexFormula, {
-      throwOnError: false
-    })
-    replacedHtml = replacedHtml.replace(match[0], katexRendered)
-  }
-  return replacedHtml
+    return renderAllMath(content)
 })
+</script>
 ```
 
-修改成
+**MdPreview.vue**
+
+```vue
+<template>
+    <v-md-preview :text="content"></v-md-preview>
+</template>
+
+<script setup lang="ts">
+import VMdPreview from '@kangc/v-md-editor/lib/preview'
+import '@kangc/v-md-editor/lib/style/preview.css'
+import githubTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm'
+// import markdownItKatex from '@vscode/markdown-it-katex'
+// import vscodeKatexPlugin from './vscode-katex-plugin'
+
+
+defineOptions({
+    name: 'MdPreview'
+})
+
+interface MdPreviewProps {
+    content: string
+}
+
+const { content } = defineProps<MdPreviewProps>()
+
+VMdPreview.use(githubTheme, {})
+VMdPreview.use(createKatexPlugin())
+</script>
+```
+
+其中最关键的就是**renderAllMath**函数的使用
+
+
+
+
+
+## 渲染echarts
+
+引入`@lexmin0412/markdown-it-echarts`
 
 ```ts
-const renderContent = computed(() => {
-  const latexRegex = /\$\$(.*?)\$\$/g;
-  return props.htmlStr.replace(latexRegex, (match, latexFormula) => {
-    return katex.renderToString(latexFormula, {
-      throwOnError: false
-    });
-  });
-});
+VMdPreview.use(githubTheme, {})
+VMdPreview.use(createKatexPlugin())
+VMdPreview.use(MarkdownItPluginEcharts)
+```
+
+结果发现提示index.js:6 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'rules')    at markdownItEcharts
+
+原因是
+
+> 你在组件内部 (`<script setup>`) 里直接对 `VMdPreview` 调用了 `.use()`，
+>  这意味着每次该组件被加载时都会重复初始化一次插件体系，而这时 markdown-it 实例还没准备好，
+>  因此 `MarkdownItPluginEcharts` 收到的 `md` 是 `undefined`，就会报：
+>  `Cannot read properties of undefined (reading 'rules')`
+
+为防止重复注册，把 `v-md-preview` 的插件注册（主题、echarts、katex）**抽离到独立模块**中，只执行一次。
+ 不要在组件内调用 `.use()`。
+
+新建src/plugins/v-md-preview.ts
+
+在main.ts中注册
+
+## VMdPreview统一注册
+
+```ts
+import VMdPreview from '@kangc/v-md-editor/lib/preview'
+import '@kangc/v-md-editor/lib/style/preview.css'
+
+import githubTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm'
+import 'katex/dist/katex.min.css'
+
+import MarkdownItPluginEcharts from '@lexmin0412/markdown-it-echarts'
+import * as echarts from 'echarts'
+
+console.group('v-md-preview初始化')
+
+VMdPreview.use(githubTheme, {
+    extend(md: any) {
+        md.use(MarkdownItPluginEcharts, { echarts })
+    }
+})
+VMdPreview.use(createKatexPlugin())
+
+export default VMdPreview
+```
+
+进一步
+`@kangc/v-md-editor` 提供两大核心组件：v-md-editor和v-md-preview
+
+> 两者使用的底层渲染引擎是一致的，都支持通过 `.use(plugin)` 来扩展 markdown-it 插件。
+>  所以我们只要封装一份通用的“注册逻辑”，让 **Editor 和 Preview 共用配置**。
+
+```ts
+import VMdPreview from '@kangc/v-md-editor/lib/preview'
+import '@kangc/v-md-editor/lib/style/preview.css'
+
+import VMdEditor from '@kangc/v-md-editor/lib/base-editor'
+import '@kangc/v-md-editor/lib/style/base-editor.css'
+
+import githubTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm'
+import 'katex/dist/katex.min.css'
+
+import MarkdownItPluginEcharts from '@lexmin0412/markdown-it-echarts'
+import * as echarts from 'echarts'
+
+console.group('v-md-preview初始化')
+
+function setupVMd(instance: any) {
+    instance.use(githubTheme, {
+        extend(md: any) {
+            md.use(MarkdownItPluginEcharts, { echarts })
+        }
+    })
+    instance.use(createKatexPlugin())
+}
+
+setupVMd(VMdPreview)
+setupVMd(VMdEditor)
+
+export { VMdPreview, VMdEditor }
+```
+
+
+
+[编辑器内显示公式时，根号错位或者不显示问题的修复办法](https://github.com/code-farmer-i/vue-markdown-editor/issues/317)
+
+```
+VMdEditor.xss.extend({
+    whiteList: {
+        svg: ['preserveaspectratio', 'viewbox', 'width', 'height'],
+        path: ['d', 'fill', 'stroke', 'stroke-width'],
+        rect: ['x', 'y', 'width', 'height', 'fill', 'stroke'],
+        circle: ['cx', 'cy', 'r', 'fill', 'stroke'],
+        g: ['transform']
+    }
+})
 ```
 
