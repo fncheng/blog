@@ -31,3 +31,14 @@ pnpm unlink <package-name>
 pnpm unlink --global <package-name>
 # 例如：pnpm unlink --global my-ui-library
 ```
+
+
+
+## npm查看一个包的所有版本
+
+```sh
+npm view agents-components versions
+# 过滤一下
+npm view agents-components versions | grep zhongliang
+```
+

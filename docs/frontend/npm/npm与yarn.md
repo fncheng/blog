@@ -334,6 +334,17 @@ Manage your store:
 
 不要执行pnpm self-update命令，这样会在~/Library/pnpm/.tools/目录下安装一个新的pnpm
 
+## pnpm + monorepo项目中安装包
+
+```sh
+pnpm add crypto-js -filter agent-base
+# 或
+pnpm add lodash-es -F agent-base
+# agent-base是子包
+```
+
+
+
 
 
 

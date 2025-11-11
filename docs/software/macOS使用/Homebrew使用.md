@@ -30,3 +30,10 @@ HomeBrew是通过源码的方式来安装软件，但是有时候我们安装的
 brew cask 是在brew 的基础上一个增强的工具，用来安装Mac上的Gui程序应用包（.dmg/.pkg）, 比如qq、chrome等。它先下载解压到统一的目录中（/opt/homebrew-cask/Caskroom），省掉了自己去下载、解压、拖拽（安装）等步骤，同样，卸载相当容易与干净。然后再软链到~/Applications/目录下, 非常方便，而且还包含很多在 AppStore 里没有的常用软件。
 
 
+
+## brew升级指定包
+
+```sh
+brew upgrade <包名>
+```
+

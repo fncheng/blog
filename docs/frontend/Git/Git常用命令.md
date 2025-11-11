@@ -351,7 +351,7 @@ rebase 之前
 如果要将 issue1 合并到 dev 上，可以执行`git merge issue1`操作
 
 ```sh
-git rebase dev
+git  dev
 # 等价于
 # git reabse (HEAD[issue1] onto) dev
 # 将当前分支的变更 rebase 到dev分支 重定基准(以dev为基准，在dev上变化)
@@ -408,6 +408,42 @@ git reset --hard 6cdb64a
 ### 交互式rebase合并commit
 
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230610130640062.png" alt="image-20230610130640062" style="zoom:50%;" />
+
+## rebase -i
+
+在worktree的项目中使用git rebase -i提示`The editor could not be opened because the file was not found.
+
+发现.git/worktree/agents-share-web/rebase-merge/git-rebase-todo 找不到
+
+这是因为worktree的项目下的.git是一个文件，而不是一个目录，具体的信息保存在主仓库的.git目录下
+
+解决办法：
+
+换用别的编辑器，比如vim
+
+```sh
+GIT_EDITOR=vim git rebase -i HEAD~2
+```
+
+### 使用git rebase修改提交用户名和邮箱
+
+假设你要修改从某个提交开始直到当前的提交（比如最近两个/三个）
+
+方式1：使用 `rebase -i`
+
+```sh
+git rebase -i HEAD~3
+```
+
+把需要修改的那几条 `pick` 改成 `edit`
+ 然后每停下来一次执行：
+
+```sh
+git commit --amend --author="Your Name <you@example.com>"
+git rebase --continue
+```
+
+
 
 ### rebase保留原有提交时间
 

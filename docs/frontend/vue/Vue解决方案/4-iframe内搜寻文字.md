@@ -34,3 +34,40 @@ iframe.addEventListener("load", () => {
 });
 ```
 
+| 属性                         | 类型            | 作用                                    | 典型用途                               |
+| ---------------------------- | --------------- | --------------------------------------- | -------------------------------------- |
+| **`iframe.contentWindow`**   | `Window` 对象   | 表示 `<iframe>` 内部页面的全局 `window` | 用来访问 iframe 内的 JS 变量、执行脚本 |
+| **`iframe.contentDocument`** | `Document` 对象 | 表示 `<iframe>` 内部页面的文档对象      | 用来访问 iframe 内的 DOM 内容          |
+
+
+
+```ts
+const iframeWindow = iframeDom.contentWindow || iframeDom.contentDocument.parentWindow
+```
+
+这是一种兼容性写法
+
+现代浏览器（Chrome / Firefox / Safari / Edge）
+
+直接使用：
+
+```
+iframeDom.contentWindow
+```
+
+就能拿到 iframe 内的 `window` 对象。
+ 例如：
+
+```
+iframeDom.contentWindow.document // iframe 内的文档
+```
+
+⚙️ 旧版 IE（IE8、IE9）
+
+IE 曾经使用另一种属性链：
+
+```
+iframeDom.contentDocument.parentWindow
+```
+
+才能获取到 `window` 对象。

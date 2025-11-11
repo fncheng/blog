@@ -373,3 +373,10 @@ export function resetLoading(): void {
 - 新增 getLoadingCount() 用于调试
 
 - 新增 resetLoading() 用于紧急情况（如路由跳转时强制清理）
+
+## 使用
+
+```ts
+const { close, wrap } = startLoading()
+```
+

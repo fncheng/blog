@@ -452,3 +452,26 @@ export default defineComponent({
      }
    })
    ```
+
+
+
+## 在vue3中使用tsx需要在tsconfig中配置
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+}
+```
+
+那
+
+```
+"jsxFactory": "h",
+"jsxFragmentFactory": "Fragment",
+```
+
+这段配置呢
+
+这段配置是 **Vue2/手写 runtime JSX 的旧写法**，在 Vue3 里正常情况下 **不需要再写**，甚至写了之后会和 `@vitejs/plugin-vue-jsx` 产生冲突。

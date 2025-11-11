@@ -187,3 +187,67 @@ Vite 的 `proxy` 配置是基于 `[path-to-match]` 的键值对方式，它支�
 }
 ```
 
+
+
+## 设置secure: false导致Websocket请求代理失败
+
+在开发中发现vite proxy设置了secure: false后Websocket请求就代理失败，仍是localhost
+
+首先我们要知道`secure: false` 的作用是：
+
+> 🔹**当目标服务器是 HTTPS（或 WSS）并且证书无效时**，仍然允许代理连接。
+>  例如自签名证书或测试环境证书。
+
+也就是说：
+
+- `secure: true`（默认） → 只接受有效的证书
+- `secure: false` → 忽略证书验证
+
+
+
+### 问题根源
+
+当你代理 **WebSocket（`ws://` 或 `wss://`）** 时，`secure: false` 的行为依赖于目标协议：
+
+| target 协议           | secure 设置                          | 说明                          |
+| --------------------- | ------------------------------------ | ----------------------------- |
+| `ws://`（非加密）     | ✅ 不需要                             | 无影响                        |
+| `wss://`（加密）      | ⚠️ 若证书无效时才用 `secure: false`   | 必须配合 `changeOrigin: true` |
+| `http://` → `ws://`   | ❌ `secure` 不生效                    | 无意义                        |
+| `https://` → `wss://` | ⚠️ 若证书不可信则需要 `secure: false` | 否则握手失败                  |
+
+**问题出现的典型情况是：**
+
+- 你目标服务其实是 `ws://`（非加密），
+- 但设置了 `secure: false`，此时代理模块以为你走的是 `wss://`，结果反而破坏握手。
+
+
+
+### 解决方案
+
+✅1. 如果你的目标是 **`ws://`（非加密）**
+
+👉 **不要设置 `secure: false`**。
+
+```ts
+{
+  target: 'ws://10.1.205.53:30032',
+  ws: true,
+  changeOrigin: true,
+}
+```
+
+✅ 2. 如果你的目标是 **`wss://`（加密）**
+
+👉 可以保留 `secure: false`（如果目标证书不受信任），但要加上：
+
+```
+{
+  target: 'wss://10.1.205.53:30032',
+  ws: true,
+  changeOrigin: true, // 👈 关键
+  secure: false, // 允许自签名证书
+}
+```
+
+`changeOrigin: true` 可以让代理在握手时伪装 Host 头，从而避免某些服务端严格校验。
