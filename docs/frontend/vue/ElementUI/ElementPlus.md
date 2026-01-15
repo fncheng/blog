@@ -116,3 +116,99 @@ getBoundingClientRect: () => rect
 ```
 
 意味着我们“冻结”了此时的位置信息，Popper 定位不会跳。
+
+
+
+## el-tooltip显示箭头
+
+show-arrow 显示箭头
+
+effect="light" 白色
+
+```vue
+<el-tooltip
+		:content="item.tableName"
+		:popper-class="$style['recommend-app-item-tooltip']"
+		placement="top" show-arrow>
+  <div class="activity-database">{{ item.tableName }}</div>
+</el-tooltip>
+```
+
+箭头不显示的问题
+
+```vue
+.recommend-app-item-tooltip {
+  z-index: 9999 !important;
+  max-width: 240px;
+  max-height: 500px;
+  :global(.el-popper__arrow) {
+    display: block;
+  }
+}
+```
+
+
+
+## ElTooltip实现文字截断时才生效
+
+不截断则不生效
+
+```vue
+<template>
+  <el-tooltip
+    v-bind="props"
+    :class="$style['auto-tooltip']"
+    :popper-class="$style['auto-tooltip-popper']"
+    show-arrow
+    effect="light"
+    :disabled="isDisabled"
+  >
+    <div ref="textRef" :class="$style['auto-tooltip-content']" @mouseenter="handleMouseEnter">
+      <slot></slot>
+    </div>
+  </el-tooltip>
+</template>
+
+<script setup lang="ts">
+import { ElTooltip, type ElTooltipProps } from 'element-plus'
+import { ref } from 'vue'
+
+const props = defineProps</* @vue-ignore */ Partial<ElTooltipProps>>()
+
+const isDisabled = ref(true)
+const textRef = ref<HTMLElement | null>(null)
+
+// 鼠标移入时校验
+const handleMouseEnter = () => {
+  if (textRef.value) {
+    const outerWidth = textRef.value.clientWidth
+    // 获取 slot 内的实际内容元素，如果 slot 是元素则使用它，否则使用外层容器
+    const contentElement = (textRef.value.firstElementChild as HTMLElement) || textRef.value
+
+    const innerWidth = contentElement.scrollWidth
+    // 当内容宽度大于容器宽度时，会出现截断显示...，此时需要开启 tooltip
+    const isOverflow = innerWidth > outerWidth
+    // console.log('outerWidth: ', outerWidth)
+    // console.log('innerWidth: ', innerWidth)
+    isDisabled.value = !isOverflow
+  }
+}
+</script>
+
+<style lang="css" module>
+.auto-tooltip {
+  width: fit-content;
+}
+.auto-tooltip-popper {
+  :global(.el-popper__arrow) {
+    display: block;
+  }
+}
+.auto-tooltip-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+```
+

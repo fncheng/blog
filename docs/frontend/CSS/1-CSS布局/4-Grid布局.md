@@ -178,3 +178,11 @@ gird-column: span 2; /* 注意有个空格 */
 上面的例子是使用flex布局的justify-content: space-between，由于最右边的元素长短不一，导致中间的元素没有对齐。
 
 这个时候使用grid就非常容易解决
+
+
+
+
+
+## grid布局无法均分的原因
+
+出现`grid-template-columns: repeat(5, 1fr)`无法均分的情况，主要是因为 Grid 子项默认 `min-width: auto`，会根据内容决定最小宽度，从而撑破 `1fr` 的平分计算。

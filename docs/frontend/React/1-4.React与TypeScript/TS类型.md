@@ -178,6 +178,8 @@ type MyClassInstance = InstanceType<typeof MyClass>;
 
 又或者ElemenUI中获取组件Ref时的定义
 
+用途：组件的Ref类型
+
 ```ts
 const treeRef = ref<InstanceType<typeof ElTree>>()
 ```

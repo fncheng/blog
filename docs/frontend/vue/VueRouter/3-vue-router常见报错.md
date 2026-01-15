@@ -44,3 +44,20 @@ publicPath默认是/，它会假设应用被部署到一个域名的根目录上
 1. 使用catch https://renatello.com/vuejs-avoided-redundant-navigation/
 2. https://stackoverflow.com/questions/65878999/vue-router-push-error-avoided-redundant-navigation-to-current-location
 
+
+
+## name和redirect冲突
+
+```ts
+{
+    name: 'smart-office-index',
+    path: '/smart-office',
+    redirect: '/base/smart-office/index'
+  }
+```
+
+页面空白，去掉name后就正常
+
+> **`redirect` 路由本身不应该再配置 `name`**
+>  否则在某些导航场景下（尤其是按 name 跳转 / 初始化匹配），
+>  会导致 **路由解析异常 → 页面空白**

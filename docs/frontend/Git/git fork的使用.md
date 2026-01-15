@@ -29,7 +29,7 @@ git fetch 后代码不会合并，需要手动执行`git merge`合并
 
 
 
-## git fork的使用
+## git fork及upstream的使用
 
 添加上游（upstream）
 
@@ -54,6 +54,14 @@ upstream  https://github.com/original-repo/main-project.git (push)
 
 
 
+防止推送到upstream
+
+```sh
+git remote set-url upstream --push no_push
+```
+
+
+
 ### 拉取上游更新
 
 **方式 1：使用 `merge`（合并方式）**
@@ -70,6 +78,14 @@ git merge upstream/main
 git fetch upstream
 git checkout main
 git rebase upstream/main
+```
+
+### 同步上游分支
+
+从upstream拉取origin没有的分支
+
+```sh
+git fetch upstream git checkout -b delivery/zhonghang upstream/delivery/zhonghang
 ```
 
 

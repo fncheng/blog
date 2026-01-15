@@ -1,3 +1,65 @@
+## format原生实现
+
+```ts
+/**
+ * 格式化时间，支持自定义格式
+ * @param time - 要格式化的时间，可以是字符串、数字（时间戳）或 Date 对象
+ * @param format - 格式化模板，默认为 'YYYY-MM-DD HH:mm:ss'
+ *   - YYYY: 四位年份
+ *   - MM: 两位月份（01-12）
+ *   - DD: 两位日期（01-31）
+ *   - HH: 两位小时（00-23）
+ *   - mm: 两位分钟（00-59）
+ *   - ss: 两位秒数（00-59）
+ * @returns 格式化后的时间字符串，如果输入的时间无效则返回空字符串
+ * @example
+ * formatTime(new Date(), 'YYYY-MM-DD') // '2024-01-01'
+ * formatTime(1704067200000, 'YYYY-MM-DD HH:mm:ss') // '2024-01-01 00:00:00'
+ * formatTime('2024-01-01', 'YYYY年MM月DD日') // '2024年01月01日'
+ */
+export function formatTime(time: string | number | Date, format = 'YYYY-MM-DD HH:mm:ss') {
+  const date = new Date(time)
+  if (isNaN(date.getTime())) return ''
+
+  const pad = (n: number) => n.toString().padStart(2, '0')
+
+  const map: Record<string, string> = {
+    YYYY: date.getFullYear().toString(),
+    MM: pad(date.getMonth() + 1),
+    DD: pad(date.getDate()),
+    HH: pad(date.getHours()),
+    mm: pad(date.getMinutes()),
+    ss: pad(date.getSeconds()),
+  }
+
+  let result = format
+
+  // 依次替换格式化符号
+  for (const key in map) {
+    result = result.replace(key, map[key])
+  }
+
+  return result
+}
+```
+
+
+
+## VueUse的formatDate
+
+```ts
+import { formatDate } from '@vueuse/core'
+
+formData.timeRange[0] = formatDate(
+  new Date(),
+  'YYYY-MM-DD HH:mm:ss'
+)
+```
+
+
+
+
+
 ## dayjs常见需求
 
 ### 前一天、后一天

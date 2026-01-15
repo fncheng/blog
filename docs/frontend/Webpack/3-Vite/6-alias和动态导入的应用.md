@@ -36,17 +36,3 @@ declare module '@agents-components' {
 ```
 
 
-
-
-
-### 使用 workspace monorepo（推荐中大型项目）
-
-如果你的项目最终也会发展成多个包共存，
- 建议直接在 `pnpm-workspace.yaml` 里写：
-
-```yaml
-packages:
-  - apps/*
-  - agents-components/*
-```
-

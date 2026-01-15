@@ -68,12 +68,46 @@ Random.name()
 
 ## Vite使用mockjs
 
-在vite中使用mockjs
+在vite中使用mockjs的完整步骤：
+
+1. **安装依赖**
+2. **配置 `vite.config.ts`（你已知）**
+3. **创建 `mock/` 目录**
+4. **编写 mock 文件（url / method / response）**
+5. **（必须）确保请求没有被vite proxy 吃掉**
+6. **（可选）在 axios 层做 mock / 非 mock 切换**
+7. **（调试）通过 Network 验证是否命中 mock**
+
+安装vite-plugin-mock
 
 ```sh
+pnpm add vite-plugin-mock mockjs -D
 ```
 
+配置vite.config.ts
 
+```ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { viteMockServe } from 'vite-plugin-mock'
+
+export default defineConfig(({ command }) => ({
+  plugins: [
+    vue(),
+    viteMockServe({
+      mockPath: 'mock',      // mock 文件夹路径
+      enable: command === 'serve', // 仅本地开发启用
+      injectCode: `
+        import { setupProdMockServer } from './mockProdServer';
+        setupProdMockServer();
+      `, // 用于生产 mock（可选）
+      supportTs: true, // 支持 TypeScript 文件
+    })
+  ]
+}))
+```
+
+创建mock/user.ts
 
 ```ts
 mock(/\/role\/(\d+)$/, {
@@ -151,6 +185,7 @@ import Mock from 'mockjs';
 
 export default [
   {
+    // 浏览器发出的完整路径
     url: '/agent/proxyApi/flames-agent-manager/flames/api/v1/share4M/extract',
     method: 'post',
     response: () => {
@@ -198,3 +233,6 @@ declare interface MockMethod {
 }
 ```
 
+
+
+需要注意的是请求不能被vite proxy代理，因为proxy的优先级高于mock

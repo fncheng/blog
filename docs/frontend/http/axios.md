@@ -394,3 +394,32 @@ const params = {
 const queryString = qs.stringify(params, { arrayFormat: 'brackets' });
 ```
 
+
+
+```ts
+export function getBoardList(params: any) {
+  const url = `/api/system/notice/list` + qs.stringify(params)
+  return axios.get(url, {
+    params: qs.stringify(params)
+  })
+}
+```
+
+这么写为什么不对？
+
+核心原因是：**`axios.get` 里的 `params` 期望的是一个对象，而不是已经 `stringify` 好的字符串**。
+
+正确的做法：
+
+```ts
+export function getBoardList(params: any) {
+  const url = `/api/system/notice/list`
+  return axios.get(url, {
+    params: params,
+    paramsSerializer: (params) => {
+      return qs.stringify(params)
+    }
+  })
+}
+```
+

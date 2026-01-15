@@ -97,9 +97,9 @@ const validate = () => {
 
 如果使用第一种方法，有个缺点就是不能拿到callback中第二个参数invalidFields，即哪些字段没通过表单校验
 
+### Form的resetFields()
 
-
-
+1. 调用 resetFields() 时，会重置到表单打开时的值，而不是真正的初始值（空字符串）
 
 
 
@@ -270,44 +270,48 @@ multiple: true,
 
 
 
-## 按需引入
 
-unplugin-vue-components和unplugin-auto-import分别是做什么的
-
-unplugin-vue-components是按需自动导入组件
-
-- **自动导入 Vue 组件**：无需手动在每个文件中写 `import` 语句。
-
-- 根据组件的使用情况，**按需引入组件及其相关依赖**，优化打包结果，避免引入未使用的组件。
-
-unplugin-auto-import是自动导入API
-
-- **自动导入常用的 API**，如 Vue 的 `ref`、`reactive`、`computed`，或者你指定的第三方库（如 Vue Router 的 `useRouter`）。
-- 避免反复手动写 `import { ref } from 'vue'`，提高开发效率。
-- 提供全局类型支持，保证编辑器有良好的类型提示。
-
-
-
-如果只是想要自动导入ElementPlus的样式
-
-则使用另外的插件 **unplugin-element-plus**
-
-```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
-import ElementPlus from 'unplugin-element-plus/vite'
-
-export default defineConfig({
-  // ...
-  plugins: [ElementPlus({})],
-})
-```
 
 ## ElSelect
 
 限制展示的tag数量
 
 需要同时设置 collapse-tags 和 max-collapse-tags 属性
+
+### el-select的:popper-append-to-body="false"有什么用
+
+### 优点（`true` 的好处）
+
+将下拉层挂载到 `body` 下有几个明显优点：
+
+1. **不会被父级容器的 `overflow: hidden`、`overflow: auto`、`z-index` 等样式影响**
+   - 例如，当你的 `<el-select>` 放在一个有滚动条或裁剪的容器内时，下拉菜单不会被截断。
+2. **层级更高，不容易被其他元素遮挡**
+   - 因为挂载到 body 后，可以更容易控制 z-index，防止被父级卡片、模态框等遮盖。
+
+------
+
+### ⚠️ 缺点（有时会带来问题）
+
+但是在某些场景下，`popper-append-to-body="true"` 会带来一些问题：
+
+| 场景                                  | 问题                                                       |
+| ------------------------------------- | ---------------------------------------------------------- |
+| 嵌套在弹窗或特定布局组件中            | 弹窗关闭时下拉菜单可能还留在页面上（尤其是手动控制的场景） |
+| 使用 `transform` 的容器中             | 可能导致 popper 定位计算错误                               |
+| 嵌套在微前端、iframe 或 shadow DOM 中 | popper 跑到宿主应用的 body 下，导致样式或层级错乱          |
+| 希望局部控制 z-index 层级             | popper 在全局 body 下不好控制层叠关系                      |
+
+### 实战建议
+
+- **普通业务页面**：不用管，保持默认即可。
+- **微前端子应用**：✅ 推荐 `:popper-append-to-body="false"`，否则弹层可能跑出子应用。
+- **Modal 或 Drawer 内的 select**：✅ 推荐 `false`，避免关闭弹窗后下拉残留。
+- **在有 `overflow: hidden` 的容器中使用**：⚠️ 要权衡，必要时增加 z-index 或修改布局。
+
+在Element Plus 2.2+版本后，更推荐使用teleported属性
+
+
 
 ## ElOption的value属性绑定对象
 

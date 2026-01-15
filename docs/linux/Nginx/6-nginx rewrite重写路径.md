@@ -23,3 +23,17 @@ location / {
 所以这里rewrite的作用就是把URI中的虚拟路径（实际文件路径中不存在的）给去掉
 
 最终访问的文件路径就是root拼上/skybox-aicc-flint/train/pre-train
+
+
+
+## **alias + try_files** 的安全写法
+
+```nginx
+location /agent/smart-office/ {
+    alias /usr/share/nginx/plugin_ui/agent/;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+这里 `/index.html` **直接对应 alias 指向的目录**，这是最推荐的方式。

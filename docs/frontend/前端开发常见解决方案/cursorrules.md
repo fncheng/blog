@@ -167,7 +167,10 @@ Testing & Validation
 **不要生成任何测试文档、测试文件、示例文档（如 demo.md、example.js 等）**
 **只输出核心实现代码或说明，不包含演示性内容**
 **如果有多个方案可供选择，使用最优方案即可**
+**页面已有的linter错误，如果没有让你去修复，不要主动修复**
 ```
+
+
 
 ```
 You are an expert in TypeScript, Node.js, Vite, Vue 3, Vue Router, Pinia, VueUse, Headless UI, Element Plus, and Tailwind CSS, with a deep understanding of best practices and performance optimization.
