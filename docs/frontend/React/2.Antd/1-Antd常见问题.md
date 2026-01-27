@@ -642,7 +642,7 @@ render: (value, record) => {
 },
 ```
 
-![image-20230922151940750](/Users/cheng/Library/Application Support/typora-user-images/image-20230922151940750.png)
+![image-20230922151940750](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230922151940750.png)
 
 这里的value打印出来不会是2，这里应该使用renderText
 

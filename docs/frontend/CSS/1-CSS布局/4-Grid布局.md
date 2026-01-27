@@ -173,7 +173,7 @@ gird-column: span 2; /* 注意有个空格 */
 
 当页面内容需要对齐排列时，而某一个元素可能长一点，也可能短一点。这个时候就用grid。
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20220331125857553.png" alt="image-20220331125857553" style="zoom:50%;" />
+
 
 上面的例子是使用flex布局的justify-content: space-between，由于最右边的元素长短不一，导致中间的元素没有对齐。
 

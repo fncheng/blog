@@ -153,6 +153,8 @@ effect="light" 白色
 
 不截断则不生效
 
+判断单行文本是否被截断，若被截断则使用el-tooltip
+
 ```vue
 <template>
   <el-tooltip
@@ -211,4 +213,134 @@ const handleMouseEnter = () => {
 }
 </style>
 ```
+
+升级版：
+
+可以判断单行文本和多行文本
+
+### 关键区别
+
+| 文本类型 | 截断方式              | 检测方法                    |
+| :------- | :-------------------- | :-------------------------- |
+| 单行文本 | white-space: nowrap   | scrollWidth > clientWidth   |
+| 多行文本 | -webkit-line-clamp: 2 | scrollHeight > clientHeight |
+
+```html
+<template>
+  <el-tooltip
+    v-bind="props"
+    :class="$style['auto-tooltip']"
+    :popper-class="$style['auto-tooltip-popper']"
+    show-arrow
+    effect="light"
+    :disabled="isDisabled"
+  >
+    <div ref="textRef" :class="$style['auto-tooltip-wrapper']" @mouseenter="handleMouseEnter">
+      <slot></slot>
+    </div>
+  </el-tooltip>
+</template>
+
+<script setup lang="ts">
+import { ElTooltip, type ElTooltipProps } from 'element-plus'
+import { ref } from 'vue'
+
+const props = defineProps</* @vue-ignore */ Partial<ElTooltipProps>>()
+
+const isDisabled = ref(true)
+const textRef = ref<HTMLElement | null>(null)
+
+// 鼠标移入时校验
+const handleMouseEnter = () => {
+  if (textRef.value) {
+    // 获取 slot 内的实际内容元素，如果 slot 是元素则使用它，否则使用外层容器
+    const contentElement = (textRef.value.firstElementChild as HTMLElement) || textRef.value
+
+    // 方法1: 检测高度溢出（适用于多行文本 -webkit-line-clamp）
+    const scrollHeight = contentElement.scrollHeight
+    const clientHeight = contentElement.clientHeight
+    const isHeightOverflow = scrollHeight > clientHeight
+
+    // 方法2: 检测宽度溢出（适用于单行文本 white-space: nowrap）
+    const scrollWidth = contentElement.scrollWidth
+    const clientWidth = contentElement.clientWidth
+    const isWidthOverflow = scrollWidth > clientWidth
+
+    // 任一方向溢出都需要显示 tooltip
+    const isOverflow = isHeightOverflow || isWidthOverflow
+
+    console.log('检测结果:', {
+      isHeightOverflow,
+      scrollHeight,
+      clientHeight,
+      isWidthOverflow,
+      scrollWidth,
+      clientWidth,
+      finalOverflow: isOverflow
+    })
+
+    isDisabled.value = !isOverflow
+  }
+}
+</script>
+
+<style lang="css" module>
+.auto-tooltip {
+  width: fit-content;
+}
+.auto-tooltip-popper {
+  :global(.el-popper__arrow) {
+    display: block;
+  }
+}
+/* wrapper 不设置任何截断样式，由 slot 内容自己控制 */
+</style>
+```
+
+外层
+
+```vue
+<template>
+	<auto-tooltip
+		:content="agentItem.desc"
+		:show-arrow="true"
+    effect="light"
+		:teleported="true"
+		placement="top"
+		:popper-class="$style['recommend-app-item-desc-tooltip']"
+		>
+      <template #default>
+    		<div v-if="agentItem.desc" :class="$style['recommend-app-item-desc']">
+      		{{ agentItem.desc }}
+  			</div>
+		</template>
+	</auto-tooltip>
+</template>
+
+<style lang="scss" module>
+  .recommend-app-item-desc {
+    font-size: 12px;
+    color: #909399;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  .recommend-app-item-desc-tooltip {
+    z-index: 9999 !important;
+    max-width: 252px;
+    max-height: 500px;
+    :global(.el-popper__arrow) {
+      display: block;
+    }
+  }
+</style>
+```
+
+
 

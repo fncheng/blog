@@ -351,7 +351,8 @@ rebase 之前
 如果要将 issue1 合并到 dev 上，可以执行`git merge issue1`操作
 
 ```sh
-git  dev
+git checkout issue1
+git rebase dev
 # 等价于
 # git reabse (HEAD[issue1] onto) dev
 # 将当前分支的变更 rebase 到dev分支 重定基准(以dev为基准，在dev上变化)
@@ -410,6 +411,20 @@ git reset --hard 6cdb64a
 <img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230610130640062.png" alt="image-20230610130640062" style="zoom:50%;" />
 
 ## rebase -i
+
+```sh
+# 不包括提交本身
+git rebase -i <commit-id>
+# “我要以 <commit-id> 为基准（Base），重新编排它之后的所有动作。”
+```
+
+想要包含本身
+
+```sh
+git rebase -i b222^
+```
+
+
 
 在worktree的项目中使用git rebase -i提示`The editor could not be opened because the file was not found.
 
@@ -613,5 +628,36 @@ git tag -l "v1.*"
 
 ```sh
 git rev-parse '1.0-Build1220_develop_v1.6.3'
+```
+
+删除本地标签
+
+```sh
+git tag -d <tag_name>
+```
+
+删除远程标签
+
+```sh
+git push origin --delete <tag_name>
+```
+
+批量删除
+
+```sh
+# 删除所有本地标签
+git tag | xargs git tag -d
+
+git tag | grep 'hotfix' | xargs git tag -d
+
+```
+
+```sh
+# 先执行
+# 删除本标签同时从远端删掉
+git tag | grep 'hotfix' | xargs -n 1 git push origin --delete
+# 再执行
+# 同步删除远程不存在的本地标签
+git fetch --prune --prune-tags
 ```
 

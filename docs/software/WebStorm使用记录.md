@@ -8,7 +8,7 @@ WebStorm是开箱即用的，很多东西帮你配置好了。
 
 文件自动保存，这个是默认配置好的，如果需要修改为手动保存，需要在配置中取消以下两个选项
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20240913205023520.png" alt="image-20240913205023520" style="zoom:67%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20240913205023520.png" alt="image-20240913205023520" style="zoom:67%;" />
 
 如果需要给文件加上修改后出现被修改的标志（黑点），则需要取消勾选第二项
 

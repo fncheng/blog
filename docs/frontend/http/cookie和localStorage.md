@@ -34,8 +34,6 @@ Cookie 技术通过请求和响应报文中写入 Cookie 信息来控制客户�
 
 在Application/Cookies里面我们可以看到Cookie有以下属性
 
-![](/Users/cheng/Library/Application Support/typora-user-images/image-20210413104124314.png)
-
 - Name
 - Value
 - Domain
@@ -96,8 +94,6 @@ Cookie 的生命周期可以通过两种方式定义：
 - 会话期 Cookie 是最简单的 Cookie：浏览器关闭之后它会被自动删除，也就是说它仅在会话期内有效。会话期Cookie不需要指定过期时间（`Expires`）或者有效期（`Max-Age`）。需要注意的是，有些浏览器提供了会话恢复功能，这种情况下即使关闭了浏览器，会话期Cookie 也会被保留下来，就好像浏览器从来没有关闭一样，这会导致 Cookie 的生命周期无限期延长。
 - 持久性 Cookie 的生命周期取决于过期时间（`Expires`）或有效期（`Max-Age`）指定的一段时间。
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210413103704011.png" alt="image-20210413103704011" style="zoom:50%;" />
-
 ## Session
 
 与cookie对应的是session，session保存在服务器上。
@@ -108,7 +104,7 @@ Session Storage 中的Session ID
 
 session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 session_id）
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210413112340036.png" alt="image-20210413112340036" style="zoom:67%;" />
+
 
 从上图可以看出sessionId是一段加密字符串， 类似于uuid
 

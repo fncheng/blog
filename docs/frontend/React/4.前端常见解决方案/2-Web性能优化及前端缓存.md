@@ -37,7 +37,7 @@ Load值
 
 
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20230517222609691.png" alt="image-20230517222609691" style="zoom:50%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230517222609691.png" alt="image-20230517222609691" style="zoom:50%;" />
 
 
 

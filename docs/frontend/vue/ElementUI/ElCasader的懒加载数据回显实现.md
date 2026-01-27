@@ -12,6 +12,6 @@ ElCasader的数据是懒加载，通过选择节点后接口获取的，这个�
 
 即绿色部分一定要和红色部分解耦
 
-![image-20250522160240580](/Users/cheng/Library/Application Support/typora-user-images/image-20250522160240580.png)
+![image-20250522160240580](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20250522160240580.png)
 
 绿色部分只用来做展示，点击绿色部分时弹出红色部分CascaderPanel

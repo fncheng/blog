@@ -37,3 +37,36 @@ nginx配置完之后重新加载配置文件 `sudo nginx -t && sudo nginx -s rel
 
 ![image-20220811132917455](https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20220811132917455.png)
 
+
+
+## Cache-Control
+
+Cache-Control是强缓存，通常由nginx设置，可设置属性也比较多，`max-age`只是其中一个属性
+
+```nginx
+Cache-Control: public, max-age=31536000, immutable
+```
+
+- `public`：允许 CDN 缓存
+
+- `immutable`：告诉浏览器“这玩意一年内绝不会变”，连条件请求都省了
+
+#### Expires和Cache-Control的优先级
+
+如果在`Cache-Control`响应头设置了 `max-age` 或者 `s-maxage` 指令，那么 `Expires` 头会被忽略。
+
+
+
+### Expires和Cache-Control
+
+- max-age **优先级高于** Expires
+
+- 现代浏览器基本只看 `Cache-Control`
+
+  
+
+| **资源类型**       | **推荐配置方式**                                             | **理由**                                                     |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **index.html**     | `expires -1;`                                                | 相当于 `Cache-Control: no-cache`。保证用户总能拿到最新的 JS 入口，防止发版后页面不更新。 |
+| **图片/常用 JS**   | `expires 30d;`                                               | 利用 Nginx 自动生成的头，简单、稳健。                        |
+| **字体/Hash 资源** | `add_header Cache-Control "public, max-age=31536000, immutable";` | **不使用 `expires` 指令**。为了使用 `immutable` 减少 304 请求，实现真正的 `from disk cache`。 |

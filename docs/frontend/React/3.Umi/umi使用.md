@@ -88,7 +88,7 @@ Umi 中约定 `src/global.css` 为全局样式，如果存在此文件，会被�
 
 ## Umi MFSU占用内存
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20230613160602190.png" alt="image-20230613160602190" style="zoom:50%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230613160602190.png" alt="image-20230613160602190" style="zoom:50%;" />
 
 
 

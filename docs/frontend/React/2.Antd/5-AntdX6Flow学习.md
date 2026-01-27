@@ -54,7 +54,7 @@ grid用来配置网格
 
 对齐线
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20230726142232020.png" alt="image-20230726142232020" style="zoom:50%;" />
+<img src="https://minimax-1256590847.cos.ap-shanghai.myqcloud.com/img/image-20230726142232020.png" alt="image-20230726142232020" style="zoom:50%;" />
 
 ### panning
 
