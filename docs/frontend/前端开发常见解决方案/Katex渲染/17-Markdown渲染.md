@@ -337,3 +337,178 @@ VMdEditor.xss.extend({
 })
 ```
 
+
+
+## 给v-md-preview组件添加防抖
+
+原本代码
+
+```vue
+<template>
+    <v-md-preview :text="content"></v-md-preview>
+</template>
+
+<script setup lang="ts">
+defineOptions({
+    name: 'MdPreview'
+})
+
+interface MdPreviewProps {
+    content: string
+}
+
+const { content } = defineProps<MdPreviewProps>()
+</script>
+```
+
+使用refDebounced添加防抖
+
+```vue
+<template>
+  <v-md-preview :text="debounceValue" class="mermaid-preview"></v-md-preview>
+</template>
+
+<script setup lang="ts">
+import { refDebounced } from '@vueuse/core'
+import { toRef } from 'vue'
+
+defineOptions({
+  name: 'MdPreview'
+})
+
+interface MdPreviewProps {
+  content: string
+}
+
+const props = defineProps<MdPreviewProps>()
+
+const debounceValue = refDebounced(toRef(props, 'content'), 300)
+</script>
+
+<style scoped>
+:deep(.mermaid-preview) {
+  .v-md-mermaid {
+    display: flex;
+    justify-content: center;
+    margin: 1em 0;
+  }
+}
+</style>
+```
+
+
+
+## 在@kangc/v-md-editor中渲染mermaid流程图
+
+报错 TypeError: Cannot read properties of undefined (reading 'languages') 是因为 VuePress 主题在尝试通过 Prism.languages 检查代码语言（包括 mermaid）时，找不到 Prism 实例导致的。
+
+在 @kangc/v-md-editor 中，如果你使用的是 VuePress 主题（@kangc/v-md-editor/lib/theme/vuepress.js），它内部依赖 Prism.js 来处理代码块的解析和高亮。
+
+```ts
+// 1. 必须引入 prismjs
+import Prism from 'prismjs'
+// 如果需要其他语言高亮，也可以在此引入
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-bash'
+
+// ... mermaid 导入
+import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/npm'
+import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css'
+import mermaid from 'mermaid'
+
+
+function setupVMd(instance: any) {
+    instance.use(githubTheme, {
+        // 2. 必须将 Prism 传入主题配置
+        Prism,
+        extend(md: any) {
+            md.use(MarkdownItPluginEcharts, { echarts })
+        }
+    })
+    instance.use(createKatexPlugin())
+    // 3. 注册 mermaid 插件
+    instance.use(createMermaidPlugin({ mermaid }))
+}
+// ...
+```
+
+流式输出mermaid语法的问题
+
+当模型输出了 ```mermaid`但还没输完里面的内容（比如只输出了`grap` 而不是 `graph TD`）时，`v-md-editor` 已经触发了组件更新。
+
+Mermaid 尝试解析 `grap`，发现是不合法的语法，于是抛出 `UnknownDiagramError` 并在页面显示红色的 Syntax Error。
+
+#### 方案一：动态替换未闭合的 Mermaid 标签（推荐 🌟）
+
+这是最优雅的方案。我们可以编写一个 Computed 属性，检测 Markdown 文本。如果发现有一个 `mermaid` 代码块**没有闭合**（即还没有输出最后的 ` `），我们就暂时把它替换成 ````text` 或 ````loading`。
+
+这样，在流式输出的过程中，用户看到的是一段普通的文本代码块；一旦模型输出完毕（闭合了代码块），它就会瞬间变成 Mermaid 图表。
+
+处理未闭合的mermaid语法
+
+```ts
+// 处理未闭合的 mermaid 代码块
+const safeContent = computed(() => {
+  const text = content.value
+  // 正则匹配未闭合的 mermaid 代码块
+  // 匹配规则：以 ```mermaid 开头，但是后面没有 ``` 结束的代码块
+  const mermaidRegex = /```mermaid([\s\S]*?)$/
+  
+  if (mermaidRegex.test(text)) {
+    // 检查是否真的未闭合（排除已经有结束符的情况）
+    // 注意：上面的正则已经隐含了"位于末尾"且"未闭合"的语义，但为了保险，
+    // 我们再次确认该段落是否确实没有结束标记
+    const lastMermaidIndex = text.lastIndexOf('```mermaid')
+    const lastCloseIndex = text.lastIndexOf('```', lastMermaidIndex + 10) // 从 mermaid 后开始找
+    
+    // 如果没有找到结束标记，说明未闭合
+    // 或者找到的结束标记在 mermaid 标记之前（这理论上不应该发生，因为 lastIndexOf 是从后往前找的，
+    // 但如果 text 是 ```mermaid ... ``` ... ```mermaid ... 这种结构，我们需要小心）
+    // 更简单的逻辑：从最后一个 ```mermaid 开始截取，看这段字符串里有没有 ```
+    const lastBlock = text.slice(lastMermaidIndex)
+    if (!lastBlock.slice(10).includes('```')) {
+      // 未闭合，将其替换为 text 类型，这样就不会触发 mermaid 渲染
+      return text.slice(0, lastMermaidIndex) + '```text' + lastBlock.slice(10)
+    }
+  }
+  return text
+})
+```
+
+封装hooks useSafeMermaid.ts
+
+```ts
+import { computed, type Ref } from 'vue'
+
+/**
+ * 处理流式输出中的 Markdown 内容，主要是为了防止 Mermaid 在未闭合时渲染导致报错
+ * @param content Ref<string> 原始 Markdown 内容
+ * @returns Ref<string> 处理后的安全内容
+ */
+export function useSafeMermaid(content: Ref<string>) {
+  return computed(() => {
+    const text = content.value
+    // 正则匹配未闭合的 mermaid 代码块
+    // 匹配规则：以 ```mermaid 开头，但是后面没有 ``` 结束的代码块
+    const mermaidRegex = /```mermaid([\s\S]*?)$/
+
+    if (mermaidRegex.test(text)) {
+      const lastMermaidIndex = text.lastIndexOf('```mermaid')
+      // 检查最后一段是否真的没有闭合
+      // 从 mermaid 后开始找
+      const lastBlock = text.slice(lastMermaidIndex)
+
+      // 如果这一段里没有结束标记 ``` (注意要排除掉开头的 ```mermaid 这10个字符)
+      if (!lastBlock.slice(10).includes('```')) {
+        // 未闭合，将其替换为 text 类型，这样就不会触发 mermaid 渲染
+        // 这里替换为 text 是为了让用户看到原始代码，也可以替换为 loading 等自定义块
+        return text.slice(0, lastMermaidIndex) + '```text' + lastBlock.slice(10)
+      }
+    }
+    return text
+  })
+}
+```
+
+
+

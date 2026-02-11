@@ -195,6 +195,20 @@ Performance Optimization
 - Use dynamic imports where appropriate.
 ```
 
+
+
+```
+**始终使用pnpm来安装和管理依赖项**
+**始终使用Vue组合式API的语法风格**
+**优先使用defineModel语法代替传统的props+emit**
+**如果没有特别声明，默认组件库为ElementPlus**
+**优先使用TailWindCSS实现响应式设计**
+**优先使用VueUse库来提升开发体验**
+**请你自己根据上下文在适当的情况下使用`<Suspense>`和`defineAsyncComponent`进行延迟加载**
+```
+
+
+
 ```
 # Git 提交信息规范
 **生成的commit message需要是中文的**

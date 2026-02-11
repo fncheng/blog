@@ -227,3 +227,39 @@ flex-shrink不受flex-grow影响
   </div>
 ```
 
+
+
+## min-width: 0的作用
+
+> `min-width: 0` 在 flex 自适应里不是“优化项”，而是“必需项”。
+
+在 **flex item** 上：
+
+```css
+min-width: auto; /* 默认值 */
+```
+
+这意味着：
+
+> ❗ flex 子项 **最小宽度 = 内容的最小宽度**
+
+于是只要内容是：
+
+- 很长的文字
+- 不可断的字符串
+- inline-block
+- input / table
+
+👉 **flex 就算想收缩，也收不动**
+
+### 哪些地方一定要加？
+
+所有“会被压缩的 flex 子项”，一般配合flex: 1使用
+
+```css
+.flex-1 {
+  flex: 1;
+  min-width: 0;
+}
+```
+

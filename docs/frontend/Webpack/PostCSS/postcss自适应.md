@@ -162,3 +162,4 @@ export default defineConfig(({ mode }) => {
 | **`exclude`**           | **排除范围**。                 | **`/node_modules\/element-plus/i`**。正则匹配。它会跳过 Element Plus 组件库的所有样式，保证组件 UI 不会因为你的全局适配而变形。 |
 
 【强烈建议】minPixelValue建议设置为2，保护 1px 边框不被转换
+

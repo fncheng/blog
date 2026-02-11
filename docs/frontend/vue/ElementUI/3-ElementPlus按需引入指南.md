@@ -47,6 +47,16 @@ export default defineConfig(({ command, mode }) => {
 })
 ```
 
+## unplugin-auto-import配置项
+
+1. imports
+
+   告诉 AutoImport：哪些函数可以被自动导入
+
+2. resolvers
+
+3. dirs
+
 
 
 

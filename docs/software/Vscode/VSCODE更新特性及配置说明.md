@@ -141,3 +141,45 @@ https://code.visualstudio.com/updates/v1_80#_improved-emmet-support-for-css-modu
 ## 查看函数调用链Show Call Hierarchy
 
 右键，有个选项Show Call Hierarchy，可以查看函数在哪里被调用了
+
+
+
+## typescript.preferences.autoImportFileExcludePatterns
+
+在管理大型 **Vue 3 + TypeScript** 项目时非常有用，它的核心作用是：**“告诉 VS Code，在自动补全/导入（Auto Import）时，不要去扫描和建议哪些文件。”**
+
+以下需要排除的情况：
+
+1. 排除某些庞大的依赖包内部文件
+
+2. 排除构建产物或临时文件
+
+   你不希望 VS Code 自动从 `dist` 目录或 `index.d.ts` 的备份文件中导入代码。
+
+   ```json
+   "typescript.preferences.autoImportFileExcludePatterns": [
+     "**/dist/**",
+     "**/.cache/**"
+   ]
+   ```
+
+3. 排除特定类型的测试文件
+
+   如果你不希望在编写业务组件时，自动导入 `.spec.ts` 或 `.test.ts` 中定义的 mock 数据：
+
+   ```json
+   "typescript.preferences.autoImportFileExcludePatterns": [
+     "**/*.spec.ts",
+     "**/*.test.ts"
+   ]
+   ```
+
+   
+
+这个选项**它没有预设的默认值（即默认为空列表 `[]`）**。
+
+即使它是空的，VS Code 也会自动处理的情况：
+
+- **排除常见的忽略目录**：默认情况下，它通常不会从 `node_modules` 的非导出部分（没有在 `package.json` 的 `exports` 中定义的路径）提取建议。
+
+- **tsconfig 约束**：它主要遵循你项目根目录下 `tsconfig.json` 中的 `exclude` 字段。如果你在 `tsconfig.json` 里排除了 `dist`，那么自动导入通常也不会去扫描 `dist`。

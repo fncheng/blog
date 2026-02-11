@@ -56,6 +56,19 @@ cell
 grid-template-columns: repeat(2, 100px 20px 80px);
 ```
 
+### repeat(auto-fill, …)
+
+- 浏览器 **自动计算能放多少列**
+- 容器够宽 → 多放几列
+- 容器变窄 → 自动减少列数
+
+### minmax(220px, 1fr)
+
+- 最小宽度：220px
+- 最大宽度：1fr（等分剩余空间）
+
+
+
 
 
 grid-template-columns和grid-template-rows用于创建几行几列的网格

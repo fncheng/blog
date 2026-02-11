@@ -525,3 +525,24 @@ export default defineConfig({
 | ----------------- | ------------------------- | ------------------------------------------------------------ |
 | 配置后没生效      | 你用了 `minify: 'terser'` | `terser` 会覆盖 esbuild 的 `drop` 行为，要在 `terserOptions` 里配置 |
 | 部分 console 还在 | console 是对象属性被保留  | 这种属于副作用，esbuild 不会删，比如 `window.console.log`    |
+
+
+
+## https证书配置
+
+ssl目录下一般有如下文件
+
+| 文件           | 本质                 | 给谁用               | 是否包含私钥 |
+| -------------- | -------------------- | -------------------- | ------------ |
+| `cert.pem`     | **证书**             | 服务器 / 客户端      | ❌            |
+| `private.key`  | **私钥**             | 服务器               | ✅            |
+| `generate.cer` | **证书（DER 格式）** | Windows / Java       | ❌            |
+| `generate.p12` | **证书 + 私钥打包**  | 浏览器 / 手机 / Java | ✅            |
+
+```ts
+https: {
+  key: fs.readFileSync(path.resolve(__dirname, '../../ssl/private.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, '../../ssl/cert.pem')),
+},
+```
+

@@ -273,6 +273,67 @@ md.renderer.rules.math_block = blockRenderer;
 
 
 
+## 在@kangc/v-md-editor编辑器中输入```任意语法会报错
+
+**这是 v-md-editor 在「Markdown 尚未合法闭合」时触发的一类已知问题，本质是：**
+
+> 👉 **Markdown 解析 → 生成的 VNode 树不稳定**
+>  👉 **插件（highlight / mermaid）在 DOM / VNode 尚未完成时介入**
+>  👉 **Vue 3 在 diff 组件时拿到了一个已经被销毁或未初始化的 vnode**
+
+最终在 `shouldUpdateComponent` 里访问到了 `null.emitsOptions` 
+
+⚠️ 这个错误不是 Mermaid 抛的，是 Vue 在 patch 组件时炸的
+
+这是 v-md-editor 的 bug 吗？
+
+> 是的，但它是「边输入边渲染型 Markdown 编辑器的结构性问题」
+
+可行的解决方案（按推荐程度）
+
+方案一：
+
+输入中「禁止 Mermaid / fence 实时渲染」（最稳）
+
+核心思路：
+
+> **编辑态不渲染 Mermaid，只在 preview / blur / debounce 后渲染**
+
+
+
+
+
 ## markdown-it-katex
 
 markdown-it-katex已经很久不维护了，如需使用还请使用@vscode/markdown-it-katex
+
+
+
+## createMermaidPlugin
+
+```ts
+import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/npm'
+```
+
+createMermaidPlugin有哪些参数呢
+
+```ts
+interface MermaidPluginOptions {
+  /**
+   * Mermaid 初始化配置
+   * 会直接传给 mermaid.initialize
+   */
+  mermaid?: Mermaid.MermaidConfig
+
+  /**
+   * 自定义 mermaid 代码块 className
+   * 默认是 'mermaid'
+   */
+  className?: string
+}
+```
+
+
+
+
+

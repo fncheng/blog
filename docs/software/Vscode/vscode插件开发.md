@@ -168,3 +168,19 @@ outputChannel.appendLine(`操作时间：${new Date().toLocaleTimeString()}`);
 outputChannel.show(true);
 ```
 
+
+
+## vsix插件下载
+
+```sh
+https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{publisher}/vsextensions/{extension}/{version}/vspackage
+```
+
+比如
+
+```
+https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Vue/vsextensions/volar/3.2.4/vspackage
+
+https://marketplace.visualstudio.com/_apis/public/gallery/publishers/mhutchie/vsextensions/git-graph/1.30.0/vspackage
+```
+

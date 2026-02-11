@@ -317,3 +317,21 @@ multiple: true,
 
 当ElOption 的 :value 绑定的是对象时，需要设置value-key（一般是id） 作为唯一标识字段
 
+
+
+## el-dialog
+
+@close事件是在关闭动作触发的时候生效的
+
+> `@close` 触发时，**dialog 只是开始关闭流程**，此时组件还没有被销毁。
+
+```
+1️⃣ 触发 before-close（如果有）
+2️⃣ 修改 v-model 为 false
+3️⃣ 触发 close 事件
+4️⃣ 执行动画
+5️⃣ 动画结束
+6️⃣ 触发 closed 事件
+7️⃣ 如果 destroy-on-close = true 才会真正销毁
+```
+

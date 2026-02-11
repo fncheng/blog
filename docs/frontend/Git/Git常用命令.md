@@ -28,7 +28,7 @@ $ git init [project-name]
 $ git clone [url]
 ```
 
-### 下载仓库
+## git clone 下载仓库
 
 https://www.maixj.net/ict/git-clone-19977
 
@@ -38,6 +38,62 @@ $ git clone git@github.com:fncheng/repo-nav.git ~/Github/repo-nav
 # git clone 到指定目录，自定义名称
 $ git clone git@github.com:fncheng/repo-nav.git ~/Github/my-repo-nav
 ```
+
+目标：开发时只看到想要的分支
+
+方案一（最推荐）：`--single-branch`
+
+```sh
+git clone -b develop --single-branch https://github.com/xxx/xxx.git
+```
+
+优点：
+
+- 本地世界很干净
+- 不容易误操作
+- 对 fork / 微前端子仓特别友好
+
+需要其他分支时：
+
+```sh
+git fetch origin feature-xxx
+git switch feature-xxx
+```
+
+
+
+方案二：限制 fetch 的分支（进阶玩法）
+
+修改 fetch refspec
+
+```
+git config remote.origin.fetch "+refs/heads/develop:refs/remotes/origin/develop"
+```
+
+这会导致：
+
+- `git fetch` 只会拉 `develop`
+- 其他分支即使远程存在，你本地也看不到
+
+⚠️ 这是**强约束**，适合你很清楚自己在干什么的时候。
+
+
+
+方案三：clone 后直接“眼不见为净”
+
+```
+git remote set-branches origin develop
+git fetch --prune
+```
+
+需要新分支时：
+
+```sh
+git remote set-branches --add origin feature-xxx
+git fetch origin
+```
+
+
 
 ## 分支管理
 
@@ -121,6 +177,8 @@ git clean -fx
 - `origin`: 远程仓库的别名，默认是 origin，可以改为其他名字。
 - `master`: 指定要推送到远程仓库的本地分支名称。
 
+这条命令等价于 `git push --set-upstream origin master`
+
 因此，执行上述命令时，会将本地分支名称为 master 的代码推送到名为 origin 的远程仓库上。由于使用了 `-u` 参数，之后的 push 和 pull 操作就可以省略掉参数了，Git 会自动根据上游分支来进行操作。
 
 ## 撤销修改(恢复文件)
@@ -201,6 +259,8 @@ git checkout HEAD^ -- packages/agent-talk/src/index.vue
 
 # 2.23+更推荐
 git restore --source=HEAD^ -- packages/agent-talk/src/index.vue
+# 可以指定commit-id
+git restore --source=b9683af0f3a80ee2678b927ea552a9bf7a27d1b2 -- app/agent-main/src/views/layout.vue
 ```
 
 
@@ -390,11 +450,23 @@ git rebase --abort
 
 ### 撤销rebase
 
-首先执行 `git reflog` 查看当前分支的git操作记录
+git rebase完成后，后悔了怎么办？
 
-<img src="/Users/cheng/Library/Application Support/typora-user-images/image-20210610222827267.png" alt="image-20210610222827267" style="zoom:67%;" />
+首先执行 `git reflog` 查看当前分支的git操作记录，你会看到类似这样的记录（示例）：
 
-记住rebase之前的commit-ID (SHA-1值) 
+```
+a1b2c3d HEAD@{0}: rebase finished: returning to refs/heads/dev_zhonghang_treeselect
+e4f5g6h HEAD@{1}: rebase: commit message xxx
+i7j8k9l HEAD@{2}: rebase: checkout dev_zhonghang_zhbg/mermaid-render
+zzz9999 HEAD@{3}: checkout: moving from dev_zhonghang_treeselect to dev_zhonghang_treeselect
+```
+
+> 记住 rebase 开始前的那一条 HEAD
+
+通常是：
+
+- `rebase: checkout ...` 的前一条
+- 或 `checkout: moving from dev_zhonghang_treeselect ...`
 
 然后
 
@@ -642,22 +714,53 @@ git tag -d <tag_name>
 git push origin --delete <tag_name>
 ```
 
-批量删除
+### 批量删除tag
 
 ```sh
 # 删除所有本地标签
 git tag | xargs git tag -d
 
 git tag | grep 'hotfix' | xargs git tag -d
-
 ```
+
+删除标签最好的流程是先删除远程标签，再删除本地标签
 
 ```sh
 # 先执行
-# 删除本标签同时从远端删掉
+# 删除origin 标签
 git tag | grep 'hotfix' | xargs -n 1 git push origin --delete
 # 再执行
 # 同步删除远程不存在的本地标签
 git fetch --prune --prune-tags
+```
+
+- -n = --max-args
+
+  意思是：每次调用命令时，最多传入多少个参数
+
+  `xargs -n 1`意思是：**每次只取「1 个参数」，执行「1 次命令」**
+
+
+
+### 同步upstream tag并推送到origin
+
+同步所有tag
+
+```sh
+git fetch upstream --tags
+# 
+git fetch upstream --prune --prune-tags
+# 推送全部 tag
+git push origin --tags
+# 只推送指定 tag
+git push origin 1.0-Build1083_develop_v1.8.0
+```
+
+- `--tags`：拉取 upstream 上的所有 tag
+- `--prune-tags`：删除 upstream 已经不存在的 tag（保持一致）
+
+```sh
+# 可以指定tag
+git fetch upstream tag 1.0-Build1083_develop_v1.8.0
 ```
 

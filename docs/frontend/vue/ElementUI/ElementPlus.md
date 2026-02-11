@@ -117,6 +117,17 @@ getBoundingClientRect: () => rect
 
 意味着我们“冻结”了此时的位置信息，Popper 定位不会跳。
 
+## el-popover的受控模式
+
+半受控和全受控
+
+- **半受控**：`trigger="click"` + `v-model:visible`。 这时候会有两股力量在控制 Popover。一股是 Element Plus 的内部点击监听，一股是你的手动赋值。你遇到的“显示后消失”正是这两股力量产生了冲突。
+- **全受控（推荐方案）**：`trigger="click"` + `v-model:visible`。 当你设置 `trigger="click"` 后，Popover 彻底放弃思考，不再监听任何点击事件。此时，它显示与否**完全、唯一**取决于你的 `feedbackDialogVisible` 变量。这才是解决冲突最干净的方式。
+
+## 虚拟触发
+
+virtual-triggering + virtual-ref
+
 
 
 ## el-tooltip显示箭头
